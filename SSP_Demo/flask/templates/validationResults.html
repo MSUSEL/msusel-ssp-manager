@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+<title>{% block title %}{{ filename }}{% endblock title %}</title>
+{% block filename %}{{ filename }}{% endblock filename %}
+{% for line in validation_output_list %}
+      {{ line }}
+    <br></br>
+  {% endfor %}
