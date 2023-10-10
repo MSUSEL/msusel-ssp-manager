@@ -1,9 +1,65 @@
-<<<<<<< HEAD
-# SSP
+# SSP_Manager
+
+This research proyect is currently under development.
+It runs only on Linux (In particular, it is being developed on Ubuntu 22.04).
+
+To run the proyect, you need to have installed Git, Docker and Docker-compose.
+
+Git can be installed with:
+sudo apt install git
+
+Docker can be installed with:
+sudo apt install docker.io
+
+Docker-compose can be installed with:
+sudo apt install docker-compose
+
+Add yourself to the docker group:
+sudo usermod -aG docker yourUserName
+(Restart your machine)
+
+Now where going to create the graph database that we'll use to map the different collections of cybersecurity data:
+cd BRON
+docker-compose up
+
+This command will create two containers. One is an arangodb container that will host our db. The second is a bootstrap container that will populate the db with the data from different cybersecurity collections. (The bootstrap process can take up to 45 mins)
+The original research that produced this db was performed by: Hemberg, Erik, Jonathan Kelly, Michal Shlapentokh-Rothman, Bryn Reinstadler, Katherine Xu, Nick Rutar, and Una-May O'Reilly. "Linking threat tactics, techniques, and patterns with defensive weaknesses, vulnerabilities and affected platform configurations for cyber hunting." arXiv preprint arXiv:2010.00533 (2020).
+
+Once the bootstrap finishes, you can see the database in your browser at localhost:8529. The username is root and the password is changeme. Select the BRON database.
+
+Go back to the SSP_Manager folder:
+cd ..
+
+And go into the SSP_Demo folder:
+cd SSP_Demo
+
+Now we'll add additional data collections to the BRON db, in particular, mappings from MITRE ATT&CK Techniques to NIST SP 800-53 security controls. These mapping where done by MITRE Engenuity Center for Threat-Informed Defense (see: https://github.com/center-for-threat-informed-defense/attack-control-framework-mappings).
+
+docker-compose up
+This command will also create a python flask container that we'll be using as a provisional UI to test the tool.
+When the driver container exits, the new collections will have been added to the db. You can access the UI at localhost:5000.
+
+Go back to the SSP_Manager folder:
+cd ..
+
+And go into the oscal-cli-docker folder:
+cd oscal-cli-docker
+docker build -t validation .
+This command will create a docker image for NIST's OSCAL validation tool. When a file is submitted for validation on the UI, the flask container will spin up a container for the validation tool using this docker image.
+
+
+The application is now ready. Going forward, to restart the application, you only need to restart the aragodb and flask containers with:
+docker start containerID
+
+You can stop them with:
+docker stop containerID
+
+There is a Test_Files folder with three test files.
+profile.yaml can be used to test the validation tool.
+controls.json and cve.json can be used to test the security control prioritization functionality.
+
 
 Funding Agency:  
 
 [<img src="https://www.cisa.gov/profiles/cisad8_gov/themes/custom/gesso/dist/images/backgrounds/6fdaa25709d28dfb5cca.svg" width="20%" height="20%">](https://www.cisa.gov/)
-=======
-# SSP_Manager
->>>>>>> 2db88310c7ea28bb97b0e1987fe82a49bdd1155b
+

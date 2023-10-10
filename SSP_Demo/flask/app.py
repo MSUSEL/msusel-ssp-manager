@@ -29,11 +29,11 @@ def cli():
     oscal_client_arguments = f"{oscal_model} validate /tmp/{oscal_file}"
     logging.error("%s ", oscal_client_arguments)
     
-    # The oscal-cli container (created with image cmdline4 on the host) returns a non-zero exit code
+    # The oscal-cli container (created with image validation on the host) returns a non-zero exit code
     # when the oscal document is not valid. This block catches that exception so that the program
     # may proceed
     try:
-        client.containers.run("cmdline4", oscal_client_arguments, volumes = ["/tmp:/tmp"])
+        client.containers.run("validation", oscal_client_arguments, volumes = ["/tmp:/tmp"])
     except:
         print("The oscal-cli container exited with non-zero exit code.")
 
