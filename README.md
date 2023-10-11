@@ -18,7 +18,7 @@ Add yourself to the docker group: <br />
 sudo usermod -aG docker yourUserName <br />
 (Restart your machine) <br />
 
-Now where going to create the graph database that we'll use to map the different collections of cybersecurity data: <br />
+Now we're going to create the graph database that we'll use to map the different collections of cybersecurity data: <br />
 cd BRON <br />
 docker-compose up <br />
 
