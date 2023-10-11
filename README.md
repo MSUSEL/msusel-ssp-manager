@@ -5,7 +5,7 @@ It runs only on Linux (In particular, it is being developed on Ubuntu 22.04).
 
 To run the proyect, you need to have installed Git, Docker and Docker-compose.
 
-Git can be installed with:
+Git can be installed with: <br />
 sudo apt install git
 
 Docker can be installed with:
