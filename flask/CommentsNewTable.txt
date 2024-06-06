@@ -1,0 +1,55 @@
+El primer route, de vul_effectiveness, hay que caer en vul_effectiveness.html porque 
+todavia no hemos pasado los datos a BRON.
+
+If vul_effectiveness
+then results2
+(podemos crear un boton diferente)
+
+
+
+
+
+En route /
+	primero esta OSCAL validation
+	despues esta generate templates
+	despues hace redirect a results
+	
+En results
+	ejecuta cwe_cve_techniques
+	y entonces llega a results
+	
+Vamos a ver si podemos anadir a results template y crear otro table?
+
+
+Vamos a crear el table nuevo
+Y, si table nuevo o si whatever file, ()
+render results2.
+
+
+
+
+
+El problema que tengo ahora mismo es que calledFunctions es un solo string. 
+Los objetos no estan diferenciados.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Primero vamos a cambiar a donde va vul_effectiveness results2
+
+
+

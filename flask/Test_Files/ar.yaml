@@ -1,0 +1,70 @@
+---
+assessment-results:
+  uuid: 3ac6541e-8376-4ab0-b011-a4d07b7061ba
+  metadata:
+    title: OSCAL Workflow Automated Assessment Results
+    last-modified: 2023-11-01T19:35:05.008833+00:00
+    version: 0.0.1-alpha
+    oscal-version: 1.0.4
+
+  import-ap:
+    href: ./assessment-plan.yaml
+
+  local-definitions: {}
+
+  results:
+    - uuid: c28da807-9964-4532-82be-42ea1887373c
+      title: Assessment Results for Testing of SYSTEM
+      description: >
+        These assessment results in OSCAL format are generated automatically
+        from an assessment plan in OSCAL format and processed in GitHub Actions.
+      start: 2023-11-01T19:35:05.008833+00:00
+      reviewed-controls:
+        control-objective-selections:
+        - include-objectives:
+          - objective-id: ac-8_obj.a.1
+          - objective-id: ac-8_obj.a.2
+          - objective-id: ac-8_obj.a.3
+          - objective-id: ac-8_obj.a.4
+        control-selections:
+        - include-controls:
+          - control-id: ac-8
+        remarks: Control objective selections are declared separately of the include-controls
+          directive, must be explicit here.
+
+      observations:
+      - collected: '2023-11-01T19:35:05.008833+00:00'
+        description: Check system use notification presence.
+        methods:
+        - TEST
+        props:
+        - name: assessment-plan-task-uuid
+          ns: https://www.nist.gov/itl/csd/ssag/blossom
+          value: 6b7e6a29-4588-46be-b242-a0bda0092eec
+        - name: assessment-plan-task-result
+          ns: https://www.nist.gov/itl/csd/ssag/blossom
+          value: success
+        relevant-evidence:
+        - description: This observation is the result of automated testing in a run of a
+            GitHub Actions workflow. For detailed information, please review the run status
+            and detailed logging from its configuration, step inputs, and step outputs.
+          href: /home/ernesto/Documents/Everything/testResults
+        title: Validate System Use Notification Presence from Python Script
+        uuid: 3cd7f2b0-e8a3-4c16-866d-c4fe4703311e
+
+
+      findings:
+      - description: Check system use notification presence.
+        related-observations:
+        - observation-uuid: 3cd7f2b0-e8a3-4c16-866d-c4fe4703311e
+        target:
+          status:
+            reason: failed
+            state: not-satisfied
+          target-id: ac-8_obj.a.1
+          title: Validate System Use Notification Presence from Python Script
+          type: objective-id
+        title: Finding from Observation 3cd7f2b0-e8a3-4c16-866d-c4fe4703311e
+        uuid: 273f9a06-46be-4a2a-9547-e4b0c32dd753
+
+

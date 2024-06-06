@@ -1,0 +1,39 @@
+This version validates oscal profiles.
+If there are errors, they are displayed w/o separating the lines.
+
+
+mapping and validation on the same route.
+
+This version uses a base template an all validation is done with one route.
+
+
+This version got rid of the escape characters that were messing up the validation output.
+These were ansi escape characters, use for example to add color to the output.
+(There a flag in the cli command to not have colored output. 
+Would probably have been easier.)
+
+
+----
+
+
+Tenemos unas variables globales en app
+El objeto tambien es global
+(supongo que no preocupamos por esto luego)
+
+El app empieza con el servidor escuchando para servir los routes que se soliciten.
+
+Si visitamos localhost:5000 ejecuta route / (template index.html)
+Si posteamos un file, ejecuta POST
+    Si es un oscal-doc, ejecuta validation route
+        que ejecuta el cli,
+        when the cli returns, the validationResults route renders.
+    Si son los controls y los vulns
+        copiamos los files al uploads folder (los files vienen del host fs y
+        los copiamos al container fs)
+        Ejcuta el results route
+            ejecuta cwe_to_techniques.main
+            determine if its cve or cwe and call appropiate f 
+            Query BRON for each vuln (each query returns {tech:tech, cve:unique(cve_id)})
+            Then determine which techniques don't have controls that mitigate against an attack.
+            Queries the DB, get nodes and edges, and then calls to create the graphs and the table.
+Despues el results route renders.

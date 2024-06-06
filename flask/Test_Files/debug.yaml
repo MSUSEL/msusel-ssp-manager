@@ -1,0 +1,116 @@
+--Esto va en la linea 424
+
+inventory-items:
+      - description: The logging server.
+        implemented-components:
+          - component-uuid: e00acdcf-911b-437d-a42f-b0b558cc4f03
+          - component-uuid: 795533ab-9427-4abe-820f-0b571bacfe6d
+        props:
+          - name: asset-id
+            value: asset-id-logging-server
+        responsible-parties:
+          - party-uuids:
+              - 833ac398-5c9a-4e6b-acba-2a9c11399da0
+            role-id: asset-administrator
+          - party-uuids:
+              - 3b2a5599-cc37-403f-ae36-5708fa804b27
+            role-id: asset-owner
+        uuid: c9c32657-a0eb-4cf2-b5c1-20928983063c
+
+
+users van en la linea 427
+- description: responsible for managing, troubleshooting, licensing, and updating
+          hardware and software assets
+        props:
+          - name: type
+            value: internal
+        role-ids:
+          - asset-administrator
+        short-name: SysAdmin
+        title: System Administrator
+        uuid: 9824089b-322c-456f-86c4-4111c4200f69
+      - authorized-privileges:
+          - description: Description of Auditing
+            functions-performed:
+              - audit
+            title: Auditing
+        props:
+          - name: type
+            value: internal
+        role-ids:
+          - asset-owner
+        title: Audit Team
+        uuid: ae8de94c-835d-4303-83b1-114b6a117a07
+      - props:
+          - name: type
+            value: internal
+        role-ids:
+          - legal-officer
+        title: Legal Department
+        uuid: 372ce7a3-92b0-437e-a98c-24d29f9bfab8
+      - authorized-privileges:
+          - functions-performed:
+              - Add/remove users and hardware
+              - install and configure software
+              - OS updates, patches and hotfixes
+              - perform backups
+            title: Full administrative access (root)
+        props:
+          - name: sensitivity
+            ns: https://fedramp.gov/ns/oscal
+            value: high
+          - name: privilege-level
+            value: privileged
+          - name: type
+            value: internal
+        role-ids:
+          - admin-unix
+        title: Unix System Administrator
+        uuid: 9cb0fab0-78bd-44ba-bcb8-3e9801cc952f
+
+
+
+users:
+     - uuid: 9824089b-322c-456f-86c4-4111c4200f69
+       role-ids:
+        - asset-administrator
+     - uuid: ae8de94c-835d-4303-83b1-114b6a117a07
+       role-ids:
+        - asset-owner
+     - uuid: 372ce7a3-92b0-437e-a98c-24d29f9bfab8
+       role-ids:
+        - legal-officer
+     - uuid: 9cb0fab0-78bd-44ba-bcb8-3e9801cc952f
+       role-ids:
+        - admin-unix
+
+
+
+- uuid: 9824089b-322c-456f-86c4-4111c4200f69
+       role-ids:
+        - asset-administrator
+
+        - uuid: 372ce7a3-92b0-437e-a98c-24d29f9bfab8
+       role-ids:
+        - legal-officer
+     - uuid: 9cb0fab0-78bd-44ba-bcb8-3e9801cc952f
+       role-ids:
+        - admin-unix
+
+
+Esto es en components
+responsible-roles:
+          - party-uuids:
+              - 96c362ee-a012-4e07-92f3-486ab303b0e7
+            role-id: provider
+          - party-uuids:
+              - 3b2a5599-cc37-403f-ae36-5708fa804b27
+            role-id: asset-owner
+          - party-uuids:
+              - 833ac398-5c9a-4e6b-acba-2a9c11399da0
+            role-id: asset-administrator
+
+
+
+- id: legal-officer
+        title: Legal Officer

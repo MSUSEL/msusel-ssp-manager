@@ -1,0 +1,16 @@
+---
+assessment-plan:
+  uuid: {{ ap_uuid }}
+  metadata:
+    title: {{ ap_metadata_title }}
+    last-modified: {{ ap_metadata_last_modified_timestamp }}
+    version: 0.0.1-alpha
+    oscal-version: 1.0.4
+  import-ssp:
+    href: {{ ssp_import_href }}
+  reviewed-controls:
+    control-selections:
+    - include-controls:
+      {% for item in controls -%}
+        - control-id: {{ item }}
+      {% endfor %}

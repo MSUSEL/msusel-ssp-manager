@@ -1,0 +1,51 @@
+---
+system-security-plan:
+  uuid: {{ ssp_uuid }}
+  metadata:
+    title: {{ ssp_metadata_title }}
+    last-modified: {{ ssp_metadata_last_modified_timestamp }}
+    version: 0.0.1-alpha
+    oscal-version: 1.0.4
+  import-profile:
+    href: {{ profile_import_href }}
+  system-characteristics:
+    system-ids:
+      - id: saas_system_iaas_customer
+    system-name: Leveraging SaaS System
+    description: >
+      NO CONTENT HERE FOR NOW
+    security-sensitivity-level: low
+    system-information:
+      information-types:
+        - uuid: {{ information_type_uuid }}
+          title: System Assessment
+          description: This system handles development information pertaining to audit and assessment events.
+    security-impact-level:
+      security-objective-confidentiality: low
+      security-objective-integrity: low
+      security-objective-availability: low
+    status:
+      state: operational
+    authorization-boundary:
+      description: This system is for demonstration purposes only.
+  system-implementation:
+    users:
+      - uuid: {{ users_uuid }}
+    components:
+      - uuid: {{ components_uuid }}
+        type: this-system
+        title: OSCAL Testing Workflow Application
+        description: This is an application to demonstrate minimal OSCAL content, and automation to execute tests against the application.
+        status:
+          state: under-development
+  control-implementation:
+    description: This system implements a very minimal set of controls for demonstration only.
+    implemented-requirements:
+    {% for i in range(controls_uuids|length) -%}
+      - uuid: {{ controls_uuids[i] }}
+      control-id: {{ controls[i] }}
+      by-components:
+        - component-uuid: {{ components_uuid }}
+          uuid: {{ controls_uuids[i] }}
+          description: This control is implemented for demonstration purposes only.
+    {% endfor %}
