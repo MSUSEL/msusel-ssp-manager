@@ -50,29 +50,33 @@ This command will create two containers. One is an arangodb container that will 
 
 Once the bootstrap finishes, you can see the database in your browser at localhost:8529. The username is root and the password is changeme. Select the BRON database. <br />
 
-Go back to the msusel-ssp-manager directory: <br />
-cd .. <br />
-And go into the oscal-processing directory: <br />
-cd oscal-processing <br />
-docker build -t oscalprocessing . <br />
+Go back to the msusel-ssp-manager directory nd go into the oscal-processing directory: <br />
+```
+cd .. 
+cd oscal-processing 
+docker build -t oscalprocessing .
+```
+
 This command will create a docker image for NIST's OSCAL validation tool. When a file is submitted for validation on the UI, the flask container will spin up a container for the validation tool using this docker image. <br />
-Go back to the msusel-ssp-manager directory: <br />
-cd ..  <br />
 
-Run the generate-env.sh scritp. This script stores the current working directory path in a .env file that will be created. The docker-compose command will read this file and inform the flask container of where it is located in the host file system. Run the script with: <br />
-./generate-env.sh  <br />
+Go back to the msusel-ssp-manager directory and run the generate-env.sh scritp. This script stores the current working directory path in a .env file that will be created. The docker-compose command will read this file and inform the UI container of its location in the host file system. Run the script with: <br />: 
+```
+cd ..  
+./generate-env.sh  
+```
 
-Go into flask: <br />
-cd flask <br />
 
-Now we'll add additional data collections to the BRON database. These are mappings from MITRE ATT&CK Techniques to NIST SP 800-53 security controls. These mapping where done by MITRE Engenuity Center for Threat-Informed Defense (see:https://github.com/center-for-threat-informed-defense/mappings-explorer/). <br />
-docker-compose up <br />
+Now we'll add new collections to the BRON database. These are mappings from MITRE ATT&CK Techniques to NIST SP 800-53 security controls. These mapping where done by MITRE Engenuity Center for Threat-Informed Defense (see:https://github.com/center-for-threat-informed-defense/mappings-explorer/). <br />
+```
+cd flask
+docker-compose up
+```
 
-The first container that this commands creates is called driver and adds the additional collections to the database. This command will also create a Python flask container that we'll be using as a provisional UI to test the tool. The driver container will take some time to complete (up to 30 minutes). When it finishes, the new collections will have been added to the database. You can see them at localhost:8529 <br />
+We call the first container that this commands creates "driver" and it adds the new collections to the database. This command will also create a Python flask container that we'll be using as a provisional UI to test the tool. The driver container will take some time to complete (up to 30 minutes). When it finishes, the new collections will have been added to the database. You can see them at localhost:8529 <br />
 The flask UI can be accessed at localhost:5000. <br />
 
 ### Set Schemas in VS Code
-Ctrl+Shift+P and on the search bar type "Worspace json settings". Open the file and copy this content to it and save the changes:<br />
+Open the project on VS Code and press Ctrl+Shift+P on the keyboard. On the search bar, type "Worspace json settings". Open the file and copy this content to it and save the changes:<br />
 ```
 {
     "json.schemas": [
@@ -107,13 +111,19 @@ Ctrl+Shift+P and on the search bar type "Worspace json settings". Open the file 
 The application is now ready. <br />
 
 Going forward, to restart the application, you only need to restart the aragodb container:  <br />
+```
 docker start containerID <br />
+```
 
 And flask containers with: <br />
+```
 docker start containerID <br />
+```
 
 You can stop them with: <br />
+```
 docker stop containerID <br />
+```
 
 Funding Agency:   <br />
 
