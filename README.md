@@ -4,7 +4,8 @@ This research proyect is currently under development. <br />
 It runs on Linux (In particular, it is being developed on Ubuntu 22.04). <br />
 
 ## Installation
-Make sure you have installed Git, Docker and Docker-compose. <br />
+Make sure you have installed Git, Docker and Docker-compose. For automompletion while editing OSCAL documents and highlighting of key or value errors, use VS Code. The project has the json schemas for the OSCAL documents, and we set VS Code to find them.<br />
+
 If you don't, Git can be installed with: <br />
 sudo apt install git <br />
 
@@ -17,6 +18,10 @@ sudo apt install docker-compose <br />
 Add yourself to the docker group: <br />
 sudo usermod -aG docker yourUserName <br />
 (Restart your machine) <br />
+
+To install VS Code in Ubuntu:
+sudo snap install code --classic
+
 
 This project uses the BRON database developed by Hemberg et al. at MIT as a submodule. The original research for the database can be found as: <br /> 
 Hemberg, Erik, Jonathan Kelly, Michal Shlapentokh-Rothman, Bryn Reinstadler, Katherine Xu, Nick Rutar, and Una-May O'Reilly. "Linking threat tactics, techniques, and patterns with defensive weaknesses, vulnerabilities and affected platform configurations for cyber hunting." arXiv preprint arXiv:2010.00533 (2020). <br />
@@ -49,9 +54,42 @@ cd flask <br />
 
 Now we'll add additional data collections to the BRON database. These are mappings from MITRE ATT&CK Techniques to NIST SP 800-53 security controls. These mapping where done by MITRE Engenuity Center for Threat-Informed Defense (see:https://github.com/center-for-threat-informed-defense/mappings-explorer/). <br />
 docker-compose up <br />
-The first container that this commands creates is called driver and add the additional collections to the database. This command will also create a python flask container that we'll be using as a provisional UI to test the tool. <br />
-The driver container will take some time to complete (up to 30 minutes). When it finishes, the new collections will have been added to the database. <br />
+
+The first container that this commands creates is called driver and adds the additional collections to the database. This command will also create a Python flask container that we'll be using as a provisional UI to test the tool. The driver container will take some time to complete (up to 30 minutes). When it finishes, the new collections will have been added to the database. You can see them at localhost:8529 <br />
 The flask UI can be accessed at localhost:5000. <br />
+
+### Set Schemas in VS Code
+Ctrl+Shift+P and on the search bar type "Worspace json settings". Open the file and copy this content to it and save the changes:<br />
+```
+{
+    "json.schemas": [
+        
+        { "fileMatch": ["/flask/oscal_schemas/assessment-plans/*"], 
+        "url": "./flask/oscal_schemas/oscal_assessment-plan_schema.json" },
+        { "fileMatch": ["/flask/oscal_schemas/assessment-results/*"],
+        "url": "./flask/oscal_schemas/oscal_assessment-results_schema.json" },
+        { "fileMatch": ["/flask/oscal_schemas/catalogs/*"],
+        "url": "./flask/oscal_schemas/oscal_catalog_schema.json" },
+        { "fileMatch": ["/flask/oscal_schemas/components/*"],
+        "url": "./flask/oscal_schemas/oscal_component_schema.json" },
+        { "fileMatch": ["/flask/oscal_schemas/POAMs/*"],
+        "url": "./flask/oscal_schemas/oscal_poam_schema.json" },
+        { "fileMatch": ["/flask/oscal_schemas/profiles/*"],
+        "url": "./flask/oscal_schemas/oscal_profile_schema.json" },
+        { "fileMatch": ["/flask/oscal_schemas/system-security-plans/*"],
+        "url": "./flask/oscal_schemas/oscal_ssp_schema.json" }
+    ],
+    "yaml.schemas": {
+        "./flask/oscal_schemas/oscal_assessment-plan_schema.json": ["/flask/oscal_schemas/assessment-plans/*"],
+        "./flask/oscal_schemas/oscal_assessment-results_schema.json": ["/flask/oscal_schemas/assessment-results/*"],
+        "./flask/oscal_schemas/oscal_catalog_schema.json": ["/flask/oscal_schemas/catalogs/*"],
+        "./flask/oscal_schemas/oscal_component_schema.json": ["/flask/oscal_schemas/components/*"],
+        "./flask/oscal_schemas/oscal_poam_schema.json": ["/flask/oscal_schemas/POAMs/*"],
+        "./flask/oscal_schemas/oscal_profile_schema.json": ["/flask/oscal_schemas/profiles/*"],
+        "./flask/oscal_schemas/oscal_ssp_schema.json": ["/flask/oscal_schemas/system-security-plans/*"]
+    }
+}
+```
 
 The application is now ready. <br />
 
