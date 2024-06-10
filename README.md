@@ -7,32 +7,45 @@ It runs on Linux (In particular, it is being developed on Ubuntu 22.04). <br />
 Make sure you have installed Git, Docker and Docker-compose. For automompletion while editing OSCAL documents and highlighting of key or value errors, use VS Code. The project has the json schemas for the OSCAL documents, and we set VS Code to find them.<br />
 
 If you don't, Git can be installed with: <br />
-sudo apt install git <br />
+```
+sudo apt install git 
+```
 
 Docker can be installed with: <br />
-sudo apt install docker.io <br />
+```
+sudo apt install docker.io
+```
 
 Docker-compose can be installed with: <br />
-sudo apt install docker-compose <br />
+```
+sudo apt install docker-compose 
+```
 
 Add yourself to the docker group: <br />
-sudo usermod -aG docker yourUserName <br />
+```
+sudo usermod -aG docker yourUserName 
+```
+
 (Restart your machine) <br />
 
 To install VS Code in Ubuntu:
+```
 sudo snap install code --classic
-
+```
 
 This project uses the BRON database developed by Hemberg et al. at MIT as a submodule. The original research for the database can be found as: <br /> 
 Hemberg, Erik, Jonathan Kelly, Michal Shlapentokh-Rothman, Bryn Reinstadler, Katherine Xu, Nick Rutar, and Una-May O'Reilly. "Linking threat tactics, techniques, and patterns with defensive weaknesses, vulnerabilities and affected platform configurations for cyber hunting." arXiv preprint arXiv:2010.00533 (2020). <br />
 
 To clone this repository, including the BRON submodule use: <br />
-git clone --recurse-submodules https://github.com/MSUSEL/msusel-ssp-manager.git   <br /> 
+```
+git clone --recurse-submodules https://github.com/MSUSEL/msusel-ssp-manager.git 
+```
 
 To create the graph database containing the different collections of cybersecurity data: <br />
-cd BRON <br />
-docker-compose up <br />
-
+```
+cd BRON 
+docker-compose up 
+```
 This command will create two containers. One is an arangodb container that will host our database. The second is a bootstrap container that will populate the database with the data from different cybersecurity collections. (The bootstrap process can take up to 45 mins) <br />
 
 Once the bootstrap finishes, you can see the database in your browser at localhost:8529. The username is root and the password is changeme. Select the BRON database. <br />
