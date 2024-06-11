@@ -1,10 +1,10 @@
 # SSP_Manager
 
-This research proyect is currently under development. <br />
+This research project is currently under development. <br />
 It runs on Linux (In particular, it is being developed on Ubuntu 22.04). <br />
 
 ## Installation
-Make sure you have installed Git, Docker and Docker-compose. For automompletion while editing OSCAL documents and highlighting of key or value errors, use VS Code. The project has the json schemas for the OSCAL documents, and we set VS Code to find them.<br />
+Make sure you have installed Git, Docker and Docker-compose. For autocompletion while editing OSCAL documents and highlighting of key or value errors, use VS Code. The project has the json schemas for the OSCAL documents, and we set VS Code to find them.<br />
 
 If you don't, Git can be installed with: <br />
 ```
@@ -50,7 +50,7 @@ This command will create two containers. One is an arangodb container that will 
 
 Once the bootstrap finishes, you can see the database in your browser at localhost:8529. The username is root and the password is changeme. Select the BRON database. <br />
 
-Go back to the msusel-ssp-manager directory nd go into the oscal-processing directory: <br />
+Go back to the msusel-ssp-manager directory and go into the oscal-processing directory: <br />
 ```
 cd .. 
 cd oscal-processing 
@@ -59,7 +59,7 @@ docker build -t oscalprocessing .
 
 This command will create a docker image for NIST's OSCAL validation tool. When a file is submitted for validation on the UI, the flask container will spin up a container for the validation tool using this docker image. <br />
 
-Go back to the msusel-ssp-manager directory and run the generate-env.sh scritp. This script stores the current working directory path in a .env file that will be created. The docker-compose command will read this file and inform the UI container of its location in the host file system. Run the script with: <br />: 
+Go back to the msusel-ssp-manager directory and run the generate-env.sh script. This script stores the current working directory path in a .env file that will be created. The docker-compose command will read this file and inform the UI container of its location in the host file system. Run the script with: <br />: 
 ```
 cd ..  
 ./generate-env.sh  
@@ -72,11 +72,11 @@ cd flask
 docker-compose up
 ```
 
-We call the first container that this commands creates "driver" and it adds the new collections to the database. This command will also create a Python flask container that we'll be using as a provisional UI to test the tool. The driver container will take some time to complete (up to 30 minutes). When it finishes, the new collections will have been added to the database. You can see them at localhost:8529 <br />
+We call the first container that this command creates "driver" and it adds the new collections to the database. This command will also create a Python flask container that we'll be using as a provisional UI to test the tool. The driver container will take some time to complete (up to 30 minutes). When it finishes, the new collections will have been added to the database. You can see them at localhost:8529 <br />
 The flask UI can be accessed at localhost:5000. <br />
 
 ### Set Schemas in VS Code
-Open the project on VS Code and press Ctrl+Shift+P on the keyboard. On the search bar, type "Worspace json settings". Open the file and copy this content to it and save the changes:<br />
+Open the project on VS Code and press Ctrl+Shift+P on the keyboard. On the search bar, type "Workspace json settings". Open the file and copy this content to it and save the changes:<br />
 ```
 {
     "json.schemas": [
