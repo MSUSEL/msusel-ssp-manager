@@ -112,17 +112,17 @@ The application is now ready. <br />
 
 Going forward, to restart the application, you only need to restart the aragodb container:  <br />
 ```
-docker start containerID <br />
+docker start containerID
 ```
 
 And the flask container with: <br />
 ```
-docker start containerID <br />
+docker start containerID 
 ```
 
 You can stop them with: <br />
 ```
-docker stop containerID <br />
+docker stop containerID
 ```
 
 Funding Agency:   <br />
