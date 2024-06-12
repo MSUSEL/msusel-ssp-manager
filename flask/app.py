@@ -117,12 +117,12 @@ def upload_file():
         
         # Template generation request case.
         try:
-            resolved_profile = request.files["resolved_profile"]
-            if resolved_profile.filename != '':
-                resolved_profile.save(os.path.join(app.config['OSCAL_FOLDER'], resolved_profile.filename))
+            profile = request.files["profile"]
+            if profile.filename != '':
+                profile.save(os.path.join(app.config['OSCAL_FOLDER'], profile.filename))
                 return redirect(url_for('templateGenerated'))
         except:
-            logging.error("No resolved profile submitted for template generation.")
+            logging.error("No profile submitted for template generation.")
         
         # Security controls prioritization request case.
         ctrl_file = request.files["control_file"]
@@ -168,7 +168,7 @@ def result():
         return render_template('vulResult.html')
     return render_template('result.html')
 
-@app.route('/templateGenerated', methods=['GET', 'POST'])
+@app.route('/templates/templateGenerated', methods=['GET', 'POST'])
 def templateGenerated():
     createThread(generateDocuments)
     return render_template('templateGenerated.html')

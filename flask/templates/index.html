@@ -61,36 +61,35 @@
       {% endif %}
     {% endwith %}
     {% block body %}{% endblock %}
+    
     <title>Upload Files to Check for Missing Security Controls</title>
-    <h1>Upload Files to Check for Missing Security Controls</h1>
     <!-- <h3>Files must be named controls.json and vulnerabilities.json</h3>
     <h3>vulnerabilities.json must be CVE or CWE</h3> -->
     <form method=post enctype=multipart/form-data>
-      <label for="control_file"><b>Controls File:</b></label>
-      <input type="file" id="control_file" name="control_file">
-      <label for="vul_file"><b>Vulnerabilities File:</b></label>
-      <input type="file" id="vul_file" name="vul_file">
+      <h1>Upload OSCAL profile to generate SSP template</h1>
+      <label for="profile"><b>OSCAL profile:</b></label>
+      <input type="file" id="profile" name="profile">
       <!-- <input type=file name=file multiple> -->
-      <br></br>
-      <h4>Enter a Tactic ID* (<a href="https://attack.mitre.org/tactics/enterprise/">See IDs here</a>) 
-        to Prioritize (Leave it blank if none)</h4>
-      <p><b>*</b>MITRE ATT&CK Enterprise Tactics</p>
-      <!-- <input type=submit value=Upload> -->
-      <label for="tactic id">TA00</label>
-      <input type="text" id="tactic_id" name="tactic_id" placeholder="enter the last 2 digits" 
-      maxlength="2">
-      <br><br>
       <input type=submit value=Test>
+      </form>
+      <style>
+        body {
+            background-color: #212121;
+            color: white;
+        }
+      </style> 
+
+        
 
       <br><br>
       <h1>Upload OSCAL document for format validation or format conversion</h1>
       <label for="oscal_document"><b>OSCAL document:</b></label>
       <input type="file" id="oscal_document" name="oscal_document">
       <!-- <input type=file name=file multiple> -->
-      <br><br>
+    
       <label><input type="radio" name="action" value="validate" checked> Validate</label>
       <label><input type="radio" name="action" value="convert"> Convert</label>
-      <br><br>
+     
       <input type="submit" value="Test">
       <style>
         body {
@@ -100,24 +99,32 @@
       </style>
 
     <br><br>
-    <h1>Upload OSCAL profile to generate SSP template</h1>
-      <label for="resolved_profile"><b>OSCAL resolved profile:</b></label>
-      <input type="file" id="resolved_profile" name="resolved_profile">
-      <!-- <input type=file name=file multiple> -->
-      <br><br>
-      <input type=submit value=Test>
-    </form>
-    <style>
-      body {
-          background-color: #212121;
-          color: white;
-      }
-    </style> 
-
-
-    <br><br>
-    <br><br>
+    
     <h1>Check Effectiveness of Vulnerabilites</h1>
-      <a href="/vulnerability_effectiveness">Test</a>
+    <a href="/vulnerability_effectiveness">Test</a>
+
+    <br><br>
+    <h1>Upload Files to Check for Missing Security Controls</h1>
+    <form method=post enctype=multipart/form-data>
+    <label for="control_file"><b>Controls File:</b></label>
+    <input type="file" id="control_file" name="control_file">
+    <label for="vul_file"><b>Vulnerabilities File:</b></label>
+    <input type="file" id="vul_file" name="vul_file">
+    <!-- <input type=file name=file multiple> -->
+    <br></br>
+    <h4>Enter a Tactic ID* (<a href="https://attack.mitre.org/tactics/enterprise/">See IDs here</a>) 
+      to Prioritize (Leave it blank if none)</h4>
+    <p><b>*</b>MITRE ATT&CK Enterprise Tactics</p>
+    <!-- <input type=submit value=Upload> -->
+    <label for="tactic id">TA00</label>
+    <input type="text" id="tactic_id" name="tactic_id" placeholder="enter the last 2 digits" 
+    maxlength="2">
+    <br><br>
+    <input type=submit value=Test>
+    </form>
+
+    <br><br>
+    <br><br>
+    
 </div>
 </html>
