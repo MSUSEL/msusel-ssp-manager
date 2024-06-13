@@ -1,9 +1,9 @@
 ---
 system-security-plan:
-  uuid: 730b8de3-2ca2-46a3-ac30-5b3f2526a813
+  uuid: 50679d04-ba80-4fa7-9f7d-774284195924
   metadata:
     title: OSCAL_Automated_SSP_Template
-    last-modified: 2024-06-12T01:52:29.834206+00:00
+    last-modified: 2024-06-13T14:41:40.095194+00:00
     version: 0.0.1-alpha
     oscal-version: 1.0.4
   import-profile:
@@ -17,7 +17,7 @@ system-security-plan:
     security-sensitivity-level: low
     system-information:
       information-types:
-        - uuid: a1766e05-8a7c-478d-b6e7-1a1f017b95d5
+        - uuid: fa2b1cb1-6d01-4b59-b1a0-6dd61f1b9780
           title: System Assessment
           description: This system handles development information pertaining to audit and assessment events.
     security-impact-level:
@@ -30,9 +30,9 @@ system-security-plan:
       description: This system is for demonstration purposes only.
   system-implementation:
     users:
-      - uuid: 31d525d0-aee5-4baf-9bd3-909397ccf7f3
+      - uuid: adb04497-a741-48a1-a124-66b5b9c95c8c
     components:
-      - uuid: 0cab42da-b3ab-47ef-8172-3a2c4c68e358
+      - uuid: 78b4814a-d570-4c65-a2d4-035cb93a43b8
         type: this-system
         title: OSCAL Testing Workflow Application
         description: This is an application to demonstrate minimal OSCAL content, and automation to execute tests against the application.
@@ -41,16 +41,16 @@ system-security-plan:
   control-implementation:
     description: This system implements a very minimal set of controls for demonstration only.
     implemented-requirements:
-    - uuid: 7c5d6379-55b5-4bbb-ae7a-bc57c7942924
+    - uuid: f4d2b9eb-5e56-4c6c-84f6-1adee2861eda
       control-id: ac-8
       by-components:
-        - component-uuid: 0cab42da-b3ab-47ef-8172-3a2c4c68e358
-          uuid: 7c5d6379-55b5-4bbb-ae7a-bc57c7942924
+        - component-uuid: 78b4814a-d570-4c65-a2d4-035cb93a43b8
+          uuid: f4d2b9eb-5e56-4c6c-84f6-1adee2861eda
           description: This control is implemented for demonstration purposes only.
-    - uuid: fa872e1f-4a33-44ea-90ff-cc55a04beeef
+    - uuid: 7acd60fc-8e9a-420b-8b8c-e4febe52fc9a
       control-id: ra-5
       by-components:
-        - component-uuid: 0cab42da-b3ab-47ef-8172-3a2c4c68e358
-          uuid: fa872e1f-4a33-44ea-90ff-cc55a04beeef
+        - component-uuid: 78b4814a-d570-4c65-a2d4-035cb93a43b8
+          uuid: 7acd60fc-8e9a-420b-8b8c-e4febe52fc9a
           description: This control is implemented for demonstration purposes only.
     

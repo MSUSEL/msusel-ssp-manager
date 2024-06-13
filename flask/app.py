@@ -44,6 +44,7 @@ class OscalDocumentProcessing:
             self.getContainer()
 
         elif self.operation == "convert":
+            logging.info(f"Converting {self.oscal_file} to {self.newFormat} format.")
             if self.currentFormat == "json":
                 self.newFormat = "yaml"
             elif self.currentFormat == "yaml":

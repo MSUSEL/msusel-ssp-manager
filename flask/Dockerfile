@@ -3,9 +3,6 @@ FROM python:3.10
 
 ARG HOST_VOLUME_PATH
 
-COPY sqLib.py /usr/local/lib/python3.10/sqLib.py
-COPY sqLib.py /dependencies/sqLib.py
-
 COPY . .
 
 RUN pip install -r requirements.txt

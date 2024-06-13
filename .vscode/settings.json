@@ -1,0 +1,28 @@
+{
+    "json.schemas": [
+        
+        { "fileMatch": ["/flask/oscal_schemas/assessment-plans/*"], 
+        "url": "./flask/oscal_schemas/oscal_assessment-plan_schema.json" },
+        { "fileMatch": ["/flask/oscal_schemas/assessment-results/*"],
+        "url": "./flask/oscal_schemas/oscal_assessment-results_schema.json" },
+        { "fileMatch": ["/flask/oscal_schemas/catalogs/*"],
+        "url": "./flask/oscal_schemas/oscal_catalog_schema.json" },
+        { "fileMatch": ["/flask/oscal_schemas/components/*"],
+        "url": "./flask/oscal_schemas/oscal_component_schema.json" },
+        { "fileMatch": ["/flask/oscal_schemas/POAMs/*"],
+        "url": "./flask/oscal_schemas/oscal_poam_schema.json" },
+        { "fileMatch": ["/flask/oscal_schemas/profiles/*"],
+        "url": "./flask/oscal_schemas/oscal_profile_schema.json" },
+        { "fileMatch": ["/flask/oscal_schemas/system-security-plans/*"],
+        "url": "./flask/oscal_schemas/oscal_ssp_schema.json" }
+    ],
+    "yaml.schemas": {
+        "./flask/oscal_schemas/oscal_assessment-plan_schema.json": ["/flask/oscal_schemas/assessment-plans/*"],
+        "./flask/oscal_schemas/oscal_assessment-results_schema.json": ["/flask/oscal_schemas/assessment-results/*"],
+        "./flask/oscal_schemas/oscal_catalog_schema.json": ["/flask/oscal_schemas/catalogs/*"],
+        "./flask/oscal_schemas/oscal_component_schema.json": ["/flask/oscal_schemas/components/*"],
+        "./flask/oscal_schemas/oscal_poam_schema.json": ["/flask/oscal_schemas/POAMs/*"],
+        "./flask/oscal_schemas/oscal_profile_schema.json": ["/flask/oscal_schemas/profiles/*"],
+        "./flask/oscal_schemas/oscal_ssp_schema.json": ["/flask/oscal_schemas/system-security-plans/*"]
+    }
+}

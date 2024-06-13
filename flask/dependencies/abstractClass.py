@@ -12,7 +12,6 @@ This promotes a consistent structure across related classes while allowing for v
 from abc import ABC, abstractmethod
 import requests
 import os
-import sqLib
 
 # Defining an abstract class named MyAbstractClass that inherits from ABC
 class MyAbstractClass(ABC):
@@ -63,8 +62,6 @@ def main_function():
     myObject.getWebPage()
     print(myObject.do_something())
     print(myObject.do_something_else())
-    sqLib.checkDB() # Can't see it, not copied to the container's python (/usr/local/lib/python3.10/)
-   
 
 # Checking if the current module is the main module
 if __name__ == "__main__":
