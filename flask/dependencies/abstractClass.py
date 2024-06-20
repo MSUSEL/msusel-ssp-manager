@@ -50,18 +50,18 @@ class DoAdd42(MyAbstractClass):
         response = requests.get(url)
 
         # Check if the request was successful (status code 200)
-        if response.status_code == 200:
+        #if response.status_code == 200:
             # Print the response content (the data retrieved from the server)
-            print(response.text)
-        else:
+            #print(response.text)
+        #else:
             # Print an error message if the request was not successful
-            print(f"Error: {response.status_code}")
+            #print(f"Error: {response.status_code}")
 
 def main_function():
     myObject = DoAdd42(10)
     myObject.getWebPage()
-    print(myObject.do_something())
-    print(myObject.do_something_else())
+    myObject.do_something()
+    myObject.do_something_else()
 
 # Checking if the current module is the main module
 if __name__ == "__main__":
