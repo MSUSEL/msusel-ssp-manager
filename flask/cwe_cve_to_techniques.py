@@ -115,9 +115,9 @@ class Match_VulnerabilitesAndWeakness_ToAttackTactics_AndTechniques:
         self.weaknessOrVulnerability()
         
     def createDictionaryListsFromInputFiles(self):
-        vulnerabilities_file = open(self.security_findings_file_path, 'r') 
-        self.security_findings_dictionary_list = json.load(vulnerabilities_file)
-        vulnerabilities_file.close()
+        security_findingsFile = open(self.security_findings_file_path, 'r') 
+        self.security_findings_dictionary_list = json.load(security_findingsFile)
+        security_findingsFile.close()
         controls_file = open(self.controls_file_path, 'r')
         self.implemented_controls_dictionary_list = json.load(controls_file) # Ex: [{'control': 'CM-7'}, {'control': 'SC-7'}]
         controls_file.close()
@@ -340,14 +340,17 @@ class CreateVisualizations:
         with open('needed_controls.json', 'r') as out_file:
             json_objects = json.load(out_file)
             with open('/templates/table.html', 'w') as control_html:
-                table_detail = '<ul><li>Code analysis has revealed that the system has the '\
-                            + 'vulnerabilities identified by their CVE ids.</li><li>Each vulnerability'\
-                            + ' found is followed by the attack technique that can be used to exploit '\
-                            + 'that vulnerability.</li><li>The attack stage id that an adversary could'\
-                            + ' achieve by exploiting the vulnerability with the attack technique is '\
-                            + 'given on the left.</li><li>Also shown are the set of security controls '\
-                            + 'suggested to mitigate the system\'s exposure to the specified attack '\
-                            + 'technique.</li></ul>'
+                table_detail = '<ul><li>Static code analysis has revealed that the system has weaknesses or vulnerabilities.</li><li>'\
+                            + 'Weaknesses and vulnerabilities are identified by their CWE or CVE IDs.</li><li>'\
+                            + 'Each finding is followed by the MITRE ATT&CK technique that can be used to exploit it.</li><li>'\
+                            + 'The MITRE ATT&CK tactic (i.e., the attack stage) that an adversary may complete by exploiting '\
+                            + 'the weakness or vulnerability is given on the left panel.'\
+                            + '</li><li>Also shown are the set of NIST SP 800-53 rev.5 security controls '\
+                            + 'suggested to mitigate the system\'s exposure to the specified attack technique.'\
+                            + '</li><li>Note that a single weakness or vulnerability may be mapped to more than one ATT&CK Tactic or Technique. '\
+                            + 'In such cases, there will be more than one table entry for the particular CWE or CVE. '\
+                            + 'The suggested security controls may be similar, but make sure to verify as the different attack '\
+                            + 'techniques may require different security controls.</li></ul>'
                 
                 table_head = '<head>\
         <!-- Required meta tags -->\
