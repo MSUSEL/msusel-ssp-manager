@@ -33,25 +33,6 @@ profile_data.txt (produced by parseProfile.py)
 json objects that have key either filename or function_name
 
 
-
-Que deberiamos obtener ahora?
-rnesto@ernesto-VirtualBox:~/Documents/runBandit20$ python3 matchTry.py 
-692
-8
-5
-ernesto@ernesto-VirtualBox:~/Documents/runBandit20$ wc -l banditObjects.txt 
-32 banditObjects.txt (Estos son todos los cwe que tenemos, aqui hay duplicate files. 
-Aqui tenemos la info completa y relevante de bandit)
-
-692 son el numero de llamadas que el profiler capturo. Esto incluye kernel functions.
-8 + 5 = 13 son el numero de funciones que tienen vulns y que sabemos su nombre 
-(en FilesAndFnames)
-Entonces, debemos tener 19 CWEs (32 - 13 = 19)que debemos reportar tal y como aparece en el banditOutput.
-De las funciones que sabemos los nombres, 8 son llamadas
-y 5 no aparecen en el call graph, so van a ser low priority.
-
-
-
 ** THE FILENAME IS THE LAST KEY, NOT THE FIRST
 calledVulnerableFunctionsObjectList.txt
 
