@@ -34,7 +34,7 @@ class ControlPrioritization:
             + 'item TacticTechnique ' \
             + 'return { From: v._from, To: v._to }'
         self.getTacticIDForUserSelectionQuery = 'for tac in tactic '\
-            + 'filter tac.original_id == @userSelectedTactic '\
+            + 'filter tac.original_id == @userSelectedMITRETacticID '\
             + 'return tac._id'
    
     def determineAttackTechniquesNotMitigated(self, cursorTechniquesAndFindings, implemented_controls_dictionary_list):
@@ -43,10 +43,10 @@ class ControlPrioritization:
             techniquesAndFindingsList = list(singleTechniqueFindingDictionary.values())
             techniqueMappedToFinding = techniquesAndFindingsList[0]
             
-            '''Una tecnica nueva que no hemos incluido en las listas al final. Vamos a tech-control collection,
-            e iteramos por los edges e identificamos el cotnrol. Metemos el control en una lista.
-            Chequeamos todos los controles implementados contra esa lista. Si el control es nuevo,
-            METEMOS LA TECNICA en la lista.'''
+            '''A new technique that we haven't included in the final lists. We will go to the tech-control collection,
+            iterate through the edges, and identify the control. We will add the control to a list.
+            We will check all implemented controls against that list. If the control is new,
+            we will ADD THE TECHNIQUE to the list.'''
             if techniqueMappedToFinding not in self.attackTechniquesUsableAgainstSecurityFindings:
                 for techniqueControlEdge in self.DBConnection.techniqueControlCollection: # Tech-control edge collection
                     if techniqueControlEdge['_from'] == techniqueMappedToFinding:
@@ -169,17 +169,18 @@ class Match_VulnerabilitesAndWeakness_ToAttackTactics_AndTechniques:
         cursorTacticToTechnique = self.DBConnection.db.aql.execute(query, bind_vars=bind_vars)
 
         with open('/shared/input.txt', 'r') as in_txt:
-            userSelectedTactic = in_txt.read()
+            userSelectedMITRETacticID = in_txt.read()
               
         query = ControlPrioritization.getTacticIDForUserSelectionQuery
-        bind_vars = {'userSelectedTactic': userSelectedTactic}
+        bind_vars = {'userSelectedMITRETacticID': userSelectedMITRETacticID}
         cursorUserTacticID = self.DBConnection.db.aql.execute(query, bind_vars=bind_vars)
 
-        userSelectedTactic_id = ''
+        # Store BRON tactic id
+        userSelectedBRONTactic_id = ''
         for tactic_id in cursorUserTacticID:
-            userSelectedTactic_id = tactic_id
+            userSelectedBRONTactic_id = tactic_id
         
-        self.CreateVisualizations.make_graph(self.DBConnection.db, cursorTacticToTechnique, ControlPrioritization.recommendationsTableData, userSelectedTactic_id)
+        self.CreateVisualizations.make_graph(self.DBConnection.db, cursorTacticToTechnique, ControlPrioritization.recommendationsTableData, userSelectedBRONTactic_id)
 
 
 
@@ -190,7 +191,7 @@ class CreateVisualizations:
         self.tacticsOnlyGraph = nx.DiGraph()
         self.pyvisTacticsAndTechniquesGraph = net.Network(height='100vh', width='100%', notebook=True, bgcolor=212121, font_color="white")
         self.pyvisAttackPathsGraph = net.Network(height='100vh', width='100%', notebook=True, bgcolor=212121, font_color="white")
-        self.user_priority_tactic = None
+        self.user_priority_BRONtacticID = None
         
     def addNodesAndEdgesToTacticsAndTechniquesGraph(self, cursorTacticToTechnique):
         for edge in cursorTacticToTechnique:
@@ -205,9 +206,12 @@ class CreateVisualizations:
                 self.tacticsAndTechniquesGraph.add_edge(edge['_from'], edge['_to'])
                 self.tacticsOnlyGraph.add_edge(edge['_from'], edge['_to'])
 
-    def checkIfUserPriorityWasDetected(self, userSelectedTactic_id):
-        if userSelectedTactic_id in self.tacticsList:
-            self.user_priority_tactic = userSelectedTactic_id
+    def checkIfUserPriorityWasDetected(self, userSelectedBRONTactic_id):
+        if userSelectedBRONTactic_id in self.tacticsList:
+            self.user_priority_BRONtacticID = userSelectedBRONTactic_id
+            f = open('/shared/debug_input.txt', 'a')
+            f.write('User selected tactic: ' + self.user_priority_BRONtacticID + '\n')
+            f.close()
 
     def createPyvisTacticsAndTechniquesGraph(self):
         # translates networkx graph into PyViz graph
@@ -221,14 +225,14 @@ class CreateVisualizations:
         self.pyvisAttackPathsGraph.force_atlas_2based()
         self.pyvisAttackPathsGraph.show('/templates/network_flow.html')
 
-    def make_graph(self, db, cursorTacticToTechnique, recommendationsTableData, userSelectedTactic_id):
+    def make_graph(self, db, cursorTacticToTechnique, recommendationsTableData, userSelectedBRONTactic_id):
         tacticToTacticEdgeCollection = db.collection('TacticTactic')
 
         self.addNodesAndEdgesToTacticsAndTechniquesGraph(cursorTacticToTechnique)
         self.addEdgesToTacticsAndTechniquesGraph(tacticToTacticEdgeCollection)
-        self.checkIfUserPriorityWasDetected(userSelectedTactic_id)
+        self.checkIfUserPriorityWasDetected(userSelectedBRONTactic_id)
 
-        prioritize_lists = self.show_prioritize(self.user_priority_tactic) # runs algorithm that finds the prioritized paths
+        prioritize_lists = self.show_prioritize(self.user_priority_BRONtacticID) # runs algorithm that finds the prioritized paths
         self.create_table(db, prioritize_lists, recommendationsTableData)
         
         # Check if vulnerability effectiveness analysis has been run
@@ -247,7 +251,7 @@ class CreateVisualizations:
 
 
     # finds priority of tactic
-    def show_prioritize(self, user_priority_tactic):
+    def show_prioritize(self, user_priority_BRONtacticID):
         # priority of tactic
         high = []
         mid = []
@@ -261,9 +265,12 @@ class CreateVisualizations:
                 cnt_tac = 0
                 cnt_tech = 0
 
-                # if the tactic is the one that user specified make it the most prioritize node
-                if user_priority_tactic != None and user_priority_tactic in node:
+                # if the tactic is the one that user specified, prioritize the node
+                if user_priority_BRONtacticID != None and user_priority_BRONtacticID in node:
                     high.append((node, 0))
+                    f = open('/shared/debug_input.txt', 'a')
+                    f.write('User selected tactic: ' + user_priority_BRONtacticID + '\n') # This works
+                    f.close()
                 else:
                     for neighbor in self.tacticsAndTechniquesGraph.neighbors(node):
                         if 'technique' in neighbor:
@@ -280,10 +287,28 @@ class CreateVisualizations:
                             mid.append((node, cnt_tech))
                         case _:
                             high.append((node, cnt_tech))
+        
+        # Save high list to file
+        with open('/shared/high.txt', 'a') as out_file:
+            for item in high: # item is a tuple, tactic ID, and some munber.
+                out_file.write(str(item) + "\n")
+            out_file.write("\n")
+            out_file.close()
+        
+        
+        
+        
         # sort the individual lists
         low = self.sort_list(low)
         mid = self.sort_list(mid)
         high = self.sort_list(high)
+
+
+        with open('/shared/high.txt', 'a') as out_file:
+            for item in high:
+                out_file.write(str(item) + "\n")
+            out_file.write("\n")
+            out_file.close()
 
         # determine the highest priority node and change color to red
         print('Low:', low, "\nMid:", mid, "\nHigh:", high)
@@ -303,10 +328,16 @@ class CreateVisualizations:
     # creates a html table that contains data related to the generated graphs
     def create_table(self, db, prioritize_lists, recommendationsTableData):
         table_list = [] # will contain data for each table
+        with open('/shared/prioritize_Lists.txt', 'a') as out_file:
+            for item in prioritize_lists: # item is a tuple, tactic ID, and some munber.
+                out_file.write(str(item) + "\n")
+            out_file.write("\n")
+            out_file.close() # They are in the correct order
+
 
         # loop to find the technique that maps to the specific tactic
         for obj in prioritize_lists:
-            tactic_id = obj[0]
+            tactic_id = obj[0] # obj -> ('tactic/tactic_00008', 0), for ex
 
             # finds technique(s) that map from the specific tactic
             query = 'for tac_tech in TacticTechnique '\
@@ -331,6 +362,12 @@ class CreateVisualizations:
                         tactic = tactic_id + ' (' + next(cursor_tac) + ')'
                         table_list.append({tactic:data})
                         break
+        
+        with open('/shared/table_List.txt', 'a') as out_file:
+            for item in table_list: # item is json object with the contents for an item in the priority table.
+                out_file.write(str(item) + "\n")
+            out_file.write("\n")
+            out_file.close() #  They are in the correct order
 
         # creates and adds the json objects to the file
         with open('needed_controls.json', 'w') as out_file:
@@ -339,6 +376,17 @@ class CreateVisualizations:
         # creates html table by using the json file that just generated
         with open('needed_controls.json', 'r') as out_file:
             json_objects = json.load(out_file)
+            with open('/shared/json_objects.txt', 'a') as objectsFile:
+                for item in json_objects: # item is json object with the contents for an item in the priority table.
+                    objectsFile.write(str(item) + "\n")
+                objectsFile.write("\n")
+                objectsFile.close() #  They are in the correct order
+            # Delete the file if it exists
+            if os.path.exists('/templates/table.html'):
+                os.remove('/templates/table.html')
+                f = open('/shared/debug_input.txt', 'a')
+                f.write('File deleted\n')
+                f.close()
             with open('/templates/table.html', 'w') as control_html:
                 table_detail = '<ul><li>Static code analysis has revealed that the system has weaknesses or vulnerabilities.</li><li>'\
                             + 'Weaknesses and vulnerabilities are identified by their CWE or CVE IDs.</li><li>'\
@@ -369,7 +417,7 @@ class CreateVisualizations:
         <div class="collapse navbar-collapse" id="navbarNav">\
             <ul class="navbar-nav mr-auto">\
                 <li class="nav-item active">\
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>\
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>\
                 </li>\
                 <li class="nav-item">\
                     <a class="nav-link" href="#">Results</a>\
@@ -462,7 +510,7 @@ class CreateVisualizations:
         <div class="collapse navbar-collapse" id="navbarNav">\
             <ul class="navbar-nav mr-auto">\
                 <li class="nav-item active">\
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>\
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>\
                 </li>\
                 <li class="nav-item">\
                     <a class="nav-link" href="#">Results</a>\

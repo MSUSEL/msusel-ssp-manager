@@ -1,0 +1,144 @@
+('tactic/tactic_00004', 3)
+('tactic/tactic_00003', 0)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00003', 0)
+('tactic/tactic_00004', 3)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00004', 3)
+('tactic/tactic_00003', 1)
+('tactic/tactic_00008', 0)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00008', 0)
+('tactic/tactic_00003', 1)
+('tactic/tactic_00004', 3)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00004', 3)
+('tactic/tactic_00003', 0)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00003', 0)
+('tactic/tactic_00004', 3)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00004', 3)
+('tactic/tactic_00003', 1)
+('tactic/tactic_00008', 0)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00008', 0)
+('tactic/tactic_00003', 1)
+('tactic/tactic_00004', 3)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00004', 3)
+('tactic/tactic_00003', 0)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00003', 0)
+('tactic/tactic_00004', 3)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00004', 3)
+('tactic/tactic_00003', 1)
+('tactic/tactic_00008', 0)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00008', 0)
+('tactic/tactic_00003', 1)
+('tactic/tactic_00004', 3)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00004', 3)
+('tactic/tactic_00003', 1)
+('tactic/tactic_00008', 0)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00008', 0)
+('tactic/tactic_00003', 1)
+('tactic/tactic_00004', 3)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00002', 12)
+('tactic/tactic_00003', 34)
+('tactic/tactic_00001', 24)
+('tactic/tactic_00005', 25)
+('tactic/tactic_00004', 90)
+('tactic/tactic_00010', 10)
+('tactic/tactic_00007', 3)
+('tactic/tactic_00011', 53)
+('tactic/tactic_00012', 0)
+('tactic/tactic_00006', 6)
+('tactic/tactic_00009', 12)
+('tactic/tactic_00014', 4)
+
+('tactic/tactic_00012', 0)
+('tactic/tactic_00007', 3)
+('tactic/tactic_00014', 4)
+('tactic/tactic_00006', 6)
+('tactic/tactic_00010', 10)
+('tactic/tactic_00002', 12)
+('tactic/tactic_00009', 12)
+('tactic/tactic_00001', 24)
+('tactic/tactic_00005', 25)
+('tactic/tactic_00003', 34)
+('tactic/tactic_00011', 53)
+('tactic/tactic_00004', 90)
+
+('tactic/tactic_00004', 3)
+('tactic/tactic_00003', 0)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00003', 0)
+('tactic/tactic_00004', 3)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00004', 3)
+('tactic/tactic_00003', 1)
+('tactic/tactic_00008', 0)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00008', 0)
+('tactic/tactic_00003', 1)
+('tactic/tactic_00004', 3)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00004', 3)
+('tactic/tactic_00003', 1)
+('tactic/tactic_00008', 0)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00008', 0)
+('tactic/tactic_00003', 1)
+('tactic/tactic_00004', 3)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00004', 3)
+('tactic/tactic_00003', 0)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00003', 0)
+('tactic/tactic_00004', 3)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00004', 3)
+('tactic/tactic_00003', 1)
+('tactic/tactic_00008', 0)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00008', 0)
+('tactic/tactic_00003', 1)
+('tactic/tactic_00004', 3)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00004', 3)
+('tactic/tactic_00003', 0)
+('tactic/tactic_00012', 3)
+
+('tactic/tactic_00003', 0)
+('tactic/tactic_00004', 3)
+('tactic/tactic_00012', 3)
+

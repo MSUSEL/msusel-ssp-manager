@@ -12,6 +12,7 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = os.getenv('UPLOAD_FOLDER')
 app.config['OSCAL_FOLDER'] = os.getenv('OSCAL_FOLDER')
 app.config['HOST_VOLUME_PATH'] = os.getenv('HOST_VOLUME_PATH')
+app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 if not os.getenv('SECRET_KEY'):
     raise ValueError("No SECRET_KEY set for Flask application")
