@@ -15,3 +15,11 @@ services:
       - "${HOST_VOLUME_PATH}/flask/shared:/shared"
     network_mode: "host" 
     privileged: true
+  react-app:
+    build:
+      context: ./flask/react-app
+      dockerfile: Dockerfile
+    container_name: react-app
+    environment:
+      - REACT_APP_API_URL=http://flask-app:5000
+    network_mode: "host"

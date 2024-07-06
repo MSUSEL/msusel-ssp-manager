@@ -1,5 +1,5 @@
 import os
-from flask import Flask, flash, request, redirect, url_for, render_template, send_from_directory
+from flask import Flask, flash, request, redirect, url_for, render_template, send_from_directory, jsonify
 import cwe_cve_to_techniques
 import threading
 import shutil
@@ -8,7 +8,8 @@ import docker
 from generate import generateDocuments
 import subprocess
 
-app = Flask(__name__)
+
+app = Flask(__name__, static_folder='react-app/build')
 app.config['UPLOAD_FOLDER'] = os.getenv('UPLOAD_FOLDER')
 app.config['OSCAL_FOLDER'] = os.getenv('OSCAL_FOLDER')
 app.config['HOST_VOLUME_PATH'] = os.getenv('HOST_VOLUME_PATH')
@@ -149,6 +150,11 @@ def upload_file():
     
     # In case of a GET request
     return render_template('index.html')
+
+
+@app.route('/api/data')
+def get_data():
+    return jsonify({"message": "Hello from flask"})
 
 
 @app.route('/templates/table')
