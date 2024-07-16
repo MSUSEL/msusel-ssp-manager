@@ -1,0 +1,12 @@
+.app {
+  font-family: Arial, sans-serif;
+}
+
+.main-content {
+  display: flex;
+}
+
+.content {
+  margin-left: 200px; /* Adjust to match sidebar width */
+  padding: 20px;
+}
