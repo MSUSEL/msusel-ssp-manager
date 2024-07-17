@@ -156,6 +156,10 @@ def upload_file():
 def get_data():
     return jsonify({"message": "Hello from flask"})
 
+@app.route('/example.json')
+def get_example_json():
+    return send_from_directory('./react-app/public/', 'example.json')
+
 
 @app.route('/templates/table')
 def table():

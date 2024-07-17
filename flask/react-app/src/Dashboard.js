@@ -7,9 +7,16 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('/example.json'); // Ensure this path points to the correct JSON file
-      const jsonData = await response.json();
-      setData(jsonData);
+      try {
+        const response = await fetch('/example.json'); // The proxy will redirect this to http://localhost:5000/example.json
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const jsonData = await response.json();
+        setData(jsonData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     };
     fetchData();
   }, []);
