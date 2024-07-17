@@ -8,8 +8,8 @@ import docker
 from generate import generateDocuments
 import subprocess
 
-
-app = Flask(__name__, static_folder='react-app/build')
+# static_folder='react-app/build'
+app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = os.getenv('UPLOAD_FOLDER')
 app.config['OSCAL_FOLDER'] = os.getenv('OSCAL_FOLDER')
 app.config['HOST_VOLUME_PATH'] = os.getenv('HOST_VOLUME_PATH')
