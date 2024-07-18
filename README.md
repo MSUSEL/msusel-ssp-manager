@@ -1,7 +1,7 @@
 # SSP_Manager
 
 This research project is currently under development. <br />
-It runs on Linux (In particular, it is being developed on Ubuntu 22.04). <br />
+It runs on Linux (In particular, it is being developed on Ubuntu 22.04. An iso image for this version can be found here: https://releases.ubuntu.com/jammy/). <br />
 
 ## Installation
 Make sure you have installed Git, Docker and Docker-compose. For autocompletion while editing OSCAL documents and highlighting of key or value errors, use VS Code. The project has the json schemas for the OSCAL documents, and we set VS Code to find them.<br />
