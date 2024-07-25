@@ -8,8 +8,13 @@ import json2table
 
 class DatabaseConnection:
     def __init__(self):
-        self.client = ArangoClient()
-        self.db = self.client.db('BRON', username='root', password='changeme')
+        arango_url = os.getenv('ARANGO_DB_URL', 'http://brondb:8529')
+        arango_db_name = os.getenv('ARANGO_DB_NAME', 'BRON')
+        arango_username = os.getenv('ARANGO_DB_USERNAME', 'root')
+        arango_password = os.getenv('ARANGO_DB_PASSWORD', 'changeme')
+
+        self.client = ArangoClient(hosts=arango_url)
+        self.db = self.client.db(arango_db_name, username=arango_username, password=arango_password)
         self.techniqueControlCollection = self.db.collection('TechniqueControl')
         self.tacticToTacticEdgeCollection = self.db.collection('TacticTactic')
 

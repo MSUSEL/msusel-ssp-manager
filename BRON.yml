@@ -12,6 +12,8 @@ services:
     volumes:
       - brondb_data_container:/var/lib/arangodb3
       - brondb_apps_data_container:/var/lib/arangodb3-apps
+    networks:
+      - my_custom_network
   bootstrap:
     container_name: bootstrap
     build: .
@@ -25,6 +27,8 @@ services:
       - arango_root_password
     volumes:
       - bootstrap_data_container:/data
+    networks:
+      - my_custom_network
     links:
       - brondb
     depends_on:
@@ -38,3 +42,6 @@ volumes:
   brondb_data_container:
   brondb_apps_data_container:
   bootstrap_data_container:
+networks:
+  my_custom_network:
+    external: true

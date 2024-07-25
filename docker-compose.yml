@@ -1,20 +1,32 @@
 version: "3.5"
 services:
-  driver:
-    container_name: driver
-    build: ./AttackTechniquesToControls
-    network_mode: "host"
+  #driver:
+    #container_name: driver
+    #build: ./AttackTechniquesToControls
+    #network_mode: "host"
+    
+    #networks:
+      #- my_custom_network
   flask:
     container_name: flask-frontend-cli
     build:
       context: ./flask
       args:
         - HOST_VOLUME_PATH=${HOST_VOLUME_PATH}
+    environment:
+      - ARANGO_DB_URL=http://brondb:8529
+      - ARANGO_DB_NAME=BRON
+      - ARANGO_DB_USERNAME=root
+      - ARANGO_DB_PASSWORD=changeme
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - "${HOST_VOLUME_PATH}/flask/shared:/shared"
-    network_mode: "host" 
+    #network_mode: "host" 
+    ports:
+      - "5000:5000"
     privileged: true
+    networks:
+      - my_custom_network
   react-app:
     build:
       context: ./flask/react-app
@@ -22,4 +34,11 @@ services:
     container_name: react-app
     environment:
       - REACT_APP_API_URL=http://flask-app:5000
-    network_mode: "host"
+    #network_mode: "host"
+    ports:
+      - "3000:3000"
+    networks:
+      - my_custom_network
+networks:
+  my_custom_network:
+    external: true

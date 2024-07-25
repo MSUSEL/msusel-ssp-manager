@@ -1,9 +1,9 @@
 {
   "system-security-plan" : {
-    "uuid" : "50679d04-ba80-4fa7-9f7d-774284195924",
+    "uuid" : "f63da80c-437a-41fb-a574-8fe5ff247521",
     "metadata" : {
       "title" : "OSCAL_Automated_SSP_Template",
-      "last-modified" : "2024-06-13T14:41:40.095194Z",
+      "last-modified" : "2024-07-25T16:22:22.908977Z",
       "version" : "0.0.1-alpha",
       "oscal-version" : "1.0.4"
     },
@@ -19,7 +19,7 @@
       "security-sensitivity-level" : "low",
       "system-information" : {
         "information-types" : [ {
-          "uuid" : "fa2b1cb1-6d01-4b59-b1a0-6dd61f1b9780",
+          "uuid" : "a4061fb9-1e58-47f1-acee-c3b036d63ef6",
           "title" : "System Assessment",
           "description" : "This system handles development information pertaining to audit and assessment events."
         } ]
@@ -38,10 +38,10 @@
     },
     "system-implementation" : {
       "users" : [ {
-        "uuid" : "adb04497-a741-48a1-a124-66b5b9c95c8c"
+        "uuid" : "352ddf4d-c8af-4a2b-a8e4-9a714a475d1c"
       } ],
       "components" : [ {
-        "uuid" : "78b4814a-d570-4c65-a2d4-035cb93a43b8",
+        "uuid" : "9a6196ab-1e6b-4925-abc7-f5c4cf05e86d",
         "type" : "this-system",
         "title" : "OSCAL Testing Workflow Application",
         "description" : "This is an application to demonstrate minimal OSCAL content, and automation to execute tests against the application.",
@@ -53,19 +53,19 @@
     "control-implementation" : {
       "description" : "This system implements a very minimal set of controls for demonstration only.",
       "implemented-requirements" : [ {
-        "uuid" : "f4d2b9eb-5e56-4c6c-84f6-1adee2861eda",
+        "uuid" : "0900b021-693e-43c4-b3aa-2804a50b8f1b",
         "control-id" : "ac-8",
         "by-components" : [ {
-          "component-uuid" : "78b4814a-d570-4c65-a2d4-035cb93a43b8",
-          "uuid" : "f4d2b9eb-5e56-4c6c-84f6-1adee2861eda",
+          "component-uuid" : "9a6196ab-1e6b-4925-abc7-f5c4cf05e86d",
+          "uuid" : "0900b021-693e-43c4-b3aa-2804a50b8f1b",
           "description" : "This control is implemented for demonstration purposes only."
         } ]
       }, {
-        "uuid" : "7acd60fc-8e9a-420b-8b8c-e4febe52fc9a",
+        "uuid" : "9d4a4ba3-e26f-42fa-be2d-594ffcc02c4f",
         "control-id" : "ra-5",
         "by-components" : [ {
-          "component-uuid" : "78b4814a-d570-4c65-a2d4-035cb93a43b8",
-          "uuid" : "7acd60fc-8e9a-420b-8b8c-e4febe52fc9a",
+          "component-uuid" : "9a6196ab-1e6b-4925-abc7-f5c4cf05e86d",
+          "uuid" : "9d4a4ba3-e26f-42fa-be2d-594ffcc02c4f",
           "description" : "This control is implemented for demonstration purposes only."
         } ]
       } ]
