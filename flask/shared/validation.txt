@@ -1,1 +1,0 @@
-The file '/shared/ssp.yaml' is valid.
