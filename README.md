@@ -75,6 +75,11 @@ cd ..
 ./generate-env.sh  
 ```
 
+The setup requires a docker network:
+```
+docker network create ssp_network
+```
+
 Now we'll add new collections to the BRON database. These are mappings from MITRE ATT&CK Techniques to NIST SP 800-53 security controls. These mappings where done by MITRE Engenuity Center for Threat-Informed Defense (see:https://github.com/center-for-threat-informed-defense/mappings-explorer/). <br />
 ```
 docker-compose up
