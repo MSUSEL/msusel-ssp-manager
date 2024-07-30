@@ -13,7 +13,7 @@ services:
       - brondb_data_container:/var/lib/arangodb3
       - brondb_apps_data_container:/var/lib/arangodb3-apps
     networks:
-      - my_custom_network
+      - ssp_network
   bootstrap:
     container_name: bootstrap
     build: .
@@ -28,7 +28,7 @@ services:
     volumes:
       - bootstrap_data_container:/data
     networks:
-      - my_custom_network
+      - ssp_network
     links:
       - brondb
     depends_on:
@@ -43,5 +43,5 @@ volumes:
   brondb_apps_data_container:
   bootstrap_data_container:
 networks:
-  my_custom_network:
+  ssp_network:
     external: true

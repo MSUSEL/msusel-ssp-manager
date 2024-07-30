@@ -6,7 +6,7 @@ services:
     #network_mode: "host"
     
     #networks:
-      #- my_custom_network
+      #- ssp_network
   flask:
     container_name: flask-frontend-cli
     build:
@@ -26,7 +26,7 @@ services:
       - "5000:5000"
     privileged: true
     networks:
-      - my_custom_network
+      - ssp_network
   react-app:
     build:
       context: ./flask/react-app
@@ -38,7 +38,7 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - my_custom_network
+      - ssp_network
 networks:
-  my_custom_network:
+  ssp_network:
     external: true
