@@ -1,18 +1,17 @@
-# flask_react_app/react-app/Dockerfile
-FROM node:14
+# Use an official Node runtime as a parent image
+FROM node:16-alpine
 
+# Set the working directory in the container
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm install
-
+# Copy the current directory contents into the container at /app
 COPY . .
 
-RUN npm run build
-EXPOSE 3000
-# Serve the React app using a simple static server
-#RUN npm install -g serve
-#CMD ["serve", "-s", "build"]
+# Install any needed packages
+RUN npm install
 
-# Command to run the development server
-CMD ["npm", "start"]
+# Expose port 3000 to the outside world
+EXPOSE 3000
+
+# Run Vite development server
+CMD ["npm", "run", "dev"]

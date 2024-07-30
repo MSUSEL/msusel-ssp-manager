@@ -1,0 +1,16 @@
+('tactic/tactic_00004', 2)
+('tactic/tactic_00003', 1)
+('tactic/tactic_00012', 1)
+
+('tactic/tactic_00003', 1)
+('tactic/tactic_00012', 1)
+('tactic/tactic_00004', 2)
+
+('tactic/tactic_00004', 2)
+('tactic/tactic_00003', 1)
+('tactic/tactic_00012', 1)
+
+('tactic/tactic_00003', 1)
+('tactic/tactic_00012', 1)
+('tactic/tactic_00004', 2)
+

@@ -19,3 +19,4 @@ tomli==2.0.1
 beautifulsoup4==4.12.2
 bandit
 virtualenv
+flask-cors==3.0.10

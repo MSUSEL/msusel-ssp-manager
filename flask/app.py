@@ -7,6 +7,7 @@ import logging
 import docker
 from generate import generateDocuments
 import subprocess
+from flask_cors import CORS
 
 # static_folder='react-app/build'
 app = Flask(__name__)
@@ -19,6 +20,7 @@ if not os.getenv('SECRET_KEY'):
     raise ValueError("No SECRET_KEY set for Flask application")
 app.secret_key = os.getenv('SECRET_KEY')
 
+CORS(app)
 
 class OscalDocumentProcessing:
     def __init__(self, oscal_file, operation):

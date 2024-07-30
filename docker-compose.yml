@@ -33,7 +33,7 @@ services:
       dockerfile: Dockerfile
     container_name: react-app
     environment:
-      - REACT_APP_API_URL=http://flask-app:5000
+      - REACT_APP_API_URL=http://flask:5000
     #network_mode: "host"
     ports:
       - "3000:3000"

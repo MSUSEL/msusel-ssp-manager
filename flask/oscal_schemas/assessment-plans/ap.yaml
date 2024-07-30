@@ -1,9 +1,9 @@
 ---
 assessment-plan:
-  uuid: 5eebdd67-1746-48ee-b31e-f442b5ebc47c
+  uuid: b2f450d6-8ecb-41ae-8cfb-6cb0ec0a15b0
   metadata:
     title: OSCAL Automated Assessment Plan Template
-    last-modified: 2024-07-25T16:22:22.919159+00:00
+    last-modified: 2024-07-30T15:38:44.043672+00:00
     version: 0.0.1-alpha
     oscal-version: 1.0.4
   import-ssp:
