@@ -2,10 +2,19 @@
 
 This research project is currently under development. <br />
 It runs on Linux (In particular, it is being developed on Ubuntu 22.04 LTS. An iso image for this Ubuntu version can be found here: https://releases.ubuntu.com/jammy/). <br />
+In Windows, you can install Ubuntu 22.04 LTS in WSL2. Git clone this repo into your WSL2 file system (/home/userName/). <br />
 
 ## Installation
-Make sure you have installed Git, Docker and Docker-compose. For autocompletion while editing OSCAL documents and highlighting of key or value errors, use VS Code. The project has the json schemas for the OSCAL documents, and we set VS Code to find them.<br />
-
+Make sure you have Git, Docker and Docker-Compose installed. <br />
+```
+git --version
+```
+```
+docker --version
+```
+```
+docker-compose --version
+```
 If you don't have Git, it can be installed with: <br />
 ```
 sudo apt install git 
@@ -28,6 +37,7 @@ sudo usermod -aG docker yourUserName
 
 (Restart your machine) <br />
 
+For autocompletion while editing OSCAL documents and highlighting of key or value errors, use VS Code. The project has the json schemas for the OSCAL documents, and we set VS Code to find them.<br />
 To install VS Code in Ubuntu:
 ```
 sudo snap install code --classic
@@ -65,10 +75,8 @@ cd ..
 ./generate-env.sh  
 ```
 
-
 Now we'll add new collections to the BRON database. These are mappings from MITRE ATT&CK Techniques to NIST SP 800-53 security controls. These mappings where done by MITRE Engenuity Center for Threat-Informed Defense (see:https://github.com/center-for-threat-informed-defense/mappings-explorer/). <br />
 ```
-cd flask
 docker-compose up
 ```
 
