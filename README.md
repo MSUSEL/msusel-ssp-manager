@@ -51,6 +51,14 @@ To clone this repository, including the BRON submodule use: <br />
 git clone --recurse-submodules https://github.com/MSUSEL/msusel-ssp-manager.git 
 ```
 
+Since we will need to have the access to the database container from other containers in this project, it is necessary to change the docker-compose.yml file of the BRON submodule to add its containers to a local docker network. To create the local docker network use:
+```
+docker network create ssp_network
+```
+Note: ssp_network is the docker network that is referenced in the docker-compose files that we will execute. 
+
+To change the docker-compose.yml file for the BRON submodule copy the contents of BRON.yml in the root directory and and paste it over the contents on the /BRON/docker-compose.yml file. (Keep the docker-compose.yml name)
+
 To create the graph database containing the different collections of cybersecurity data: <br />
 ```
 cd BRON 
@@ -73,11 +81,6 @@ Go back to the msusel-ssp-manager directory and run the generate-env.sh script. 
 ```
 cd ..  
 ./generate-env.sh  
-```
-
-The setup requires a docker network:
-```
-docker network create ssp_network
 ```
 
 Now we'll add new collections to the BRON database. These are mappings from MITRE ATT&CK Techniques to NIST SP 800-53 security controls. These mappings where done by MITRE Engenuity Center for Threat-Informed Defense (see:https://github.com/center-for-threat-informed-defense/mappings-explorer/). <br />
