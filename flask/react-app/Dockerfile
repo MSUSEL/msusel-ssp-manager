@@ -9,6 +9,7 @@ COPY . .
 
 # Install any needed packages
 RUN npm install
+RUN npm install react-router-dom
 
 # Expose port 3000 to the outside world
 EXPOSE 3000
