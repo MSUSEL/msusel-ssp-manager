@@ -1,25 +1,32 @@
 import React from 'react';
-import { Box, Heading, Text } from '@radix-ui/themes';
+import { Box } from '@radix-ui/themes';
+import './Sidebar.css';
 
 const Sidebar: React.FC = () => {
   return (
-    <Box as="div" style={{ padding: '20px', width: '250px', backgroundColor: 'lightgray', height: '100vh' }}>
-      <Heading>OSCAL</Heading>
-      <Text>Generate Template</Text><br />
-      <Text>Edit</Text><br />
-      <Text>Validate</Text><br />
-      <Text>Convert</Text><br />
-      <Text>Current Status</Text><br />
-      <Heading>Vulnerability Effectiveness</Heading>
-      <Text>Test Dependencies</Text><br />
-      <Text>Attack Techniques</Text><br />
-      <Text>Attack Paths</Text><br />
-      <Text>Priority Controls</Text><br />
-      <Text>Vulnerable Functions</Text><br />
-      <Heading>BRON Database</Heading>
-      <Heading>External Links:</Heading>
-      <Text>OSCAL Documentation</Text><br />
-      <Text>Tool Documentation</Text>
+    <Box as="nav" className="sidebar">
+      <h2>OSCAL</h2>
+      <ul>
+        <li>Generate Template</li>
+        <li>Edit</li>
+        <li>Validate</li>
+        <li>Convert</li>
+        <li>Current Status</li>
+      </ul>
+      <h2>Vulnerability Effectiveness</h2>
+      <ul>
+        <li>Test Dependencies</li>
+        <li>Attack Techniques</li>
+        <li>Attack Paths</li>
+        <li>Priority Controls</li>
+        <li>Vulnerable Functions</li>
+      </ul>
+      <h2>BRON Database</h2>
+      <ul>
+        <li>External Links:</li>
+        <li>OSCAL Documentation</li>
+        <li>Tool Documentation</li>
+      </ul>
     </Box>
   );
 };

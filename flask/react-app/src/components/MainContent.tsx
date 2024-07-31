@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import { Box, Heading } from '@radix-ui/themes';
-
-// Navbar component
-const Navbar: React.FC = () => {
-  return (
-    <Box as="nav" style={{ padding: '20px', backgroundColor: 'lightgray' }}>
-      <Link to="/">Home</Link>
-    </Box>
-  );
-};
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Box, Heading, Flex } from '@radix-ui/themes';
+import Header from './Header';
+import Navbar from './Navbar';
+import Sidebar from './Sidebar';
+import './MainContent.css';
 
 // Home component (fetches data from the Flask backend)
 const Home: React.FC = () => {
@@ -31,7 +26,7 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <Box as="div" style={{ padding: '20px', flex: '1' }}>
+    <Box as="div" className="main-content">
       <Heading>Main Content</Heading>
       {data ? <Box>{data}</Box> : <Box>Loading...</Box>}
     </Box>
@@ -42,10 +37,15 @@ const Home: React.FC = () => {
 const MainContent: React.FC = () => {
   return (
     <Router>
+      <Header />
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
+      <Flex className="content-container">
+        <Sidebar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {/* Add more routes as needed */}
+        </Routes>
+      </Flex>
     </Router>
   );
 };

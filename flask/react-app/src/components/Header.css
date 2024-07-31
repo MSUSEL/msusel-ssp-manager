@@ -1,0 +1,23 @@
+/* Header.css */
+.header {
+  width: 100%;
+  background-color: white;
+  border-bottom: 1px solid #dee2e6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px; /* Reduce padding */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.header .logo {
+  height: 30px; /* Ajust image size */
+  margin: 0 10px; /* Add some margin to separate the logos from the text */
+}
+
+.header .title {
+  font-size: 1.5rem; /* Reduce font size */
+}

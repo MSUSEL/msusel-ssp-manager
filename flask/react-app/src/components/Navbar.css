@@ -1,0 +1,21 @@
+/* Navbar.css */
+.navbar {
+  width: 100%;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  padding: 5px 0; /* Reduce padding */
+  position: fixed;
+  top: 50px; /* Position it below the header */
+  z-index: 999; /* Ensure it's above other elements */
+}
+
+.navbar .nav-link {
+  margin: 0 10px; /* Adjust margin */
+  text-decoration: none;
+  color: #007bff;
+  font-size: 0.9rem; /* Reduce font size */
+}
+
+.navbar .nav-link:hover {
+  text-decoration: underline;
+}

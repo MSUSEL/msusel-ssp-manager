@@ -1,0 +1,26 @@
+/* Sidebar.css */
+.sidebar {
+  width: 200px; /* Adjust width if necessary */
+  background-color: #f8f9fa;
+  padding: 10px; /* Reduce padding */
+  height: calc(100vh - 100px); /* Adjust height to account for the header and navbar */
+  position: fixed;
+  top: 100px; /* Set top position to be below the header and navbar */
+  left: 0;
+  overflow-y: auto; /* Hide overflow to remove scrollbar */
+}
+
+.sidebar h2 {
+  margin-top: 15px; /* Adjust margin */
+  font-size: 1rem; /* Adjust font size */
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 5px 0; /* Adjust margin */
+  font-size: 0.9rem; /* Adjust font size */
+}

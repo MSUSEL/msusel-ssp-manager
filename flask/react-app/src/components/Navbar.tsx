@@ -1,14 +1,13 @@
 import React from 'react';
+import { Box, Flex } from '@radix-ui/themes';
 import { Link } from 'react-router-dom';
-import { Flex, Box } from '@radix-ui/themes';
+import './Navbar.css';
 
 const Navbar: React.FC = () => {
   return (
-    <Flex as="nav" justifyContent="space-between" alignItems="center" padding="20px" style={{ backgroundColor: 'white' }}>
-      <Box>
-        <Link to="/">Home</Link>
-      </Box>
-      {/* Add more links here if needed */}
+    <Flex as="nav" justifycontent="center" alignitems="center" padding="20px" className="navbar">
+      <Link to="/" className="nav-link">Home</Link>
+      <Link to="/another-page" className="nav-link">Another Page</Link>
     </Flex>
   );
 };
