@@ -3,10 +3,11 @@
   display: flex;
   margin-left: 200px; /* Adjust to match the sidebar width */
   padding: 20px;
-  padding-top: 100px; /* Add padding to account for the header and navbar */
+  padding-top: 110px; /* Adjust padding to account for the header and navbar */
 }
 
 .main-content {
   flex-grow: 1;
   padding: 20px;
+  font-size: 0.9rem; /* Reduce font size */
 }
