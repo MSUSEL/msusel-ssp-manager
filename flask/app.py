@@ -158,6 +158,10 @@ def upload_file():
 def get_data():
     return jsonify({"message": "Hello from flask"})
 
+@app.route('/api/ssp')
+def generate_template():
+    return jsonify({"message": "The SSP template was generated to the shared folder."})
+
 @app.route('/example.json')
 def get_example_json():
     return send_from_directory('./react-app/public/', 'example.json')
