@@ -8,7 +8,7 @@ const GenerateTemplate: React.FC = () => {
 
   useEffect(() => {
     if (shouldFetch) {
-      fetch('/api/ssp') // Uses /api/ as proxy for flask:5000 as stated in vite.config.js
+      fetch('/api/generate/ssp') // Uses /api/ as proxy for flask:5000 as stated in vite.config.js
         .then(response => {
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);

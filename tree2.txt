@@ -235,6 +235,12 @@
 │   │   ├── app.cpython-310.pyc
 │   │   ├── cwe_cve_to_techniques.cpython-310.pyc
 │   │   └── tech_tac_graph.cpython-310.pyc
+│   ├── api
+│   │   └── generateSSP_Template.py
+│   ├── app
+│   │   ├── __init__.py
+│   │   ├── generateSSP_Template.py
+│   │   └── home.py
 │   ├── app.py
 │   ├── artifacts
 │   │   └── dependencies.txt
@@ -335,6 +341,7 @@
 │   │   ├── tsconfig.node.json
 │   │   └── vite.config.ts
 │   ├── requirements.txt
+│   ├── run.py
 │   ├── runBandit.py
 │   ├── shared
 │   │   └── placeHolder.txt
@@ -636,6 +643,7 @@
 │   └── script.sh
 ├── package-lock.json
 ├── package.json
-└── tree.txt
+├── tree.txt
+└── tree2.txt
 
-96 directories, 542 files
+98 directories, 548 files

@@ -5,7 +5,7 @@ const Home: React.FC = () => {
   const [data, setData] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('/api/data')
+    fetch('/api/home/data')
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
