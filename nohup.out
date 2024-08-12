@@ -1,0 +1,8 @@
+Setting up watches.
+Watches established.
+Deleted profile.yaml from ./flask/shared
+Moved ssp.yaml to ./flask/oscal_schemas/system-security-plans
+rm: cannot remove './flask/shared/profile.yaml': No such file or directory
+Deleted profile.yaml from ./flask/shared
+mv: cannot move './flask/shared/ssp.yaml' to './flask/oscal_schemas/system-security-plans/ssp.yaml': No such file or directory
+Moved ssp.yaml to ./flask/oscal_schemas/system-security-plans

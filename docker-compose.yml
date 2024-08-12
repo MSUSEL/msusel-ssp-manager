@@ -35,6 +35,9 @@ services:
     environment:
       - REACT_APP_API_URL=http://flask:5000
     #network_mode: "host"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - "${HOST_VOLUME_PATH}/flask/shared:/shared"
     ports:
       - "3000:3000"
     networks:

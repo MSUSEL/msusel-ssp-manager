@@ -4,7 +4,7 @@ FROM python:3.10
 ARG HOST_VOLUME_PATH
 
 # Anadido
-WORKDIR /app
+#WORKDIR /app
 
 COPY . .
 
@@ -12,11 +12,9 @@ RUN pip install -r requirements.txt
 
 EXPOSE 5000
 
-
 # Set environment variables
 ENV FLASK_APP=run:create_app
 ENV FLASK_ENV=development
-#ENV FLASK_APP=app.py
 ENV SECRET_KEY=your-secret-key
 ENV UPLOAD_FOLDER=./shared
 ENV OSCAL_FOLDER=/shared

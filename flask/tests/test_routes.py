@@ -2,6 +2,8 @@ import unittest
 from flask import Flask
 from app import create_app
 import logging
+import io # Required for testing file uploads
+# BytesIO object to simulate a file in memory for testing purposes.
 
 
 # Set up logging
@@ -43,7 +45,14 @@ class RouteTests(unittest.TestCase):
         self.assertIn(b'SSP generated successfully', response.data) # Asserts that the response data contains the string 'Hello, World!'.
         logger.info("generate route test passed.")
 
-    # Add more tests for service4 to service10 similarly
+    def test_upload_route(self):
+        data = {
+            'file': (io.BytesIO(b"this is a test file"), 'test.txt')
+        }
+        response = self.client.post('/api/upload/shared', data=data, content_type='multipart/form-data')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'File successfully uploaded', response.data)
+        print("Upload route test passed.")
 
 if __name__ == '__main__':
     unittest.main()

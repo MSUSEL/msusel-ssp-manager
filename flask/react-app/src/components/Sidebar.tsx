@@ -22,11 +22,17 @@ const Sidebar: React.FC = () => {
         <li><Link to="/priority-controls">Priority Controls</Link></li>
         <li><Link to="/vulnerable-functions">Vulnerable Functions</Link></li>
       </ul>
-      <h2>BRON Database</h2>
       <ul>
-        <li><Link to="/external-links">External Links</Link></li>
+      <h2>Security Data Collections</h2>
+        <li><Link to="/bron-database">BRON Database</Link></li>
+      </ul>
+      <h2>Documentation</h2>
+      <ul>
+        <li><Link to="/oscal-documentation">Tool Documentation</Link></li>
+      </ul>
+      <h2>External Links</h2>
+      <ul>
         <li><Link to="/oscal-documentation">OSCAL Documentation</Link></li>
-        <li><Link to="/tool-documentation">Tool Documentation</Link></li>
       </ul>
     </Box>
   );

@@ -1,0 +1,6 @@
+Setting up watches.
+Watches established.
+2024-08-12 09:29:11 - Deleted profile.yaml from ./flask/shared
+2024-08-12 09:29:11 - Moved ssp.yaml to ./flask/oscal_schemas/system-security-plans
+2024-08-12 10:08:42 - Deleted profile.yaml from ./flask/shared
+2024-08-12 10:08:42 - Moved ssp.yaml to ./flask/oscal_schemas/system-security-plans

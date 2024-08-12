@@ -19,5 +19,8 @@ def create_app():
     from .generateSSP_Template import ssp_generation_blueprint
     app.register_blueprint(ssp_generation_blueprint, url_prefix='/api/generate')
 
+    from .upload import upload_blueprint
+    app.register_blueprint(upload_blueprint, url_prefix='/api/upload')
+
 
     return app

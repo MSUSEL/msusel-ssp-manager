@@ -71,7 +71,7 @@ def generateSSP(profile_path: str, ssp_path: str):
 
 def generateDocuments():
     generateSSP(profile_path="/shared/profile.yaml", ssp_path="/shared/ssp.yaml")
-    generateAP(profile_path="/shared/profile.yaml", ap_path="/shared/ap.yaml", ssp_path="/shared/ssp.yaml")
+    #generateAP(profile_path="/shared/profile.yaml", ap_path="/shared/ap.yaml", ssp_path="/shared/ssp.yaml")
     
 if __name__ == '__main__':
     generateDocuments()

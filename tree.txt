@@ -130,7 +130,7 @@
 ├── docker-compose.yml
 ├── flask
 │   ├── Dockerfile
-│   ├── Test_Files
+│   ├── OSCAL_Test_Files
 │   │   ├── FedRAMP-SSP-OSCAL-Template.yaml
 │   │   ├── ap.yaml
 │   │   ├── ar.yaml
@@ -235,6 +235,15 @@
 │   │   ├── app.cpython-310.pyc
 │   │   ├── cwe_cve_to_techniques.cpython-310.pyc
 │   │   └── tech_tac_graph.cpython-310.pyc
+│   ├── app
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   └── __init__.cpython-310.pyc
+│   │   ├── config.py
+│   │   ├── generate.py
+│   │   ├── generateSSP_Template.py
+│   │   ├── home.py
+│   │   └── upload.py
 │   ├── app.py
 │   ├── artifacts
 │   │   └── dependencies.txt
@@ -258,7 +267,6 @@
 │   │   └── requirements.txt
 │   ├── downloadDependencies.py
 │   ├── dynamicCallGraph.py
-│   ├── generate.py
 │   ├── getFunctionNames.py
 │   ├── matchVulnerabilitiesToCalls.py
 │   ├── oscal_schemas
@@ -301,9 +309,12 @@
 │   │   ├── Dockerfile
 │   │   ├── README.md
 │   │   ├── index.html
+│   │   ├── node_modules
+│   │   │   └── @radix-ui
 │   │   ├── package-lock.json
 │   │   ├── package.json
 │   │   ├── public
+│   │   │   ├── MSU-core.png
 │   │   │   ├── assets
 │   │   │   │   ├── MSU-core.png
 │   │   │   │   └── cisa.png
@@ -335,24 +346,30 @@
 │   │   ├── tsconfig.node.json
 │   │   └── vite.config.ts
 │   ├── requirements.txt
+│   ├── run.py
 │   ├── runBandit.py
 │   ├── shared
+│   │   ├── assessment-plan.yaml
 │   │   └── placeHolder.txt
 │   ├── static
 │   │   └── css
 │   │       └── myfile.css
-│   └── templates
-│       ├── ap.yaml.j2
-│       ├── assessment_results.yaml.j2
-│       ├── base.html
-│       ├── index.html
-│       ├── result.html
-│       ├── ssp.yaml.j2
-│       ├── templateGenerated.html
-│       ├── test.html
-│       ├── validationResults.html
-│       ├── vulResult.html
-│       └── vulnerability_effectiveness.html
+│   ├── templates
+│   │   ├── ap.yaml.j2
+│   │   ├── assessment_results.yaml.j2
+│   │   ├── base.html
+│   │   ├── index.html
+│   │   ├── result.html
+│   │   ├── ssp.yaml.j2
+│   │   ├── templateGenerated.html
+│   │   ├── test.html
+│   │   ├── validationResults.html
+│   │   ├── vulResult.html
+│   │   └── vulnerability_effectiveness.html
+│   └── tests
+│       ├── __pycache__
+│       │   └── test_routes.cpython-310.pyc
+│       └── test_routes.py
 ├── generate-env.sh
 ├── move-files.sh
 ├── node_modules
@@ -636,6 +653,7 @@
 │   └── script.sh
 ├── package-lock.json
 ├── package.json
-└── tree.txt
+├── tree.txt
+└── tree2.txt
 
-96 directories, 542 files
+102 directories, 554 files

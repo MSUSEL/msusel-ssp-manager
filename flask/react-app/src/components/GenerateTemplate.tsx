@@ -32,7 +32,7 @@ const GenerateTemplate: React.FC = () => {
       <Heading>Generate Template</Heading>
       <p>This is the Generate Template page.</p>
       <FileUploader />
-      <Button onClick={handleGenerateTemplate} style={{ marginTop: '20px' }}>Generate Template</Button>
+      {/*<Button onClick={handleGenerateTemplate} style={{ marginTop: '20px' }}>Generate Template</Button>*/}
       {message && <p>{message}</p>}
     </Box>
   );
