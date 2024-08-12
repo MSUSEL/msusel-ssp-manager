@@ -28,7 +28,7 @@ const Sidebar: React.FC = () => {
       </ul>
       <h2>Documentation</h2>
       <ul>
-        <li><Link to="/oscal-documentation">Tool Documentation</Link></li>
+        <li><Link to="/generate-ssp-documentation">Tool Documentation</Link></li>
       </ul>
       <h2>External Links</h2>
       <ul>
