@@ -7,6 +7,7 @@ import Sidebar from './Sidebar';
 import Home from './Home';
 import GenerateTemplate from './GenerateTemplate';
 import GenerateSSPDocumentation from './GenerateSSPDocumentation';
+import Validate from './Validate';
 import './MainContent.css';
 
 // MainContent component (includes Router, Navbar, and Routes)
@@ -21,6 +22,7 @@ const MainContent: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/generate-template" element={<GenerateTemplate />} />
           <Route path="/generate-ssp-documentation" element={<GenerateSSPDocumentation />} />
+          <Route path="/validate" element={<Validate />} />
         </Routes>
       </Flex>
     </Router>

@@ -1,13 +1,13 @@
 ---
 assessment-plan:
-  uuid: b2f450d6-8ecb-41ae-8cfb-6cb0ec0a15b0
+  uuid: 704afd2a-8bdb-4c1f-9b14-116fb72bf5aa
   metadata:
-    title: OSCAL Automated Assessment Plan Template
-    last-modified: 2024-07-30T15:38:44.043672+00:00
+    title: OSCAL Workflow Automated Assessment Plan
+    last-modified: 2023-12-22T23:54:44.588325+00:00
     version: 0.0.1-alpha
     oscal-version: 1.0.4
   import-ssp:
-    href: /shared/ssp.yaml
+    href: ./ssp3.yaml
   reviewed-controls:
     control-selections:
     - include-controls:

@@ -1,10 +1,15 @@
 import React, { useRef, useState } from 'react';
 import './UploadFile.css';
 
-const FileUploader: React.FC = () => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
+interface FileUploaderProps {
+  apiEndpoint: string;
+}
+
+const FileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [uploadStatus, setUploadStatus] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleClick = () => {
     fileInputRef.current?.click();
@@ -14,7 +19,7 @@ const FileUploader: React.FC = () => {
     const files = event.target.files;
     if (files && files.length > 0) {
       setSelectedFile(files[0]);
-      console.log('Selected file:', files[0]);
+      setUploadStatus(null); // Clear previous status
     }
   };
 
@@ -25,18 +30,18 @@ const FileUploader: React.FC = () => {
       formData.append('file', selectedFile);
 
       try {
-        const response = await fetch('/api/upload/shared', {
+        const response = await fetch(apiEndpoint, {
           method: 'POST',
           body: formData,
         });
 
         if (response.ok) {
-          console.log('File uploaded successfully');
+          setUploadStatus('File successfully uploaded');
         } else {
-          console.error('File upload failed');
+          setUploadStatus('File upload failed');
         }
       } catch (error) {
-        console.error('Error uploading file:', error);
+        setUploadStatus('Error uploading file');
       } finally {
         setUploading(false);
       }
@@ -60,6 +65,7 @@ const FileUploader: React.FC = () => {
           </button>
         </>
       )}
+      {uploadStatus && <p>{uploadStatus}</p>}
     </div>
   );
 };

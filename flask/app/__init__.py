@@ -16,11 +16,14 @@ def create_app():
     from .home import home_blueprint
     app.register_blueprint(home_blueprint, url_prefix='/api/home/')
 
-    from .generateSSP_Template import ssp_generation_blueprint
-    app.register_blueprint(ssp_generation_blueprint, url_prefix='/api/generate')
+    #from .generateSSP_Template import ssp_generation_blueprint
+    #app.register_blueprint(ssp_generation_blueprint, url_prefix='/api/generate')
 
     from .upload import upload_blueprint
     app.register_blueprint(upload_blueprint, url_prefix='/api/upload')
+
+    from .validate import validate_blueprint
+    app.register_blueprint(validate_blueprint, url_prefix='/api/validate')
 
 
     return app
