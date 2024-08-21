@@ -1,4 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
+import * as Select from '@radix-ui/react-select';
+import { ChevronDownIcon } from '@radix-ui/react-icons';
+import './FileUploader.css';  // Ensure you have this entry as well
 
 interface FileUploaderProps {
   apiEndpoint: string;
@@ -80,23 +83,60 @@ const FileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) => {
 
   return (
     <div>
-      <div>
-        <label htmlFor="fileType">Document Type:</label>
-        <select id="fileType" value={fileType} onChange={(e) => setFileType(e.target.value)}>
-          {fileTypes.map((type) => (
-            <option key={type} value={type}>{type}</option>
-          ))}
-        </select>
+      <div style={{ marginBottom: '15px' }}>
+        <label htmlFor="fileType" style={{ marginRight: '10px' }}>Document Type:</label>
+        <Select.Root onValueChange={(value) => setFileType(value)} value={fileType}>
+          <Select.Trigger className="SelectTrigger">
+            <Select.Value />
+            <Select.Icon>
+              <ChevronDownIcon />
+            </Select.Icon>
+          </Select.Trigger>
+          <Select.Content className="SelectContent">
+            <Select.Viewport>
+              {fileTypes.map((type) => (
+                <Select.Item key={type} value={type} className="SelectItem">
+                  <Select.ItemText>{type}</Select.ItemText>
+                </Select.Item>
+              ))}
+            </Select.Viewport>
+          </Select.Content>
+        </Select.Root>
       </div>
-      <div>
-        <label htmlFor="operation">Operation:</label>
-        <select id="operation" value={operation} onChange={(e) => setOperation(e.target.value)}>
-          {(operationsByType[fileType] || operationsByType['default']).map((op) => (
-            <option key={op} value={op}>{op}</option>
-          ))}
-        </select>
+      <div style={{ marginBottom: '15px' }}>
+        <label htmlFor="operation" style={{ marginRight: '10px' }}>Operation:</label>
+        <Select.Root onValueChange={(value) => setOperation(value)} value={operation}>
+          <Select.Trigger className="SelectTrigger">
+            <Select.Value />
+            <Select.Icon>
+              <ChevronDownIcon />
+            </Select.Icon>
+          </Select.Trigger>
+          <Select.Content className="SelectContent">
+            <Select.Viewport>
+              {(operationsByType[fileType] || operationsByType['default']).map((op) => (
+                <Select.Item key={op} value={op} className="SelectItem">
+                  <Select.ItemText>{op}</Select.ItemText>
+                </Select.Item>
+              ))}
+            </Select.Viewport>
+          </Select.Content>
+        </Select.Root>
       </div>
-      <button onClick={handleClick}>Select File</button>
+      <button
+        onClick={handleClick}
+        style={{ 
+          backgroundColor: '#007bff', 
+          color: 'white', 
+          padding: '10px 20px', 
+          border: 'none', 
+          borderRadius: '4px', 
+          cursor: 'pointer',
+          marginRight: '10px'
+        }}
+      >
+        Select File
+      </button>
       <input
         type="file"
         ref={fileInputRef}
@@ -106,7 +146,18 @@ const FileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) => {
       {selectedFile && (
         <>
           <p>File selected: {selectedFile.name}</p>
-          <button onClick={handleUpload} disabled={uploading}>
+          <button
+            onClick={handleUpload}
+            disabled={uploading}
+            style={{
+              backgroundColor: uploading ? '#6c757d' : '#007bff',
+              color: 'white',
+              padding: '10px 20px',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: uploading ? 'not-allowed' : 'pointer'
+            }}
+          >
             {uploading ? 'Uploading...' : 'Upload File'}
           </button>
         </>
