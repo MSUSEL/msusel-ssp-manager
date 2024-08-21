@@ -16,14 +16,15 @@ validate_blueprint = Blueprint('validate', __name__)
 
 
 class OscalDocumentProcessing:
-    def __init__(self, oscal_file, operation):
+    def __init__(self, oscal_file, operation, file_type):
         self.oscal_file = oscal_file
         self.operation = operation
         self.currentFormat = self.oscal_file[-4:] # save the file extension
         self.newFormat = None
         self.validation_output_list = []
         self.dockerClient = docker.from_env() # create a client that can talk to the host's docker daemon
-        self.oscal_model = self.oscal_file[:-5] # take out extension to insert model as argument
+        #self.oscal_model = self.oscal_file[:-5] # take out extension to insert model as argument
+        self.oscal_model = file_type
         self.myContainer = None
         self.validationContainerLogs = None
 
@@ -77,9 +78,9 @@ class OscalDocumentProcessing:
         self.myContainer.remove() #Remove the container from the host's docker engine
 
 
-def runOSCALValidation(oscal_file, operation):
-    oscal_file.save(os.path.join(app.config['OSCAL_FOLDER'], oscal_file.filename))
-    oscalValidationObject = OscalDocumentProcessing(oscal_file.filename, operation)
+def runOSCALValidation(oscal_file, operation, file_type):
+    oscal_file.save(os.path.join(app.config['OSCAL_FOLDER'], oscal_file.filename)) 
+    oscalValidationObject = OscalDocumentProcessing(oscal_file.filename, operation, file_type)
     createThread(oscalValidationObject.runOSCALDocumentProcessingContainer())
     context = {
                 "validation_output_list": oscalValidationObject.validation_output_list,
@@ -94,7 +95,9 @@ def validate():
     if 'file' not in request.files:
         return 'No file part', 400
     oscal_doc = request.files['file']
-    operation = 'validate'
+    file_type = request.form.get('fileType')
+    operation = request.form.get('operation')
+    #operation = 'validate'
     if oscal_doc.filename == '':
         return 'No selected file', 400
     if oscal_doc:
@@ -104,7 +107,7 @@ def validate():
             #upload_folder = app.config.get('UPLOAD_FOLDER', './shared/') # Default to /shared folder if UPLOAD_FOLDER is not set.
             #oscal_doc.save(os.path.join(upload_folder, oscal_doc.filename))
             #createThread(generateDocuments)
-            context = runOSCALValidation(oscal_doc, operation)
+            context = runOSCALValidation(oscal_doc, operation, file_type)
             logging.info(f"Validation output: {context['validation_output_list']}")
             return 'File successfully uploaded', 200
         except Exception as e:
