@@ -109,7 +109,8 @@ def validate():
             #createThread(generateDocuments)
             context = runOSCALValidation(oscal_doc, operation, file_type)
             logging.info(f"Validation output: {context['validation_output_list']}")
-            return 'File successfully uploaded', 200
+            #return 'File successfully uploaded', 200
+            return context, 200
         except Exception as e:
             app.logger.error(f"Error saving file: {e}")
             return 'Error saving file', 500
