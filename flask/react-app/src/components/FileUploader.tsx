@@ -52,6 +52,12 @@ const FileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) => {
     }
   };
 
+  const cleanOutput = (output: string) => {
+    // Remove unwanted characters (e.g., ANSI escape codes)
+    return output.replace(/[\u001b\u009b][[\]()#;?]*(?:(?:(?:[a-zA-Z\d]*(?:;[-a-zA-Z\d\/#&.:=?%@~_]*)*)?\u0007)|(?:(\d{1,4}(?:;\d{0,4})*)?[0-9A-PR-TZcf-ntqry=><~]))/g, '')
+                 .replace(/\[m/g, ''); // Additional cleanup if necessary
+  };
+
   const handleUpload = async () => {
     if (selectedFile) {
       setUploading(true);
@@ -168,9 +174,9 @@ const FileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) => {
           <h3>Processing Results:</h3>
           <p><strong>File Name:</strong> {validationResults.fileName}</p>
           <h4>Output:</h4>
-          <ul>
-            {validationResults.oscal_processing_output_list.map((output: string, index: number) => (
-              <li key={index}>{output}</li>
+          <ul style={{ listStyleType: 'disc', marginLeft: '20px', marginBottom: '10px' }}>
+            {validationResults.oscal_processing_output_list && validationResults.oscal_processing_output_list.map((output: string, index: number) => (
+              <li key={index} style={{ marginBottom: '10px' }}>{cleanOutput(output)}</li>
             ))}
           </ul>
         </div>
