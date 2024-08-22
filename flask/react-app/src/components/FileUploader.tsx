@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import * as Select from '@radix-ui/react-select';
 import { ChevronDownIcon } from '@radix-ui/react-icons';
-import './FileUploader.css';  // Ensure you have this entry as well
+import './FileUploader.css';
 
 interface FileUploaderProps {
   apiEndpoint: string;
@@ -11,7 +11,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState<string | null>(null);
-  const [validationResults, setValidationResults] = useState<string | null>(null);
+  const [validationResults, setValidationResults] = useState<any | null>(null); // Changed to 'any' to handle JSON
   const [fileType, setFileType] = useState<string>('profile');
   const [operation, setOperation] = useState<string>('validate');
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -67,9 +67,9 @@ const FileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) => {
         });
 
         if (response.ok) {
-          const resultText = await response.text(); // Assuming the backend returns text
+          const resultText = await response.json(); // Parse JSON response
           setValidationResults(resultText);
-          setUploadStatus('File successfully uploaded and validated');
+          setUploadStatus('File successfully uploaded');
         } else {
           setUploadStatus('File upload or validation failed');
         }
@@ -165,8 +165,14 @@ const FileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) => {
       {uploadStatus && <p>{uploadStatus}</p>}
       {validationResults && (
         <div style={{ marginTop: '20px', padding: '10px', border: '1px solid #ccc', borderRadius: '5px' }}>
-          <h3>Validation Results:</h3>
-          <pre style={{ whiteSpace: 'pre-wrap' }}>{validationResults}</pre>
+          <h3>Processing Results:</h3>
+          <p><strong>File Name:</strong> {validationResults.fileName}</p>
+          <h4>Output:</h4>
+          <ul>
+            {validationResults.oscal_processing_output_list.map((output: string, index: number) => (
+              <li key={index}>{output}</li>
+            ))}
+          </ul>
         </div>
       )}
     </div>

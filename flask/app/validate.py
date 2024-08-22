@@ -1,7 +1,6 @@
 from flask import Blueprint, request, current_app as app
 import os
 import logging
-#from .generateSSP import generateDocuments
 import threading
 import docker
 
@@ -21,12 +20,11 @@ class OscalDocumentProcessing:
         self.operation = operation
         self.currentFormat = self.oscal_file[-4:] # save the file extension
         self.newFormat = None
-        self.validation_output_list = []
+        self.oscal_processing_output_list = []
         self.dockerClient = docker.from_env() # create a client that can talk to the host's docker daemon
-        #self.oscal_model = self.oscal_file[:-5] # take out extension to insert model as argument
         self.oscal_model = file_type
         self.myContainer = None
-        self.validationContainerLogs = None
+        self.oscalProcessingContainerLogs = None
 
     # This entire function is run in a separate thread. A Docker container is created from 
     # the oscalprocessing image (built locally). We pass arguments to the container about
@@ -53,6 +51,7 @@ class OscalDocumentProcessing:
                 self.dockerClient.containers.run("oscalprocessing", oscal_client_arguments, volumes = [f"{app.config['HOST_VOLUME_PATH']}/flask/shared:/shared"])
             except:
                 print("The oscal-cli container exited with non-zero exit code.")
+            self.getContainer()
         
     def getContainer(self):  
         containerList = self.dockerClient.containers.list(limit = 1) # Get the last container created by the host's docker engine
@@ -64,28 +63,38 @@ class OscalDocumentProcessing:
 
     def getContainerLogs(self):
         bytesLogOutput = self.myContainer.logs()
-        self.validationContainerLogs = bytesLogOutput.decode()
-        self.createValidationOutputList()
+        self.oscalProcessingContainerLogs = bytesLogOutput.decode()
+        self.createOutputList()
 
-    def createValidationOutputList(self):
-        with open("/shared/validation.txt", "w") as f:
-                f.write(self.validationContainerLogs)
-        f.close()
-        f = open('/shared/validation.txt', 'r')
-        for line in f:
-            self.validation_output_list.append(line)
-        f.close()
+    def createOutputList(self):
+        if self.operation == "validate":
+            with open("/shared/validation.txt", "w") as f:
+                    f.write(self.oscalProcessingContainerLogs)
+            f.close()
+            f = open('/shared/validation.txt', 'r')
+            for line in f:
+                self.oscal_processing_output_list.append(line)
+            f.close()
+        elif self.operation == "convert":
+            with open("/shared/convert.txt", "w") as f:
+                f.write(self.oscalProcessingContainerLogs)
+            f.close()
+            f = open('/shared/convert.txt', 'r') 
+            for line in f:
+                self.oscal_processing_output_list.append(line)
+            f.close()
         self.myContainer.remove() #Remove the container from the host's docker engine
 
 
-def runOSCALValidation(oscal_file, operation, file_type):
+def runOSCALProcessing(oscal_file, operation, file_type):
     oscal_file.save(os.path.join(app.config['OSCAL_FOLDER'], oscal_file.filename)) 
-    oscalValidationObject = OscalDocumentProcessing(oscal_file.filename, operation, file_type)
-    createThread(oscalValidationObject.runOSCALDocumentProcessingContainer())
+    oscalProcessingObject = OscalDocumentProcessing(oscal_file.filename, operation, file_type)
+    createThread(oscalProcessingObject.runOSCALDocumentProcessingContainer())
     context = {
-                "validation_output_list": oscalValidationObject.validation_output_list,
-                "fileName": oscalValidationObject.oscal_file,
+                "oscal_processing_output_list": oscalProcessingObject.oscal_processing_output_list,
+                "fileName": oscalProcessingObject.oscal_file,
             }
+    logging.info(f"Context: {context}")
     return context
 
 
@@ -97,20 +106,22 @@ def validate():
     oscal_doc = request.files['file']
     file_type = request.form.get('fileType')
     operation = request.form.get('operation')
-    #operation = 'validate'
     if oscal_doc.filename == '':
         return 'No selected file', 400
     if oscal_doc:
         try:
-            app.logger.info(f"Validate Route. Current working directory: {os.getcwd()}")
-            app.logger.info(f"Saving {oscal_doc.filename} to: {app.config['UPLOAD_FOLDER']}")
-            #upload_folder = app.config.get('UPLOAD_FOLDER', './shared/') # Default to /shared folder if UPLOAD_FOLDER is not set.
-            #oscal_doc.save(os.path.join(upload_folder, oscal_doc.filename))
-            #createThread(generateDocuments)
-            context = runOSCALValidation(oscal_doc, operation, file_type)
-            logging.info(f"Validation output: {context['validation_output_list']}")
-            #return 'File successfully uploaded', 200
-            return context, 200
+            if operation == 'validate':
+                app.logger.info(f"Validate Route. Current working directory: {os.getcwd()}")
+                app.logger.info(f"Saving {oscal_doc.filename} to: {app.config['UPLOAD_FOLDER']}")
+                context = runOSCALProcessing(oscal_doc, operation, file_type)
+                logging.info(f"Validation output: {context['oscal_processing_output_list']}")
+                return context, 200
+            elif operation == 'convert':
+                app.logger.info(f"Convert Route. Current working directory: {os.getcwd()}")
+                app.logger.info(f"Saving {oscal_doc.filename} to: {app.config['UPLOAD_FOLDER']}")
+                context = runOSCALProcessing(oscal_doc, operation, file_type)
+                logging.info(f"Conversion output: {context['oscal_processing_output_list']}")
+                return context, 200
         except Exception as e:
             app.logger.error(f"Error saving file: {e}")
             return 'Error saving file', 500
