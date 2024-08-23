@@ -21,6 +21,11 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - "${HOST_VOLUME_PATH}/flask/shared:/shared"
+      - "${HOST_VOLUME_PATH}/flask/shared:/shared/catalog"
+      - "${HOST_VOLUME_PATH}/flask/shared:/shared/profile"
+      - "${HOST_VOLUME_PATH}/flask/shared:/shared/ssp"
+      - "${HOST_VOLUME_PATH}/flask/shared:/shared/component"
+      - "${HOST_VOLUME_PATH}/flask/shared:/shared/ap"
     #network_mode: "host" 
     ports:
       - "5000:5000"
@@ -35,9 +40,9 @@ services:
     environment:
       - REACT_APP_API_URL=http://flask:5000
     #network_mode: "host"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - "${HOST_VOLUME_PATH}/flask/shared:/shared"
+    #volumes:
+      #- /var/run/docker.sock:/var/run/docker.sock
+      #- "${HOST_VOLUME_PATH}/flask/shared:/shared"
     ports:
       - "3000:3000"
     networks:

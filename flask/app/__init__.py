@@ -5,7 +5,12 @@ def create_app():
     app = Flask(__name__)
 
     app.config['UPLOAD_FOLDER'] = os.getenv('UPLOAD_FOLDER')
-    app.config['OSCAL_FOLDER'] = os.getenv('OSCAL_FOLDER')
+    #app.config['OSCAL_FOLDER'] = os.getenv('OSCAL_FOLDER')
+    app.config['CATALOG_FOLDER'] = os.getenv('CATALOG_FOLDER')
+    app.config['PROFILE_FOLDER'] = os.getenv('PROFILE_FOLDER')
+    app.config['SSP_FOLDER'] = os.getenv('SSP_FOLDER')
+    app.config['COMPONENT_FOLDER'] = os.getenv('COMPONENT_FOLDER')
+    app.config['AP_FOLDER'] = os.getenv('AP_FOLDER')
     app.config['HOST_VOLUME_PATH'] = os.getenv('HOST_VOLUME_PATH')
     app.config['TEMPLATES_AUTO_RELOAD'] = True
 

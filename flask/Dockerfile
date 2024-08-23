@@ -17,7 +17,12 @@ ENV FLASK_APP=run:create_app
 ENV FLASK_ENV=development
 ENV SECRET_KEY=your-secret-key
 ENV UPLOAD_FOLDER=./shared
-ENV OSCAL_FOLDER=/shared
+ENV CATALOG_FOLDER=./shared/catalog
+ENV PROFILE_FOLDER=./shared/profile
+ENV SSP_FOLDER=./shared/ssp
+ENV COMPONENT_FOLDER=./shared/component
+ENV AP_FOLDER=./shared/ap
+#ENV OSCAL_FOLDER=/shared
 ENV HOST_VOLUME_PATH=$HOST_VOLUME_PATH
 
 #CMD python app.py

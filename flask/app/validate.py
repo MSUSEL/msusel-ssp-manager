@@ -17,6 +17,7 @@ validate_blueprint = Blueprint('validate', __name__)
 class OscalDocumentProcessing:
     def __init__(self, oscal_file, operation, file_type):
         self.oscal_file = oscal_file
+        self.filename_no_extension = self.oscal_file[:-5] # save the filename without the extension
         self.operation = operation
         self.currentFormat = self.oscal_file[-4:] # save the file extension
         self.newFormat = None
@@ -40,12 +41,12 @@ class OscalDocumentProcessing:
             self.getContainer()
 
         elif self.operation == "convert":
-            logging.info(f"Converting {self.oscal_file} to {self.newFormat} format.")
             if self.currentFormat == "json":
                 self.newFormat = "yaml"
             elif self.currentFormat == "yaml":
                 self.newFormat = "json"
-            oscal_client_arguments = f"{self.oscal_model} convert --to {self.newFormat} /shared/{self.oscal_file} /shared/{self.oscal_model}.{self.newFormat}"
+            logging.info(f"Converting {self.oscal_file} to {self.newFormat} format.")
+            oscal_client_arguments = f"{self.oscal_model} convert --to {self.newFormat} /shared/{self.oscal_file} /shared/{self.oscal_model}/{self.filename_no_extension}.{self.newFormat}"
             # Catch the exception if the container exits with a non-zero exit code
             try:
                 self.dockerClient.containers.run("oscalprocessing", oscal_client_arguments, volumes = [f"{app.config['HOST_VOLUME_PATH']}/flask/shared:/shared"])
@@ -87,7 +88,7 @@ class OscalDocumentProcessing:
 
 
 def runOSCALProcessing(oscal_file, operation, file_type):
-    oscal_file.save(os.path.join(app.config['OSCAL_FOLDER'], oscal_file.filename)) 
+    oscal_file.save(os.path.join(app.config['UPLOAD_FOLDER'], oscal_file.filename)) 
     oscalProcessingObject = OscalDocumentProcessing(oscal_file.filename, operation, file_type)
     createThread(oscalProcessingObject.runOSCALDocumentProcessingContainer())
     context = {
