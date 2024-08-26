@@ -42,7 +42,7 @@ def generateAP(oscal_doc):
     ap_renderer = Environment(loader=FileSystemLoader(templates_path))
     current_timestamp = datetime.now(timezone.utc).isoformat()
 
-    with open("./shared/ap/generated_ap.yaml", 'w') as fh:
+    with open("./generatedFiles/generated_ap.yaml", 'w') as fh:
         template = ap_renderer.get_template("ap.yaml.j2")
         ap = template.render({
             'ap_uuid': uuid4(),
@@ -72,7 +72,7 @@ def generate():
             current_timestamp = datetime.now(timezone.utc).isoformat()
 
             # We are using Jinja2 to render the SSP template
-            with open(f"{app.config['SSP_GENERATION_FOLDER']}/generated_ssp.yaml", 'w') as fh:
+            with open(f"{app.config['GENERATION_FOLDER']}/generated_ssp.yaml", 'w') as fh:
                 app.logger.info(f"file path: {fh.name}")
                 template = ssp_renderer.get_template("ssp.yaml.j2")
                 ssp = template.render({
@@ -92,5 +92,5 @@ def generate():
         except Exception as e:
             app.logger.error(f"Error saving file: {e}")
             return 'Error saving file', 500
-        #generateAP(oscal_doc) 
+        generateAP(oscal_doc) 
         return "SSP template generated.", 200
