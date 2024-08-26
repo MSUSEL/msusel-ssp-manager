@@ -48,6 +48,18 @@ else
     echo "watch_ssp.sh with PID $PID has been killed."
 fi
 
+# Find the PID of the watch_generate_ssp.sh script
+PID=$(ps aux | grep '[w]atch_generate_ssp.sh' | awk '{print $2}')
+
+if [ -z "$PID" ]; then
+    echo "watch_generate_ssp.sh is not running."
+else
+    echo "Found watch_generate_ssp.sh with PID: $PID"
+    # Kill the process
+    kill $PID
+    echo "watch_generate_ssp.sh with PID $PID has been killed."
+fi
+
 # Find the PID of the watch_component.sh script
 PID=$(ps aux | grep '[w]atch_component.sh' | awk '{print $2}')
 

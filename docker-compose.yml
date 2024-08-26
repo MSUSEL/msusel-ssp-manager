@@ -24,8 +24,10 @@ services:
       - "${HOST_VOLUME_PATH}/flask/shared:/shared/catalog"
       - "${HOST_VOLUME_PATH}/flask/shared:/shared/profile"
       - "${HOST_VOLUME_PATH}/flask/shared:/shared/ssp"
+      - "${HOST_VOLUME_PATH}/flask/ssp:/ssp"
       - "${HOST_VOLUME_PATH}/flask/shared:/shared/component"
       - "${HOST_VOLUME_PATH}/flask/shared:/shared/ap"
+      - "${HOST_VOLUME_PATH}/flask/ap:/ap"
     #network_mode: "host" 
     ports:
       - "5000:5000"

@@ -1,0 +1,56 @@
+---
+system-security-plan:
+  uuid: 7c14ad59-b097-40e4-8416-2d47bfb1f928
+  metadata:
+    title: OSCAL_Automated_SSP_Template
+    last-modified: 2024-08-26T19:46:30.611214+00:00
+    version: 0.0.1-alpha
+    oscal-version: 1.0.4
+  import-profile:
+    href: ./oscal_schemas/profiles/profile.yaml
+  system-characteristics:
+    system-ids:
+      - id: saas_system_iaas_customer
+    system-name: Leveraging SaaS System
+    description: >
+      NO CONTENT HERE FOR NOW
+    security-sensitivity-level: low
+    system-information:
+      information-types:
+        - uuid: 045c5fdd-e966-4466-955f-7a51fdb418f1
+          title: System Assessment
+          description: This system handles development information pertaining to audit and assessment events.
+    security-impact-level:
+      security-objective-confidentiality: low
+      security-objective-integrity: low
+      security-objective-availability: low
+    status:
+      state: operational
+    authorization-boundary:
+      description: This system is for demonstration purposes only.
+  system-implementation:
+    users:
+      - uuid: d6f156d1-f624-416c-89b6-8a394eb0e305
+    components:
+      - uuid: 27c27160-3c61-457b-ab85-c3dae825bcf4
+        type: this-system
+        title: OSCAL Testing Workflow Application
+        description: This is an application to demonstrate minimal OSCAL content, and automation to execute tests against the application.
+        status:
+          state: under-development
+  control-implementation:
+    description: This system implements a very minimal set of controls for demonstration only.
+    implemented-requirements:
+    - uuid: 5ed3ac89-9765-45aa-95ef-cd7fcd991f1d
+      control-id: ac-8
+      by-components:
+        - component-uuid: 27c27160-3c61-457b-ab85-c3dae825bcf4
+          uuid: 5ed3ac89-9765-45aa-95ef-cd7fcd991f1d
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 148ddb54-ea56-4d8d-89aa-d9a8daa3514e
+      control-id: ra-5
+      by-components:
+        - component-uuid: 27c27160-3c61-457b-ab85-c3dae825bcf4
+          uuid: 148ddb54-ea56-4d8d-89aa-d9a8daa3514e
+          description: This control is implemented for demonstration purposes only.
+    

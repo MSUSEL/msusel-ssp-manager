@@ -31,7 +31,7 @@ const GenerateTemplate: React.FC = () => {
     <Box as="div" className="main-content">
       <Heading>Generate Template</Heading>
       <p>This is the Generate Template page.</p>
-      <FileUploader apiEndpoint="/api/upload/shared"/>
+      <FileUploader apiEndpoint="/api/generate/ssp"/>
       {/*<Button onClick={handleGenerateTemplate} style={{ marginTop: '20px' }}>Generate Template</Button>*/}
       {message && <p>{message}</p>}
     </Box>

@@ -20,6 +20,7 @@ ENV UPLOAD_FOLDER=./shared
 ENV CATALOG_FOLDER=./shared/catalog
 ENV PROFILE_FOLDER=./shared/profile
 ENV SSP_FOLDER=./shared/ssp
+ENV SSP_GENERATION_FOLDER=./ssp
 ENV COMPONENT_FOLDER=./shared/component
 ENV AP_FOLDER=./shared/ap
 #ENV OSCAL_FOLDER=/shared
