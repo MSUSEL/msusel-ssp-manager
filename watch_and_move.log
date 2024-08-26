@@ -1,9 +1,5 @@
+nohup: ignoring input
 Setting up watches.
 Watches established.
-2024-08-12 09:29:11 - Deleted profile.yaml from ./flask/shared
-2024-08-12 09:29:11 - Moved ssp.yaml to ./flask/oscal_schemas/system-security-plans
-2024-08-12 10:08:42 - Deleted profile.yaml from ./flask/shared
-2024-08-12 10:08:42 - Moved ssp.yaml to ./flask/oscal_schemas/system-security-plans
-2024-08-12 19:40:48 - Deleted profile.yaml from ./flask/shared
-2024-08-12 19:40:48 - Moved ssp.yaml to ./flask/oscal_schemas/system-security-plans
-2024-08-12 19:41:48 - Moved ap.yaml to ./flask/oscal_schemas/assessment-plans
+2024-08-25 15:38:23 - Deleted ssp3.yaml from ./flask/shared
+2024-08-25 15:38:26 - Deleted convert.txt from ./flask/shared

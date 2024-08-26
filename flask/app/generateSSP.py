@@ -52,6 +52,7 @@ def generateSSP(profile_path: str, ssp_path: str):
     ssp_renderer = Environment(loader=FileSystemLoader(templates_path))
     current_timestamp = datetime.now(timezone.utc).isoformat()
 
+    # We are using Jinja2 to render the SSP template
     with open(ssp_path, 'w') as fh:
         template = ssp_renderer.get_template("ssp.yaml.j2")
         ssp = template.render({
@@ -70,8 +71,8 @@ def generateSSP(profile_path: str, ssp_path: str):
 
 
 def generateDocuments():
-    generateSSP(profile_path="/shared/profile.yaml", ssp_path="/shared/ssp.yaml")
-    #generateAP(profile_path="/shared/profile.yaml", ap_path="/shared/ap.yaml", ssp_path="/shared/ssp.yaml")
+    generateSSP(profile_path="/shared/profile.yaml", ssp_path="/shared/ssp/generated_ssp.yaml")
+    #generateAP(profile_path="/shared/profile.yaml", ap_path="/shared/ap/ap.yaml", ssp_path="/shared/ssp.yaml")
     
 if __name__ == '__main__':
     generateDocuments()

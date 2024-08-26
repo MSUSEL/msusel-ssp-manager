@@ -47,6 +47,7 @@ class OscalDocumentProcessing:
                 self.newFormat = "json"
             logging.info(f"Converting {self.oscal_file} to {self.newFormat} format.")
             oscal_client_arguments = f"{self.oscal_model} convert --to {self.newFormat} /shared/{self.oscal_file} /shared/{self.oscal_model}/{self.filename_no_extension}.{self.newFormat}"
+            logging.info(f"Arguments: {oscal_client_arguments}")
             # Catch the exception if the container exits with a non-zero exit code
             try:
                 self.dockerClient.containers.run("oscalprocessing", oscal_client_arguments, volumes = [f"{app.config['HOST_VOLUME_PATH']}/flask/shared:/shared"])
