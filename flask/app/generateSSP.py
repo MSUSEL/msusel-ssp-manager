@@ -93,4 +93,4 @@ def generate():
             app.logger.error(f"Error saving file: {e}")
             return 'Error saving file', 500
         generateAP(oscal_doc) 
-        return "SSP template generated.", 200
+        return jsonify(message="SSP template generated.", status=200), 200
