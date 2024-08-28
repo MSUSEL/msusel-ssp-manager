@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Ask for the sudo password once
+sudo -v
+
 # Find the PID of the watch_and_move.sh script
 PID=$(ps aux | grep '[w]atch_and_move.sh' | awk '{print $2}')
 
@@ -8,7 +11,7 @@ if [ -z "$PID" ]; then
 else
     echo "Found watch_and_move.sh with PID: $PID"
     # Kill the process
-    kill $PID
+    sudo kill $PID
     echo "watch_and_move.sh with PID $PID has been killed."
 fi
 
@@ -20,7 +23,7 @@ if [ -z "$PID" ]; then
 else
     echo "Found watch_catalog.sh with PID: $PID"
     # Kill the process
-    kill $PID
+    sudo kill $PID
     echo "watch_catalog.sh with PID $PID has been killed."
 fi
 
@@ -32,7 +35,7 @@ if [ -z "$PID" ]; then
 else
     echo "Found watch_profile.sh with PID: $PID"
     # Kill the process
-    kill $PID
+    sudo kill $PID
     echo "watch_profile.sh with PID $PID has been killed."
 fi
 
@@ -44,7 +47,7 @@ if [ -z "$PID" ]; then
 else
     echo "Found watch_ssp.sh with PID: $PID"
     # Kill the process
-    kill $PID
+    sudo kill $PID
     echo "watch_ssp.sh with PID $PID has been killed."
 fi
 
@@ -56,7 +59,7 @@ if [ -z "$PID" ]; then
 else
     echo "Found watch_generatedFiles.sh with PID: $PID"
     # Kill the process
-    kill $PID
+    sudo kill $PID
     echo "watch_generatedFiles.sh with PID $PID has been killed."
 fi
 
@@ -68,7 +71,7 @@ if [ -z "$PID" ]; then
 else
     echo "Found watch_component.sh with PID: $PID"
     # Kill the process
-    kill $PID
+    sudo kill $PID
     echo "watch_component.sh with PID $PID has been killed."
 fi
 
@@ -80,7 +83,7 @@ if [ -z "$PID" ]; then
 else
     echo "Found watch_ap.sh with PID: $PID"
     # Kill the process
-    kill $PID
+    sudo kill $PID
     echo "watch_ap.sh with PID $PID has been killed."
 fi
 

@@ -10,6 +10,8 @@ while read path action file; do
 
     # Check if the file exists and is not zero-length before proceeding
     if [[ -f "$FILE_PATH" && -s "$FILE_PATH" ]]; then
+        sudo chown ${SUDO_UID}:${SUDO_GID} ./flask/generatedFiles/*.yaml
+        sudo chown ${SUDO_UID}:${SUDO_GID} ./flask/generatedFiles/*.json
         if [[ "$file" == "generated_ssp.yaml" ]]; then
             mv "$FILE_PATH" "$SSP_DIR"
             echo "$(date '+%Y-%m-%d %H:%M:%S') - Moved $file to $SSP_DIR"
@@ -24,3 +26,4 @@ while read path action file; do
     fi
 done
 
+./clean-shared-dir.sh

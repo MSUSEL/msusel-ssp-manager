@@ -1,4 +1,2 @@
 Setting up watches.
 Watches established.
-2024-08-27 15:33:55 - Moved generated_ssp.yaml to ./flask/oscal_schemas/system-security-plans
-2024-08-27 15:33:55 - Moved generated_ap.yaml to ./flask/oscal_schemas/assessment-plans

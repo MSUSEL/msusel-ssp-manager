@@ -1,0 +1,253 @@
+.
+├── Dockerfile
+├── OSCAL_Test_Files
+│   ├── FedRAMP-SSP-OSCAL-Template.yaml
+│   ├── ap.yaml
+│   ├── ar.yaml
+│   ├── assessment-plan.yaml
+│   ├── controls.json
+│   ├── cve.json
+│   ├── cwe.json
+│   ├── debug.yaml
+│   ├── fedTemplateSSP.yaml
+│   ├── fedlowProfile.yaml
+│   ├── fedlowResolvedProfile.yaml
+│   ├── lowBaselineResolvedCatalog.yaml
+│   ├── profile.yaml
+│   ├── resolved-catalog.yaml
+│   ├── rev5
+│   │   ├── baselines
+│   │   │   ├── json
+│   │   │   │   ├── FedRAMP_rev5_HIGH-baseline-resolved-profile_catalog-min.json
+│   │   │   │   ├── FedRAMP_rev5_HIGH-baseline-resolved-profile_catalog.json
+│   │   │   │   ├── FedRAMP_rev5_HIGH-baseline_profile-min.json
+│   │   │   │   ├── FedRAMP_rev5_HIGH-baseline_profile.json
+│   │   │   │   ├── FedRAMP_rev5_LI-SaaS-baseline-resolved-profile_catalog-min.json
+│   │   │   │   ├── FedRAMP_rev5_LI-SaaS-baseline-resolved-profile_catalog.json
+│   │   │   │   ├── FedRAMP_rev5_LI-SaaS-baseline_profile-min.json
+│   │   │   │   ├── FedRAMP_rev5_LI-SaaS-baseline_profile.json
+│   │   │   │   ├── FedRAMP_rev5_LOW-baseline-resolved-profile_catalog-min.json
+│   │   │   │   ├── FedRAMP_rev5_LOW-baseline-resolved-profile_catalog.json
+│   │   │   │   ├── FedRAMP_rev5_LOW-baseline_profile-min.json
+│   │   │   │   ├── FedRAMP_rev5_LOW-baseline_profile.json
+│   │   │   │   ├── FedRAMP_rev5_MODERATE-baseline-resolved-profile_catalog-min.json
+│   │   │   │   ├── FedRAMP_rev5_MODERATE-baseline-resolved-profile_catalog.json
+│   │   │   │   ├── FedRAMP_rev5_MODERATE-baseline_profile-min.json
+│   │   │   │   └── FedRAMP_rev5_MODERATE-baseline_profile.json
+│   │   │   ├── xml
+│   │   │   │   ├── FedRAMP_rev5_HIGH-baseline-resolved-profile_catalog.xml
+│   │   │   │   ├── FedRAMP_rev5_HIGH-baseline_profile.xml
+│   │   │   │   ├── FedRAMP_rev5_LI-SaaS-baseline-resolved-profile_catalog.xml
+│   │   │   │   ├── FedRAMP_rev5_LI-SaaS-baseline_profile.xml
+│   │   │   │   ├── FedRAMP_rev5_LOW-baseline-resolved-profile_catalog.xml
+│   │   │   │   ├── FedRAMP_rev5_LOW-baseline_profile.xml
+│   │   │   │   ├── FedRAMP_rev5_MODERATE-baseline-resolved-profile_catalog.xml
+│   │   │   │   └── FedRAMP_rev5_MODERATE-baseline_profile.xml
+│   │   │   └── yaml
+│   │   │       ├── FedRAMP_rev5_HIGH-baseline-resolved-profile_catalog.yaml
+│   │   │       ├── FedRAMP_rev5_LI-SaaS-baseline-resolved-profile_catalog.yaml
+│   │   │       ├── FedRAMP_rev5_LI-SaaS-baseline_profile.yaml
+│   │   │       ├── FedRAMP_rev5_LOW-baseline-resolved-profile_catalog.yaml
+│   │   │       ├── FedRAMP_rev5_LOW-baseline_profile.yaml
+│   │   │       ├── FedRAMP_rev5_MODERATE-baseline-resolved-profile_catalog.yaml
+│   │   │       ├── FedRAMP_rev5_MODERATE-baseline_profile.yaml
+│   │   │       └── profile.yaml
+│   │   ├── resources
+│   │   │   ├── README.md
+│   │   │   ├── json
+│   │   │   │   ├── FedRAMP_extensions.json
+│   │   │   │   ├── fedramp_threats.json
+│   │   │   │   ├── fedramp_values.json
+│   │   │   │   └── information-types.json
+│   │   │   └── xml
+│   │   │       ├── FedRAMP_extensions.xml
+│   │   │       ├── fedramp_threats.xml
+│   │   │       ├── fedramp_values.xml
+│   │   │       └── information-types.xml
+│   │   └── templates
+│   │       ├── poam
+│   │       │   ├── json
+│   │       │   │   ├── FedRAMP-POAM-OSCAL-Template-min.json
+│   │       │   │   └── FedRAMP-POAM-OSCAL-Template.json
+│   │       │   ├── xml
+│   │       │   │   └── FedRAMP-POAM-OSCAL-Template.xml
+│   │       │   └── yaml
+│   │       │       └── FedRAMP-POAM-OSCAL-Template.yaml
+│   │       ├── sap
+│   │       │   ├── json
+│   │       │   │   ├── FedRAMP-SAP-OSCAL-Template-min.json
+│   │       │   │   └── FedRAMP-SAP-OSCAL-Template.json
+│   │       │   ├── xml
+│   │       │   │   └── FedRAMP-SAP-OSCAL-Template.xml
+│   │       │   └── yaml
+│   │       │       └── FedRAMP-SAP-OSCAL-Template.yaml
+│   │       ├── sar
+│   │       │   ├── json
+│   │       │   │   ├── FedRAMP-SAR-OSCAL-Template-min.json
+│   │       │   │   └── FedRAMP-SAR-OSCAL-Template.json
+│   │       │   ├── xml
+│   │       │   │   └── FedRAMP-SAR-OSCAL-Template.xml
+│   │       │   └── yaml
+│   │       │       └── FedRAMP-SAR-OSCAL-Template.yaml
+│   │       └── ssp
+│   │           ├── json
+│   │           │   ├── FedRAMP-SSP-OSCAL-Template-min.json
+│   │           │   └── FedRAMP-SSP-OSCAL-Template.json
+│   │           ├── xml
+│   │           │   └── FedRAMP-SSP-OSCAL-Template.xml
+│   │           └── yaml
+│   │               └── FedRAMP-SSP-OSCAL-Template.yaml
+│   ├── ssp.yaml
+│   ├── ssp1.yaml
+│   ├── ssp2.yaml
+│   └── ssp3.yaml
+├── __pycache__
+│   ├── app.cpython-310.pyc
+│   ├── cwe_cve_to_techniques.cpython-310.pyc
+│   └── tech_tac_graph.cpython-310.pyc
+├── app
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   └── __init__.cpython-310.pyc
+│   ├── config.py
+│   ├── generateSSP.py
+│   ├── home.py
+│   ├── upload.py
+│   └── validate.py
+├── app.py
+├── artifacts
+│   └── dependencies.txt
+├── artifactsExamples
+│   ├── artifactsDescription.txt
+│   ├── banditObjects.txt
+│   ├── bandit_output_test.json
+│   ├── calledVulnerableFunctionsObjectList.txt
+│   ├── dependencies.txt
+│   ├── fileAndVulnerabilitiesLinesDictionaryList.txt
+│   ├── filesAndFunctionNames.txt
+│   ├── noDuplicateFilesList.txt
+│   ├── notCalledVulnerableFunctionsObjectList.txt
+│   ├── profile_data.json
+│   ├── profile_data.txt
+│   └── vulnerabilitiesOutsideFunctionsObjectList.txt
+├── copySTDLIBfiles.py
+├── cwe_cve_to_techniques.py
+├── dependencies
+│   ├── abstractClass.py
+│   └── requirements.txt
+├── downloadDependencies.py
+├── dynamicCallGraph.py
+├── flaskTree.txt
+├── generatedFiles
+├── getFunctionNames.py
+├── matchVulnerabilitiesToCalls.py
+├── oscal_schemas
+│   ├── assessment-plans
+│   │   └── generated_ap.yaml
+│   ├── catalogs
+│   │   ├── basic-catalog-min.json
+│   │   └── basic-catalog.json
+│   ├── components
+│   │   ├── example-component-definition-min.json
+│   │   ├── example-component-definition.json
+│   │   ├── example-component-min.json
+│   │   └── example-component.json
+│   ├── oscal_assessment-plan_schema.json
+│   ├── oscal_assessment-results_schema.json
+│   ├── oscal_catalog_schema.json
+│   ├── oscal_component_schema.json
+│   ├── oscal_poam_schema.json
+│   ├── oscal_profile_schema.json
+│   ├── oscal_ssp_schema.json
+│   ├── profiles
+│   │   └── profile.yaml
+│   └── system-security-plans
+│       ├── generated_ssp.yaml
+│       ├── ifa_ssp-example-min.json
+│       ├── oscal_leveraged-example_ssp-min.json
+│       ├── oscal_leveraged-example_ssp.json
+│       ├── oscal_leveraging-example_ssp-min.json
+│       ├── oscal_leveraging-example_ssp.json
+│       ├── ssp-example-min.json
+│       ├── ssp-example.json
+│       └── ssp3.json
+├── output_vulnerability_effectiveness
+│   └── cwe.json
+├── parseBanditOutput.py
+├── parseProfile.py
+├── prepareCWEList.py
+├── prepareProject.py
+├── react-app
+│   ├── Dockerfile
+│   ├── README.md
+│   ├── index.html
+│   ├── node_modules
+│   │   └── @radix-ui
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── public
+│   │   ├── MSU-core.png
+│   │   ├── assets
+│   │   │   ├── MSU-core.png
+│   │   │   └── cisa.png
+│   │   └── vite.svg
+│   ├── src
+│   │   ├── App.css
+│   │   ├── App.tsx
+│   │   ├── assets
+│   │   │   └── react.svg
+│   │   ├── components
+│   │   │   ├── FileUploader.css
+│   │   │   ├── FileUploader.tsx
+│   │   │   ├── GenerateTemplate.tsx
+│   │   │   ├── Header.css
+│   │   │   ├── Header.tsx
+│   │   │   ├── Home.tsx
+│   │   │   ├── MainContent.css
+│   │   │   ├── MainContent.tsx
+│   │   │   ├── Navbar.css
+│   │   │   ├── Navbar.tsx
+│   │   │   ├── SFileUploader.tsx
+│   │   │   ├── Sidebar.css
+│   │   │   ├── Sidebar.tsx
+│   │   │   └── Validate.tsx
+│   │   ├── index.css
+│   │   ├── main.tsx
+│   │   └── vite-env.d.ts
+│   ├── tsconfig.app.json
+│   ├── tsconfig.json
+│   ├── tsconfig.node.json
+│   └── vite.config.ts
+├── requirements.txt
+├── run.py
+├── runBandit.py
+├── shared
+│   ├── ap
+│   ├── catalog
+│   ├── component
+│   ├── placeHolder.txt
+│   ├── profile
+│   ├── profile.yaml
+│   ├── ssp
+│   └── validation.txt
+├── static
+│   └── css
+│       └── myfile.css
+├── templates
+│   ├── ap.yaml.j2
+│   ├── assessment_results.yaml.j2
+│   ├── base.html
+│   ├── index.html
+│   ├── result.html
+│   ├── ssp.yaml.j2
+│   ├── templateGenerated.html
+│   ├── test.html
+│   ├── validationResults.html
+│   ├── vulResult.html
+│   └── vulnerability_effectiveness.html
+└── tests
+    ├── __pycache__
+    │   └── test_routes.cpython-310.pyc
+    └── test_routes.py
+
+59 directories, 191 files
