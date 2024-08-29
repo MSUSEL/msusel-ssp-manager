@@ -9,8 +9,4 @@ WORKDIR /dockerTesting
 COPY . .
 RUN pip3 install -r requirements.txt
 
-#COPY ./databaseUpdate . 
-#COPY ./filePassing .
-
 CMD ["python3","driver.py"]
-#CMD python3 -m http.server 8000
