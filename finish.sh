@@ -3,6 +3,10 @@
 # Ask for the sudo password once
 sudo -v
 
+# Bring down the containers after use
+#docker-compose down
+docker-compose down --rmi all
+
 # Find the PID of the watch_and_move.sh script
 PID=$(ps aux | grep '[w]atch_and_move.sh' | awk '{print $2}')
 
@@ -89,4 +93,4 @@ fi
 
 # Bring down the containers after use
 #docker-compose down
-docker-compose down --rmi all
+#docker-compose down --rmi all

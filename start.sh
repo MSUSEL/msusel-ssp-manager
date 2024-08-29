@@ -6,6 +6,9 @@
 # Ask for the sudo password once
 sudo -v
 
+# Bring up the containers with sudo
+docker-compose up
+
 # Make scripts executable with sudo
 sudo chmod +x generate-env.sh
 sudo chmod +x watch_and_move.sh
@@ -18,7 +21,8 @@ sudo chmod +x watch_ap.sh
 sudo chmod +x finish.sh
 
 # Run the scripts with sudo in the background
-sudo nohup ./generate-env.sh &
+#sudo nohup ./generate-env.sh &
+./generate-env.sh
 sudo nohup ./watch_catalog.sh > watch_catalog.log 2>&1 &
 sudo nohup ./watch_profile.sh > watch_profile.log 2>&1 &
 sudo nohup ./watch_ssp.sh > watch_ssp.log 2>&1 &
@@ -27,7 +31,7 @@ sudo nohup ./watch_component.sh > watch_component.log 2>&1 &
 sudo nohup ./watch_ap.sh > watch_ap.log 2>&1 &
 
 # Bring up the containers with sudo
-docker-compose up
+#docker-compose up
 
 
 # Check the status of the containers
