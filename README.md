@@ -43,7 +43,7 @@ To install VS Code in Ubuntu:
 sudo snap install code --classic
 ```
 
-This project uses the BRON database developed by Hemberg et al. at MIT as a submodule. The original research for the database can be found as: <br /> 
+This project uses as a submodule the BRON database developed by Hemberg et al. at MIT. The original research for the database can be found as: <br /> 
 Hemberg, Erik, Jonathan Kelly, Michal Shlapentokh-Rothman, Bryn Reinstadler, Katherine Xu, Nick Rutar, and Una-May O'Reilly. "Linking threat tactics, techniques, and patterns with defensive weaknesses, vulnerabilities and affected platform configurations for cyber hunting." arXiv preprint arXiv:2010.00533 (2020). <br />
 
 To clone this repository, including the BRON submodule use: <br />
@@ -55,7 +55,7 @@ Since we will need to have the access to the database container from other conta
 ```
 docker network create ssp_network
 ```
-Note: ssp_network is the docker network that is referenced in the docker-compose files that we will execute. 
+Note: ssp_network is the docker network that is referenced in the docker-compose and Dockerfiles files that will create the project containers. 
 
 To change the docker-compose.yml file for the BRON submodule copy the contents of BRON.yml in the root directory and and paste it over the contents on the /BRON/docker-compose.yml file. (Keep the docker-compose.yml name)
 
@@ -66,7 +66,7 @@ docker-compose up
 ```
 This command will create two containers. One is an arangodb container that will host our database. The second is a bootstrap container that will populate the database with the data from different cybersecurity collections. (The bootstrap process can take up to 45 mins) <br />
 
-Once the bootstrap finishes, you can see the database in your browser at localhost:8529. The username is root and the password is changeme. Select the BRON database. <br />
+Once bootstrap finishes, you can see the database in your browser at localhost:8529. The username is root and the password is changeme. Select the BRON database. <br />
 
 Go back to the msusel-ssp-manager directory and go into the oscal-processing directory: <br />
 ```
@@ -77,19 +77,7 @@ docker build -t oscalprocessing .
 
 This command will create a docker image for NIST's OSCAL validation tool. When a file is submitted for validation on the UI, the flask container will spin up a container for the validation tool using this docker image. <br />
 
-Go back to the msusel-ssp-manager directory and run the generate-env.sh script. This script stores the current working directory path in a .env file that will be created. The docker-compose command will read this file and inform the UI container of its location in the host file system. Run the script with: <br />: 
-```
-cd ..  
-./generate-env.sh  
-```
 
-Now we'll add new collections to the BRON database. These are mappings from MITRE ATT&CK Techniques to NIST SP 800-53 security controls. These mappings where done by MITRE Engenuity Center for Threat-Informed Defense (see:https://github.com/center-for-threat-informed-defense/mappings-explorer/). <br />
-```
-docker-compose up
-```
-
-We call the first container that this command creates "driver" and it adds the new collections to the database. This command will also create a Python flask container that we'll be using as a provisional UI to test the tool. The driver container will take some time to complete (up to 30 minutes). When it finishes, the new collections will have been added to the database. You can see them at localhost:8529 <br />
-The flask UI can be accessed at localhost:5000. <br />
 
 ### Set Schemas in VS Code
 Open the project on VS Code and press Ctrl+Shift+P on the keyboard. On the search bar, type "Workspace json settings". Open the file and copy this content to it and save the changes:<br />
