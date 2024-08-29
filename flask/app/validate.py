@@ -3,7 +3,6 @@ import os
 import logging
 import threading
 import docker
-import subprocess
 
 logging.basicConfig(level=logging.INFO)
 
@@ -118,15 +117,6 @@ def validate():
                 app.logger.info(f"Saving {oscal_doc.filename} to: {app.config['UPLOAD_FOLDER']}")
                 context = runOSCALProcessing(oscal_doc, operation, file_type)
                 logging.info(f"Validation output: {context['oscal_processing_output_list']}")
-                # Get the absolute path to the script
-                '''script_path = os.path.join(os.path.dirname(__file__), "clean-shared-dir.sh")
-                try:
-                    result = subprocess.run([script_path], check=True)
-                    app.logger.info(f"Script executed successfully.")
-                except subprocess.CalledProcessError as e:
-                    app.logger.info(f"Script execution failed with error: {e}")
-                except FileNotFoundError:
-                    app.logger.info(f"Script not found.")'''
                 return context, 200
             elif operation == 'convert':
                 app.logger.info(f"Convert Route. Current working directory: {os.getcwd()}")
@@ -137,4 +127,3 @@ def validate():
         except Exception as e:
             app.logger.error(f"Error saving file: {e}")
             return 'Error saving file', 500
-        
