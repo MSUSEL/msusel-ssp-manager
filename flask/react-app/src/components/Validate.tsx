@@ -5,8 +5,8 @@ import FileUploader from './FileUploader'; // Adjust the import path as necessar
 const Validate: React.FC = () => {
   return (
     <Box as="div" className="main-content">
-      <Heading>Validate OSCAL Document</Heading>
-      <p>This is the validate OSCAL documents page.</p>
+      <Heading>Process OSCAL Document</Heading>
+      <p>Select the type of OSCAL document and the desired operation.</p>
       <FileUploader apiEndpoint="/api/validate/shared"/>
     </Box>
   );

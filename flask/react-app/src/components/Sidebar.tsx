@@ -9,9 +9,7 @@ const Sidebar: React.FC = () => {
       <h2>OSCAL</h2>
       <ul>
         <li><Link to="/generate-template">Generate Template</Link></li>
-        <li><Link to="/edit">Edit</Link></li>
-        <li><Link to="/validate">Validate</Link></li>
-        <li><Link to="/convert">Convert</Link></li>
+        <li><Link to="/validate">Process OSCAL Document</Link></li>
         <li><Link to="/current-status">Current Status</Link></li>
       </ul>
       <h2>Vulnerability Effectiveness</h2>
