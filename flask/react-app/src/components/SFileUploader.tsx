@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import * as Select from '@radix-ui/react-select';
 import { ChevronDownIcon } from '@radix-ui/react-icons';
 import './FileUploader.css';
@@ -13,36 +13,11 @@ const SFileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) => {
   const [uploadStatus, setUploadStatus] = useState<string | null>(null);
   const [generationtionResults, setGenerationtionResults] = useState<any | null>(null); // Changed to 'any' to handle JSON
   const [fileType, setFileType] = useState<string>('profile');
-  //const [operation, setOperation] = useState<string>('validate');
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  /*const fileTypes = [
-    'catalog', 
-    'profile', 
-    'component-definition', 
-    'ssp', 
-    'mapping-collection', 
-    'ap', 
-    'ar', 
-    'poam', 
-    'metaschema'
-  ];*/
 
   const fileTypes = [
     'profile'
   ];
-
-
-  /*const operationsByType: { [key: string]: string[] } = {
-    'profile': ['validate', 'convert', 'resolve'],
-    'metaschema': ['generate-schema', 'validate'],
-    'default': ['validate', 'convert']
-  };
-
-  useEffect(() => {
-    const availableOperations = operationsByType[fileType] || operationsByType['default'];
-    setOperation(availableOperations[0]);
-  }, [fileType]);*/
 
   const handleClick = () => {
     fileInputRef.current?.click();
@@ -57,19 +32,12 @@ const SFileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) => {
     }
   };
 
-  const cleanOutput = (output: string) => {
-    // Remove unwanted characters (e.g., ANSI escape codes)
-    return output.replace(/[\u001b\u009b][[\]()#;?]*(?:(?:(?:[a-zA-Z\d]*(?:;[-a-zA-Z\d\/#&.:=?%@~_]*)*)?\u0007)|(?:(\d{1,4}(?:;\d{0,4})*)?[0-9A-PR-TZcf-ntqry=><~]))/g, '')
-                 .replace(/\[m/g, ''); // Additional cleanup if necessary
-  };
-
   const handleUpload = async () => {
     if (selectedFile) {
       setUploading(true);
       const formData = new FormData();
       formData.append('file', selectedFile);
       formData.append('fileType', fileType);
-      //formData.append('operation', operation);
 
       try {
         const response = await fetch(apiEndpoint, {
