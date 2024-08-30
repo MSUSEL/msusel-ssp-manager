@@ -33,4 +33,7 @@ def create_app():
     from .validate import validate_blueprint
     app.register_blueprint(validate_blueprint, url_prefix='/api/validate')
 
+    from .test_dependencies import dependencies_blueprint
+    app.register_blueprint(dependencies_blueprint, url_prefix='/api/test')
+
     return app

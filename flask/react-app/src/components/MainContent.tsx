@@ -7,6 +7,7 @@ import Sidebar from './Sidebar';
 import Home from './Home';
 import GenerateTemplate from './GenerateTemplate';
 import Validate from './Validate';
+import TestDependencies from './TestDependencies';
 import './MainContent.css';
 
 // MainContent component (includes Router, Navbar, and Routes)
@@ -21,6 +22,7 @@ const MainContent: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/generate-template" element={<GenerateTemplate />} />
           <Route path="/validate" element={<Validate />} />
+          <Route path="/test-dependencies" element={<TestDependencies />} />
         </Routes>
       </Flex>
     </Router>

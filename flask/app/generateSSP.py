@@ -15,6 +15,7 @@ import os
 logging.basicConfig(level=logging.INFO)
 
 generate_blueprint = Blueprint('generate', __name__)
+
 profile_path="./oscal_schemas/profiles/profile.yaml"
 ssp_path="./oscal_schemas/system-security-plans/generated_ssp.yaml"
 
