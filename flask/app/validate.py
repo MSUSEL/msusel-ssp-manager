@@ -17,6 +17,7 @@ validate_blueprint = Blueprint('validate', __name__)
 class OscalDocumentProcessing:
     def __init__(self, oscal_file, operation, file_type):
         self.oscal_file = oscal_file
+        logging.info(f"OscalDocumentProcessing object created. File: {self.oscal_file}")
         self.filename_no_extension = self.oscal_file[:-5] # save the filename without the extension
         self.operation = operation
         self.currentFormat = self.oscal_file[-4:] # save the file extension
@@ -32,10 +33,35 @@ class OscalDocumentProcessing:
     # to be created.
     def runOSCALDocumentProcessingContainer(self):
         if self.operation == "validate":
+            # The container will read the file from the host side, I think.
             oscal_client_arguments = f"{self.oscal_model} validate /shared/{self.oscal_file}"
+            logging.info(f"Validation arguments: {oscal_client_arguments}")
             # Catch the exception if the container exits with a non-zero exit code
             try:
-                self.dockerClient.containers.run("oscalprocessing", oscal_client_arguments, volumes = [f"{app.config['HOST_VOLUME_PATH']}/flask/shared:/shared"])
+                # Use alternative methods to get user information
+                current_user = os.environ.get("USER", "appuser")  # Default to 'appuser' if USER env var is not set
+                logging.info(f"Current User: {current_user}")
+                logging.info(f"Current working directory: {os.getcwd()}")
+
+
+                try:
+                    self.dockerClient.containers.run(
+                        "oscalprocessing",
+                        oscal_client_arguments,
+                        volumes=[f"{app.config['HOST_VOLUME_PATH']}/flask/shared:/shared"]
+                    )
+                except docker.errors.ContainerError as e:
+                    app.logger.error(f"Container error: {e}")
+                except docker.errors.ImageNotFound as e:
+                    app.logger.error(f"Image not found: {e}")
+                except docker.errors.APIError as e:
+                    app.logger.error(f"Docker API error: {e}")
+                except Exception as e:
+                    app.logger.error(f"An unexpected error occurred: {e}")
+
+
+                #self.dockerClient.containers.run("oscalprocessing", oscal_client_arguments, volumes = [f"{app.config['HOST_VOLUME_PATH']}/flask/shared:./shared"])
+                logging.info("Container ran.")
             except:
                 print("The oscal-cli container exited with non-zero exit code.")
             self.getContainer()
@@ -46,16 +72,24 @@ class OscalDocumentProcessing:
             elif self.currentFormat == "yaml":
                 self.newFormat = "json"
             logging.info(f"Converting {self.oscal_file} to {self.newFormat} format.")
-            oscal_client_arguments = f"{self.oscal_model} convert --to {self.newFormat} /shared/{self.oscal_file} /shared/{self.oscal_model}/{self.filename_no_extension}.{self.newFormat}"
+            #oscal_client_arguments = f"{self.oscal_model} convert --to {self.newFormat} /shared/{self.oscal_file} /processing/{self.oscal_model}/{self.filename_no_extension}.{self.newFormat}"
+            oscal_client_arguments = f"{self.oscal_model} convert --to {self.newFormat} /shared/{self.oscal_file} /temp_ssp/{self.filename_no_extension}.{self.newFormat}"
             logging.info(f"Arguments: {oscal_client_arguments}")
             # Catch the exception if the container exits with a non-zero exit code
             try:
-                self.dockerClient.containers.run("oscalprocessing", oscal_client_arguments, volumes = [f"{app.config['HOST_VOLUME_PATH']}/flask/shared:/shared"])
+                # Get UID and GID from app config
+                host_uid = app.config.get('HOST_UID', '1000')  # Default to '1000' if not set
+                host_gid = app.config.get('HOST_GID', '1000')  # Default to '1000' if not set
+
+                #self.dockerClient.containers.run("oscalprocessing", oscal_client_arguments, volumes = [f"{app.config['HOST_VOLUME_PATH']}/flask/shared:/shared"]) # Uses the volume to read the argument file
+                #self.dockerClient.containers.run("oscalprocessing", oscal_client_arguments, volumes = [f"{app.config['HOST_VOLUME_PATH']}/flask/shared:/shared", f"{app.config['HOST_VOLUME_PATH']}/flask/temp_{self.oscal_model}:/temp_{self.oscal_model}"], user=f"{host_uid}:{host_gid}") # Uses the volumes to read the argument file and to write the file. user=f"{host_uid}:{host_gid}"  # Match the host user's UID and GID from app.config 
+                self.dockerClient.containers.run("oscalprocessing", oscal_client_arguments, volumes = [f"{app.config['HOST_VOLUME_PATH']}/flask/shared:/shared", f"{app.config['HOST_VOLUME_PATH']}/flask/temp_{self.oscal_model}:/temp_{self.oscal_model}"]) # Uses the volumes to read the argument file and to wr
             except:
                 print("The oscal-cli container exited with non-zero exit code.")
             self.getContainer()
         
     def getContainer(self):  
+        logging.info("Getting the container logs.")
         containerList = self.dockerClient.containers.list(limit = 1) # Get the last container created by the host's docker engine
         strList = str(containerList) # Ex: [<Container: f0ff86794ced>], where the value is the container ID
         temp = strList.split(":")
@@ -85,12 +119,17 @@ class OscalDocumentProcessing:
             for line in f:
                 self.oscal_processing_output_list.append(line)
             f.close()
+        logging.info(f"Output list created. Will remove processing container.")
+        logging.info("Container id: " + self.myContainer.id)
+        #self.myContainer.stop() #Stop the container
         self.myContainer.remove() #Remove the container from the host's docker engine
 
 
 def runOSCALProcessing(oscal_file, operation, file_type):
     oscal_file.save(os.path.join(app.config['UPLOAD_FOLDER'], oscal_file.filename)) 
+    logging.info(f"File saved to: {os.path.join(app.config['UPLOAD_FOLDER'], oscal_file.filename)}")
     oscalProcessingObject = OscalDocumentProcessing(oscal_file.filename, operation, file_type)
+    logging.info(f"Processing object created. File saved: {oscalProcessingObject.oscal_file}. Will start thread.")
     createThread(oscalProcessingObject.runOSCALDocumentProcessingContainer())
     context = {
                 "oscal_processing_output_list": oscalProcessingObject.oscal_processing_output_list,

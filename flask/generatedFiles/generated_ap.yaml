@@ -1,0 +1,16 @@
+---
+assessment-plan:
+  uuid: ce838573-4cc6-475a-8868-cd9b5833db99
+  metadata:
+    title: OSCAL Automated Assessment Plan Template
+    last-modified: 2024-09-07T20:25:53.600352+00:00
+    version: 0.0.1-alpha
+    oscal-version: 1.0.4
+  import-ssp:
+    href: ./oscal_schemas/system-security-plans/generated_ssp.yaml
+  reviewed-controls:
+    control-selections:
+    - include-controls:
+      - control-id: ac-8
+      - control-id: ra-5
+      

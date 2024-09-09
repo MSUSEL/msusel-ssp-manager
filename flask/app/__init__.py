@@ -16,6 +16,8 @@ def create_app():
     app.config['AP_FOLDER'] = os.getenv('AP_FOLDER')
     app.config['HOST_VOLUME_PATH'] = os.getenv('HOST_VOLUME_PATH')
     app.config['TEMPLATES_AUTO_RELOAD'] = True
+    app.config['HOST_UID'] = os.getenv('HOST_UID')
+    app.config['HOST_GID'] = os.getenv('HOST_GID')
 
     if not os.getenv('SECRET_KEY'):
         raise ValueError("No SECRET_KEY set for Flask application")

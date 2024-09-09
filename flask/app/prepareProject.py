@@ -14,6 +14,10 @@ from getFunctionNames import getVulnerableFunctions
 from parseProfile import getFilesAndFunctionNamesFromCallGraph
 from matchVulnerabilitiesToCalls import matchVulnerableFunctionsToCalledFunctions
 from prepareCWEList import prepareCWEList
+import logging
+
+logging.basicConfig(level=logging.INFO)
+
 
 # This function installs Python's venv module.
 def installVenv():
@@ -84,8 +88,11 @@ def listAllDependencies():
 
 def copyFile(filename):
     currentDir = os.getcwd()
+    logging.info(f"Current directory: {currentDir}")
     originalPath = currentDir + filename
+    logging.info(f"Original path: {originalPath}")
     newPath = currentDir + "/dependencies/" + filename
+    logging.info(f"New path: {newPath}")
     shutil.copy(originalPath, newPath)
     return newPath
 
@@ -93,8 +100,10 @@ def removeFile(path):
     os.remove(path)
 
 def profilerWrapper(module_name, function_name):
+    currentDir = os.getcwd()
+    logging.info(f"Current directory: {currentDir}")
     newPath = copyFile('dynamicCallGraph.py')
-    result = subprocess.run(["python3", "./dependencies/dynamicCallGraph.py", f'{module_name}', f'{function_name}'], check=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    result = subprocess.run(["python3", "./app/dependencies/dynamicCallGraph.py", f'{module_name}', f'{function_name}'], check=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     print(result.stdout.decode())
     print(result.stderr.decode())
     removeFile(newPath)
@@ -126,6 +135,8 @@ def main_function():
     getVulnerableFunctions()  
     # Generate the dynamic call graph
     print(sys.argv[1], sys.argv[2])
+    currentDir = os.getcwd()
+    logging.info(f"Current directory: {currentDir}")
     profilerWrapper(sys.argv[1], sys.argv[2])
     # Parse the dynamic analysis results
     getFilesAndFunctionNamesFromCallGraph() 

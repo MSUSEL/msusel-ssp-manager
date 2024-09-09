@@ -37,7 +37,7 @@ const TestDepnRequest: React.FC<TestDepnRequestProps> = ({ apiEndpoint }) => {
           marginRight: '10px'
         }}
 	disabled={loading}>
-        {loading ? 'Loading...' : 'Fetch Data'}
+        {loading ? 'Loading...' : 'Test Dependencies'}
       </button>
       <div>
         {vulnerabilityEffectivenessResults && (

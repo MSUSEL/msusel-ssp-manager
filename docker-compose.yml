@@ -13,6 +13,8 @@ services:
       context: ./flask
       args:
         - HOST_VOLUME_PATH=${HOST_VOLUME_PATH}
+        - HOST_UID=${HOST_UID}
+        - HOST_GID=${HOST_GID}
     environment:
       - ARANGO_DB_URL=http://brondb:8529
       - ARANGO_DB_NAME=BRON
@@ -21,12 +23,13 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - "${HOST_VOLUME_PATH}/flask/shared:/shared"
-      - "${HOST_VOLUME_PATH}/flask/shared:/shared/catalog"
-      - "${HOST_VOLUME_PATH}/flask/shared:/shared/profile"
-      - "${HOST_VOLUME_PATH}/flask/shared:/shared/ssp"
+      - "${HOST_VOLUME_PATH}/flask/temp_ssp:/temp_ssp"
+      #- "${HOST_VOLUME_PATH}/flask/processing/catalog:/processing/catalog"
+      #- "${HOST_VOLUME_PATH}/flask/processing/profile:/processing/profile"
+      #- "${HOST_VOLUME_PATH}/flask/processing/ssp:/processing/ssp"
       - "${HOST_VOLUME_PATH}/flask/generatedFiles:/generatedFiles"
-      - "${HOST_VOLUME_PATH}/flask/shared:/shared/component"
-      - "${HOST_VOLUME_PATH}/flask/shared:/shared/ap"
+      #- "${HOST_VOLUME_PATH}/flask/processing/component:/processing/component"
+      #- "${HOST_VOLUME_PATH}/flask/processing/ap:/processing/ap"
     #network_mode: "host" 
     ports:
       - "5000:5000"

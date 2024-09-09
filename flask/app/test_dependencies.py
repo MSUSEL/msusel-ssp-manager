@@ -9,7 +9,7 @@ dependencies_blueprint = Blueprint('test', __name__)
 
 @dependencies_blueprint.route('/dependencies', methods=['GET', 'POST'])
 def dependencies():
-    subprocess.run(["python3", "prepareProject.py", "abstractClass", "main_function"])
+    subprocess.run(["python3", "./app/prepareProject.py", "abstractClass", "main_function"])
     context = {
                 "Reachable_vulns": "test is finished"
             }

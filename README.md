@@ -152,7 +152,7 @@ The application is now ready. <br />
 
 Going forward, to restart the application, you only need to restart the aragodb container:  <br />
 ```
-docker start containerID
+docker start arangocontainerID
 ```
 
 And the use your start.sh and finish.sh scripts. Alternatively, if you've chosen to keep your images and containers: <br />

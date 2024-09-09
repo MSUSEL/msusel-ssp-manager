@@ -1,6 +1,6 @@
 #!/bin/bash
 
-WATCH_PROFILE="./flask/shared/profile"
+WATCH_PROFILE="./flask/processing/profile"
 PROFILE_DIR="./flask/oscal_schemas/profiles"
 
 inotifywait -m "$WATCH_PROFILE" -e close_write -e moved_to |
@@ -9,8 +9,8 @@ while read path action file; do
 
     # Check if the file exists and is not zero-length before proceeding
     if [[ -f "$FILE_PATH" && -s "$FILE_PATH" ]]; then
-        sudo chown ${SUDO_UID}:${SUDO_GID} ./flask/shared/profile/*.yaml
-        sudo chown ${SUDO_UID}:${SUDO_GID} ./flask/shared/profile/*.json
+        sudo chown ${SUDO_UID}:${SUDO_GID} ./flask/processing/profile/*.yaml
+        sudo chown ${SUDO_UID}:${SUDO_GID} ./flask/processing/profile/*.json
         mv "$FILE_PATH" "$PROFILE_DIR"
         echo "$(date '+%Y-%m-%d %H:%M:%S') - Moved $file to $PROFILE_DIR"
     else
