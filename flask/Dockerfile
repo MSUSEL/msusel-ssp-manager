@@ -44,12 +44,12 @@ ENV FLASK_ENV=development
 ENV SECRET_KEY=your-secret-key
 # Removed the dot. Ex: ./shared
 ENV UPLOAD_FOLDER=/shared
-#ENV CATALOG_FOLDER=/processing/catalog
-#ENV PROFILE_FOLDER=/processing/profile
+ENV CATALOG_FOLDER=/processing/catalog
+ENV PROFILE_FOLDER=/processing/profile
 ENV SSP_FOLDER=/temp_ssp
 ENV GENERATION_FOLDER=/generatedFiles
-#ENV COMPONENT_FOLDER=/processing/component
-#ENV AP_FOLDER=/processing/ap
+ENV COMPONENT_FOLDER=/processing/component
+ENV AP_FOLDER=/processing/ap
 ENV HOST_VOLUME_PATH=$HOST_VOLUME_PATH
 
 

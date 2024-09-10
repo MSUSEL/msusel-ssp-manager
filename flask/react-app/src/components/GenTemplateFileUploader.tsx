@@ -7,7 +7,7 @@ interface FileUploaderProps {
   apiEndpoint: string;
 }
 
-const SFileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) => {
+const GenTemplateFileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState<string | null>(null);
@@ -135,4 +135,4 @@ const SFileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) => {
   );
 };
 
-export default SFileUploader;
+export default GenTemplateFileUploader;

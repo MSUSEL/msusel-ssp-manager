@@ -70,7 +70,7 @@ def generate():
     if oscal_doc:
         try:
             profile_dictionary = load_yaml(f"/shared/{oscal_doc.filename}") # Returns a dictionary from the yaml
-            logging.info(f"Profile dictionary: {profile_dictionary}")
+            #logging.info(f"Profile dictionary: {profile_dictionary}")
             controls = extract_controls(profile_dictionary) 
             controls_uuids = [uuid4() for control in controls]
             ssp_renderer = Environment(loader=FileSystemLoader(templates_path))

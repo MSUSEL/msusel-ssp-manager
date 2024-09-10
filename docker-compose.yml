@@ -24,12 +24,12 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - "${HOST_VOLUME_PATH}/flask/shared:/shared"
       - "${HOST_VOLUME_PATH}/flask/temp_ssp:/temp_ssp"
-      #- "${HOST_VOLUME_PATH}/flask/processing/catalog:/processing/catalog"
-      #- "${HOST_VOLUME_PATH}/flask/processing/profile:/processing/profile"
-      #- "${HOST_VOLUME_PATH}/flask/processing/ssp:/processing/ssp"
+      - "${HOST_VOLUME_PATH}/flask/processing/catalog:/processing/catalog"
+      - "${HOST_VOLUME_PATH}/flask/processing/profile:/processing/profile"
+      - "${HOST_VOLUME_PATH}/flask/processing/ssp:/processing/ssp"
       - "${HOST_VOLUME_PATH}/flask/generatedFiles:/generatedFiles"
-      #- "${HOST_VOLUME_PATH}/flask/processing/component:/processing/component"
-      #- "${HOST_VOLUME_PATH}/flask/processing/ap:/processing/ap"
+      - "${HOST_VOLUME_PATH}/flask/processing/component:/processing/component"
+      - "${HOST_VOLUME_PATH}/flask/processing/ap:/processing/ap"
     #network_mode: "host" 
     ports:
       - "5000:5000"
