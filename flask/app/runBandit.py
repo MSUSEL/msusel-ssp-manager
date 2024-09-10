@@ -6,11 +6,11 @@ import platform
 
 def runBandit():
     currentDir = os.getcwd()
-    dependenciesDir = currentDir + "dependencies"
+    dependenciesDir = currentDir + "/app/dependencies"
     
     if platform.system() == "Windows":
         subprocess.run(["bandit", "-r", "."])
     else:
-        subprocess.run(["bandit", "-r", f"{dependenciesDir}", "-f", "json", "-o", "./artifacts/bandit_output_test.json"])
+        subprocess.run(["bandit", "-r", f"{dependenciesDir}", "-f", "json", "-o", "./app/artifacts/bandit_output_test.json"])
     
 #runBandit()

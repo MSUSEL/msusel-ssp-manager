@@ -24,8 +24,9 @@ def installVenv():
     # Check if the venv module is installed
     try:
         importlib.import_module('venv')
+        logging.info("The venv module is installed.")
     except ImportError:
-        print("The venv module is not installed.")
+        logging.info("The venv module is not installed. Will handle the installation.")
         # Handle: Install the venv module
         if platform.system() == "Windows":
             subprocess.run(["python", "-m", "pip", "install", "venv"])
@@ -35,16 +36,16 @@ def installVenv():
         try:
             importlib.import_module('venv')
         except ImportError:
-            print("The venv module was not installed.")
+            logging.info("The venv module was not installed.")
             sys.exit()
-        print("The venv module was installed.")
+        logging.info("The venv module was installed.")
 
 def createVenv():
     # Get the current directory
     currentDir = os.getcwd()
     # Check if the current directory is a valid directory
     if not os.path.isdir(currentDir):
-        print("The current directory is not a valid directory.")
+        logging.info("The current directory is not a valid directory.")
         sys.exit()
     # Create a venv virtual environment
     if platform.system() == "Windows":
@@ -53,10 +54,10 @@ def createVenv():
         subprocess.run(["python3", "-m", "venv", "venv"])
     # Check if the venv directory was created
     if not os.path.isdir("venv"):
-        print("The venv directory was not created.")
+        logging.info("The venv directory was not created.")
         sys.exit()
     # Print the message
-    print("The venv directory was created.")
+    logging.info("The venv directory was created.")
 
 # This function activates the virtual environment
 def activateVenv():
@@ -64,34 +65,36 @@ def activateVenv():
     # activate_command = "my_venv\\Scripts\\activate"  # For Windows systems
     # call the shell explicitly
     subprocess.run(["/bin/bash", "-c", activate_command], check=True)
+    logging.info("The virtual environment was activated.")
 
 def installRequirements():
     currentDir = os.getcwd()
     # Install a package in the virtual environment
     # Give the path to the pip executable
     pip_path = "venv/bin/pip"  # For Unix-based systems
-    subprocess.run([pip_path, "install", '-r', f'{currentDir}' + '/dependencies/requirements.txt' ], check=True)
+    subprocess.run([pip_path, "install", '-r', f'{currentDir}' + '/app/dependencies/requirements.txt' ], check=True)
+    logging.info("The requirements were installed.")
     
 def listInstalledPackages():
     # List the installed packages in the virtual environment
     # Give the path to the pip executable
     pip_path = "venv/bin/pip"  # For Unix-based systems
     pip_list_output = subprocess.run([pip_path, "list"], check=True, text=True)
-    print("Installed packages in virtual environment:")
+    logging.info("Packages installed in virtual environment:")
     print(pip_list_output.stdout)
 
 
 def listAllDependencies():
     pip_path = "venv/bin/pip"  # For Unix-based systems. Give the path to the pip executable.
-    with open('./artifacts/dependencies.txt', 'w') as f:
+    with open('./app/artifacts/dependencies.txt', 'w') as f:
         subprocess.run([pip_path, 'freeze'], stdout=f)
 
 def copyFile(filename):
     currentDir = os.getcwd()
     logging.info(f"Current directory: {currentDir}")
-    originalPath = currentDir + filename
+    originalPath = currentDir + "/app/" + filename
     logging.info(f"Original path: {originalPath}")
-    newPath = currentDir + "/dependencies/" + filename
+    newPath = currentDir + "/app/dependencies/" + filename
     logging.info(f"New path: {newPath}")
     shutil.copy(originalPath, newPath)
     return newPath
@@ -100,13 +103,12 @@ def removeFile(path):
     os.remove(path)
 
 def profilerWrapper(module_name, function_name):
-    currentDir = os.getcwd()
-    logging.info(f"Current directory: {currentDir}")
     newPath = copyFile('dynamicCallGraph.py')
     result = subprocess.run(["python3", "./app/dependencies/dynamicCallGraph.py", f'{module_name}', f'{function_name}'], check=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    print(result.stdout.decode())
-    print(result.stderr.decode())
+    logging.info(result.stdout.decode())
+    logging.info(result.stderr.decode())
     removeFile(newPath)
+    logging.info(f"Removed file: {newPath}")
 
 
 def copyToSTDLib():
@@ -117,9 +119,9 @@ def copyToSTDLib():
     # Use subprocess.run to copy the file
     try:
         subprocess.run(['sudo', 'cp', source_file, destination_file], check=True)
-        print(f'Successfully copied {source_file} to {destination_file}')
+        logging.info(f'Successfully copied {source_file} to {destination_file}')
     except subprocess.CalledProcessError as e:
-        print(f'Failed to copy file: {e}')
+        logging.info(f'Failed to copy file: {e}')
 
 def main_function():
     installVenv()
@@ -134,7 +136,7 @@ def main_function():
     parseBandit()
     getVulnerableFunctions()  
     # Generate the dynamic call graph
-    print(sys.argv[1], sys.argv[2])
+    logging.info(f"Profile wrapper arguments: {sys.argv[1]}, {sys.argv[2]}")
     currentDir = os.getcwd()
     logging.info(f"Current directory: {currentDir}")
     profilerWrapper(sys.argv[1], sys.argv[2])

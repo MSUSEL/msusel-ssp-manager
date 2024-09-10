@@ -2,6 +2,9 @@ import os
 import ast
 import importlib.util
 import shutil
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 def get_imported_modules(directory):
     imported_modules = set()
@@ -19,19 +22,20 @@ def get_imported_modules(directory):
                                 if node.module:
                                     imported_modules.add(node.module)
                     except SyntaxError as e:
-                        print(f"SyntaxError in file {file}: {e}")
-    print(f"Imported modules: {imported_modules}")
+                        logging.info(f"SyntaxError in file {file}: {e}")
     return imported_modules
 
 def is_standard_library(module_name):
     try:
         spec = importlib.util.find_spec(module_name)
+        logging.info(f"Spec: {spec}")
+        logging.info(f"Spec origin: {spec.origin}")
         if spec and spec.origin:
             return spec.origin and spec.origin.startswith('/usr/local/lib/python3.10')
     except ModuleNotFoundError:
-        print(f"ModuleNotFoundError: No module named '{module_name}'")
+        logging.info(f"ModuleNotFoundError: No module named '{module_name}'")
     except Exception as e:
-        print(f"Error finding spec for module '{module_name}': {e}")
+        logging.info(f"Error finding spec for module '{module_name}': {e}")
     return False
 
 def copy_standard_lib_files(module_name, destination):
@@ -58,21 +62,26 @@ def copy_standard_lib_files(module_name, destination):
                                 submodules.append(os.path.join(root, file))
            
             for submodule in submodules:
-                submodule_dest = os.path.join(destination, os.path.relpath(submodule, start='/usr/lib/python3.10'))
+                submodule_dest = os.path.join(destination, os.path.relpath(submodule, start='/usr/lib/python3.11'))
                 os.makedirs(os.path.dirname(submodule_dest), exist_ok=True)
                 shutil.copy2(submodule, submodule_dest)
     except ModuleNotFoundError:
-        print(f"ModuleNotFoundError: No module named '{module_name}'")
+        logging.info(f"ModuleNotFoundError: No module named '{module_name}'")
     except Exception as e:
-        print(f"Error copying module '{module_name}': {e}")
+        logging.info(f"Error copying module '{module_name}': {e}")  
 
 def copy_modules(imported_modules, destination):
     for module in imported_modules:
         if is_standard_library(module):
             copy_standard_lib_files(module, destination)
+            logging.info(f"Successfully copied {module} to {destination}")
 
 def copySTDLibFiles():
+    logging.info("Copying standard library files...")
     source_directory = os.getcwd()
-    destination_directory = source_directory + '/dependencies'
+    logging.info(f"Source directory: {source_directory}")
+    destination_directory = source_directory + '/app/dependencies'
+    logging.info(f"Destination directory: {destination_directory}")
     imported_modules = get_imported_modules(destination_directory)
+    logging.info(f"Imported modules: {imported_modules}")
     copy_modules(imported_modules, destination_directory)

@@ -21,8 +21,8 @@ def remove_bom_from_file(filename):
 # This function will open the text file and return a list of dictionaries
 def openFile():
     fileAndVulnerabilitiesLinesDictionaryList = []
-    remove_bom_from_file('./artifacts/fileAndVulnerabilitiesLinesDictionaryList.txt')
-    with open('./artifacts/fileAndVulnerabilitiesLinesDictionaryList.txt', 'r') as f:
+    remove_bom_from_file('./app/artifacts/fileAndVulnerabilitiesLinesDictionaryList.txt')
+    with open('./app/artifacts/fileAndVulnerabilitiesLinesDictionaryList.txt', 'r') as f:
         for line in f:
             fileAndVulnerabilitiesLinesDictionaryList.append(ast.literal_eval(line))
     f.close()
@@ -54,7 +54,7 @@ def removeDuplicateKeys(fileAndVulnerabilitiesLinesDictionaryList):
     noDuplicateFilesList = [{key: value} for key, value in merged_dict.items()]
 
     # write the result to a file
-    with open('./artifacts/noDuplicateFilesList.txt', 'w') as f:
+    with open('./app/artifacts/noDuplicateFilesList.txt', 'w') as f:
         for item in noDuplicateFilesList:
             f.write("%s\n" % item)
     f.close()
@@ -108,7 +108,7 @@ def getFunctionNamesFromSourceFiles(filesAndLinesOfVulnerabilities):
             dict[key] = functionListNoDuplicates
     
     # write the result to a file
-    with open('./artifacts/filesAndFunctionNames.txt', 'w') as f:
+    with open('./app/artifacts/filesAndFunctionNames.txt', 'w') as f:
         for item in filesAndFunctionNames:
             f.write("%s\n" % item)
     return filesAndFunctionNames

@@ -7,6 +7,9 @@
 # the values is the value for the 'id' key.
 import json
 import sys
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 def createDictList(filename):
     with open(filename, 'r') as file:
@@ -31,19 +34,19 @@ def removeDuplicates(cweList):
     return [dict(t) for t in {tuple(d.items()) for d in cweList}]
 
 def prepareCWEList():
-    dict_list = createDictList('./artifacts/calledVulnerableFunctionsObjectList.txt')
-    #print("dict_list: ", dict_list)
+    dict_list = createDictList('./app/artifacts/calledVulnerableFunctionsObjectList.txt')
+    logging.info(f"dict_list: {dict_list}")
     cweList = createCWEList(dict_list)
-    #print("cweList: ", cweList)
+    logging.info(f"cweList: {cweList}")
     cweList = removeDuplicates(cweList)
-    #print("cweList: ", cweList)
+    logging.info(f"cweList: {cweList}")
 
-    dict_list = createDictList('./artifacts/vulnerabilitiesOutsideFunctionsObjectList.txt')
-    #print("dict_list: ", dict_list)
+    dict_list = createDictList('./app/artifacts/vulnerabilitiesOutsideFunctionsObjectList.txt')
+    logging.info(f"dict_list: {dict_list}")
     cweList += createCWEList(dict_list)
-    #print("cweList: ", cweList)
+    logging.info(f"cweList: {cweList}")
     cweList = removeDuplicates(cweList)
-    print("cweList: ", cweList)
+    logging.info(f"cweList: {cweList}")
 
     with open('/shared/cwe.json', 'w') as file:
         file.write(json.dumps(cweList))

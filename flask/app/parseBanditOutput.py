@@ -1,7 +1,7 @@
 import json
 
 def parseBandit():
-    with open('./artifacts/bandit_output_test.json') as f:
+    with open('./app/artifacts/bandit_output_test.json') as f:
         banditOutputDictionary = json.load(f)
 
     fileAndVulnerabilitiesLinesDictionaryList = []
@@ -18,7 +18,7 @@ def parseBandit():
     f.close()
 
     # Write list to file
-    with open('./artifacts/fileAndVulnerabilitiesLinesDictionaryList.txt', 'w') as f:
+    with open('./app/artifacts/fileAndVulnerabilitiesLinesDictionaryList.txt', 'w') as f:
         for item in fileAndVulnerabilitiesLinesDictionaryList:
             f.write("%s\n" % item)
     f.close()
@@ -42,7 +42,7 @@ def parseBandit():
     f.close()
 
     # Write list to file
-    with open('./artifacts/banditObjects.txt', 'w') as f:
+    with open('./app/artifacts/banditObjects.txt', 'w') as f:
         for item in banditObjectsList:
             f.write("%s\n" % item)
     f.close()

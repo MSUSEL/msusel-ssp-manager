@@ -3,10 +3,13 @@
 # The list of dictionaries is then written to a file called profile_data.txt.
 
 import json
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 def getFilesAndFunctionNamesFromCallGraph():
     # Read the JSON data
-    with open("./artifacts/profile_data.json", "r") as json_file:
+    with open("./app/artifacts/profile_data.json", "r") as json_file:
         data = json.load(json_file)
 
     # Create a list of dictionaries
@@ -24,7 +27,8 @@ def getFilesAndFunctionNamesFromCallGraph():
                 profile_data.append({key:value})  
 
     # Write the list of dictionaries to file.
-    with open("./artifacts/profile_data.txt", "w") as txt_file:
+    with open("./app/artifacts/profile_data.txt", "w") as txt_file:
         for item in profile_data:
             txt_file.write("%s\n" % item)
-        print("./artifacts/The profile_data.txt file was created.")
+        logging.info("The profile_data.txt file was created.")
+

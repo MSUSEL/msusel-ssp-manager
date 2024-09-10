@@ -3,10 +3,14 @@ import pstats
 import json
 import importlib
 import sys
+import logging
+import os
+
+logging.basicConfig(level=logging.INFO)
 
 def dynamic_import(module_name, function_name):
     try:
-        print(f"Importing module '{module_name}'...")
+        logging.info(f"Importing module '{module_name}'...")
         # Import the module dynamically
         module = importlib.import_module(module_name)
         function = getattr(module, function_name)
@@ -52,7 +56,10 @@ def runProfiler(main_function):
         })
 
     # Save the JSON data to a file
-    with open("../artifacts/profile_data.json", "w") as json_file:
+    # get current directory
+    currentDir = os.getcwd()
+    logging.info(f"Current directory: {currentDir}")
+    with open("./app/artifacts/profile_data.json", "w") as json_file:
         json.dump(stats_dict, json_file, indent=4)
 
 '''
@@ -65,6 +72,6 @@ if __name__ == "__main__":
     module_name = sys.argv[1]
     function_name = sys.argv[2]
     module, function_name  = dynamic_import(module_name, function_name)
-    print(f"Running profiler for function '{function_name}' in module '{module_name}'")
+    logging.info(f"Running profiler for function '{function_name}' in module '{module_name}'")
     runProfiler(function_name)
-    print("Profiling completed!")
+    logging.info("Profiling completed!")

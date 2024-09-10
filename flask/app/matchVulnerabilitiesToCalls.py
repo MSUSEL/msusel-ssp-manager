@@ -1,4 +1,7 @@
 import json
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 def getCalledFunctionName(input_string, split_string):
     # case ex: '<method 'find' of 'str'objects>'
@@ -98,7 +101,7 @@ def loadDictionaries(filename):
         try:
             objectsList[i] = json.loads(objectsList[i].replace("'", "\""))
         except json.JSONDecodeError:
-            print(f"Error decoding JSON for index {i}")
+            logging.info(f"Error decoding JSON for index {i}")
 
     #print("Objects list: ", objectsList)
     return objectsList
@@ -179,22 +182,22 @@ def createFinalArtifact(calledVulnerableFunctionList, notCalledVulnerableFunctio
 
 
 def saveArtifactsToFile(calledVulnerableFunctionsObjectList, notCalledVulnerableFunctionsObjectList, vulnerabilitiesOutsideFunctionsObjectList):
-    with open('./artifacts/calledVulnerableFunctionsObjectList.txt', 'w') as f:
+    with open('./app/artifacts/calledVulnerableFunctionsObjectList.txt', 'w') as f:
         for obj in calledVulnerableFunctionsObjectList:
             f.write(str(obj) + "\n")
-    with open('./artifacts/notCalledVulnerableFunctionsObjectList.txt', 'w') as f:
+    with open('./app/artifacts/notCalledVulnerableFunctionsObjectList.txt', 'w') as f:
         for obj in notCalledVulnerableFunctionsObjectList:
             f.write(str(obj) + "\n")
-    with open('./artifacts/vulnerabilitiesOutsideFunctionsObjectList.txt', 'w') as f:
+    with open('./app/artifacts/vulnerabilitiesOutsideFunctionsObjectList.txt', 'w') as f:
         for obj in vulnerabilitiesOutsideFunctionsObjectList:
             f.write(str(obj) + "\n")
 
 
 
 def matchVulnerableFunctionsToCalledFunctions():
-    vulnerableFunctionsList = getListFromFile('./artifacts/filesAndFunctionNames.txt')
+    vulnerableFunctionsList = getListFromFile('./app/artifacts/filesAndFunctionNames.txt')
     #print("Vulnerable functions list: ", vulnerableFunctionsList)
-    calledFunctionsList = getListFromFile('./artifacts/profile_data.txt')
+    calledFunctionsList = getListFromFile('./app/artifacts/profile_data.txt')
     #print("Called functions list: ", calledFunctionsList)
 
     vulnerableFunctionsDictionaryList = getDictionaryList(vulnerableFunctionsList)
@@ -212,9 +215,9 @@ def matchVulnerableFunctionsToCalledFunctions():
     #print(len(calledVulnerableFunctionList))
     #print(len(notCalledVulnerableFunctions))
 
-    banditObjectsList = loadDictionaries("./artifacts/banditObjects.txt")
+    banditObjectsList = loadDictionaries("./app/artifacts/banditObjects.txt")
     #print("Bandit objects list: ", banditObjectsList)
-    filesAndFunctionNames = loadDictionaries("./artifacts/filesAndFunctionNames.txt")
+    filesAndFunctionNames = loadDictionaries("./app/artifacts/filesAndFunctionNames.txt")
     #print("Files and function names: ", filesAndFunctionNames)
 
     calledVulnerableFunctionsObjectList, notCalledVulnerableFunctionsObjectList, vulnerabilitiesOutsideFunctionsObjectList = createFinalArtifact(calledVulnerableFunctionList, notCalledVulnerableFunctions, banditObjectsList, filesAndFunctionNames)
