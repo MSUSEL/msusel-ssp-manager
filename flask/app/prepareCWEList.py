@@ -48,7 +48,7 @@ def prepareCWEList():
     cweList = removeDuplicates(cweList)
     logging.info(f"cweList: {cweList}")
 
-    with open('/shared/cwe.json', 'w') as file:
+    with open('/shared/vulnerabilities.json', 'w') as file:
         file.write(json.dumps(cweList))
 
 if __name__ == "__main__":

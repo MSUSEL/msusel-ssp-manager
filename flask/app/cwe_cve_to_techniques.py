@@ -5,6 +5,9 @@ import networkx as nx
 from pyvis import network as net
 import os
 import json2table
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 class DatabaseConnection:
     def __init__(self):
@@ -194,8 +197,8 @@ class CreateVisualizations:
         self.tacticsList = []
         self.tacticsAndTechniquesGraph = nx.Graph()
         self.tacticsOnlyGraph = nx.DiGraph()
-        self.pyvisTacticsAndTechniquesGraph = net.Network(height='100vh', width='100%', notebook=True, bgcolor=212121, font_color="white")
-        self.pyvisAttackPathsGraph = net.Network(height='100vh', width='100%', notebook=True, bgcolor=212121, font_color="white")
+        self.pyvisTacticsAndTechniquesGraph = net.Network(height='100vh', width='100%', notebook=True, bgcolor="#FFFFFF", font_color="black")
+        self.pyvisAttackPathsGraph = net.Network(height='100vh', width='100%', notebook=True, bgcolor="#FFFFFF", font_color="black")
         self.user_priority_BRONtacticID = None
         
     def addNodesAndEdgesToTacticsAndTechniquesGraph(self, cursorTacticToTechnique):
@@ -222,13 +225,13 @@ class CreateVisualizations:
         # translates networkx graph into PyViz graph
         self.pyvisTacticsAndTechniquesGraph.from_nx(self.tacticsAndTechniquesGraph)
         self.pyvisTacticsAndTechniquesGraph.force_atlas_2based()
-        self.pyvisTacticsAndTechniquesGraph.show('/templates/graph.html')
+        self.pyvisTacticsAndTechniquesGraph.show('/app/templates/graph.html')
 
     def createPyvisAttackPathsGraph(self, attackPathsGraph):
         # translates networkx graph into PyViz graph
         self.pyvisAttackPathsGraph.from_nx(attackPathsGraph)
         self.pyvisAttackPathsGraph.force_atlas_2based()
-        self.pyvisAttackPathsGraph.show('/templates/network_flow.html')
+        self.pyvisAttackPathsGraph.show('/app/templates/network_flow.html')
 
     def make_graph(self, db, cursorTacticToTechnique, recommendationsTableData, userSelectedBRONTactic_id):
         tacticToTacticEdgeCollection = db.collection('TacticTactic')
@@ -387,12 +390,15 @@ class CreateVisualizations:
                 objectsFile.write("\n")
                 objectsFile.close() #  They are in the correct order
             # Delete the file if it exists
-            if os.path.exists('/templates/table.html'):
-                os.remove('/templates/table.html')
+            '''if os.path.exists('/app/templates/table.html'):
+                os.remove('/app/templates/table.html')
                 f = open('/shared/debug_input.txt', 'a')
                 f.write('File deleted\n')
-                f.close()
-            with open('/templates/table.html', 'w') as control_html:
+                f.close()'''
+            # GEt current working directory
+            curDir = os.getcwd()
+            logging.info(f"Current working directory, about to open /app/templates/table.html: {curDir}")
+            with open('/app/templates/table.html', 'w') as control_html:
                 table_detail = '<ul><li>Static code analysis has revealed that the system has weaknesses or vulnerabilities.</li><li>'\
                             + 'Weaknesses and vulnerabilities are identified by their CWE or CVE IDs.</li><li>'\
                             + 'Each finding is followed by the MITRE ATT&CK technique that can be used to exploit it.</li><li>'\
@@ -439,7 +445,7 @@ class CreateVisualizations:
         </div>\
         </nav>'
 
-                control_html.write(table_head + table_navigation_bar + '<h1>Table</h1><div>' + table_detail + '</div><style>body {background-color: #212121; color: white;}h1 '
+                control_html.write(table_head + table_navigation_bar + '<h1>Table</h1><div>' + table_detail + '</div><style>body {background-color: #FFFFFF; color: black;}h1 '
                                 + '{text-align: center;} div {text-align: center;} ul {display: '
                                 + 'inline-block; text-align: left;}</style>')
                 for obj in json_objects:
@@ -493,7 +499,7 @@ class CreateVisualizations:
             for data in functionsData:
                 if data != '':
                     json_objects.append(eval(data))
-            with open('/templates/vulntable.html', 'w') as control_html:
+            with open('/app/templates/vulntable.html', 'w') as control_html:
                 table_detail = '<ul><li>Code analysis has revealed that the system has the '\
                             + 'vulnerabilities identified by their CWE ids.</li><li>Each vulnerability'\
                             + ' found is followed by the file, function and line where it occurs. '\
@@ -532,7 +538,7 @@ class CreateVisualizations:
         </div>\
         </nav>'
 
-                control_html.write(table_head + table_navigation_bar + '<h1>Table</h1><div>' + table_detail + '</div><style>body {background-color: #212121; color: white;}h1 '
+                control_html.write(table_head + table_navigation_bar + '<h1>Table</h1><div>' + table_detail + '</div><style>body {background-color: #FFFFFF; color: black;}h1 '
                                 + '{text-align: center;} div {text-align: center;} ul {display: '
                                 + 'inline-block; text-align: left;}</style>')
                 for obj in json_objects:
@@ -551,6 +557,7 @@ def main():
     visualizationsObject = CreateVisualizations()
     matcherFindingsToTechniques = Match_VulnerabilitesAndWeakness_ToAttackTactics_AndTechniques(curDir, DBConnection, control_prioritization_instance, visualizationsObject)
     matcherFindingsToTechniques.makeMatch()
+    logging.info('Finished running the create graphs program.')
     
 if __name__ == '__main__':
     main()
