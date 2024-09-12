@@ -42,8 +42,6 @@ class OscalDocumentProcessing:
                 current_user = os.environ.get("USER", "appuser")  # Default to 'appuser' if USER env var is not set
                 logging.info(f"Current User: {current_user}")
                 logging.info(f"Current working directory: {os.getcwd()}")
-
-
                 try:
                     self.dockerClient.containers.run(
                         "oscalprocessing",
@@ -59,8 +57,6 @@ class OscalDocumentProcessing:
                 except Exception as e:
                     app.logger.error(f"An unexpected error occurred: {e}")
 
-
-                #self.dockerClient.containers.run("oscalprocessing", oscal_client_arguments, volumes = [f"{app.config['HOST_VOLUME_PATH']}/flask/shared:./shared"])
                 logging.info("Container ran.")
             except:
                 print("The oscal-cli container exited with non-zero exit code.")
@@ -72,18 +68,11 @@ class OscalDocumentProcessing:
             elif self.currentFormat == "yaml":
                 self.newFormat = "json"
             logging.info(f"Converting {self.oscal_file} to {self.newFormat} format.")
-            #oscal_client_arguments = f"{self.oscal_model} convert --to {self.newFormat} /shared/{self.oscal_file} /processing/{self.oscal_model}/{self.filename_no_extension}.{self.newFormat}"
             oscal_client_arguments = f"{self.oscal_model} convert --to {self.newFormat} /shared/{self.oscal_file} /temp_ssp/{self.filename_no_extension}.{self.newFormat}"
             logging.info(f"Arguments: {oscal_client_arguments}")
             # Catch the exception if the container exits with a non-zero exit code
             try:
-                # Get UID and GID from app config
-                host_uid = app.config.get('HOST_UID', '1000')  # Default to '1000' if not set
-                host_gid = app.config.get('HOST_GID', '1000')  # Default to '1000' if not set
-
-                #self.dockerClient.containers.run("oscalprocessing", oscal_client_arguments, volumes = [f"{app.config['HOST_VOLUME_PATH']}/flask/shared:/shared"]) # Uses the volume to read the argument file
-                #self.dockerClient.containers.run("oscalprocessing", oscal_client_arguments, volumes = [f"{app.config['HOST_VOLUME_PATH']}/flask/shared:/shared", f"{app.config['HOST_VOLUME_PATH']}/flask/temp_{self.oscal_model}:/temp_{self.oscal_model}"], user=f"{host_uid}:{host_gid}") # Uses the volumes to read the argument file and to write the file. user=f"{host_uid}:{host_gid}"  # Match the host user's UID and GID from app.config 
-                self.dockerClient.containers.run("oscalprocessing", oscal_client_arguments, volumes = [f"{app.config['HOST_VOLUME_PATH']}/flask/shared:/shared", f"{app.config['HOST_VOLUME_PATH']}/flask/temp_{self.oscal_model}:/temp_{self.oscal_model}"]) # Uses the volumes to read the argument file and to wr
+                self.dockerClient.containers.run("oscalprocessing", oscal_client_arguments, volumes = [f"{app.config['HOST_VOLUME_PATH']}/flask/shared:/shared", f"{app.config['HOST_VOLUME_PATH']}/flask/temp_{self.oscal_model}:/temp_{self.oscal_model}"], user = 'appuser') # Uses the volumes to read the argument file and to wr
             except:
                 print("The oscal-cli container exited with non-zero exit code.")
             self.getContainer()
