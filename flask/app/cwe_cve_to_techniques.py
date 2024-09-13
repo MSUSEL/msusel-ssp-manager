@@ -126,16 +126,20 @@ class Match_VulnerabilitesAndWeakness_ToAttackTactics_AndTechniques:
         security_findingsFile = open(self.security_findings_file_path, 'r') 
         self.security_findings_dictionary_list = json.load(security_findingsFile)
         security_findingsFile.close()
+        logging.info(f"Security findings dictionary list: {self.security_findings_dictionary_list}")    
         controls_file = open(self.controls_file_path, 'r')
         self.implemented_controls_dictionary_list = json.load(controls_file) # Ex: [{'control': 'CM-7'}, {'control': 'SC-7'}]
         controls_file.close()
+        logging.info(f"Implemented controls dictionary list: {self.implemented_controls_dictionary_list}")
 
     def weaknessOrVulnerability(self):
         is_cveList = self.security_findings_dictionary_list[0].get('cve', None)
         is_cweList = self.security_findings_dictionary_list[0].get('cwe', None)
-        if is_cveList is not None:  
+        if is_cveList is not None: 
+            logging.info('CVE list detected') 
             self.findAttackTechniques(self.security_findings_dictionary_list, self.implemented_controls_dictionary_list, is_cveList)
         elif is_cweList is not None: 
+            logging.info('CWE list detected')
             self.findAttackTechniques(self.security_findings_dictionary_list, self.implemented_controls_dictionary_list, is_cweList)
         else:
             print('Invalid (not \'cve\'/\'cwe\') item detected from the input json file')
@@ -161,6 +165,7 @@ class Match_VulnerabilitesAndWeakness_ToAttackTactics_AndTechniques:
 
     def findAttackTechniques(self, security_findings_dictionary_list, implemented_controls_dictionary_list, finding_type):
         self.findings_list = self.createFindingsList(security_findings_dictionary_list)
+        logging.info(f"Findings list: {self.findings_list}")
         self.cursor = self.mapFindingstoMITREAttackTechniques(self.findings_list, finding_type)
         self.controlPrioritizationWrapperFunction(implemented_controls_dictionary_list, self.cursor, self.ControlPrioritization)
 
@@ -171,22 +176,23 @@ class Match_VulnerabilitesAndWeakness_ToAttackTactics_AndTechniques:
         cursorTechniquesAndControls = self.DBConnection.db.aql.execute(query, bind_vars=bind_var, ttl=300)
 
         ControlPrioritization.buildRecommendationsTableData(cursorTechniquesAndControls)
+        logging.info(f"Recommendations table data: {ControlPrioritization.recommendationsTableData}")
 
         query = ControlPrioritization.tacticToTechniqueQuery
         bind_vars = {'attackTechniquesUsableAgainstSecurityFindings': ControlPrioritization.attackTechniquesUsableAgainstSecurityFindings}
         cursorTacticToTechnique = self.DBConnection.db.aql.execute(query, bind_vars=bind_vars)
 
-        with open('/shared/input.txt', 'r') as in_txt:
+        '''with open('/shared/input.txt', 'r') as in_txt:
             userSelectedMITRETacticID = in_txt.read()
               
         query = ControlPrioritization.getTacticIDForUserSelectionQuery
         bind_vars = {'userSelectedMITRETacticID': userSelectedMITRETacticID}
-        cursorUserTacticID = self.DBConnection.db.aql.execute(query, bind_vars=bind_vars)
+        cursorUserTacticID = self.DBConnection.db.aql.execute(query, bind_vars=bind_vars)'''
 
         # Store BRON tactic id
         userSelectedBRONTactic_id = ''
-        for tactic_id in cursorUserTacticID:
-            userSelectedBRONTactic_id = tactic_id
+        '''for tactic_id in cursorUserTacticID:
+            userSelectedBRONTactic_id = tactic_id'''
         
         self.CreateVisualizations.make_graph(self.DBConnection.db, cursorTacticToTechnique, ControlPrioritization.recommendationsTableData, userSelectedBRONTactic_id)
 
@@ -225,13 +231,13 @@ class CreateVisualizations:
         # translates networkx graph into PyViz graph
         self.pyvisTacticsAndTechniquesGraph.from_nx(self.tacticsAndTechniquesGraph)
         self.pyvisTacticsAndTechniquesGraph.force_atlas_2based()
-        self.pyvisTacticsAndTechniquesGraph.show('/app/templates/graph.html')
+        self.pyvisTacticsAndTechniquesGraph.show('./app/templates/graph.html')
 
     def createPyvisAttackPathsGraph(self, attackPathsGraph):
         # translates networkx graph into PyViz graph
         self.pyvisAttackPathsGraph.from_nx(attackPathsGraph)
         self.pyvisAttackPathsGraph.force_atlas_2based()
-        self.pyvisAttackPathsGraph.show('/app/templates/network_flow.html')
+        self.pyvisAttackPathsGraph.show('./app/templates/network_flow.html')
 
     def make_graph(self, db, cursorTacticToTechnique, recommendationsTableData, userSelectedBRONTactic_id):
         tacticToTacticEdgeCollection = db.collection('TacticTactic')
@@ -398,7 +404,9 @@ class CreateVisualizations:
             # GEt current working directory
             curDir = os.getcwd()
             logging.info(f"Current working directory, about to open /app/templates/table.html: {curDir}")
-            with open('/app/templates/table.html', 'w') as control_html:
+            # Log contents of the ./app/templates directory
+            logging.info(f"Contents of /app/templates: {os.listdir('./app/templates')}")
+            with open('./app/templates/table.html', 'w') as control_html:
                 table_detail = '<ul><li>Static code analysis has revealed that the system has weaknesses or vulnerabilities.</li><li>'\
                             + 'Weaknesses and vulnerabilities are identified by their CWE or CVE IDs.</li><li>'\
                             + 'Each finding is followed by the MITRE ATT&CK technique that can be used to exploit it.</li><li>'\
@@ -499,7 +507,7 @@ class CreateVisualizations:
             for data in functionsData:
                 if data != '':
                     json_objects.append(eval(data))
-            with open('/app/templates/vulntable.html', 'w') as control_html:
+            with open('./app/templates/vulntable.html', 'w') as control_html:
                 table_detail = '<ul><li>Code analysis has revealed that the system has the '\
                             + 'vulnerabilities identified by their CWE ids.</li><li>Each vulnerability'\
                             + ' found is followed by the file, function and line where it occurs. '\
