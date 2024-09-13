@@ -1,12 +1,17 @@
 version: "3.5"
 services:
-  #driver:
-    #container_name: driver
-    #build: ./AttackTechniquesToControls
+  driver:
+    container_name: driver
+    build: ./AttackTechniquesToControls
     #network_mode: "host"
+    environment:
+      - ARANGO_DB_URL=http://brondb:8529
+      - ARANGO_DB_NAME=BRON
+      - ARANGO_DB_USERNAME=root
+      - ARANGO_DB_PASSWORD=changeme
     
-    #networks:
-      #- ssp_network
+    networks:
+      - ssp_network
   flask:
     container_name: flask-frontend-cli
     build:
