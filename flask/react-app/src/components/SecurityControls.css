@@ -14,7 +14,7 @@
     width: 150px;
     padding: 10px;
     box-shadow: 
-    0 0 0 2px #0048ff, /* Orange border */
+    0 0 0 2px #0073ff, /* Orange border */
     0 4px 8px rgba(0, 0, 0, 0.2); /* Existing shadow */
     display: flex;
     flex-direction: column;
@@ -36,7 +36,7 @@
   }
   
   .toggle-button {
-    background-color: #005eff;
+    background-color: #0073ff;
     color: #fff;
     border: none;
     padding: 5px 10px; /* Adjusted padding to make the button smaller */
@@ -63,4 +63,3 @@
   .control-details h4 {
     margin-bottom: 5px;
   }
-  
