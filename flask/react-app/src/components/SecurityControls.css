@@ -1,36 +1,53 @@
 .controls-container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Four columns */
     gap: 20px;
     padding: 20px;
     justify-content: center;
   }
   
   .control-card {
-    background-color: #1e1e1e;
-    color: #fff;
+    background-color: #ffffff;
+    color: #000;
+    border: 2px solid #ffffff;
     border-radius: 8px;
-    width: 300px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 150px;
+    padding: 10px;
+    box-shadow: 
+    0 0 0 2px #0048ff, /* Orange border */
+    0 4px 8px rgba(0, 0, 0, 0.2); /* Existing shadow */
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    justify-content: space-between; /* Distribute space between elements */
+  }
+
+  .control-card h3 {
+    font-size: 14px; /* Set font size for control IDs and names */
+    margin: 10px 0; /* Add margin for spacing */
+  }
+
+  .control-card .content {
+    flex-grow: 1; /* Allow content to grow and take up available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
   }
   
   .toggle-button {
-    background-color: #28a745;
+    background-color: #005eff;
     color: #fff;
     border: none;
-    padding: 10px 15px;
+    padding: 5px 10px; /* Adjusted padding to make the button smaller */
+    font-size: 12px; /* Adjusted font size to make the button text smaller */
     margin-top: 15px;
     cursor: pointer;
     border-radius: 5px;
   }
   
   .toggle-button:hover {
-    background-color: #218838;
+    background-color: #0073ff;
   }
   
   .control-details {

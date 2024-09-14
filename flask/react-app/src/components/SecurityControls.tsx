@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './SecurityControls.css';
-import controls from '/app/public/example.json';
+import controls from '/app/public/example.json'; // Adjust the path as needed
 
 interface Control {
   id: string;
@@ -8,8 +8,6 @@ interface Control {
   statements: string[];
   guidance: string;
 }
-
-//const controls: Control[] = require('/app/public/example.json');
 
 const SecurityControls: React.FC = () => {
   const [expandedControlId, setExpandedControlId] = useState<string | null>(null);
@@ -20,22 +18,22 @@ const SecurityControls: React.FC = () => {
 
   return (
     <div className="controls-container">
-      {controls.map((control) => (
+      {controls.map((control: Control) => (
         <div key={control.id} className="control-card">
-          <h3>{control.title}</h3>
+          <div className="content">
+            <h3>{control.id} {control.title}</h3>
+          </div>
           <button className="toggle-button" onClick={() => handleToggleDetails(control.id)}>
             {expandedControlId === control.id ? 'Hide Details' : 'Show Details'}
           </button>
           {expandedControlId === control.id && (
             <div className="control-details">
-              <h4>Statements:</h4>
+              <p>{control.guidance}</p>
               <ul>
                 {control.statements.map((statement, index) => (
                   <li key={index}>{statement}</li>
                 ))}
               </ul>
-              <h4>Guidance:</h4>
-              <p>{control.guidance}</p>
             </div>
           )}
         </div>
