@@ -9,6 +9,9 @@ import GenerateTemplate from './GenerateTemplate';
 import Validate from './Validate';
 import TestDependencies from './TestDependencies';
 import AttackTechniques from './AttackTechniques';
+import AttackPaths from './AttackPaths';
+import PriorityControls from './PriorityControls';
+import VulnerableFunctions from './VulnerableFunctions';
 import './MainContent.css';
 
 // MainContent component (includes Router, Navbar, and Routes)
@@ -25,6 +28,9 @@ const MainContent: React.FC = () => {
           <Route path="/validate" element={<Validate />} />
           <Route path="/test-dependencies" element={<TestDependencies />} />
           <Route path="/attack-techniques" element={<AttackTechniques />} />
+          <Route path="/attack-paths" element={<AttackPaths />} />
+          <Route path="/priority-controls" element={<PriorityControls />} />
+          <Route path="/vulnerable-functions" element={<VulnerableFunctions />} />
         </Routes>
       </Flex>
     </Router>

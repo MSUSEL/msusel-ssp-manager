@@ -22,7 +22,12 @@ const Sidebar: React.FC = () => {
       </ul>
       <ul>
       <h2>Security Data Collections</h2>
-        <li><Link to="/bron-database">BRON Database</Link></li>
+      <li>
+          {/* External link to the database interface */}
+          <a href="http://localhost:8529" target="_blank" rel="noopener noreferrer">
+            BRON Database
+          </a>
+        </li>
       </ul>
       <h2>Documentation</h2>
       <ul>
@@ -30,7 +35,11 @@ const Sidebar: React.FC = () => {
       </ul>
       <h2>External Links</h2>
       <ul>
-        <li><Link to="/oscal-documentation">OSCAL Documentation</Link></li>
+      <li>
+          <a href="https://pages.nist.gov/OSCAL/" target="_blank" rel="noopener noreferrer">
+            OSCAL Documentation
+          </a>
+        </li>
       </ul>
     </Box>
   );

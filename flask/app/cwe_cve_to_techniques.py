@@ -250,7 +250,7 @@ class CreateVisualizations:
         self.create_table(db, prioritize_lists, recommendationsTableData)
         
         # Check if vulnerability effectiveness analysis has been run
-        if os.path.exists('/artifacts/calledVulnerableFunctionsObjectList.txt'):
+        if os.path.exists('./app/artifacts/calledVulnerableFunctionsObjectList.txt'):
             self.create_vulntable() # If so, show functions in the dependencies that are called.
         
         attackPathsGraph = self.makeAttackPathsGraph(self.tacticsAndTechniquesGraph, self.tacticsOnlyGraph)
@@ -428,32 +428,9 @@ class CreateVisualizations:
         </head>'
 
 
-                table_navigation_bar = '<nav class="navbar navbar-expand-md navbar-dark bg-dark">\
-        <a class="navbar-brand" href="#">SSP Manager</a>\
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">\
-            <span class="navbar-toggler-icon"></span>\
-        </button>\
-        <div class="collapse navbar-collapse" id="navbarNav">\
-            <ul class="navbar-nav mr-auto">\
-                <li class="nav-item active">\
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>\
-                </li>\
-                <li class="nav-item">\
-                    <a class="nav-link" href="#">Results</a>\
-                </li>\
-            </ul>\
-            <ul class="navbar-nav">\
-                <li class="nav-item">\
-                    <a class="nav-link" href="#">Login</a>\
-                </li>\
-                <li class="nav-item">\
-                    <a class="nav-link" href="#">Register</a>\
-                </li>\
-            </ul>\
-        </div>\
-        </nav>'
+                 
 
-                control_html.write(table_head + table_navigation_bar + '<h1>Table</h1><div>' + table_detail + '</div><style>body {background-color: #FFFFFF; color: black;}h1 '
+                control_html.write(table_head + '<h1>Table</h1><div>' + table_detail + '</div><style>body {background-color: #FFFFFF; color: black;}h1 '
                                 + '{text-align: center;} div {text-align: center;} ul {display: '
                                 + 'inline-block; text-align: left;}</style>')
                 for obj in json_objects:
@@ -500,7 +477,7 @@ class CreateVisualizations:
 
     def create_vulntable(self):
         # creates html table by using the json file that just generated
-        with open('./artifacts/calledVulnerableFunctionsObjectList.txt', 'r') as out_file:
+        with open('./app/artifacts/calledVulnerableFunctionsObjectList.txt', 'r') as out_file:
             functionsData = out_file.read()
             functionsData = functionsData.split('\n') # List of strings
             json_objects = []
@@ -521,32 +498,8 @@ class CreateVisualizations:
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">\
         </head>'
 
-                table_navigation_bar = '<nav class="navbar navbar-expand-md navbar-dark bg-dark">\
-        <a class="navbar-brand" href="#">SSP Manager</a>\
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">\
-            <span class="navbar-toggler-icon"></span>\
-        </button>\
-        <div class="collapse navbar-collapse" id="navbarNav">\
-            <ul class="navbar-nav mr-auto">\
-                <li class="nav-item active">\
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>\
-                </li>\
-                <li class="nav-item">\
-                    <a class="nav-link" href="#">Results</a>\
-                </li>\
-            </ul>\
-            <ul class="navbar-nav">\
-                <li class="nav-item">\
-                    <a class="nav-link" href="#">Login</a>\
-                </li>\
-                <li class="nav-item">\
-                    <a class="nav-link" href="#">Register</a>\
-                </li>\
-            </ul>\
-        </div>\
-        </nav>'
-
-                control_html.write(table_head + table_navigation_bar + '<h1>Table</h1><div>' + table_detail + '</div><style>body {background-color: #FFFFFF; color: black;}h1 '
+                
+                control_html.write(table_head + '<h1>Table</h1><div>' + table_detail + '</div><style>body {background-color: #FFFFFF; color: black;}h1 '
                                 + '{text-align: center;} div {text-align: center;} ul {display: '
                                 + 'inline-block; text-align: left;}</style>')
                 for obj in json_objects:
@@ -567,6 +520,12 @@ def main():
     matcherFindingsToTechniques.makeMatch()
     # Copy the graph.html file to the shared directory
     os.system('cp ./app/templates/graph.html /shared')
+    # Copy the network_flow.html file to the shared directory
+    os.system('cp ./app/templates/network_flow.html /shared')
+    # Copy the vulntable.html file to the shared directory
+    os.system('cp ./app/templates/vulntable.html /shared')
+    # Copy the table.html file to the shared directory
+    os.system('cp ./app/templates/table.html /shared')
     logging.info('Finished running the create graphs program.')
     
 if __name__ == '__main__':

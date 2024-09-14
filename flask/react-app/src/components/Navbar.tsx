@@ -7,7 +7,7 @@ const Navbar: React.FC = () => {
   return (
     <Flex as="nav" justifycontent="center" alignitems="center" className="navbar">
       <Link to="/" className="nav-link">Home</Link>
-      <Link to="/another-page" className="nav-link">Another Page</Link>
+      <Link to="/priority-controls" className="nav-link">Priority Controls</Link>
     </Flex>
   );
 };
