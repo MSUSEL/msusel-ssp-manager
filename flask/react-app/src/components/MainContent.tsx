@@ -12,6 +12,7 @@ import AttackTechniques from './AttackTechniques';
 import AttackPaths from './AttackPaths';
 import PriorityControls from './PriorityControls';
 import VulnerableFunctions from './VulnerableFunctions';
+import SecurityControls from './SecurityControls';
 import './MainContent.css';
 
 // MainContent component (includes Router, Navbar, and Routes)
@@ -31,6 +32,7 @@ const MainContent: React.FC = () => {
           <Route path="/attack-paths" element={<AttackPaths />} />
           <Route path="/priority-controls" element={<PriorityControls />} />
           <Route path="/vulnerable-functions" element={<VulnerableFunctions />} />
+          <Route path="/security-controls" element={<SecurityControls />} />
         </Routes>
       </Flex>
     </Router>

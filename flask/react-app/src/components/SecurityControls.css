@@ -1,0 +1,49 @@
+.controls-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+  }
+  
+  .control-card {
+    background-color: #1e1e1e;
+    color: #fff;
+    border-radius: 8px;
+    width: 300px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .toggle-button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .toggle-button:hover {
+    background-color: #218838;
+  }
+  
+  .control-details {
+    margin-top: 15px;
+    text-align: left;
+    width: 100%;
+  }
+  
+  .control-details ul {
+    padding-left: 20px;
+  }
+  
+  .control-details h4 {
+    margin-bottom: 5px;
+  }
+  
