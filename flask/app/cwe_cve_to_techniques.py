@@ -565,6 +565,8 @@ def main():
     visualizationsObject = CreateVisualizations()
     matcherFindingsToTechniques = Match_VulnerabilitesAndWeakness_ToAttackTactics_AndTechniques(curDir, DBConnection, control_prioritization_instance, visualizationsObject)
     matcherFindingsToTechniques.makeMatch()
+    # Copy the graph.html file to the shared directory
+    os.system('cp ./app/templates/graph.html /shared')
     logging.info('Finished running the create graphs program.')
     
 if __name__ == '__main__':

@@ -8,6 +8,7 @@ import Home from './Home';
 import GenerateTemplate from './GenerateTemplate';
 import Validate from './Validate';
 import TestDependencies from './TestDependencies';
+import AttackTechniques from './AttackTechniques';
 import './MainContent.css';
 
 // MainContent component (includes Router, Navbar, and Routes)
@@ -23,6 +24,7 @@ const MainContent: React.FC = () => {
           <Route path="/generate-template" element={<GenerateTemplate />} />
           <Route path="/validate" element={<Validate />} />
           <Route path="/test-dependencies" element={<TestDependencies />} />
+          <Route path="/attack-techniques" element={<AttackTechniques />} />
         </Routes>
       </Flex>
     </Router>

@@ -38,4 +38,7 @@ def create_app():
     from .test_dependencies import dependencies_blueprint
     app.register_blueprint(dependencies_blueprint, url_prefix='/api/test')
 
+    from .getGraph import getGraph_blueprint
+    app.register_blueprint(getGraph_blueprint, url_prefix='/api/getGraph')
+
     return app
