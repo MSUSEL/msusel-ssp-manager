@@ -383,7 +383,7 @@ const AttackTechniques: React.FC = () => {
       try {
         console.log('Starting to fetch HTML content...');
 
-        const response = await fetch('/api/getGraph/graph'); // Adjust URL as needed
+        const response = await fetch(`/api/getGraph/graph?timestamp=${new Date().getTime()}`);
         console.log(`Received response with status: ${response.status}`);
 
         if (!response.ok) {

@@ -8,7 +8,7 @@ const VulnerableFunctions: React.FC = () => {
       try {
         console.log('Starting to fetch HTML content...');
 
-        const response = await fetch('/api/getVulnTable/vulntable'); // Adjust URL as needed
+        const response = await fetch(`/api/getVulnTable/vulntable?timestamp=${new Date().getTime()}`); // Adjust URL as needed
         console.log(`Received response with status: ${response.status}`);
 
         if (!response.ok) {

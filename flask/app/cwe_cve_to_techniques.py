@@ -219,6 +219,8 @@ class CreateVisualizations:
             if edge['_from'] in self.tacticsList and edge['_to'] in self.tacticsList:
                 self.tacticsAndTechniquesGraph.add_edge(edge['_from'], edge['_to'])
                 self.tacticsOnlyGraph.add_edge(edge['_from'], edge['_to'])
+                # log the edges in the tactics only graph
+                logging.info(f"Edges in the tactics only graph: {self.tacticsOnlyGraph.edges}")
 
     def checkIfUserPriorityWasDetected(self, userSelectedBRONTactic_id):
         if userSelectedBRONTactic_id in self.tacticsList:
@@ -253,6 +255,8 @@ class CreateVisualizations:
         if os.path.exists('./app/artifacts/calledVulnerableFunctionsObjectList.txt'):
             self.create_vulntable() # If so, show functions in the dependencies that are called.
         
+        # log the contents of the tacticsOnlyGraph
+        logging.info(f"Nodes in the tactics only graph: {self.tacticsOnlyGraph.nodes}")
         attackPathsGraph = self.makeAttackPathsGraph(self.tacticsAndTechniquesGraph, self.tacticsOnlyGraph)
 
         self.createPyvisTacticsAndTechniquesGraph()
@@ -448,16 +452,24 @@ class CreateVisualizations:
         SRC = 'source[s]' # starting point of the graph
         SINK = 'sink[t]' # ending point of the graph
 
+        # log the nodes in the graph
+        
+
+
         # prepares unique nodes for the graph
         nodes = [[SRC]] # starting node
         for n in tacticsOnlyGraph.__iter__(): # gets tactic in order of path
             tech = []
             neighbors = self.tacticsAndTechniquesGraph.neighbors(n)
+            logging.info(f"Neighbors of {n}: {neighbors}")
             for node in neighbors: # loops to get all techniques
                 if 'technique' in node:
                     tech.append(n.split('/')[-1] + '/' + node.split('/')[-1]) # assigns unique name
             nodes.append(tech)
         nodes.append([SINK]) # ending node
+
+        # log the nodes in the graph
+        logging.info(f"Nodes in the paths graph: {nodes}")
 
         # adds nodes and edges to the network flow graph
         for i in range(len(nodes)-1):

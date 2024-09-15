@@ -7,8 +7,8 @@ const AttackPaths: React.FC = () => {
     const fetchHtml = async () => {
       try {
         console.log('Starting to fetch HTML content...');
-
-        const response = await fetch('/api/getPaths/network_flow'); // Adjust URL as needed
+        
+        const response = await fetch(`/api/getPaths/network_flow?timestamp=${new Date().getTime()}`); // Adjust URL as needed
         console.log(`Received response with status: ${response.status}`);
 
         if (!response.ok) {
