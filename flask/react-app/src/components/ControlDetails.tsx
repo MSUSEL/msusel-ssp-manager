@@ -1,4 +1,5 @@
 import React from 'react';
+import './ControlDetails.css';
 
 interface ControlDetailsProps {
   guidance: string;
