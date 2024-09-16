@@ -21,7 +21,7 @@ const Home: React.FC = () => {
 
   return (
     <Box as="div" className="main-content">
-      <Heading>Main Content</Heading>
+      <Heading> </Heading>
       {data ? <Box>{data}</Box> : <Box>Loading...</Box>}
     </Box>
   );

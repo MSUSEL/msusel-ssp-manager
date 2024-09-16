@@ -6,7 +6,7 @@ home_blueprint = Blueprint('home', __name__)
 @home_blueprint.route('data')
 def home():
     try:
-        return jsonify({'message': 'Hello, World!'})
+        return jsonify({'message': '     '})
     except Exception as e:
         # Log the error
         print(f"Error: {e}")
