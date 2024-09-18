@@ -3,7 +3,6 @@ services:
   driver:
     container_name: driver
     build: ./AttackTechniquesToControls
-    #network_mode: "host"
     environment:
       - ARANGO_DB_URL=http://brondb:8529
       - ARANGO_DB_NAME=BRON
@@ -34,7 +33,6 @@ services:
       - "${HOST_VOLUME_PATH}/flask/generatedFiles:/generatedFiles"
       - "${HOST_VOLUME_PATH}/flask/processing/component:/processing/component"
       - "${HOST_VOLUME_PATH}/flask/processing/ap:/processing/ap"
-    #network_mode: "host" 
     ports:
       - "5000:5000"
     privileged: true
@@ -47,7 +45,6 @@ services:
     container_name: react-app
     environment:
       - REACT_APP_API_URL=http://flask:5000
-    #network_mode: "host"
     ports:
       - "3000:3000"
     networks:
