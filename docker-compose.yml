@@ -1,15 +1,15 @@
 version: "3.5"
 services:
-  driver:
-    container_name: driver
-    build: ./AttackTechniquesToControls
-    environment:
-      - ARANGO_DB_URL=http://brondb:8529
-      - ARANGO_DB_NAME=BRON
-      - ARANGO_DB_USERNAME=root
-      - ARANGO_DB_PASSWORD=changeme
-    networks:
-      - ssp_network
+  #driver:
+    #container_name: driver
+    #build: ./AttackTechniquesToControls
+    #environment:
+      #- ARANGO_DB_URL=http://brondb:8529
+      #- ARANGO_DB_NAME=BRON
+      #- ARANGO_DB_USERNAME=root
+      #- ARANGO_DB_PASSWORD=changeme
+    #networks:
+      #- ssp_network
   flask:
     container_name: flask-frontend-cli
     build:
@@ -27,12 +27,11 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - "${HOST_VOLUME_PATH}/flask/shared:/shared"
       - "${HOST_VOLUME_PATH}/flask/temp_ssp:/temp_ssp"
-      - "${HOST_VOLUME_PATH}/flask/processing/catalog:/processing/catalog"
-      - "${HOST_VOLUME_PATH}/flask/processing/profile:/processing/profile"
-      - "${HOST_VOLUME_PATH}/flask/processing/ssp:/processing/ssp"
+      - "${HOST_VOLUME_PATH}/flask/temp_ap:/temp_ap"
+      - "${HOST_VOLUME_PATH}/flask/temp_catalog:/temp_catalog"
+      - "${HOST_VOLUME_PATH}/flask/temp_ssp:/temp_component"
+      - "${HOST_VOLUME_PATH}/flask/temp_ssp:/temp_profile"
       - "${HOST_VOLUME_PATH}/flask/generatedFiles:/generatedFiles"
-      - "${HOST_VOLUME_PATH}/flask/processing/component:/processing/component"
-      - "${HOST_VOLUME_PATH}/flask/processing/ap:/processing/ap"
     ports:
       - "5000:5000"
     privileged: true

@@ -68,7 +68,7 @@ class OscalDocumentProcessing:
             elif self.currentFormat == "yaml":
                 self.newFormat = "json"
             logging.info(f"Converting {self.oscal_file} to {self.newFormat} format.")
-            oscal_client_arguments = f"{self.oscal_model} convert --to {self.newFormat} /shared/{self.oscal_file} /temp_ssp/{self.filename_no_extension}.{self.newFormat}"
+            oscal_client_arguments = f"{self.oscal_model} convert --to {self.newFormat} /shared/{self.oscal_file} /temp_{self.oscal_model}/{self.filename_no_extension}.{self.newFormat}"
             logging.info(f"Arguments: {oscal_client_arguments}")
             # Catch the exception if the container exits with a non-zero exit code
             try:
