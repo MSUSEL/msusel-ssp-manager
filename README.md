@@ -78,6 +78,13 @@ docker build -t oscalprocessing .
 
 This command will create a docker image for NIST's OSCAL validation tool. When a file is submitted for validation on the UI, the flask container will spin up a container for the validation tool using this docker image. <br />
 
+To prepare for the execution of the application containers, we need to run a script that will set up an environment variable for the path to the project in your local computer. This script stores the current working directory path in a .env file that will be created. The docker-compose command will read this file and inform the UI container of its location in the host file system.
+```
+./generate-env.sh
+```
+
+
+
 Now we'll add some additional secutity collections to the database and start the tool's frontend and backend contianers. The new collections contain mappings from MITRE ATT&CK Techniques to NIST SP 800-53 security controls. These mappings where done by MITRE Engenuity Center for Threat-Informed Defense (see:https://github.com/center-for-threat-informed-defense/mappings-explorer/). The container will take some time to complete (up to 30 minutes). When it finishes, the new collections will have been added to the database. Again, you can see them at localhost:8529 The container will be removed when finished. The other two containers that are created are a Python Flask backend and a React frontend. The React contianer is the user interface for the tool. The Flask backend receives requests from the frontend and provides all of the tool's functionalities. <br />
 In your terminal, in the msusel-ssp-manager directory: <br />
 ```
