@@ -80,7 +80,10 @@ This command will create a docker image for NIST's OSCAL validation tool. When a
 
 To prepare for the execution of the application containers, we need to run a script that will set up an environment variable for the path to the project in your local computer. This script stores the current working directory path in a .env file that will be created. The docker-compose command will read this file and inform the UI container of its location in the host file system.
 ```
+cd ./scripts/
+chmod +x ./generate-env.sh
 ./generate-env.sh
+cd ..
 ```
 
 
@@ -143,9 +146,35 @@ Open the project on VS Code and press Ctrl+Shift+P on the keyboard. On the searc
 }
 ```
 
-The application is now ready. <br />
+The application is now ready. <br /><br />
 
-Going forward, to restart the application, you only need to restart the aragodb container:  <br />
+In the /scripts directory, there are scripts that will move your files to their working directories. For now, these need to be started manually. First make sure the scripts have permissions to execute:
+```
+cd ./scripts/
+chmod +x ./watch_catalog.sh
+chmod +x ./watch_profile.sh
+chmod +x ./watch_ssp.sh
+chmod +x ./watch_generatedFiles.sh
+chmod +x ./watch_component.sh
+chmod +x ./watch_ap.sh
+chmod +x ./finish.sh
+ ```
+And you can start them with:
+```
+nohup ./watch_catalog.sh > ./logs/watch_catalog.log 2>&1 &
+nohup ./watch_profile.sh > ./logs/watch_profile.log 2>&1 &
+nohup ./watch_ssp.sh > ./logs/watch_ssp.log 2>&1 &
+nohup ./watch_component.sh > ./logs/watch_component.log 2>&1 &
+nohup ./watch_ap.sh > ./logs/watch_ap.log 2>&1 &
+``` 
+
+Once you finish your work, you can stop your scripts and REMOVE your flask and react containers by running the finish.sh script:
+```
+./finish.sh
+```
+
+
+I you keep your flask and react containers, going forward, to restart the application, you only need to restart the aragodb container:  <br />
 ```
 docker start arangocontainerID
 ```
@@ -160,6 +189,11 @@ You can stop them with: <br />
 ```
 docker stop <container-id>
 ```
+
+The watch scripts have to be started as shown above. <br />
+
+If you prefer to remove your containers after use, you can run docker-compose up and start your scripts as shown above. Your data persists in the volumes shared between the host and the containers so nothing is lost if you remove the containers. <br />
+
 
 Funding Agency:   <br />
 

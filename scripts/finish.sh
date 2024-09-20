@@ -1,10 +1,7 @@
 #!/bin/bash
 
-# Ask for the sudo password once
-sudo -v
-
 # Bring down the containers after use
-docker-compose down --rmi all
+docker-compose -f ../docker-compose.yml down --rmi all
 
 # A function that takes the script name as an argument, 
 # finds all associated PIDs, and kills them.
@@ -20,9 +17,9 @@ kill_processes_by_name() {
     else
         echo "Found $script_name with PIDs: $PIDs"
         # Kill all PIDs found
-        # xargs -r sudo kill: Ensures that all PIDs found are passed to kill, 
+        # xargs -r  kill: Ensures that all PIDs found are passed to kill, 
         # and -r prevents xargs from running kill if no PIDs are found.
-        echo "$PIDs" | xargs -r sudo kill
+        echo "$PIDs" | xargs -r  kill
         echo "$script_name with PIDs $PIDs has been killed."
     fi
 }
@@ -45,6 +42,6 @@ if [ -z "$inotify_pids" ]; then
     echo "No inotifywait processes are running."
 else
     echo "Found inotifywait processes with PIDs: $inotify_pids"
-    echo "$inotify_pids" | xargs -r sudo kill
+    echo "$inotify_pids" | xargs -r  kill
     echo "All inotifywait processes have been killed."
 fi

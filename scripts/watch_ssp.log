@@ -1,6 +1,0 @@
-+ WATCH_SSP=./flask/processing/ssp
-+ SSP_DIR=./flask/oscal_schemas/system-security-plans
-+ inotifywait -m ./flask/processing/ssp -e close_write -e moved_to
-+ read path action file
-Setting up watches.
-Watches established.
