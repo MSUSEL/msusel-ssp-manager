@@ -148,7 +148,11 @@ Open the project on VS Code and press Ctrl+Shift+P on the keyboard. On the searc
 
 The application is now ready. <br /><br />
 
-In the /scripts directory, there are scripts that will move your files to their working directories. For now, these need to be started manually. First make sure the scripts have permissions to execute:
+In the /scripts directory, there are scripts that will move your files to their working directories. For now, these need to be started manually. The rely on the inotify package:
+```
+sudo apt-get install inotify-tools
+```
+Make sure the scripts have permissions to execute:
 ```
 cd ./scripts/
 chmod +x ./watch_catalog.sh
