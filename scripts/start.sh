@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Used to watch and notify changes to directories shared between the host and the containers
-sudo apt-get install inotify-tools
+#sudo apt-get install inotify-tools
 
 # This script stores the current working directory path in a .env file that will be created. 
 # The docker-compose command will read this file and inform the UI container of its location 
