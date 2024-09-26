@@ -42,6 +42,7 @@ const AttackTechniques: React.FC = () => {
     boxSizing: 'border-box',
     overflow: 'hidden' // Hides any overflow to keep the content tidy
   };
+  
 
   return (
     <div style={containerStyle}>

@@ -1,0 +1,17 @@
+('tactic/TA0040', 1)
+
+('tactic/TA0040', 1)
+
+('tactic/TA0040', 1)
+
+('tactic/TA0040', 1)
+
+('tactic/TA0040', 1)
+
+('tactic/TA0040', 1)
+
+('tactic/TA0007', 1)
+('tactic/TA0009', 1)
+('tactic/TA0040', 1)
+('tactic/TA0006', 2)
+

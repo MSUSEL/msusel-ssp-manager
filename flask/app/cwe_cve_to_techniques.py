@@ -170,10 +170,20 @@ class Match_VulnerabilitesAndWeakness_ToAttackTactics_AndTechniques:
         self.controlPrioritizationWrapperFunction(implemented_controls_dictionary_list, self.cursor, self.ControlPrioritization)
 
     def controlPrioritizationWrapperFunction(self, implemented_controls_dictionary_list, cursorTechniquesAndFindings, ControlPrioritization):
+        # log the cursorTechniquesAndFindings
+        #logging.info(f"Cursor techniques and findings: {cursorTechniquesAndFindings}")
+        logging.info("")
         ControlPrioritization.determineAttackTechniquesNotMitigated(cursorTechniquesAndFindings, implemented_controls_dictionary_list)
         query = ControlPrioritization.priorityControlsQuery
+
+        # log the query
+        logging.info(f"Query: {query}")
+        logging.info("")
+
         bind_var = {'attackTechniquesUsableAgainstSecurityFindings': ControlPrioritization.attackTechniquesUsableAgainstSecurityFindings}
         cursorTechniquesAndControls = self.DBConnection.db.aql.execute(query, bind_vars=bind_var, ttl=300)
+        #logging.info(f"Cursor techniques and controls: {cursorTechniquesAndControls}")
+        #logging.info("")
 
         ControlPrioritization.buildRecommendationsTableData(cursorTechniquesAndControls)
         logging.info(f"Recommendations table data: {ControlPrioritization.recommendationsTableData}")
@@ -524,6 +534,10 @@ class CreateVisualizations:
 
 
 def main():
+    logging.info("")
+    logging.info("")
+    logging.info("")
+    logging.info("cwe_cve_to_techniques.py has started.")
     curDir = os.getcwd()
     DBConnection = DatabaseConnection()
     control_prioritization_instance = ControlPrioritization(DBConnection)
