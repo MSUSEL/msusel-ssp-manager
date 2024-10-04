@@ -4,10 +4,6 @@ FROM python:3.10
 ARG HOST_VOLUME_PATH
 ARG HOST_UID
 ARG HOST_GID
-#ARG ARANGO_DB_URL
-#ARG ARANGO_DB_NAME
-#ARG ARANGO_DB_USERNAME
-#ARG ARANGO_DB_PASSWORD
 
 # Used to later give ownership of everything to the appuser
 WORKDIR /workdir
