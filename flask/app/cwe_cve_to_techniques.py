@@ -11,10 +11,14 @@ logging.basicConfig(level=logging.INFO)
 
 class DatabaseConnection:
     def __init__(self):
-        arango_url = os.getenv('ARANGO_DB_URL', 'http://brondb:8529')
+        arango_url = os.getenv('ARANGO_DB_URL')
+        arango_db_name = os.getenv('ARANGO_DB_NAME')
+        arango_username = os.getenv('ARANGO_DB_USERNAME')
+        arango_password = os.getenv('ARANGO_DB_PASSWORD')
+        '''arango_url = os.getenv('ARANGO_DB_URL', 'http://brondb:8529')
         arango_db_name = os.getenv('ARANGO_DB_NAME', 'BRON')
         arango_username = os.getenv('ARANGO_DB_USERNAME', 'root')
-        arango_password = os.getenv('ARANGO_DB_PASSWORD', 'changeme')
+        arango_password = os.getenv('ARANGO_DB_PASSWORD', 'changeme')'''
 
         self.client = ArangoClient(hosts=arango_url)
         self.db = self.client.db(arango_db_name, username=arango_username, password=arango_password)
@@ -47,6 +51,10 @@ class ControlPrioritization:
    
     def determineAttackTechniquesNotMitigated(self, cursorTechniquesAndFindings, implemented_controls_dictionary_list):
         for singleTechniqueFindingDictionary in cursorTechniquesAndFindings:
+            logging.info("log 6 OK")
+            #logging.info("")
+            #logging.info(f"Single technique finding dictionary: {singleTechniqueFindingDictionary}")
+            #logging.info("")
             controlsToMitigateTechniques = [] # stores control that map to the specific technique
             techniquesAndFindingsList = list(singleTechniqueFindingDictionary.values())
             techniqueMappedToFinding = techniquesAndFindingsList[0]
@@ -71,6 +79,13 @@ class ControlPrioritization:
                 if not in_list:
                     self.attackTechniquesUsableAgainstSecurityFindings.append(techniqueMappedToFinding)
                     self.attackTechniqueIDsAndListOfMatchedFindings.append(techniquesAndFindingsList)
+        logging.info("log 7 OK")
+        logging.info("log 8 OK")
+        '''logging.info("")
+        logging.info(f"Attack techniques usable against security findings: {self.attackTechniquesUsableAgainstSecurityFindings}")
+        logging.info("")
+        logging.info(f"Attack technique IDs and list of matched findings: {self.attackTechniqueIDsAndListOfMatchedFindings}")
+        logging.info("")'''
         return self.attackTechniquesUsableAgainstSecurityFindings,self.attackTechniqueIDsAndListOfMatchedFindings
 
     def buildRecommendationsTableData(self, cursorTechniquesAndControls):
@@ -126,11 +141,13 @@ class Match_VulnerabilitesAndWeakness_ToAttackTactics_AndTechniques:
         security_findingsFile = open(self.security_findings_file_path, 'r') 
         self.security_findings_dictionary_list = json.load(security_findingsFile)
         security_findingsFile.close()
-        logging.info(f"Security findings dictionary list: {self.security_findings_dictionary_list}")    
+        logging.info("log 1 OK")
+        #logging.info(f"Security findings dictionary list: {self.security_findings_dictionary_list}")    
         controls_file = open(self.controls_file_path, 'r')
         self.implemented_controls_dictionary_list = json.load(controls_file) # Ex: [{'control': 'CM-7'}, {'control': 'SC-7'}]
         controls_file.close()
-        logging.info(f"Implemented controls dictionary list: {self.implemented_controls_dictionary_list}")
+        logging.info("log 2 OK")
+        #logging.info(f"Implemented controls dictionary list: {self.implemented_controls_dictionary_list}")
 
     def weaknessOrVulnerability(self):
         is_cveList = self.security_findings_dictionary_list[0].get('cve', None)
@@ -139,7 +156,8 @@ class Match_VulnerabilitesAndWeakness_ToAttackTactics_AndTechniques:
             logging.info('CVE list detected') 
             self.findAttackTechniques(self.security_findings_dictionary_list, self.implemented_controls_dictionary_list, is_cveList)
         elif is_cweList is not None: 
-            logging.info('CWE list detected')
+            logging.info('log 3 OK')
+            #logging.info('CWE list detected')
             self.findAttackTechniques(self.security_findings_dictionary_list, self.implemented_controls_dictionary_list, is_cweList)
         else:
             print('Invalid (not \'cve\'/\'cwe\') item detected from the input json file')
@@ -165,28 +183,39 @@ class Match_VulnerabilitesAndWeakness_ToAttackTactics_AndTechniques:
 
     def findAttackTechniques(self, security_findings_dictionary_list, implemented_controls_dictionary_list, finding_type):
         self.findings_list = self.createFindingsList(security_findings_dictionary_list)
-        logging.info(f"Findings list: {self.findings_list}")
+        logging.info("log 4 OK")
+        #logging.info(f"Findings list: {self.findings_list}")
+
+        # Cursor not being used after this point??? Yes, name is changed in the function parameter to cursorTechniquesAndFindings
         self.cursor = self.mapFindingstoMITREAttackTechniques(self.findings_list, finding_type)
         self.controlPrioritizationWrapperFunction(implemented_controls_dictionary_list, self.cursor, self.ControlPrioritization)
 
     def controlPrioritizationWrapperFunction(self, implemented_controls_dictionary_list, cursorTechniquesAndFindings, ControlPrioritization):
         # log the cursorTechniquesAndFindings
+        logging.info("log 5 OK")
         #logging.info(f"Cursor techniques and findings: {cursorTechniquesAndFindings}")
         logging.info("")
         ControlPrioritization.determineAttackTechniquesNotMitigated(cursorTechniquesAndFindings, implemented_controls_dictionary_list)
         query = ControlPrioritization.priorityControlsQuery
 
         # log the query
-        logging.info(f"Query: {query}")
+        logging.info("log 9 OK")
+        logging.info("log 10 OK")
+        '''logging.info(f"Query: {query}")
         logging.info("")
+        logging.info(f"Attack techniques usable against security findings: {ControlPrioritization.attackTechniquesUsableAgainstSecurityFindings}")
+        logging.info("")'''
 
         bind_var = {'attackTechniquesUsableAgainstSecurityFindings': ControlPrioritization.attackTechniquesUsableAgainstSecurityFindings}
         cursorTechniquesAndControls = self.DBConnection.db.aql.execute(query, bind_vars=bind_var, ttl=300)
+        logging.info("log 11 OK")
         #logging.info(f"Cursor techniques and controls: {cursorTechniquesAndControls}")
         #logging.info("")
 
         ControlPrioritization.buildRecommendationsTableData(cursorTechniquesAndControls)
-        logging.info(f"Recommendations table data: {ControlPrioritization.recommendationsTableData}")
+        logging.info("log 12 OK")
+        #logging.info(f"Recommendations table data: {ControlPrioritization.recommendationsTableData}")
+        #logging.info("")
 
         query = ControlPrioritization.tacticToTechniqueQuery
         bind_vars = {'attackTechniquesUsableAgainstSecurityFindings': ControlPrioritization.attackTechniquesUsableAgainstSecurityFindings}
@@ -220,17 +249,73 @@ class CreateVisualizations:
     def addNodesAndEdgesToTacticsAndTechniquesGraph(self, cursorTacticToTechnique):
         for edge in cursorTacticToTechnique:
             tactic, technique = edge.items()
+            logging.info("log 13 OK")
+            logging.info("")
+            logging.info("adding nodes and edges to tactics and techniques graph")
+            logging.info(f"Edge: {tactic[1]} -> {technique[1]}")
             self.tacticsAndTechniquesGraph.add_nodes_from([tactic[1], technique[1]])
             self.tacticsAndTechniquesGraph.add_edge(tactic[1], technique[1])
             self.tacticsList.append(tactic[1])
+        logging.info("log 14 OK")
+        logging.info("")
+        logging.info("Finished adding nodes in the tactics and techniques graph: ")
+        logging.info(f"Nodes in the tactics and techniques graph: {self.tacticsAndTechniquesGraph.nodes}")
+
+        logging.info("log 15 OK")
+        logging.info("")
+        logging.info("Edges in the tactics and techniques graph: ")
+        logging.info(f"Edges in the tactics and techniques graph: {self.tacticsAndTechniquesGraph.edges}")
+
+        logging.info("log 16 OK")
+        logging.info("")
+        logging.info("Tactics list: ")
+        logging.info(f"Tactics list: {self.tacticsList}")
 
     def addEdgesToTacticsAndTechniquesGraph(self, tacticToTacticEdgeCollection):
         for edge in tacticToTacticEdgeCollection:
-            if edge['_from'] in self.tacticsList and edge['_to'] in self.tacticsList:
+            logging.info("log 17 OK")
+            logging.info("")
+            logging.info("adding edges to tactics and techniques graph")
+            logging.info(f"Edge: {edge}")
+            logging.info(f"tacticsList: {self.tacticsList}")
+            if edge['_from'] in self.tacticsList and edge['_to'] in self.tacticsList: # Never true?
+                logging.info("")
+                logging.info("Edge in tactics list true")
+                logging.info("")
+                # Add edges with debugging statements
+                '''try:
+                    logging.info(f"Adding edge to tacticsAndTechniquesGraph: {edge['_from']} -> {edge['_to']}")
+                    self.tacticsAndTechniquesGraph.add_edge(edge['_from'], edge['_to'])
+                    logging.info(f"Successfully added edge to tacticsAndTechniquesGraph: {edge['_from']} -> {edge['_to']}")
+                except Exception as e:
+                    logging.info(f"Error adding edge to tacticsAndTechniquesGraph: {e}")
+
+                try:
+                    logging.info(f"Adding edge to tacticsOnlyGraph: {edge['_from']} -> {edge['_to']}")
+                    self.tacticsOnlyGraph.add_edge(edge['_from'], edge['_to'])
+                    logging.info(f"Successfully added edge to tacticsOnlyGraph: {edge['_from']} -> {edge['_to']}")
+                except Exception as e:
+                    logging.info(f"Error adding edge to tacticsOnlyGraph: {e}")'''
+
+                logging.info(f"Adding edge to tacticsAndTechniquesGraph: {edge['_from']} -> {edge['_to']}")
                 self.tacticsAndTechniquesGraph.add_edge(edge['_from'], edge['_to'])
+                logging.info(f"Successfully added edge to tacticsAndTechniquesGraph: {edge['_from']} -> {edge['_to']}")
+                
+                logging.info(f"Adding edge to tacticsOnlyGraph: {edge['_from']} -> {edge['_to']}")
                 self.tacticsOnlyGraph.add_edge(edge['_from'], edge['_to'])
+                logging.info(f"Successfully added edge to tacticsOnlyGraph: {edge['_from']} -> {edge['_to']}")
+                
+                #self.tacticsAndTechniquesGraph.add_edge(edge['_from'], edge['_to'])
+                #self.tacticsOnlyGraph.add_edge(edge['_from'], edge['_to'])
                 # log the edges in the tactics only graph
-                logging.info(f"Edges in the tactics only graph: {self.tacticsOnlyGraph.edges}")
+        logging.info("log 18 OK")
+        logging.info("")
+        logging.info("Finished adding edges in the tactics only graph: ")
+        logging.info(f"Edges in the tacticsAndTechniquesGraph: {self.tacticsAndTechniquesGraph.edges}")
+
+        
+        logging.info(f"Nodes in the tactics only graph: {self.tacticsOnlyGraph.nodes}")
+        logging.info(f"Edges in the tactics only graph: {self.tacticsOnlyGraph.edges}")
 
     def checkIfUserPriorityWasDetected(self, userSelectedBRONTactic_id):
         if userSelectedBRONTactic_id in self.tacticsList:
@@ -244,12 +329,39 @@ class CreateVisualizations:
         self.pyvisTacticsAndTechniquesGraph.from_nx(self.tacticsAndTechniquesGraph)
         self.pyvisTacticsAndTechniquesGraph.force_atlas_2based()
         self.pyvisTacticsAndTechniquesGraph.show('./app/templates/graph.html')
+        logging.info("")
+        logging.info("Contents of the graph html file: ")
+        file_path = './app/templates/graph.html'
+        try:
+            # Open and read the file
+            with open(file_path, 'r') as file:
+                file_contents = file.read()
+            
+            # Log the contents of the file
+            logging.info(f"Contents of {file_path}: {file_contents}")
+        except Exception as e:
+            logging.error(f"Error reading {file_path}: {e}")
 
     def createPyvisAttackPathsGraph(self, attackPathsGraph):
         # translates networkx graph into PyViz graph
         self.pyvisAttackPathsGraph.from_nx(attackPathsGraph)
         self.pyvisAttackPathsGraph.force_atlas_2based()
         self.pyvisAttackPathsGraph.show('./app/templates/network_flow.html')
+        # log contents of the ./app/templates/network_flow.html file
+        # Path to the file
+        logging.info("")
+        logging.info("Contents of the network flow html file: ")
+        file_path = './app/templates/network_flow.html'
+        try:
+            # Open and read the file
+            with open(file_path, 'r') as file:
+                file_contents = file.read()
+            
+            # Log the contents of the file
+            logging.info(f"Contents of {file_path}: {file_contents}")
+        except Exception as e:
+            logging.error(f"Error reading {file_path}: {e}")
+
 
     def make_graph(self, db, cursorTacticToTechnique, recommendationsTableData, userSelectedBRONTactic_id):
         tacticToTacticEdgeCollection = db.collection('TacticTactic')
@@ -259,6 +371,9 @@ class CreateVisualizations:
         self.checkIfUserPriorityWasDetected(userSelectedBRONTactic_id)
 
         prioritize_lists = self.show_prioritize(self.user_priority_BRONtacticID) # runs algorithm that finds the prioritized paths
+        logging.info("")
+        logging.info(f"Prioritize lists: {prioritize_lists}")
+        
         self.create_table(db, prioritize_lists, recommendationsTableData)
         
         # Check if vulnerability effectiveness analysis has been run
@@ -267,10 +382,18 @@ class CreateVisualizations:
         
         # log the contents of the tacticsOnlyGraph
         logging.info(f"Nodes in the tactics only graph: {self.tacticsOnlyGraph.nodes}")
+        logging.info(f"Edges in the tactics only graph: {self.tacticsOnlyGraph.edges}")
+        logging.info("")
         attackPathsGraph = self.makeAttackPathsGraph(self.tacticsAndTechniquesGraph, self.tacticsOnlyGraph)
+        logging.info("")
+        logging.info(f"Nodes in the attack paths graph: {attackPathsGraph.nodes}")
+        logging.info(f"Edges in the attack paths graph: {attackPathsGraph.edges}")
+
 
         self.createPyvisTacticsAndTechniquesGraph()
+        logging.info("")
         self.createPyvisAttackPathsGraph(attackPathsGraph)
+        logging.info("")
 
 
     # method to sort the individual priority lists
@@ -546,12 +669,40 @@ def main():
     matcherFindingsToTechniques.makeMatch()
     # Copy the graph.html file to the shared directory
     os.system('cp ./app/templates/graph.html /shared')
+    # confirm the file was copied
+    logging.info("")
+    logging.info("Check if the graph.html file was copied to the shared directory.")
+    os.system('ls -la /shared/graph.html')
+
+
+
     # Copy the network_flow.html file to the shared directory
     os.system('cp ./app/templates/network_flow.html /shared')
-    # Copy the vulntable.html file to the shared directory
-    os.system('cp ./app/templates/vulntable.html /shared')
+    # confirm the file was copied
+    logging.info("")
+    logging.info("Check if the netowrk_flow.html file was copied to the shared directory.")
+    os.system('ls -la /shared/network_flow.html')
+
     # Copy the table.html file to the shared directory
     os.system('cp ./app/templates/table.html /shared')
+    # confirm the file was copied
+    logging.info("")
+    logging.info("Check if the table.html file was copied to the shared directory.")
+    os.system('ls -la /shared/table.html')
+
+    # check if the vulntable.html exists
+    if os.path.exists('./app/templates/vulntable.html'):
+        logging.info("The vulntable.html file exists.")
+        # Copy the vulntable.html file to the shared directory
+        os.system('cp ./app/templates/vulntable.html /shared')
+        # confirm the file was copied
+        logging.info("")
+        logging.info("Check if the vulntable.html file was copied to the shared directory.")
+        os.system('ls -la /shared/vulntable.html')
+    else:
+        logging.error("The vulntable.html file does not exist.")
+    
+
     logging.info('Finished running the create graphs program.')
     
 if __name__ == '__main__':
