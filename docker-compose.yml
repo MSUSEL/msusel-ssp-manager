@@ -11,7 +11,7 @@ services:
     #networks:
       #- ssp_network
   flask:
-    container_name: flask-frontend-cli
+    container_name: flask-backend
     build:
       context: ./flask
       args:

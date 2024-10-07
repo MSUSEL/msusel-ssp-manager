@@ -31,7 +31,7 @@ def dependencies():
         return 'No selected file', 400
     if implemented_controls:
         try:
-            #subprocess.run(["python3", "./app/prepareProject.py", "abstractClass", "main_function"]) # test file and function are hardcoded.
+            subprocess.run(["python3", "./app/prepareProject.py", "abstractClass", "main_function"]) # test file and function are hardcoded.
             createThread(cwe_cve_to_techniques.main)
             #if os.path.exists('./artifacts/calledVulnerableFunctionsObjectList.txt'):
                 #return render_template('vulResult.html')
