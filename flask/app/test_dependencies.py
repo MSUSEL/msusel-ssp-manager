@@ -5,6 +5,7 @@ import os
 from flask import render_template
 import threading
 from . import cwe_cve_to_techniques
+from . import dbQueries
 
 
 logging.basicConfig(level=logging.INFO)
@@ -31,8 +32,9 @@ def dependencies():
         return 'No selected file', 400
     if implemented_controls:
         try:
-            subprocess.run(["python3", "./app/prepareProject.py", "abstractClass", "main_function"]) # test file and function are hardcoded.
-            createThread(cwe_cve_to_techniques.main)
+            #subprocess.run(["python3", "./app/prepareProject.py", "abstractClass", "main_function"]) # test file and function are hardcoded.
+            #createThread(cwe_cve_to_techniques.main)
+            createThread(dbQueries.main)
             #if os.path.exists('./artifacts/calledVulnerableFunctionsObjectList.txt'):
                 #return render_template('vulResult.html')
             context = {

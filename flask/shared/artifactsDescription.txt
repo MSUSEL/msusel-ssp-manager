@@ -1,0 +1,41 @@
+bandit_output_test.json 
+
+
+fileAndVulnerabilitiesLinesDictionaryList.txt (produced by parseBanditOutput.py)
+a list of dictionaries where each key is a file and each value is a line number. 
+The files have duplicates.
+
+
+banditObjects.txt (produced by parseBanditOutput.py, uses bandit_output_test.json as input)
+a list of  objects with trimmed content from the bandit output. 
+(Excludes test files and some of the keys that bandit produces in its output)
+
+
+noDuplicateFilesList.txt (produced by getFunctionNames.py, removeDuplicates f, 
+uses fileAndVulnerabilitiesLinesDictionaryList.txt as input)
+a list of dictionaries where the keys are files and the values are a list of the 
+line numbers where the vulnerabilities occur. 
+There are no duplicate keys.
+
+
+filesAndFunctionNames.txt (We input noDuplicateFilesList.txt to getFunctionNamesFromSourceFiles function
+ and get the function names from the source files.)
+This is a list of json objects (dictionaries) whose keys are files (absolute path)
+and the values are lists of function names where each name represents a vulnerable 
+function in that file. (I added functionality to remove duplicates from the FUNCTION list)
+
+
+profile_data.json (produced by dynamicCallGraph.py)
+From the output, we want to use filename and function_name.
+
+
+profile_data.txt (produced by parseProfile.py)
+json objects that have key either filename or function_name
+
+
+** THE FILENAME IS THE LAST KEY, NOT THE FIRST
+calledVulnerableFunctionsObjectList.txt
+
+notCalledVulnerableFunctionsObjectList.txt
+
+vulnerabilitiesOutsideFunctionsObjectList.txt

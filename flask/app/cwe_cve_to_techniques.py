@@ -76,9 +76,7 @@ class ControlPrioritization:
         logging.info("Enterred determineAttackTechniquesNotMitigated method.")
         logging.info("Will iterate through the cursorTechniquesAndFindings. For each techniqueFinding dictionary in the cursor, we will extract the values and store them in a list.")
         for singleTechniqueFindingDictionary in cursorTechniquesAndFindings:
-            #logging.info("")
             logging.info(f"Element in cursor is Single technique finding dictionary: {singleTechniqueFindingDictionary}")
-            #logging.info("")
             controlsToMitigateTechniques = [] # stores control that map to the specific technique
             logging.info("Declared controlsToMitigateTechniques list.")
             techniquesAndFindingsList = list(singleTechniqueFindingDictionary.values())

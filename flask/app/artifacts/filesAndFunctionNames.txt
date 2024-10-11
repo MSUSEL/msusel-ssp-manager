@@ -1,0 +1,15 @@
+{'/home/ernesto/Documents/runBandit22/dependencies/abstractClass.py': ['getWebPage']}
+{'/home/ernesto/Documents/runBandit22/dependencies/requests/requests-2.31.0/requests/__init__.py': ['check_compatibility']}
+{'/home/ernesto/Documents/runBandit22/dependencies/requests/requests-2.31.0/requests/_internal_utils.py': ['unicode_is_ascii']}
+{'/home/ernesto/Documents/runBandit22/dependencies/requests/requests-2.31.0/requests/auth.py': ['build_digest_header']}
+{'/home/ernesto/Documents/runBandit22/dependencies/requests/requests-2.31.0/setup.py': []}
+{'/home/ernesto/Documents/runBandit22/dependencies/urllib3/urllib3-2.2.1/docs/conf.py': []}
+{'/home/ernesto/Documents/runBandit22/dependencies/urllib3/urllib3-2.2.1/dummyserver/app.py': []}
+{'/home/ernesto/Documents/runBandit22/dependencies/urllib3/urllib3-2.2.1/dummyserver/asgi_proxy.py': []}
+{'/home/ernesto/Documents/runBandit22/dependencies/urllib3/urllib3-2.2.1/dummyserver/socketserver.py': ['_has_ipv6']}
+{'/home/ernesto/Documents/runBandit22/dependencies/urllib3/urllib3-2.2.1/src/urllib3/_collections.py': ['add']}
+{'/home/ernesto/Documents/runBandit22/dependencies/urllib3/urllib3-2.2.1/src/urllib3/http2.py': ['getresponse', 'close']}
+{'/home/ernesto/Documents/runBandit22/dependencies/urllib3/urllib3-2.2.1/src/urllib3/response.py': ['get_all', '_fp_read']}
+{'/home/ernesto/Documents/runBandit22/dependencies/urllib3/urllib3-2.2.1/src/urllib3/util/connection.py': ['_has_ipv6']}
+{'/home/ernesto/Documents/runBandit22/dependencies/urllib3/urllib3-2.2.1/src/urllib3/util/retry.py': ['get_backoff_time']}
+{'/home/ernesto/Documents/runBandit22/dependencies/urllib3/urllib3-2.2.1/src/urllib3/util/ssltransport.py': ['makefile']}

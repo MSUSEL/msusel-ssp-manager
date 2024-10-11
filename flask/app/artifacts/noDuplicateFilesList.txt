@@ -1,0 +1,15 @@
+{'/home/ernesto/Documents/runBandit22/dependencies/abstractClass.py': [50]}
+{'/home/ernesto/Documents/runBandit22/dependencies/requests/requests-2.31.0/requests/__init__.py': [60, 70, 72, 79, 84]}
+{'/home/ernesto/Documents/runBandit22/dependencies/requests/requests-2.31.0/requests/_internal_utils.py': [45]}
+{'/home/ernesto/Documents/runBandit22/dependencies/requests/requests-2.31.0/requests/auth.py': [148, 156, 205]}
+{'/home/ernesto/Documents/runBandit22/dependencies/requests/requests-2.31.0/setup.py': [57, 57, 58, 58, 79]}
+{'/home/ernesto/Documents/runBandit22/dependencies/urllib3/urllib3-2.2.1/docs/conf.py': [20, 22, 22]}
+{'/home/ernesto/Documents/runBandit22/dependencies/urllib3/urllib3-2.2.1/dummyserver/app.py': [84, 161, 199]}
+{'/home/ernesto/Documents/runBandit22/dependencies/urllib3/urllib3-2.2.1/dummyserver/asgi_proxy.py': [37]}
+{'/home/ernesto/Documents/runBandit22/dependencies/urllib3/urllib3-2.2.1/dummyserver/socketserver.py': [73]}
+{'/home/ernesto/Documents/runBandit22/dependencies/urllib3/urllib3-2.2.1/src/urllib3/_collections.py': [331]}
+{'/home/ernesto/Documents/runBandit22/dependencies/urllib3/urllib3-2.2.1/src/urllib3/http2.py': [158, 172]}
+{'/home/ernesto/Documents/runBandit22/dependencies/urllib3/urllib3-2.2.1/src/urllib3/response.py': [289, 809]}
+{'/home/ernesto/Documents/runBandit22/dependencies/urllib3/urllib3-2.2.1/src/urllib3/util/connection.py': [129]}
+{'/home/ernesto/Documents/runBandit22/dependencies/urllib3/urllib3-2.2.1/src/urllib3/util/retry.py': [301]}
+{'/home/ernesto/Documents/runBandit22/dependencies/urllib3/urllib3-2.2.1/src/urllib3/util/ssltransport.py': [138, 161]}

@@ -1,0 +1,1384 @@
+{'filename': '~'}
+{'function_name': "<method 'pop' of 'collections.OrderedDict' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'values' of 'collections.OrderedDict' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'items' of 'collections.OrderedDict' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'update' of 'collections.OrderedDict' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'clear' of 'collections.OrderedDict' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'copy' of 'collections.OrderedDict' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'append' of 'bytearray' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'decode' of 'bytearray' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'extend' of 'bytearray' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'find' of 'bytearray' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'translate' of 'bytearray' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'encode' of 'str' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'replace' of 'str' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'split' of 'str' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'join' of 'str' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'count' of 'str' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'find' of 'str' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'partition' of 'str' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'lower' of 'str' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'lstrip' of 'str' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'rfind' of 'str' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'rstrip' of 'str' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'rpartition' of 'str' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'strip' of 'str' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'upper' of 'str' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'startswith' of 'str' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'endswith' of 'str' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'isascii' of 'str' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'isalnum' of 'str' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'cast' of 'memoryview' objects>"}
+{'filename': '~'}
+{'function_name': "<method '__exit__' of 'memoryview' objects>"}
+{'filename': '~'}
+{'function_name': '<built-in method from_bytes>'}
+{'filename': '~'}
+{'function_name': "<method 'count' of 'bytes' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'decode' of 'bytes' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'join' of 'bytes' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'rstrip' of 'bytes' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'split' of 'bytes' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'pop' of 'set' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'get' of 'dict' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'setdefault' of 'dict' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'pop' of 'dict' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'keys' of 'dict' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'items' of 'dict' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'values' of 'dict' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'update' of 'dict' objects>"}
+{'filename': '~'}
+{'function_name': '<built-in method fromkeys>'}
+{'filename': '~'}
+{'function_name': "<method 'copy' of 'dict' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'append' of 'list' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'insert' of 'list' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'extend' of 'list' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'pop' of 'list' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'index' of 'list' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'sort' of 'list' objects>"}
+{'filename': '~'}
+{'function_name': '<built-in method sys.audit>'}
+{'filename': '~'}
+{'function_name': '<built-in method builtins.__build_class__>'}
+{'filename': '~'}
+{'function_name': '<built-in method builtins.__import__>'}
+{'filename': '~'}
+{'function_name': '<built-in method builtins.all>'}
+{'filename': '~'}
+{'function_name': '<built-in method builtins.any>'}
+{'filename': '~'}
+{'function_name': '<built-in method builtins.exec>'}
+{'filename': '~'}
+{'function_name': '<built-in method builtins.getattr>'}
+{'filename': '~'}
+{'function_name': '<built-in method builtins.hasattr>'}
+{'filename': '~'}
+{'function_name': '<built-in method builtins.hash>'}
+{'filename': '~'}
+{'function_name': '<built-in method builtins.isinstance>'}
+{'filename': '~'}
+{'function_name': '<built-in method builtins.issubclass>'}
+{'filename': '~'}
+{'function_name': '<built-in method builtins.len>'}
+{'filename': '~'}
+{'function_name': '<built-in method builtins.max>'}
+{'filename': '~'}
+{'function_name': '<built-in method builtins.min>'}
+{'filename': '~'}
+{'function_name': '<built-in method builtins.next>'}
+{'filename': '~'}
+{'function_name': '<built-in method builtins.ord>'}
+{'filename': '~'}
+{'function_name': '<built-in method builtins.print>'}
+{'filename': '~'}
+{'function_name': '<built-in method builtins.sorted>'}
+{'filename': '~'}
+{'function_name': '<built-in method __new__ of type object at 0x55d3572b99a0>'}
+{'filename': '~'}
+{'function_name': '<built-in method _imp.acquire_lock>'}
+{'filename': '~'}
+{'function_name': '<built-in method _imp.release_lock>'}
+{'filename': '~'}
+{'function_name': '<built-in method _imp.is_builtin>'}
+{'filename': '~'}
+{'function_name': '<built-in method _imp.is_frozen>'}
+{'filename': '~'}
+{'function_name': '<built-in method _imp._fix_co_filename>'}
+{'filename': '~'}
+{'function_name': "<method 'acquire' of '_thread.RLock' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'release' of '_thread.RLock' objects>"}
+{'filename': '~'}
+{'function_name': "<method '__exit__' of '_thread.RLock' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'acquire' of '_thread.lock' objects>"}
+{'filename': '~'}
+{'function_name': "<method '__enter__' of '_thread.lock' objects>"}
+{'filename': '~'}
+{'function_name': "<method '__exit__' of '_thread.lock' objects>"}
+{'filename': '~'}
+{'function_name': '<built-in method _thread.allocate_lock>'}
+{'filename': '~'}
+{'function_name': '<built-in method _thread.get_ident>'}
+{'filename': '~'}
+{'function_name': '<built-in method posix.stat>'}
+{'filename': '~'}
+{'function_name': '<built-in method posix.getcwd>'}
+{'filename': '~'}
+{'function_name': '<built-in method posix.fspath>'}
+{'filename': '~'}
+{'function_name': '<built-in method marshal.loads>'}
+{'filename': '~'}
+{'function_name': "<method 'flush' of '_io.BufferedReader' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'close' of '_io.BufferedReader' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'read' of '_io.BufferedReader' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'readline' of '_io.BufferedReader' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'read' of '_io.StringIO' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'truncate' of '_io.StringIO' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'seek' of '_io.StringIO' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'write' of '_io.StringIO' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'write' of '_io.BytesIO' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'getvalue' of '_io.BytesIO' objects>"}
+{'filename': '~'}
+{'function_name': '<function HTTPResponse.flush at 0x7fb81a9e7490>'}
+{'filename': '~'}
+{'function_name': '<function SocketIO.close at 0x7fb81aca7b50>'}
+{'filename': '~'}
+{'function_name': "<method '_checkClosed' of '_io._IOBase' objects>"}
+{'filename': '~'}
+{'function_name': "<method '_checkReadable' of '_io._IOBase' objects>"}
+{'filename': '~'}
+{'function_name': "<method '__exit__' of '_io._IOBase' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'readlines' of '_io._IOBase' objects>"}
+{'filename': '~'}
+{'function_name': '<built-in method io.open_code>'}
+{'filename': '~'}
+{'function_name': '<built-in method time.time>'}
+{'filename': '~'}
+{'function_name': '<built-in method time.monotonic>'}
+{'filename': '~'}
+{'function_name': '<built-in method _abc._abc_instancecheck>'}
+{'filename': '~'}
+{'function_name': '<built-in method _abc._abc_subclasscheck>'}
+{'filename': '~'}
+{'function_name': '<built-in method _stat.S_ISDIR>'}
+{'filename': '~'}
+{'function_name': '<built-in method _sre.compile>'}
+{'filename': '~'}
+{'function_name': "<method 'groups' of 're.Match' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'match' of 're.Pattern' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'fullmatch' of 're.Pattern' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'search' of 're.Pattern' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'sub' of 're.Pattern' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'subn' of 're.Pattern' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'append' of 'collections.deque' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'extend' of 'collections.deque' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'popleft' of 'collections.deque' objects>"}
+{'filename': '~'}
+{'function_name': '<built-in method atexit.register>'}
+{'filename': '~'}
+{'function_name': '<built-in method today>'}
+{'filename': '~'}
+{'function_name': "<method 'toordinal' of 'datetime.date' objects>"}
+{'filename': '~'}
+{'function_name': '<built-in method _socket.getaddrinfo>'}
+{'filename': '~'}
+{'function_name': '<built-in method _socket.getdefaulttimeout>'}
+{'filename': '~'}
+{'function_name': '<function socket.close at 0x7fb81aca70a0>'}
+{'filename': '~'}
+{'function_name': "<method 'connect' of '_socket.socket' objects>"}
+{'filename': '~'}
+{'function_name': '<function socket.detach at 0x7fb81aca7130>'}
+{'filename': '~'}
+{'function_name': "<method 'fileno' of '_socket.socket' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'getpeername' of '_socket.socket' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'getsockopt' of '_socket.socket' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'settimeout' of '_socket.socket' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'gettimeout' of '_socket.socket' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'setsockopt' of '_socket.socket' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'decompress' of 'zlib.Decompress' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'flush' of 'zlib.Decompress' objects>"}
+{'filename': '~'}
+{'function_name': '<built-in method zlib.decompressobj>'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/sessions.py'}
+{'function_name': 'merge_environment_settings'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/sessions.py'}
+{'function_name': 'get_adapter'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/sessions.py'}
+{'function_name': 'close'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/sessions.py'}
+{'function_name': '<listcomp>'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/sessions.py'}
+{'function_name': 'mount'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/adapters.py'}
+{'function_name': '__init__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/adapters.py'}
+{'function_name': '__init__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/adapters.py'}
+{'function_name': 'init_poolmanager'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/adapters.py'}
+{'function_name': 'cert_verify'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/adapters.py'}
+{'function_name': 'build_response'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/adapters.py'}
+{'function_name': 'get_connection'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/adapters.py'}
+{'function_name': 'close'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/adapters.py'}
+{'function_name': 'request_url'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/adapters.py'}
+{'function_name': 'add_headers'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/adapters.py'}
+{'function_name': 'send'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': 'path_url'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': '_encode_params'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': '<genexpr>'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': 'register_hook'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': '__init__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': '__init__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': 'prepare'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': 'copy'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': 'prepare_method'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': 'prepare_url'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': 'prepare_headers'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': 'prepare_body'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': 'prepare_content_length'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': 'prepare_auth'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': 'prepare_cookies'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': 'prepare_hooks'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': '__init__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': 'is_redirect'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': 'generate'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': 'iter_content'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': 'content'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': 'text'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/models.py'}
+{'function_name': 'close'}
+{'filename': '/usr/lib/python3.10/encodings/idna.py'}
+{'function_name': 'encode'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/hooks.py'}
+{'function_name': '<dictcomp>'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/hooks.py'}
+{'function_name': 'default_hooks'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/hooks.py'}
+{'function_name': 'dispatch_hook'}
+{'filename': '/usr/lib/python3.10/encodings/idna.py'}
+{'function_name': 'getregentry'}
+{'filename': '/usr/lib/python3.10/netrc.py'}
+{'function_name': 'NetrcParseError'}
+{'filename': '/usr/lib/python3.10/netrc.py'}
+{'function_name': 'netrc'}
+{'filename': '/usr/lib/python3.10/netrc.py'}
+{'function_name': '<module>'}
+{'filename': '/usr/lib/python3.10/shlex.py'}
+{'function_name': 'shlex'}
+{'filename': '/usr/lib/python3.10/shlex.py'}
+{'function_name': '<module>'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/utils.py'}
+{'function_name': 'get_netrc_auth'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/utils.py'}
+{'function_name': 'extract_zipped_paths'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/utils.py'}
+{'function_name': 'to_key_val_list'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/utils.py'}
+{'function_name': '_parse_content_type_header'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/utils.py'}
+{'function_name': 'get_encoding_from_headers'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/utils.py'}
+{'function_name': 'iter_slices'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/utils.py'}
+{'function_name': 'unquote_unreserved'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/utils.py'}
+{'function_name': 'requote_uri'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/utils.py'}
+{'function_name': 'set_environ'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/utils.py'}
+{'function_name': 'get_proxy'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/utils.py'}
+{'function_name': 'should_bypass_proxies'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/utils.py'}
+{'function_name': 'get_environ_proxies'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/utils.py'}
+{'function_name': 'select_proxy'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/utils.py'}
+{'function_name': 'resolve_proxies'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/utils.py'}
+{'function_name': 'default_user_agent'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/utils.py'}
+{'function_name': 'default_headers'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/utils.py'}
+{'function_name': 'get_auth_from_url'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/utils.py'}
+{'function_name': 'check_header_validity'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/utils.py'}
+{'function_name': '_validate_header_part'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/api.py'}
+{'function_name': 'request'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/_internal_utils.py'}
+{'function_name': 'to_native_string'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/_internal_utils.py'}
+{'function_name': 'unicode_is_ascii'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/cookies.py'}
+{'function_name': '__init__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/cookies.py'}
+{'function_name': 'get_host'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/cookies.py'}
+{'function_name': 'get_origin_req_host'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/cookies.py'}
+{'function_name': 'get_full_url'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/cookies.py'}
+{'function_name': 'is_unverifiable'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/cookies.py'}
+{'function_name': 'get_new_headers'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/cookies.py'}
+{'function_name': 'unverifiable'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/cookies.py'}
+{'function_name': 'origin_req_host'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/cookies.py'}
+{'function_name': '__init__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/cookies.py'}
+{'function_name': 'info'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/cookies.py'}
+{'function_name': 'extract_cookies_to_jar'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/cookies.py'}
+{'function_name': 'get_cookie_header'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/structures.py'}
+{'function_name': '__init__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/cookies.py'}
+{'function_name': 'set_cookie'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/cookies.py'}
+{'function_name': 'update'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/cookies.py'}
+{'function_name': 'copy'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/cookies.py'}
+{'function_name': 'get_policy'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/structures.py'}
+{'function_name': '__setitem__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/cookies.py'}
+{'function_name': '_copy_cookie_jar'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/cookies.py'}
+{'function_name': '<listcomp>'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/cookies.py'}
+{'function_name': 'cookiejar_from_dict'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/cookies.py'}
+{'function_name': 'merge_cookies'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/structures.py'}
+{'function_name': '__getitem__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/structures.py'}
+{'function_name': '<genexpr>'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/structures.py'}
+{'function_name': '__iter__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/structures.py'}
+{'function_name': '__len__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/structures.py'}
+{'function_name': 'copy'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/sessions.py'}
+{'function_name': '<listcomp>'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/sessions.py'}
+{'function_name': 'merge_setting'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/sessions.py'}
+{'function_name': 'merge_hooks'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/sessions.py'}
+{'function_name': 'get_redirect_target'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/sessions.py'}
+{'function_name': 'resolve_redirects'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/sessions.py'}
+{'function_name': 'rebuild_auth'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/sessions.py'}
+{'function_name': 'rebuild_proxies'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/sessions.py'}
+{'function_name': 'rebuild_method'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/sessions.py'}
+{'function_name': '__init__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/sessions.py'}
+{'function_name': '__enter__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/sessions.py'}
+{'function_name': '__exit__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/sessions.py'}
+{'function_name': 'prepare_request'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/sessions.py'}
+{'function_name': 'request'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/sessions.py'}
+{'function_name': '<listcomp>'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/sessions.py'}
+{'function_name': 'send'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': 'retries'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': '_init_decoder'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': '_decode'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': '_flush_decoder'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/poolmanager.py'}
+{'function_name': 'connection_from_host'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': '__init__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': 'release_conn'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': '<setcomp>'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': '_init_length'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': '_error_catcher'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': '_fp_read'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': '_raw_read'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': 'read'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': 'stream'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': 'closed'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': 'supports_chunked_reads'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': '_update_chunk_length'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': '_handle_chunk'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': 'read_chunked'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/poolmanager.py'}
+{'function_name': 'connection_from_context'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/poolmanager.py'}
+{'function_name': 'clear'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connection.py'}
+{'function_name': '__init__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connection.py'}
+{'function_name': 'host'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connection.py'}
+{'function_name': 'host'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connection.py'}
+{'function_name': '_new_conn'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connection.py'}
+{'function_name': 'is_closed'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connection.py'}
+{'function_name': 'proxy_is_forwarding'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connection.py'}
+{'function_name': 'close'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connection.py'}
+{'function_name': 'putrequest'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connection.py'}
+{'function_name': '<genexpr>'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connection.py'}
+{'function_name': 'putheader'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connection.py'}
+{'function_name': '<genexpr>'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connection.py'}
+{'function_name': 'request'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connection.py'}
+{'function_name': 'getresponse'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connection.py'}
+{'function_name': '__init__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connection.py'}
+{'function_name': 'connect'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connection.py'}
+{'function_name': '_ssl_wrap_socket_and_match_hostname'}
+{'filename': '<string>'}
+{'function_name': '<lambda>'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/poolmanager.py'}
+{'function_name': 'connection_from_pool_key'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/poolmanager.py'}
+{'function_name': 'connection_from_url'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/poolmanager.py'}
+{'function_name': '_merge_pool_kwargs'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/utils.py'}
+{'function_name': '<genexpr>'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/requests/api.py'}
+{'function_name': 'get'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': '_debug'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': '_timegm'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'offset_from_tz_string'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': '_str2time'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'http2time'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'split_header_words'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'strip_quotes'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'parse_ns_headers'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'is_HDN'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'domain_match'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'request_host'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'eff_request_host'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'request_path'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'escape_path'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'reach'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'is_third_party'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': '__init__'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': '__init__'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'is_blocked'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'is_not_allowed'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'set_ok'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'set_ok_version'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'set_ok_verifiability'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'set_ok_name'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'set_ok_path'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'set_ok_domain'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'set_ok_port'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'vals_sorted_by_key'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'deepvalues'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': '__init__'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'set_policy'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': '_cookies_for_request'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': '_cookie_attrs'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'add_cookie_header'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': '_normalized_cookie_tuples'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': '_cookie_from_cookie_tuple'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': '_cookies_from_attrs_set'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': '_process_rfc2109_cookies'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'make_cookies'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'set_cookie'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'extract_cookies'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': 'clear_expired_cookies'}
+{'filename': '/usr/lib/python3.10/http/cookiejar.py'}
+{'function_name': '__iter__'}
+{'filename': '/usr/lib/python3.10/urllib/request.py'}
+{'function_name': 'getproxies_environment'}
+{'filename': '/usr/lib/python3.10/urllib/request.py'}
+{'function_name': 'proxy_bypass_environment'}
+{'filename': '/usr/lib/python3.10/email/message.py'}
+{'function_name': 'is_multipart'}
+{'filename': '/usr/lib/python3.10/email/message.py'}
+{'function_name': 'get_payload'}
+{'filename': '/usr/lib/python3.10/email/message.py'}
+{'function_name': 'set_payload'}
+{'filename': '/usr/lib/python3.10/email/message.py'}
+{'function_name': '<listcomp>'}
+{'filename': '/usr/lib/python3.10/email/message.py'}
+{'function_name': 'items'}
+{'filename': '/usr/lib/python3.10/email/message.py'}
+{'function_name': 'get'}
+{'filename': '/usr/lib/python3.10/email/message.py'}
+{'function_name': 'set_raw'}
+{'filename': '/usr/lib/python3.10/email/message.py'}
+{'function_name': 'get_all'}
+{'filename': '/usr/lib/python3.10/email/message.py'}
+{'function_name': 'get_content_type'}
+{'filename': '/usr/lib/python3.10/email/message.py'}
+{'function_name': 'get_content_maintype'}
+{'filename': '/usr/lib/python3.10/ssl.py'}
+{'function_name': '__new__'}
+{'filename': '/usr/lib/python3.10/ssl.py'}
+{'function_name': '_encode_hostname'}
+{'filename': '/usr/lib/python3.10/ssl.py'}
+{'function_name': 'wrap_socket'}
+{'filename': '/usr/lib/python3.10/ssl.py'}
+{'function_name': 'set_alpn_protocols'}
+{'filename': '/usr/lib/python3.10/ssl.py'}
+{'function_name': 'minimum_version'}
+{'filename': '/usr/lib/python3.10/ssl.py'}
+{'function_name': 'options'}
+{'filename': '/usr/lib/python3.10/ssl.py'}
+{'function_name': 'options'}
+{'filename': '/usr/lib/python3.10/ssl.py'}
+{'function_name': 'hostname_checks_common_name'}
+{'filename': '/usr/lib/python3.10/ssl.py'}
+{'function_name': 'verify_mode'}
+{'filename': '/usr/lib/python3.10/ssl.py'}
+{'function_name': 'verify_mode'}
+{'filename': '/usr/lib/python3.10/ssl.py'}
+{'function_name': '_create'}
+{'filename': '/usr/lib/python3.10/ssl.py'}
+{'function_name': '_checkClosed'}
+{'filename': '/usr/lib/python3.10/ssl.py'}
+{'function_name': '_check_connected'}
+{'filename': '/usr/lib/python3.10/ssl.py'}
+{'function_name': 'read'}
+{'filename': '/usr/lib/python3.10/ssl.py'}
+{'function_name': 'send'}
+{'filename': '/usr/lib/python3.10/ssl.py'}
+{'function_name': 'sendall'}
+{'filename': '/usr/lib/python3.10/ssl.py'}
+{'function_name': 'recv_into'}
+{'filename': '/usr/lib/python3.10/ssl.py'}
+{'function_name': '_real_close'}
+{'filename': '/usr/lib/python3.10/ssl.py'}
+{'function_name': 'do_handshake'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/ssl_.py'}
+{'function_name': 'resolve_cert_reqs'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/ssl_.py'}
+{'function_name': 'resolve_ssl_version'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/ssl_.py'}
+{'function_name': 'create_urllib3_context'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/ssl_.py'}
+{'function_name': 'ssl_wrap_socket'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/ssl_.py'}
+{'function_name': 'is_ipaddress'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/ssl_.py'}
+{'function_name': '_ssl_wrap_socket_impl'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/url.py'}
+{'function_name': '__new__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/url.py'}
+{'function_name': '_encode_invalid_chars'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/url.py'}
+{'function_name': '_remove_path_dot_segments'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/url.py'}
+{'function_name': '<listcomp>'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/url.py'}
+{'function_name': '_normalize_host'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/url.py'}
+{'function_name': '_idna_encode'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/url.py'}
+{'function_name': '_encode_target'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/url.py'}
+{'function_name': 'parse_url'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connectionpool.py'}
+{'function_name': '__init__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/_collections.py'}
+{'function_name': '__init__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/_collections.py'}
+{'function_name': '__getitem__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/_collections.py'}
+{'function_name': '__iter__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/_collections.py'}
+{'function_name': 'add'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/_collections.py'}
+{'function_name': 'extend'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connectionpool.py'}
+{'function_name': '__init__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connectionpool.py'}
+{'function_name': '_get_conn'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connectionpool.py'}
+{'function_name': '_put_conn'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connectionpool.py'}
+{'function_name': '_validate_conn'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connectionpool.py'}
+{'function_name': '_get_timeout'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connectionpool.py'}
+{'function_name': '_make_request'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connectionpool.py'}
+{'function_name': 'urlopen'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connectionpool.py'}
+{'function_name': '__init__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connectionpool.py'}
+{'function_name': '_new_conn'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connectionpool.py'}
+{'function_name': '_validate_conn'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/poolmanager.py'}
+{'function_name': '_default_key_normalizer'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connectionpool.py'}
+{'function_name': '_normalize_host'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/connectionpool.py'}
+{'function_name': '_close_pool_connections'}
+{'filename': '/usr/lib/python3.10/queue.py'}
+{'function_name': '__init__'}
+{'filename': '/usr/lib/python3.10/queue.py'}
+{'function_name': 'put'}
+{'filename': '/usr/lib/python3.10/queue.py'}
+{'function_name': 'get'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/_request_methods.py'}
+{'function_name': '__init__'}
+{'filename': '/usr/lib/python3.10/queue.py'}
+{'function_name': '_init'}
+{'filename': '/usr/lib/python3.10/queue.py'}
+{'function_name': '_qsize'}
+{'filename': '/usr/lib/python3.10/queue.py'}
+{'function_name': '_put'}
+{'filename': '/usr/lib/python3.10/queue.py'}
+{'function_name': '_get'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': '__init__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': 'decompress'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': 'flush'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/proxy.py'}
+{'function_name': 'connection_requires_http_tunnel'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/poolmanager.py'}
+{'function_name': '__init__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': '_get_decoder'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': '__init__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': '__len__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': 'put'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': 'get'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/poolmanager.py'}
+{'function_name': '_new_pool'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': '<genexpr>'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/response.py'}
+{'function_name': '__init__'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': 'parse_headers'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': '_read_status'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': '__init__'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': 'begin'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': '_check_close'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': '_close_conn'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': '_read_headers'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': 'close'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': 'flush'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': 'isclosed'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': 'read'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': '_safe_read'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': '__init__'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': '_get_hostport'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': 'close'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': 'send'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': '_output'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': '_send_output'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': 'putrequest'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': '_encode_request'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': '_validate_method'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': '_validate_path'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': '_validate_host'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': 'putheader'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': 'endheaders'}
+{'filename': '/usr/lib/python3.10/http/client.py'}
+{'function_name': 'getresponse'}
+{'filename': '/usr/lib/python3.10/email/parser.py'}
+{'function_name': '__init__'}
+{'filename': '/usr/lib/python3.10/email/parser.py'}
+{'function_name': 'parse'}
+{'filename': '/usr/lib/python3.10/email/parser.py'}
+{'function_name': 'parsestr'}
+{'filename': '/usr/lib/python3.10/email/message.py'}
+{'function_name': '__init__'}
+{'filename': '/usr/lib/python3.10/email/message.py'}
+{'function_name': '_splitparam'}
+{'filename': '/usr/lib/python3.10/email/feedparser.py'}
+{'function_name': '__init__'}
+{'filename': '/usr/lib/python3.10/email/feedparser.py'}
+{'function_name': 'close'}
+{'filename': '/usr/lib/python3.10/email/feedparser.py'}
+{'function_name': 'readline'}
+{'filename': '/usr/lib/python3.10/email/feedparser.py'}
+{'function_name': 'push'}
+{'filename': '/usr/lib/python3.10/email/feedparser.py'}
+{'function_name': 'pushlines'}
+{'filename': '/usr/lib/python3.10/email/feedparser.py'}
+{'function_name': '__iter__'}
+{'filename': '/usr/lib/python3.10/email/feedparser.py'}
+{'function_name': '__next__'}
+{'filename': '/usr/lib/python3.10/email/feedparser.py'}
+{'function_name': '__init__'}
+{'filename': '/usr/lib/python3.10/email/feedparser.py'}
+{'function_name': 'feed'}
+{'filename': '/usr/lib/python3.10/email/feedparser.py'}
+{'function_name': '_call_parse'}
+{'filename': '/usr/lib/python3.10/email/feedparser.py'}
+{'function_name': 'close'}
+{'filename': '/usr/lib/python3.10/email/feedparser.py'}
+{'function_name': '_new_message'}
+{'filename': '/usr/lib/python3.10/email/feedparser.py'}
+{'function_name': '_pop_message'}
+{'filename': '/usr/lib/python3.10/email/feedparser.py'}
+{'function_name': '_parsegen'}
+{'filename': '/usr/lib/python3.10/email/feedparser.py'}
+{'function_name': '_parse_headers'}
+{'filename': '/usr/lib/python3.10/email/_policybase.py'}
+{'function_name': '_sanitize_header'}
+{'filename': '/usr/lib/python3.10/email/_policybase.py'}
+{'function_name': 'header_source_parse'}
+{'filename': '/usr/lib/python3.10/email/_policybase.py'}
+{'function_name': 'header_fetch_parse'}
+{'filename': '/usr/lib/python3.10/email/utils.py'}
+{'function_name': '_has_surrogates'}
+{'filename': '/usr/lib/python3.10/urllib/parse.py'}
+{'function_name': '_noop'}
+{'filename': '/usr/lib/python3.10/urllib/parse.py'}
+{'function_name': '_coerce_args'}
+{'filename': '/usr/lib/python3.10/urllib/parse.py'}
+{'function_name': 'username'}
+{'filename': '/usr/lib/python3.10/urllib/parse.py'}
+{'function_name': 'hostname'}
+{'filename': '/usr/lib/python3.10/urllib/parse.py'}
+{'function_name': '_userinfo'}
+{'filename': '/usr/lib/python3.10/urllib/parse.py'}
+{'function_name': '_hostinfo'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/retry.py'}
+{'function_name': 'is_retry'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/retry.py'}
+{'function_name': '_is_method_retryable'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/retry.py'}
+{'function_name': '__init__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/retry.py'}
+{'function_name': '<genexpr>'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/response.py'}
+{'function_name': 'is_response_to_head'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/response.py'}
+{'function_name': 'assert_header_parsing'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/response.py'}
+{'function_name': '<listcomp>'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/response.py'}
+{'function_name': 'is_fp_closed'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/util.py'}
+{'function_name': 'to_str'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/request.py'}
+{'function_name': 'body_to_chunks'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/request.py'}
+{'function_name': 'set_file_position'}
+{'filename': '/usr/lib/python3.10/urllib/parse.py'}
+{'function_name': 'geturl'}
+{'filename': '/usr/lib/python3.10/urllib/parse.py'}
+{'function_name': 'urlparse'}
+{'filename': '/usr/lib/python3.10/urllib/parse.py'}
+{'function_name': '_splitnetloc'}
+{'filename': '/usr/lib/python3.10/urllib/parse.py'}
+{'function_name': '_checknetloc'}
+{'filename': '/usr/lib/python3.10/urllib/parse.py'}
+{'function_name': 'urlsplit'}
+{'filename': '/usr/lib/python3.10/urllib/parse.py'}
+{'function_name': 'urlunparse'}
+{'filename': '/usr/lib/python3.10/urllib/parse.py'}
+{'function_name': 'urlunsplit'}
+{'filename': '/usr/lib/python3.10/urllib/parse.py'}
+{'function_name': 'unquote'}
+{'filename': '/usr/lib/python3.10/urllib/parse.py'}
+{'function_name': 'quote'}
+{'filename': '/usr/lib/python3.10/urllib/parse.py'}
+{'function_name': 'quote_from_bytes'}
+{'filename': '/usr/lib/python3.10/urllib/parse.py'}
+{'function_name': 'urlencode'}
+{'filename': '/usr/lib/python3.10/calendar.py'}
+{'function_name': 'timegm'}
+{'filename': '/usr/lib/python3.10/typing.py'}
+{'function_name': 'inner'}
+{'filename': '/usr/lib/python3.10/typing.py'}
+{'function_name': '__instancecheck__'}
+{'filename': '/usr/lib/python3.10/typing.py'}
+{'function_name': '__hash__'}
+{'filename': '/usr/lib/python3.10/typing.py'}
+{'function_name': '__subclasscheck__'}
+{'filename': '/usr/lib/python3.10/typing.py'}
+{'function_name': 'cast'}
+{'filename': '/home/ernesto/Documents/runBandit22/dependencies/abstractClass.py'}
+{'function_name': '__init__'}
+{'filename': '/home/ernesto/Documents/runBandit22/dependencies/abstractClass.py'}
+{'function_name': 'do_something'}
+{'filename': '/home/ernesto/Documents/runBandit22/dependencies/abstractClass.py'}
+{'function_name': 'do_something_else'}
+{'filename': '/home/ernesto/Documents/runBandit22/dependencies/abstractClass.py'}
+{'function_name': 'getWebPage'}
+{'filename': '/home/ernesto/Documents/runBandit22/dependencies/abstractClass.py'}
+{'function_name': 'main_function'}
+{'filename': '/usr/lib/python3.10/logging/__init__.py'}
+{'function_name': '_acquireLock'}
+{'filename': '/usr/lib/python3.10/logging/__init__.py'}
+{'function_name': '_releaseLock'}
+{'filename': '/usr/lib/python3.10/logging/__init__.py'}
+{'function_name': 'disable'}
+{'filename': '/usr/lib/python3.10/logging/__init__.py'}
+{'function_name': 'debug'}
+{'filename': '/usr/lib/python3.10/logging/__init__.py'}
+{'function_name': 'getEffectiveLevel'}
+{'filename': '/usr/lib/python3.10/logging/__init__.py'}
+{'function_name': 'isEnabledFor'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/_collections.py'}
+{'function_name': '__init__'}
+{'filename': '/usr/lib/python3.10/threading.py'}
+{'function_name': 'RLock'}
+{'filename': '/usr/lib/python3.10/threading.py'}
+{'function_name': '__init__'}
+{'filename': '/usr/lib/python3.10/threading.py'}
+{'function_name': '__enter__'}
+{'filename': '/usr/lib/python3.10/threading.py'}
+{'function_name': '__exit__'}
+{'filename': '/usr/lib/python3.10/threading.py'}
+{'function_name': '_is_owned'}
+{'filename': '/usr/lib/python3.10/threading.py'}
+{'function_name': 'notify'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/_collections.py'}
+{'function_name': '__setitem__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/_collections.py'}
+{'function_name': 'clear'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/_collections.py'}
+{'function_name': '__getitem__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/connection.py'}
+{'function_name': 'create_connection'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/connection.py'}
+{'function_name': '_set_socket_options'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/connection.py'}
+{'function_name': 'allowed_gai_family'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/timeout.py'}
+{'function_name': '__init__'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/timeout.py'}
+{'function_name': '_validate_timeout'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/timeout.py'}
+{'function_name': 'from_float'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/timeout.py'}
+{'function_name': 'clone'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/timeout.py'}
+{'function_name': 'start_connect'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/timeout.py'}
+{'function_name': 'connect_timeout'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/timeout.py'}
+{'function_name': 'read_timeout'}
+{'filename': '/home/ernesto/Documents/runBandit22/venv/lib/python3.10/site-packages/urllib3/util/timeout.py'}
+{'function_name': 'resolve_default_timeout'}
+{'filename': '/usr/lib/python3.10/socket.py'}
+{'function_name': '_intenum_converter'}
+{'filename': '/usr/lib/python3.10/socket.py'}
+{'function_name': '__init__'}
+{'filename': '/usr/lib/python3.10/socket.py'}
+{'function_name': 'makefile'}
+{'filename': '/usr/lib/python3.10/socket.py'}
+{'function_name': '_decref_socketios'}
+{'filename': '/usr/lib/python3.10/socket.py'}
+{'function_name': '_real_close'}
+{'filename': '/usr/lib/python3.10/socket.py'}
+{'function_name': 'close'}
+{'filename': '/usr/lib/python3.10/socket.py'}
+{'function_name': 'detach'}
+{'filename': '/usr/lib/python3.10/socket.py'}
+{'function_name': 'family'}
+{'filename': '/usr/lib/python3.10/socket.py'}
+{'function_name': 'type'}
+{'filename': '/usr/lib/python3.10/socket.py'}
+{'function_name': '__init__'}
+{'filename': '/usr/lib/python3.10/socket.py'}
+{'function_name': 'readinto'}
+{'filename': '/usr/lib/python3.10/socket.py'}
+{'function_name': 'readable'}
+{'filename': '/usr/lib/python3.10/socket.py'}
+{'function_name': 'close'}
+{'filename': '/usr/lib/python3.10/socket.py'}
+{'function_name': 'getaddrinfo'}
+{'filename': '/usr/lib/python3.10/copy.py'}
+{'function_name': 'copy'}
+{'filename': '/usr/lib/python3.10/weakref.py'}
+{'function_name': '__init__'}
+{'filename': '/usr/lib/python3.10/weakref.py'}
+{'function_name': '__call__'}
+{'filename': '/usr/lib/python3.10/contextlib.py'}
+{'function_name': '__init__'}
+{'filename': '/usr/lib/python3.10/contextlib.py'}
+{'function_name': '__enter__'}
+{'filename': '/usr/lib/python3.10/contextlib.py'}
+{'function_name': '__exit__'}
+{'filename': '/usr/lib/python3.10/contextlib.py'}
+{'function_name': 'helper'}
+{'filename': '/usr/lib/python3.10/io.py'}
+{'function_name': '__getattr__'}
+{'filename': '/usr/lib/python3.10/abc.py'}
+{'function_name': '__instancecheck__'}
+{'filename': '/usr/lib/python3.10/abc.py'}
+{'function_name': '__subclasscheck__'}
+{'filename': '/usr/lib/python3.10/os.py'}
+{'function_name': '__getitem__'}
+{'filename': '/usr/lib/python3.10/os.py'}
+{'function_name': '__iter__'}
+{'filename': '/usr/lib/python3.10/os.py'}
+{'function_name': 'encode'}
+{'filename': '/usr/lib/python3.10/os.py'}
+{'function_name': 'decode'}
+{'filename': '/usr/lib/python3.10/posixpath.py'}
+{'function_name': '_get_sep'}
+{'filename': '/usr/lib/python3.10/_collections_abc.py'}
+{'function_name': '_check_methods'}
+{'filename': '/usr/lib/python3.10/_collections_abc.py'}
+{'function_name': '__subclasshook__'}
+{'filename': '/usr/lib/python3.10/posixpath.py'}
+{'function_name': 'expanduser'}
+{'filename': '/usr/lib/python3.10/_collections_abc.py'}
+{'function_name': '__subclasshook__'}
+{'filename': '/usr/lib/python3.10/_collections_abc.py'}
+{'function_name': '__subclasshook__'}
+{'filename': '/usr/lib/python3.10/_collections_abc.py'}
+{'function_name': 'get'}
+{'filename': '/usr/lib/python3.10/_collections_abc.py'}
+{'function_name': '__contains__'}
+{'filename': '/usr/lib/python3.10/_collections_abc.py'}
+{'function_name': 'keys'}
+{'filename': '/usr/lib/python3.10/_collections_abc.py'}
+{'function_name': 'items'}
+{'filename': '/usr/lib/python3.10/_collections_abc.py'}
+{'function_name': '__init__'}
+{'filename': '/usr/lib/python3.10/_collections_abc.py'}
+{'function_name': '__len__'}
+{'filename': '/usr/lib/python3.10/_collections_abc.py'}
+{'function_name': '__iter__'}
+{'filename': '/usr/lib/python3.10/_collections_abc.py'}
+{'function_name': '__iter__'}
+{'filename': '/usr/lib/python3.10/_collections_abc.py'}
+{'function_name': 'pop'}
+{'filename': '/usr/lib/python3.10/_collections_abc.py'}
+{'function_name': 'update'}
+{'filename': '/usr/lib/python3.10/genericpath.py'}
+{'function_name': 'exists'}
+{'filename': '/usr/lib/python3.10/genericpath.py'}
+{'function_name': 'isdir'}
+{'filename': '/usr/lib/python3.10/re.py'}
+{'function_name': 'compile'}
+{'filename': '/usr/lib/python3.10/re.py'}
+{'function_name': '_compile'}
+{'filename': '/usr/lib/python3.10/enum.py'}
+{'function_name': '__call__'}
+{'filename': '/usr/lib/python3.10/enum.py'}
+{'function_name': '<genexpr>'}
+{'filename': '/usr/lib/python3.10/enum.py'}
+{'function_name': '__iter__'}
+{'filename': '/usr/lib/python3.10/enum.py'}
+{'function_name': '__new__'}
+{'filename': '/usr/lib/python3.10/enum.py'}
+{'function_name': 'value'}
+{'filename': '/usr/lib/python3.10/sre_compile.py'}
+{'function_name': '_compile'}
+{'filename': '/usr/lib/python3.10/sre_compile.py'}
+{'function_name': '_compile_charset'}
+{'filename': '/usr/lib/python3.10/enum.py'}
+{'function_name': '_missing_'}
+{'filename': '/usr/lib/python3.10/enum.py'}
+{'function_name': '_create_pseudo_member_'}
+{'filename': '/usr/lib/python3.10/enum.py'}
+{'function_name': '__or__'}
+{'filename': '/usr/lib/python3.10/enum.py'}
+{'function_name': '__and__'}
+{'filename': '/usr/lib/python3.10/sre_compile.py'}
+{'function_name': '_optimize_charset'}
+{'filename': '/usr/lib/python3.10/enum.py'}
+{'function_name': '<lambda>'}
+{'filename': '/usr/lib/python3.10/enum.py'}
+{'function_name': '_decompose'}
+{'filename': '/usr/lib/python3.10/types.py'}
+{'function_name': '__get__'}
+{'filename': '/usr/lib/python3.10/sre_compile.py'}
+{'function_name': '<listcomp>'}
+{'filename': '/usr/lib/python3.10/sre_compile.py'}
+{'function_name': '_mk_bitmap'}
+{'filename': '/usr/lib/python3.10/sre_compile.py'}
+{'function_name': '_get_iscased'}
+{'filename': '/usr/lib/python3.10/sre_compile.py'}
+{'function_name': '_get_literal_prefix'}
+{'filename': '/usr/lib/python3.10/sre_compile.py'}
+{'function_name': '_get_charset_prefix'}
+{'filename': '/usr/lib/python3.10/sre_compile.py'}
+{'function_name': '_compile_info'}
+{'filename': '/usr/lib/python3.10/sre_compile.py'}
+{'function_name': 'isstring'}
+{'filename': '/usr/lib/python3.10/sre_compile.py'}
+{'function_name': '_code'}
+{'filename': '/usr/lib/python3.10/sre_compile.py'}
+{'function_name': 'compile'}
+{'filename': '/usr/lib/python3.10/sre_parse.py'}
+{'function_name': '__init__'}
+{'filename': '/usr/lib/python3.10/sre_parse.py'}
+{'function_name': 'groups'}
+{'filename': '/usr/lib/python3.10/sre_parse.py'}
+{'function_name': '__init__'}
+{'filename': '/usr/lib/python3.10/sre_parse.py'}
+{'function_name': '__len__'}
+{'filename': '/usr/lib/python3.10/sre_parse.py'}
+{'function_name': '__getitem__'}
+{'filename': '/usr/lib/python3.10/sre_parse.py'}
+{'function_name': 'append'}
+{'filename': '/usr/lib/python3.10/sre_parse.py'}
+{'function_name': 'getwidth'}
+{'filename': '/usr/lib/python3.10/sre_parse.py'}
+{'function_name': '__init__'}
+{'filename': '/usr/lib/python3.10/sre_parse.py'}
+{'function_name': '__next'}
+{'filename': '/usr/lib/python3.10/sre_parse.py'}
+{'function_name': 'match'}
+{'filename': '/usr/lib/python3.10/sre_parse.py'}
+{'function_name': 'get'}
+{'filename': '/usr/lib/python3.10/sre_parse.py'}
+{'function_name': 'tell'}
+{'filename': '/usr/lib/python3.10/sre_parse.py'}
+{'function_name': '_class_escape'}
+{'filename': '/usr/lib/python3.10/sre_parse.py'}
+{'function_name': '_uniq'}
+{'filename': '/usr/lib/python3.10/sre_parse.py'}
+{'function_name': '_parse_sub'}
+{'filename': '/usr/lib/python3.10/sre_parse.py'}
+{'function_name': '_parse'}
+{'filename': '/usr/lib/python3.10/sre_parse.py'}
+{'function_name': 'fix_flags'}
+{'filename': '/usr/lib/python3.10/sre_parse.py'}
+{'function_name': 'parse'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': '_new_module'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': '__init__'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': 'acquire'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': 'release'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': '__init__'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': '__enter__'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': '__exit__'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': 'cb'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': '_get_module_lock'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': '_call_with_frames_removed'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': '_verbose_message'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': '__init__'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': 'cached'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': 'parent'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': 'has_location'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': '_init_module_attrs'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': 'module_from_spec'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': '_load_unlocked'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': 'find_spec'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': '_relax_case'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': 'find_spec'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': '__enter__'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': '__exit__'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': '_find_spec'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': '_find_and_load_unlocked'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': '_find_and_load'}
+{'filename': '<frozen importlib._bootstrap>'}
+{'function_name': '_handle_fromlist'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': '_unpack_uint32'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': '<listcomp>'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': '_path_join'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': '<genexpr>'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': '_path_split'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': '_path_stat'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': '_path_is_mode_type'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': '_path_isfile'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': '_path_isabs'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': 'cache_from_source'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': '_get_cached'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': '_check_name_wrapper'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': '_classify_pyc'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': '_validate_timestamp_pyc'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': '_compile_bytecode'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': 'spec_from_file_location'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': 'create_module'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': 'exec_module'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': 'get_code'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': '__init__'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': 'get_filename'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': 'get_data'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': 'path_stats'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': '_path_importer_cache'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': '_get_spec'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': 'find_spec'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': '_get_spec'}
+{'filename': '<frozen importlib._bootstrap_external>'}
+{'function_name': 'find_spec'}
+{'filename': '/usr/lib/python3.10/encodings/__init__.py'}
+{'function_name': 'normalize_encoding'}
+{'filename': '/usr/lib/python3.10/encodings/__init__.py'}
+{'function_name': 'search_function'}
+{'filename': '/usr/lib/python3.10/codecs.py'}
+{'function_name': '__new__'}
+{'filename': '~'}
+{'function_name': "<method 'do_handshake' of '_ssl._SSLSocket' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'write' of '_ssl._SSLSocket' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'read' of '_ssl._SSLSocket' objects>"}
+{'filename': '~'}
+{'function_name': "<method '_wrap_socket' of '_ssl._SSLContext' objects>"}
+{'filename': '~'}
+{'function_name': "<method '_set_alpn_protocols' of '_ssl._SSLContext' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'load_verify_locations' of '_ssl._SSLContext' objects>"}
+{'filename': '~'}
+{'function_name': "<method 'disable' of '_lsprof.Profiler' objects>"}
