@@ -20,6 +20,7 @@ const Sidebar: React.FC = () => {
         <li><Link to="/attack-paths">Attack Paths</Link></li>
         <li><Link to="/priority-controls">Priority Controls</Link></li>
         <li><Link to="/vulnerable-functions">Vulnerable Functions</Link></li>
+        <li><Link to="/priorities">Priorities</Link></li>
       </ul>
       <ul>
       <h2>Security Data Collections</h2>

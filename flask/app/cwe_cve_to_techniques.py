@@ -531,6 +531,7 @@ class CreateVisualizations:
 
     # finds priority of tactic
     def show_prioritize(self, user_priority_BRONtacticID):
+        logging.info("Enterred show_prioritize method.")
         # priority of tactic
         high = []
         mid = []
@@ -591,6 +592,7 @@ class CreateVisualizations:
 
         # determine the highest priority node and change color to red
         print('Low:', low, "\nMid:", mid, "\nHigh:", high)
+        logging.info(f"Low: {low}, Mid: {mid}, High: {high}")
         if high.__len__() > 0 and self.tacticsAndTechniquesGraph.has_node(high[0][0]):
             self.tacticsAndTechniquesGraph.add_node(high[0][0], color='red')
         elif mid.__len__() > 0 and self.tacticsAndTechniquesGraph.has_node(mid[0][0]):
