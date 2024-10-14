@@ -88,7 +88,32 @@ class DatabaseQueryService:
         return self.db_connection.execute_aql(tactic_id_query, bind_vars)
 
     
+    def fetch_technique_id(self, tacticID: Any) -> Any:
+        """
+        Fetch technique IDs for the given tactic ID.
+        """
+        technique_id_query = '''
+            FOR tac_tech in TacticTechnique 
+                FILTER tac_tech._from == @tacticID 
+                RETURN distinct tac_tech._to
+        '''
+        bind_vars = {'tacticID': tacticID}
+        return self.db_connection.execute_aql(technique_id_query, bind_vars)
     
+
+    def fetch_tactic_name(self, tacticID: Any) -> Any:
+        """
+        Fetch tactic name for the given tactic ID.
+        """
+        tactic_name_query = '''
+            FOR tac in tactic 
+                FILTER tac._id == @tacticID 
+                RETURN tac.name
+        '''
+        bind_vars = {'tacticID': tacticID}
+        return self.db_connection.execute_aql(tactic_name_query, bind_vars)
+
+
     def fetch_attacks_against_cwes(self, findings_list: List[str]) -> Any:
         logging.info("Enterred fetch_attacks_against_cwes method.")
         logging.info(f"findings_list: {findings_list}")

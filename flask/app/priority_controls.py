@@ -82,6 +82,7 @@ class ManageData:
         
         self.tacticsList = [] # ['tactic/TA0006', ...]
         logging.info("Declared tacticsList attribute")
+
         self.tacticsAndTechniquesGraph = nx.Graph()
         # Nodes: ['tactic/TA0002', 'technique/T1040', ...]
         # Edges: [('tactic/TA0002', 'technique/T1040'), ...]
@@ -105,31 +106,47 @@ class ManageData:
         self.user_priority_BRONtacticID = None
         logging.info("Initialized user_priority_BROBtacticID attribute.")
 
-        self.addNodesAndEdgesToTacticsAndTechniquesGraph(self.cursor_tactic_to_technique)
+        self.addNodesAndEdgesBetweenTacticsAndTechniques(self.cursor_tactic_to_technique)
+
         self.tacticsOriginalIDsList = [item.split('/')[1] for item in self.tacticsList]
         logging.info(f"tacticsOriginalIDsList: {self.tacticsOriginalIDsList}")
 
-        self.cursor_tactic_id = self.db_query_service.fetch_tactic_id(self.tacticsOriginalIDsList)
-        logging.info(f"Printing cursor_tactic_id: {type(self.cursor_tactic_id)}")
+        self.cursor_arangodb_tactic_id = self.db_query_service.fetch_tactic_id(self.tacticsOriginalIDsList)
+        logging.info(f"Printing cursor_arangodb_tactic_id: {type(self.cursor_arangodb_tactic_id)}")
         if debugging == True:
-            #self.db_query_service.print_cursor(self.cursor_tactic_id) 
+            #self.db_query_service.print_cursor(self.cursor_arangodb_tactic_id) 
             pass
-        self.tactic_original_id_list = self.createListFromCursor(self.cursor_tactic_id)
+        self.arangodb_tactic_id_list = self.createListFromCursor(self.cursor_arangodb_tactic_id)
         if debugging == True:
-            #logging.info(f"tactic_original_id_list: {self.tactic_original_id_list}")
+            #logging.info(f"arangodb_tactic_id_list: {self.arangodb_tactic_id_list}")
             pass
 
-        self.addEdgesToTacticsAndTechniquesGraph(self.db_query_service.db_connection.tacticToTacticEdgeCollection)
+        
+
+        self.addEdgesBetweenTacticsToGraphs(self.db_query_service.db_connection.tacticToTacticEdgeCollection)
 
         self.user_priority_BRONtacticID = ''
-        self.priority_list = self.show_prioritize(self.user_priority_BRONtacticID)
-        '''Low: [], Mid: [], High: [('tactic/TA0006', 0), ('tactic/TA0007', 0), ('tactic/TA0009', 0), ('tactic/TA0040', 0)]
-        Priority list: [('tactic/TA0006', 0), ('tactic/TA0007', 0), ('tactic/TA0009', 0), ('tactic/TA0040', 0)]
-        We have to fix the logic.
-        '''
+        self.priority_list = self.colorPriorityNode(self.user_priority_BRONtacticID)
+        '''Priority list: [('tactic/TA0007', 1), ('tactic/TA0009', 1), ('tactic/TA0040', 1), ('tactic/TA0006', 2)]
+        Tactic/original_id, NumberOfTechniques that execute the tactic.'''
         if debugging == True:
             logging.info(f"Priority list: {self.priority_list}")
             pass
+
+
+        self.priority_controls_table_data = self.create_table(self.db_query_service, self.priority_list, self.recommendationsTableData)
+
+        self.json_priority_controls_table_data = self.createJSONFromDictList(self.priority_controls_table_data)
+        if debugging == True:
+            logging.info(f"JSON Priority Controls Table Data: {self.json_priority_controls_table_data}")
+            pass
+
+
+
+
+
+
+
 
     # Method returns three lists of dictionaries.
     def load_data(self) ->  Tuple[List[Dict[str, str]], List[Dict[str, str]], List[Dict[str, str]]]:
@@ -197,6 +214,13 @@ class ManageData:
         logging.info("Will return list.")
         return list
 
+
+    def createJSONFromDictList(self, dict_list):
+        my_dict = {}
+        for d in dict_list:
+            for k, v in d.items():
+                my_dict[k] = v
+        return my_dict
 
     def determineAttackTechniquesNotMitigated(self):
         logging.info("Enterred determineAttackTechniquesNotMitigated method.")
@@ -273,8 +297,8 @@ class ManageData:
                     self.recommendationsTableData.append(table_item)
 
 
-    def addNodesAndEdgesToTacticsAndTechniquesGraph(self, cursorTacticToTechnique):
-        logging.info("Enterred addNodesAndEdgesToTacticsAndTechniquesGraph method.")
+    def addNodesAndEdgesBetweenTacticsAndTechniques(self, cursorTacticToTechnique):
+        logging.info("Enterred addNodesAndEdgesBetweenTacticsAndTechniques method.")
         logging.info("Will iterate through the cursorTacticToTechnique. For each edge in the cursor, we will extract the items and add them to the tacticsAndTechniquesGraph.")
         for edge in cursorTacticToTechnique:
             logging.info(f"Edge: {edge}")
@@ -305,26 +329,26 @@ class ManageData:
         logging.info(f"Tactics list: {self.tacticsList}")
 
 
-    def addEdgesToTacticsAndTechniquesGraph(self, tacticToTacticEdgeCollection):
-        logging.info("Enterred addEdgesToTacticsAndTechniquesGraph method.")
+    def addEdgesBetweenTacticsToGraphs(self, tacticToTacticEdgeCollection):
+        logging.info("Enterred addEdgesBetweenTacticsToGraphs method.")
         logging.info("Will iterate through the tacticToTacticEdgeCollection. For each edge in the collection, we will extract the items and add them to the tacticsAndTechniquesGraph.")
         for edge in tacticToTacticEdgeCollection:
             logging.info("adding edges to tactics and techniques graph")
             logging.info(f"Edge: {edge}")
             logging.info("Checking if edge['_from'] and edge['_to'] are in the tactics list.")
             logging.info(f"tacticsList: {self.tacticsList}")
-            if edge['_from'] in self.tactic_original_id_list and edge['_to'] in self.tactic_original_id_list: # Never true?
+            if edge['_from'] in self.arangodb_tactic_id_list and edge['_to'] in self.arangodb_tactic_id_list: # Never true?
                 logging.info("")
                 logging.info("Edge in tactics list true")
                 logging.info("")
                 # Add edges with debugging statements
-                '''try:
+                try:
                     logging.info(f"Adding edge to tacticsAndTechniquesGraph: {edge['_from']} -> {edge['_to']}")
                     self.tacticsAndTechniquesGraph.add_edge(edge['_from'], edge['_to'])
                     logging.info(f"Successfully added edge to tacticsAndTechniquesGraph: {edge['_from']} -> {edge['_to']}")
                 except Exception as e:
                     logging.error(f"Error adding edge to tacticsAndTechniquesGraph: {e}")
-                    logging.error(traceback.format_exc())'''
+                    logging.error(traceback.format_exc())
 
                 try:
                     logging.info(f"Adding edge to tacticsOnlyGraph: {edge['_from']} -> {edge['_to']}")
@@ -333,20 +357,10 @@ class ManageData:
                 except Exception as e:
                     logging.info(f"Error adding edge to tacticsOnlyGraph: {e}")
 
-                '''logging.info(f"Adding edge to tacticsAndTechniquesGraph: {edge['_from']} -> {edge['_to']}")
-                self.tacticsAndTechniquesGraph.add_edge(edge['_from'], edge['_to'])
-                logging.info(f"Successfully added edge to tacticsAndTechniquesGraph: {edge['_from']} -> {edge['_to']}")
                 
-                logging.info(f"Adding edge to tacticsOnlyGraph: {edge['_from']} -> {edge['_to']}")
-                self.tacticsOnlyGraph.add_edge(edge['_from'], edge['_to'])
-                logging.info(f"Successfully added edge to tacticsOnlyGraph: {edge['_from']} -> {edge['_to']}")'''
-                
-                #self.tacticsAndTechniquesGraph.add_edge(edge['_from'], edge['_to'])
-                #self.tacticsOnlyGraph.add_edge(edge['_from'], edge['_to'])
-                # log the edges in the tactics only graph
-        '''logging.info("")
-        logging.info("Finished adding edges in the tactics only graph: ")
-        logging.info(f"Edges in the tacticsAndTechniquesGraph: {self.tacticsAndTechniquesGraph.edges}")'''
+        logging.info(f"Edges in the tacticsAndTechniquesGraph: {self.tacticsAndTechniquesGraph.edges}")
+        #log the neighbors of the tacticsAndTechniquesGraph
+        logging.info(f"Neighbors in the tacticsAndTechniquesGraph: {self.tacticsAndTechniquesGraph.neighbors}")
 
         logging.info("PROBLEM!!!")
         logging.info(f"Nodes in the tactics only graph: {self.tacticsOnlyGraph.nodes}")
@@ -355,12 +369,12 @@ class ManageData:
         Edges in the tactics only graph: [('tactic/tactic_00003', 'tactic/tactic_00005')]'''
 
 
-    def sort_list(self, a_list):
+    def sortPriorityTactics(self, a_list):
         return sorted(a_list, key=lambda tup: tup[1], reverse=False)
     
     # finds priority of tactic
-    def show_prioritize(self, user_priority_BRONtacticID):
-        logging.info("Enterred show_prioritize method.")
+    def colorPriorityNode(self, user_priority_BRONtacticID):
+        logging.info("Enterred colorPriorityNode method.")
         # priority of tactic
         high = []
         mid = []
@@ -373,11 +387,7 @@ class ManageData:
             # Edges: [('tactic/TA0002', 'technique/T1040'), ...]
             '''Node: tactic/TA0006
             :Node: technique/T1040
-            :Node: tactic/TA0007
-            :Node: tactic/TA0009
-            :Node: technique/T1056.004
-            :Node: tactic/TA0040
-            :Node: technique/T1499'''
+            ...'''
             # if its a tactic node
             if 'tactic' in node:
                 logging.info(f"Node is a tactic: {node}")
@@ -387,33 +397,39 @@ class ManageData:
                 cnt_tech = 0
 
                 # if the tactic is the one that user specified, prioritize the node
-                if user_priority_BRONtacticID != None and user_priority_BRONtacticID in node:
+                '''if user_priority_BRONtacticID != None and user_priority_BRONtacticID in node:
                     high.append((node, 0))
                     f = open('/shared/debug_input.txt', 'a')
                     f.write('User selected tactic: ' + user_priority_BRONtacticID + '\n') # This works
                     f.close()
-                else:
-                    for neighbor in self.tacticsAndTechniquesGraph.neighbors(node):
-                        logging.info(f"Neighbor: {neighbor}")
-                        if 'technique' in neighbor:
+                else:'''
+                for neighbor in self.tacticsAndTechniquesGraph.neighbors(node):
+                    logging.info(f"Neighbor: {neighbor}")
+                    if 'technique' in neighbor:
                             # add a technique edge
-                            cnt_tech += 1
-                        else:
+                        cnt_tech += 1
+                    else:
                             # add a tactic edge
-                            cnt_tac += 1
+                        cnt_tac += 1
                     # sort the nodes into high, mid, and low priority based on tactic to tactic connectivity
-                    match cnt_tac:
-                        case 0:
+                match cnt_tac:
+                    case 0:
+                        logging.info(f"Case 0: {node}, neighboring tactics: {cnt_tac}, negihboring techniques: {cnt_tech}")
+                        if cnt_tech != 0:
                             low.append((node, cnt_tech))
-                        case 1:
+                    case 1:
+                        logging.info(f"Case 1: {node}, neighboring tactics: {cnt_tac}, negihboring techniques: {cnt_tech}")
+                        if cnt_tech != 0:
                             mid.append((node, cnt_tech))
-                        case _:
+                    case _:
+                        logging.info(f"Case 0: {node}, neighboring tactics: {cnt_tac}, negihboring techniques: {cnt_tech}")
+                        if cnt_tech != 0:
                             high.append((node, cnt_tech))
      
         # sort the individual lists
-        low = self.sort_list(low)
-        mid = self.sort_list(mid)
-        high = self.sort_list(high)
+        low = self.sortPriorityTactics(low)
+        mid = self.sortPriorityTactics(mid)
+        high = self.sortPriorityTactics(high)
 
 
         # determine the highest priority node and change color to red
@@ -434,6 +450,91 @@ class ManageData:
 
 
 
+    def create_table(self, db, prioritize_lists, recommendationsTableData):
+        logging.info("Enterred create_table method.")
+        table_list = [] # will contain data for each table entry
+        logging.info("Declared table_list local variable.")
+
+        # loop to find the technique that maps to the specific tactic
+        logging.info("Will iterate through the prioritize_lists. For each item in the list, we will find the technique(s) that map from the specific tactic.")
+        '''Priority list: [('tactic/TA0007', 1), ('tactic/TA0009', 1), ('tactic/TA0040', 1), ('tactic/TA0006', 2)]
+        Tactic/original_id, NumberOfTechniques that execute the tactic.'''
+        for obj in prioritize_lists:
+            logging.info(f"Item in prioritize_lists: {obj}")
+            tactic_id = obj[0] # obj -> ('tactic/tactic_00008', 0), for ex
+            logging.info(f"Tactic ID extracted from obj: {tactic_id}")
+            cursor = self.db_query_service.fetch_technique_id(tactic_id)
+
+            # checks whether the technique is in the graph
+            logging.info("Will iterate through the cursor. For each technique in the cursor, we will check if it is in the tacticsAndTechniquesGraph.")
+            for tech_id in cursor:
+                logging.info(f"Technique ID: {tech_id}")
+                logging.info("Will iterate through the recommendationsTableData. For each item in the list, we will check if the technique ID is in the item.")
+                for data in recommendationsTableData:
+                    logging.info(f"Item in recommendationsTableData: {data}")
+                    if tech_id == data['Technique ID']:
+                        logging.info("Technique ID found in the recommendationsTableData.")
+                        logging.info("Will execute a query to get the tactic name.")
+                        
+                        cursor_tac = self.db_query_service.fetch_tactic_name(tactic_id)
+                        logging.info("Returned from the query execution. Back in create_table method.")
+                        
+                        tactic = tactic_id + ' (' + next(cursor_tac) + ')'
+                        logging.info(f"Tactic: {tactic}")
+                        logging.info("Will append the tactic and data to the table_list.")
+                        table_list.append({tactic:data})
+                        break
+        logging.info("Returned from the loop. Back in create_table method.")
+
+        # convert the table_list to a json object and return it
+        logging.info("Will return table_list.")
+        logging.info(f"Table list: {table_list}")
+        return table_list
+
+
+
+
+        '''logging.info(f"Will write Table list to file: {table_list}")
+        with open('/shared/table_List.txt', 'a') as out_file:
+            for item in table_list: # item is json object with the contents for an item in the priority table.
+                out_file.write(str(item) + "\n")
+            out_file.write("\n")
+            out_file.close() #  They are in the correct order
+        logging.info("Table list written to ./shared/table_List.txt.")'''
+
+        # creates and adds the json objects to the file
+        '''logging.info("Will write the table_list to the needed_controls.json file.")
+        with open('needed_controls.json', 'w') as out_file:
+            json.dump(table_list, out_file, indent=2)
+        logging.info("Table list written to ./needed_controls.json.")
+        
+        # creates html table by using the json file that just generated
+        logging.info("Will open needed_controls.json file and read the contents.")
+        with open('needed_controls.json', 'r') as out_file:
+            logging.info("Opened needed_controls.json file.")
+            json_objects = json.load(out_file)
+            logging.info("Created json_objects from the needed_controls.json file using json.load.")
+            logging.info(f"Logging json objects: {json_objects}")
+            logging.info("Will write the json objects to the json_objects.txt file.")
+            with open('/shared/json_objects.txt', 'a') as objectsFile:
+                logging.info("Opened json_objects.txt file.")
+                logging.info("Will write the json objects to the file.")
+                for item in json_objects: # item is json object with the contents for an item in the priority table.
+                    objectsFile.write(str(item) + "\n")
+                objectsFile.write("\n")
+                objectsFile.close() #  They are in the correct order
+            logging.info("json_objects.txt file written to ./shared.")'''
+
+
+
+
+
+
+
+
+
+
+
 @priority_blueprint.route('/table_data', methods=['GET','POST'])
 def priority():
     # Current working directory or project root
@@ -443,7 +544,7 @@ def priority():
     db_connection = DatabaseConnection()
     query_service = DatabaseQueryService(db_connection)
     data_manager = ManageData(cur_dir, query_service)
-    return data_manager.jsonTechniquesAndControls
+    return data_manager.json_priority_controls_table_data
     
     # Define the path to the HTML file
     '''html_file_path = '../shared/table.html'  # Use an absolute path or correct relative path
