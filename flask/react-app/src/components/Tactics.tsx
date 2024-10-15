@@ -92,7 +92,7 @@ const Tactics: React.FC = () => {
 
   return (
     <div style={{ width: '75%', height: '80vh', padding: '20px' }}>
-      <h2>Dynamic Graph</h2>
+      <h2>Priority Stage</h2>
       {graphData ? (
         <div ref={visJsRef} style={{ height: '75%', width: '75%', border: '1px solid black' }}></div>
       ) : (

@@ -16,12 +16,9 @@ const Sidebar: React.FC = () => {
       <h2>Vulnerability Effectiveness</h2>
       <ul>
         <li><Link to="/test-dependencies">Test Dependencies</Link></li>
-        <li><Link to="/attack-techniques">Attack Techniques</Link></li>
-        <li><Link to="/attack-paths">Attack Paths</Link></li>
-        <li><Link to="/priority-controls">Priority Controls</Link></li>
+        <li><Link to="/priority-stage">Priority Stage</Link></li>
+        <li><Link to="/priorities">Prioritiy Controls</Link></li>
         <li><Link to="/vulnerable-functions">Vulnerable Functions</Link></li>
-        <li><Link to="/priorities">Priorities</Link></li>
-        <li><Link to="/tactics">Tactics</Link></li>
       </ul>
       <ul>
       <h2>Security Data Collections</h2>
