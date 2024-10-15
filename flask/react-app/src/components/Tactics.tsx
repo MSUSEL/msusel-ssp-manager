@@ -44,21 +44,42 @@ const Tactics: React.FC = () => {
       };
 
       const options = {
-        interaction: { hover: true },
+        interaction: {
+          hover: true,
+          zoomView: true,  // Enable zooming
+        },
         nodes: {
           shape: 'ellipse',
           color: {
             border: '#000000',
             background: '#ffffff',
           },
-          font: { color: '#000000' },
+          font: {
+            color: '#000000',
+            size: 20, // Further increase the font size
+            face: 'arial', // Choose a clear and readable font
+          },
         },
         edges: {
           color: 'blue',
         },
+        physics: {
+          enabled: true,  // Enable physics for better node layout
+        },
+        // Initial zoom level
+        scale: 1,  // Zoom in more to improve visibility of labels
+        // Control zoom limits
+        manipulation: {
+          enabled: false,
+        },
       };
 
       const network = new Network(visJsRef.current, data, options);
+
+      // Set an initial zoom level (zoom in more)
+      network.moveTo({
+        scale: 1,  // Adjust this value to zoom in more by default
+      });
 
       // Event handler for node click
       network.on('click', function (params) {
@@ -70,10 +91,10 @@ const Tactics: React.FC = () => {
   }, [graphData]);
 
   return (
-    <div>
+    <div style={{ width: '75%', height: '80vh', padding: '20px' }}>
       <h2>Dynamic Graph</h2>
       {graphData ? (
-        <div ref={visJsRef} style={{ height: '400px', width: '600px', border: '1px solid black' }}></div>
+        <div ref={visJsRef} style={{ height: '75%', width: '75%', border: '1px solid black' }}></div>
       ) : (
         <p>Loading graph data...</p>
       )}

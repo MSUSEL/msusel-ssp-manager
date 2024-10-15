@@ -460,7 +460,7 @@ class ManageData:
                     if debugging == True:
                         logging.info(f"Adding edge to tacticsAndTechniquesGraph: {edge['_from']} -> {edge['_to']}")
                     
-                    self.tacticsAndTechniquesGraph.add_edge(edge['_from'], edge['_to'])
+                    #self.tacticsAndTechniquesGraph.add_edge(edge['_from'], edge['_to'])
                     if debugging == True:
                         logging.info(f"Successfully added edge to tacticsAndTechniquesGraph: {edge['_from']} -> {edge['_to']}")
                 except Exception as e:
@@ -594,6 +594,29 @@ def convert(initial):
     return {'nodes': nodes, 'edges': edges}
 
 
+def convert2(initial):
+    nodes = []
+    edges = []
+    node_id = 1
+    node_map = {}
+    # The first node should be colored #FF0000 (red)
+    #nodes.append({'id': node_id, 'label': initial['nodes'][0]['label'], 'color': {'background': '#FF0000', 'border': 'black'}})
+    #node_id += 1
+    for node in initial['nodes']:
+        node_map[node['id']] = node_id
+        if node_id == 1:
+            nodes.append({'id': node_id, 'label': node['label'], 'color': {'background': '#FF0000', 'border': 'black'}})
+        else:
+            nodes.append({'id': node_id, 'label': node['label'], 'color': {'background': '#CCE5FF', 'border': 'black'}})
+        node_id += 1
+    for edge in initial['edges']:
+        edges.append({'from': node_map[edge['from']], 'to': node_map[edge['to']]})
+    return {'nodes': nodes, 'edges': edges}
+
+
+
+
+
 @tactics_blueprint.route('/graph_data', methods=['GET','POST'])
 def tactics():
     # Current working directory or project root
@@ -625,7 +648,7 @@ def tactics():
         {'from': 2, 'to': 5}
     ]
 
-    return jsonify(convert(graph_data))
+    return jsonify(convert2(graph_data))
 
     #return jsonify({'nodes': nodes, 'edges': edges})
     
