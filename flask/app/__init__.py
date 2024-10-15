@@ -36,6 +36,12 @@ def create_app():
     from .priority_controls import priority_blueprint
     app.register_blueprint(priority_blueprint, url_prefix='/api/priority')
 
+    from .tacticsAndTecniquesGraph import tactics_blueprint
+    app.register_blueprint(tactics_blueprint, url_prefix='/api/tactics')
+
+
+
+
     from .getGraph import getGraph_blueprint
     app.register_blueprint(getGraph_blueprint, url_prefix='/api/getGraph')
 

@@ -1,5 +1,50 @@
 # Important: cursors can only be iterated on once. 
 # If you want to iterate on the cursor multiple times, you need to store the results in a list.
+
+
+# Needed format:
+'''
+const data = {
+  nodes: [
+    { id: 1, label: 'Node 1', color: '#ff0000', shape: 'dot', size: 20 },
+    { id: 2, label: 'Node 2', color: '#00ff00', shape: 'box' },
+    { id: 3, label: 'Node 3', title: 'This is a tooltip for Node 3', size: 15 }
+  ],
+  edges: [
+    { from: 1, to: 2, label: 'Edge from 1 to 2', arrows: 'to' },
+    { from: 2, to: 3, color: '#0000ff', label: 'Edge from 2 to 3' }
+  ]
+};
+
+
+
+
+# Sample NetworkX graph
+G = nx.DiGraph()
+G.add_edge('tactic/TA0002', 'technique/T1040')
+G.add_edge('tactic/TA0002', 'technique/T1499')
+
+@app.route('/api/graph', methods=['GET'])
+def get_graph():
+    # Convert nodes and edges to the format expected by react-force-graph
+    nodes = [{"id": node} for node in G.nodes()]
+    links = [{"source": edge[0], "target": edge[1]} for edge in G.edges()]
+    
+    # Combine nodes and edges into a single object
+    graph_data = {"nodes": nodes, "links": links}
+    
+    return jsonify(graph_data)
+
+
+
+'''
+
+
+
+
+
+
+
 from flask import Blueprint, request, current_app as app, send_from_directory, jsonify, send_file, make_response
 import os
 import json
@@ -14,7 +59,7 @@ import traceback
 logging.basicConfig(level=logging.INFO)
 debugging = False
 
-priority_blueprint = Blueprint('priority', __name__)
+tactics_blueprint = Blueprint('tactics', __name__)
 
 class ManageData:
     def __init__(self, cur_dir: str, db_query_service: DatabaseQueryService):
@@ -131,12 +176,12 @@ class ManageData:
             pass
 
 
-        self.priority_controls_table_data = self.create_table(self.db_query_service, self.priority_list, self.recommendationsTableData)
+        '''self.priority_controls_table_data = self.create_table(self.db_query_service, self.priority_list, self.recommendationsTableData)
 
         self.json_priority_controls_table_data = self.createJSONFromDictList(self.priority_controls_table_data)
         if debugging == True:
             logging.info(f"JSON Priority Controls Table Data: {self.json_priority_controls_table_data}")
-            pass
+            pass'''
 
 
 
@@ -524,72 +569,33 @@ class ManageData:
         return high + mid + low
 
 
-
-    def create_table(self, db, prioritize_lists, recommendationsTableData):
-        if debugging == True:
-            logging.info("Enterred create_table method.")
-        table_list = [] # will contain data for each table entry
-
-        if debugging == True:
-            logging.info("Declared table_list local variable.")
-            # loop to find the technique that maps to the specific tactic
-            logging.info("Will iterate through the prioritize_lists. For each item in the list, we will find the technique(s) that map from the specific tactic.")
-            '''Priority list: [('tactic/TA0007', 1), ('tactic/TA0009', 1), ('tactic/TA0040', 1), ('tactic/TA0006', 2)]
-            Tactic/original_id, NumberOfTechniques that execute the tactic.'''
-        
-        
-        for obj in prioritize_lists:
-            if debugging == True:
-                logging.info(f"Item in prioritize_lists: {obj}")
-            tactic_id = obj[0] # obj -> ('tactic/tactic_00008', 0), for ex
-
-            if debugging == True:
-                logging.info(f"Tactic ID extracted from obj: {tactic_id}")
-            cursor = self.db_query_service.fetch_technique_id(tactic_id)
-
-            # checks whether the technique is in the graph
-            if debugging == True:
-                logging.info("Will iterate through the cursor. For each technique in the cursor, we will check if it is in the tacticsAndTechniquesGraph.")
-            for tech_id in cursor:
-                if debugging == True:
-                    logging.info(f"Technique ID: {tech_id}")
-                    logging.info("Will iterate through the recommendationsTableData. For each item in the list, we will check if the technique ID is in the item.")
-                for data in recommendationsTableData:
-                    if debugging == True:
-                        logging.info(f"Item in recommendationsTableData: {data}")
-                    if tech_id == data['Technique ID']:
-                        if debugging == True:
-                            logging.info("Technique ID found in the recommendationsTableData.")
-                            logging.info("Will execute a query to get the tactic name.")
-                        
-                        cursor_tac = self.db_query_service.fetch_tactic_name(tactic_id)
-                        if debugging == True:
-                            logging.info("Returned from the query execution. Back in create_table method.")
-                        
-                        tactic = tactic_id + ' (' + next(cursor_tac) + ')'
-                        if debugging == True:
-                            logging.info(f"Tactic: {tactic}")
-                            logging.info("Will append the tactic and data to the table_list.")
-                        table_list.append({tactic:data})
-                        break
-        if debugging == True:
-            logging.info("Returned from the loop. Back in create_table method.")
-            pass
-
-        # convert the table_list to a json object and return it
-        if debugging == True:
-            logging.info(f"Table list: {table_list}")
-            logging.info("Will return table_list.")
-            pass
-        
-        return table_list
+def convert_nx_to_vis_format(graph: nx.Graph):
+    # Convert nodes
+    nodes = [{"id": str(node), "label": str(node)} for node in graph.nodes()]
+    # Convert edges
+    edges = [{"from": str(source), "to": str(target)} for source, target in graph.edges()]
+    # Combine nodes and edges
+    vis_format = {"nodes": nodes, "edges": edges}
+    return vis_format  # Do not stringify here, return as a Python dictionary
 
 
 
+def convert(initial):
+    nodes = []
+    edges = []
+    node_id = 1
+    node_map = {}
+    for node in initial['nodes']:
+        node_map[node['id']] = node_id
+        nodes.append({'id': node_id, 'label': node['label']})
+        node_id += 1
+    for edge in initial['edges']:
+        edges.append({'from': node_map[edge['from']], 'to': node_map[edge['to']]})
+    return {'nodes': nodes, 'edges': edges}
 
 
-@priority_blueprint.route('/table_data', methods=['GET','POST'])
-def priority():
+@tactics_blueprint.route('/graph_data', methods=['GET','POST'])
+def tactics():
     # Current working directory or project root
     cur_dir = os.getcwd()
     
@@ -597,8 +603,34 @@ def priority():
     db_connection = DatabaseConnection()
     query_service = DatabaseQueryService(db_connection)
     data_manager = ManageData(cur_dir, query_service)
+    
+    # Combine nodes and edges into a single object
+    graph_data = convert_nx_to_vis_format(data_manager.tacticsAndTechniquesGraph)
 
-    return data_manager.json_priority_controls_table_data
+    logging.info(f"Graph data: {graph_data}")
+
+    # Example graph data
+    nodes = [
+        {'id': 1, 'label': 'Node 1'},
+        {'id': 2, 'label': 'Node 2'},
+        {'id': 3, 'label': 'Node 3'},
+        {'id': 4, 'label': 'Node 4'},
+        {'id': 5, 'label': 'Node 5'}
+    ]
+
+    edges = [
+        {'from': 1, 'to': 2},
+        {'from': 1, 'to': 3},
+        {'from': 2, 'to': 4},
+        {'from': 2, 'to': 5}
+    ]
+
+    return jsonify(convert(graph_data))
+
+    #return jsonify({'nodes': nodes, 'edges': edges})
+    
+
+    #return data_manager.json_priority_controls_table_data
 
 
 

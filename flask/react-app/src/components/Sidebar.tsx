@@ -21,6 +21,7 @@ const Sidebar: React.FC = () => {
         <li><Link to="/priority-controls">Priority Controls</Link></li>
         <li><Link to="/vulnerable-functions">Vulnerable Functions</Link></li>
         <li><Link to="/priorities">Priorities</Link></li>
+        <li><Link to="/tactics">Tactics</Link></li>
       </ul>
       <ul>
       <h2>Security Data Collections</h2>

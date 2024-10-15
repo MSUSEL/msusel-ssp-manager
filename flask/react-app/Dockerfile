@@ -8,8 +8,8 @@ WORKDIR /app
 COPY . .
 
 # Install any needed packages
-RUN npm install
-RUN npm install react-router-dom@latest
+RUN npm install --legacy-peer-deps
+#RUN npm install react-router-dom@latest
 
 # Expose port 3000 to the outside world
 EXPOSE 3000
