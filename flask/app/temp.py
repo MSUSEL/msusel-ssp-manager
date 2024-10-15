@@ -33,5 +33,41 @@ def convert(initial):
         edges.append({'from': node_map[edge['from']], 'to': node_map[edge['to']]})
     return {'nodes': nodes, 'edges': edges}
 
+
+
+# This function will convert the initial data into this
+nodes = [
+        {'id': 1, 'label': 'Node 1', 'color': {'background': 'red', 'border': 'black'}},
+        {'id': 2, 'label': 'Node 2', 'color': {'background': 'green', 'border': 'black'}},
+        {'id': 3, 'label': 'Node 3', 'color': {'background': 'blue', 'border': 'black'}},
+        {'id': 4, 'label': 'Node 4', 'color': {'background': 'yellow', 'border': 'black'}},
+        {'id': 5, 'label': 'Node 5', 'color': {'background': 'purple', 'border': 'black'}}
+    ]
+edges = [
+    {'from': 1, 'to': 2},
+    {'from': 1, 'to': 3},
+    {'from': 2, 'to': 4},
+    {'from': 2, 'to': 5}
+]
+
+# This is the code that does the conversion
+def convert(initial):
+    nodes = []
+    edges = []
+    node_id = 1
+    node_map = {}
+    # The first node should be colored #FF0000 (red)
+    nodes.append({'id': node_id, 'label': initial['nodes'][0]['label'], 'color': {'background': 'red', 'border': 'black'}})
+    node_id += 1
+    for node in initial['nodes']:
+        node_map[node['id']] = node_id
+        nodes.append({'id': node_id, 'label': node['label'], 'color': {'background': 'red', 'border': 'black'}})
+        node_id += 1
+    for edge in initial['edges']:
+        edges.append({'from': node_map[edge['from']], 'to': node_map[edge['to']]})
+    return {'nodes': nodes, 'edges': edges}
+
+
+
 # This is the output of the conversion
 print(convert(initial))

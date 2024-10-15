@@ -17,7 +17,7 @@ interface GraphData {
   edges: Edge[];
 }
 
-const Tactics: React.FC = () => {
+const PriorityStage: React.FC = () => {
   const visJsRef = useRef<HTMLDivElement | null>(null);
   const [graphData, setGraphData] = useState<GraphData | null>(null);
 
@@ -102,4 +102,4 @@ const Tactics: React.FC = () => {
   );
 };
 
-export default Tactics;
+export default PriorityStage;
