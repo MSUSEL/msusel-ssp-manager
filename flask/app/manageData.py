@@ -461,7 +461,8 @@ class ManageData:
     
     # finds priority of tactic
     def colorPriorityNode(self, user_priority_BRONtacticID):
-        logging.info("Enterred colorPriorityNode method.")
+        if debugging == True:
+            logging.info("Enterred colorPriorityNode method.")
         # priority of tactic
         high = []
         mid = []

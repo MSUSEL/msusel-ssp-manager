@@ -16,6 +16,9 @@ debugging = False
 def listTechniquesForEachStage(tacticsAndTechniquesGraph, tacticsOriginalIDsList):
     attackPathGraph = [] # This is a list of lists, where each list contains the techniques for a given tactic
 
+
+    debug_list = tacticsOriginalIDsList[0:1]
+    logging.info(f"Debug list: {debug_list}")
     if debugging:
         logging.info("Enterred listTechniquesForEachStage method.")
         logging.info(f"tacticsOriginalIDsList: {tacticsOriginalIDsList}")
@@ -26,6 +29,7 @@ def listTechniquesForEachStage(tacticsAndTechniquesGraph, tacticsOriginalIDsList
         logging.info(f"List the edges in the tacticsAndTechniquesGraph: {tacticsAndTechniquesGraph.edges}")
 
     for tactic in tacticsOriginalIDsList:
+    #for tactic in debug_list:
         if debugging:
             logging.info(f"Current tactic: {tactic}")
         logging.info(f"Current tactic: {tactic}")
@@ -39,36 +43,48 @@ def listTechniquesForEachStage(tacticsAndTechniquesGraph, tacticsOriginalIDsList
             # Filter neighbors to get only techniques (nodes starting with "technique/")
             techniques = [node for node in connected_nodes if node.startswith('technique/')]
             logging.info(f"Techniques for the current tactic: {techniques}")
-            attackPathGraph.append(techniques)
+            # Prepend tactic to each element in techniques
+            listWithTacticPrependend = []
+            for element in techniques:
+                element = f"{tactic}/{element}"
+                listWithTacticPrependend.append(element)
+
+            attackPathGraph.append(listWithTacticPrependend)
             
             # Print or process the tactic and its directly connected techniques
             #print(f"Tactic: {tactic}, Directly Connected Techniques: {techniques}")
     if debugging:
         logging.info(f"Attack path graph: {attackPathGraph}")
+    logging.info(f"Attack path graph: {attackPathGraph}")
     return attackPathGraph # This is a list of lists, where each list contains the techniques for a given tactic
 
 
 def createNetworkXGraph(listOfList):
-    attackPathGraph = nx.DiGraph()
-    attackPathGraph.add_node("Start")
-    attackPathGraph.add_node("End")
-
-    # Connect "Start" to the first list of techniques
-    for technique in listOfList[0]:
-        attackPathGraph.add_edge("Start", technique)
-
-    # Connect each technique to the techniques in the next list
+    G = nx.DiGraph()
+    
+    # Add the start node
+    G.add_node("start")
+    
+    # Connect start node to each element of the first list
+    for element in listOfList[0]:
+        G.add_edge("start", element)
+    
+    # Loop through the lists to connect elements from one list to the next
     for i in range(len(listOfList) - 1):
-        for technique1 in listOfList[i]:
-            for technique2 in listOfList[i + 1]:
-                attackPathGraph.add_edge(technique1, technique2)
-
-    # Connect the techniques in the last list to "End"
-    for technique in listOfList[-1]:
-        attackPathGraph.add_edge(technique, "End")
-
-    return attackPathGraph
-
+        for elem1 in listOfList[i]:
+            for elem2 in listOfList[i + 1]:
+                logging.info(f"i is {i}")
+                logging.info(f"Connecting {elem1} to {elem2}")
+                G.add_edge(elem1, elem2)
+    
+    # Connect elements of the last list to the end node
+    for element in listOfList[-1]:
+        G.add_edge(element, "end")
+    
+    # Add the end node to the graph
+    G.add_node("end")
+    
+    return G
 
 def convert_nx_to_vis_format(graph: nx.Graph):
     # Convert nodes
@@ -106,8 +122,10 @@ def attacks():
     query_service = DatabaseQueryService(db_connection)
     data_manager = ManageData(cur_dir, query_service)
 
-    listOfLists = listTechniquesForEachStage(data_manager.tacticsAndTechniquesGraph, data_manager.tacticsOriginalIDsList)
+    listOfLists = listTechniquesForEachStage(data_manager.tacticsAndTechniquesGraph, data_manager.tacticOriginalIDs)
     attack_paths_graph = createNetworkXGraph(listOfLists)
+    logging.info(f"attack_paths_graph nodes: {attack_paths_graph.nodes}")
+    logging.info(f"attack_paths_graph edges: {attack_paths_graph.edges}")
 
 
     

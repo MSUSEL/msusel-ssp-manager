@@ -56,26 +56,45 @@ listOfList = [['technique/T1001.002', 'technique/T1090.001', 'technique/T1090.00
 # Finally, we will connect each technique in the last list to a single node that we will call "End".
 import networkx as nx
 
-attackPathGraph = nx.DiGraph()
-attackPathGraph.add_node("Start")
-attackPathGraph.add_node("End")
+def create_graph_with_lists(lists, start_node, end_node):
+    # Initialize the directed graph
+    G = nx.DiGraph()
+    
+    # Add the start node
+    G.add_node(start_node)
+    
+    # Connect start node to each element of the first list
+    for element in lists[0]:
+        G.add_edge(start_node, element)
+    
+    # Loop through the lists to connect elements from one list to the next
+    for i in range(len(lists) - 1):
+        for elem1 in lists[i]:
+            for elem2 in lists[i + 1]:
+                G.add_edge(elem1, elem2)
+    
+    # Connect elements of the last list to the end node
+    for element in lists[-1]:
+        G.add_edge(element, end_node)
+    
+    # Add the end node to the graph
+    G.add_node(end_node)
+    
+    return G
 
-# Connect "Start" to the first list of techniques
-for technique in listOfList[0]:
-    attackPathGraph.add_edge("Start", technique)
+# Example usage
+lists_of_elements = [
+    ['A1', 'A2', 'A3'],
+    ['B1', 'B2'],
+    ['C1', 'C2', 'C3', 'C4']
+]
+start = "Start"
+end = "End"
 
-# Connect each technique to the techniques in the next list
-for i in range(len(listOfList) - 1):
-    for technique1 in listOfList[i]:
-        for technique2 in listOfList[i + 1]:
-            attackPathGraph.add_edge(technique1, technique2)
+graph = create_graph_with_lists(lists_of_elements, start, end)
 
-# Connect the techniques in the last list to "End"
-for technique in listOfList[-1]:
-    attackPathGraph.add_edge(technique, "End")
+# Output the edges to see the structure
+print(list(graph.edges()))
 
-# Print the nodes and edges of the graph
-print("Nodes:", attackPathGraph.nodes)
-print("Edges:", attackPathGraph.edges)
 
 

@@ -3,13 +3,16 @@ import axios from 'axios';
 import { Network } from 'vis-network/standalone';
 
 interface Node {
-  id: number;
+  id: number | string;  // Modified to handle string IDs like 'Start'
   label: string;
+  x?: number;           // Optional x position for fixed nodes
+  y?: number;           // Optional y position for fixed nodes
+  fixed?: boolean;      // Optional fixed positioning flag
 }
 
 interface Edge {
-  from: number;
-  to: number;
+  from: number | string;
+  to: number | string;
 }
 
 interface GraphData {
@@ -26,7 +29,20 @@ const AttackPaths: React.FC = () => {
     const fetchGraphData = async () => {
       try {
         const response = await axios.get('/api/attack/attack_paths');
-        setGraphData(response.data);
+        const data = response.data;
+
+        // Modify specific nodes to fix their positions
+        const modifiedNodes = data.nodes.map((node: Node) => {
+          if (node.label === 'Start') {
+            return { ...node, x: -500, y: 0, fixed: true }; // Fix 'Start' node to the left
+          }
+          if (node.label === 'End') {
+            return { ...node, x: 500, y: 0, fixed: true };  // Fix 'End' node to the right
+          }
+          return node;  // Return other nodes as they are
+        });
+
+        setGraphData({ nodes: modifiedNodes, edges: data.edges });
       } catch (error) {
         console.error('Error fetching graph data:', error);
       }
@@ -49,42 +65,39 @@ const AttackPaths: React.FC = () => {
           zoomView: true,  // Enable zooming
         },
         nodes: {
-          size: 5,  // Increase the node size
-          shape: 'dot',  // Use dots instead of ellipses for nodes
+          size: 5,  // Node size
+          shape: 'dot',  // Dots instead of ellipses
           color: {
             border: '#000000',
             background: '#ffffff',
           },
           font: {
             color: '#000000',
-            size: 14,  // Reduce font size
-            multi: true,  // Enable multiline labels if needed
-            vadjust: -10,  // Vertically adjust label positioning to avoid overlap
-            face: 'arial', // Choose a clear and readable font
+            size: 14,  // Font size
+            multi: true,  // Multiline support for labels
+            vadjust: -10,  // Vertically adjust the label
+            face: 'arial', // Font type
           },
         },
         edges: {
           color: 'blue',
-          length: 100,  // Increase the length of the edges
-          width: 1,  // Thinner edges for better readability
-          smooth: true,  // Add smooth edges for a cleaner look
+          length: 100,  // Edge length
+          width: 1,  // Thinner edges
+          smooth: true,  // Smooth edges
         },
         physics: {
           forceAtlas2Based: {
-            gravitationalConstant: -100,  // Adjust to control node clustering
-            centralGravity: 0.005,       // How strongly nodes are pulled towards the center
-            springLength: 100,           // Distance between connected nodes (length of the edges)
-            damping: 0.4,                // Adjust to make the nodes settle faster
+            gravitationalConstant: -100,
+            centralGravity: 0.005,
+            springLength: 100,
+            damping: 0.4,
           },
-          maxVelocity: 10,  // Reduce the maximum velocity of nodes
+          maxVelocity: 10,  // Max velocity of nodes
         },
         layout: {
-          improvedLayout: true,  // Optional: for a cleaner, spread-out layout
-          hierarchical: false,
+          improvedLayout: true,  // For a cleaner layout
+          hierarchical: false,   // Ensure hierarchical is disabled
         },
-        // Initial zoom level
-        scale: 1,  // Zoom in more to improve visibility of labels
-        // Control zoom limits
         manipulation: {
           enabled: false,
         },
@@ -92,9 +105,9 @@ const AttackPaths: React.FC = () => {
 
       const network = new Network(visJsRef.current, data, options);
 
-      // Set an initial zoom level (zoom in more)
+      // Set an initial zoom level
       network.moveTo({
-        scale: 1,  // Adjust this value to zoom in more by default
+        scale: 1,
       });
 
       // Event handler for node click
