@@ -18,8 +18,6 @@ debugging = False
 priority_blueprint = Blueprint('priority', __name__)
 
 
-
-
 @priority_blueprint.route('/table_data', methods=['GET','POST'])
 def priority():
     # Current working directory or project root
@@ -31,7 +29,6 @@ def priority():
     data_manager = ManageData(cur_dir, query_service)
 
     return data_manager.json_priority_controls_table_data
-
 
 
 def main():

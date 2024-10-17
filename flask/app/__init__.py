@@ -39,6 +39,12 @@ def create_app():
     from .tacticsAndTecniquesGraph import tactics_blueprint
     app.register_blueprint(tactics_blueprint, url_prefix='/api/tactics')
 
+    from .vulnerableFunctions import vulnerable_blueprint
+    app.register_blueprint(vulnerable_blueprint, url_prefix='/api/vulnerable')
+
+    from .attack_paths import attack_blueprint
+    app.register_blueprint(attack_blueprint, url_prefix='/api/attack')
+
 
 
 

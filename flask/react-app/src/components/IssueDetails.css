@@ -1,0 +1,42 @@
+/* TechniquesTable.css */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* Ensure equal column widths */
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd; /* Separates the columns */
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  .tactic-row {
+    margin-bottom: 20px; /* Adds spacing between groups */
+    border-bottom: 2px solid #000; /* Bold border between each object group */
+  }
+  
+  .tactic-row:nth-child(even) {
+    background-color: #f9f9f9; /* Alternating background for each group */
+  }
+  
+  /* Styling for control items in a list */
+  ul {
+    list-style-type: disc; /* Use bullet points */
+    margin: 0;
+    padding-left: 20px;
+  }
+  
+  li {
+    margin-bottom: 5px; /* Adds some spacing between items */
+  }
+  
+  /* Add this to your IssueDetails.css */
+.issue-table td {
+  word-wrap: break-word; /* This will wrap long words onto the next line */
+  white-space: normal;   /* Ensure the text can break onto multiple lines */
+}

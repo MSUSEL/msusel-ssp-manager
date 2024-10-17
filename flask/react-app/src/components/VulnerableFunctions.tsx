@@ -1,63 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import IssueDetails from './IssueDetails'; // Import the component
 
 const VulnerableFunctions: React.FC = () => {
-  const [htmlUrl, setHtmlUrl] = useState<string>('');
+  const [issueData, setIssueData] = useState<IssueData | null>(null);
 
   useEffect(() => {
-    const fetchHtml = async () => {
-      try {
-        console.log('Starting to fetch HTML content...');
-
-        const response = await fetch(`/api/getVulnTable/vulntable?timestamp=${new Date().getTime()}`); // Adjust URL as needed
-        console.log(`Received response with status: ${response.status}`);
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const blob = await response.blob();
-        const url = URL.createObjectURL(blob);
-        setHtmlUrl(url);
-      } catch (error) {
-        console.error('Error fetching HTML:', error);
-      }
-    };
-
-    fetchHtml();
+    fetch('/api/vulnerable/vulnerable_functions') // Fetch the data from your backend
+      .then(response => response.json())
+      .then(data => setIssueData(data)) // Set the fetched data in state
+      .catch(error => console.error('Error fetching issue data:', error));
   }, []);
 
-  const containerStyle = {
-    width: '100%',
-    height: 'calc(100vh - 100px)', // Adjust the height as needed to fit your layout
-    border: '1px solid #ddd', // Optional: border styling
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
-  };
+  if (!issueData) {
+    return <div>Loading...</div>; // Display a loading message while fetching
+  }
 
-  const iframeStyle = {
-    width: '95%', // Adjust the width as needed
-    height: '95%', // Adjust the height as needed
-    border: '1px solid #ddd', // Optional: border styling
-    boxSizing: 'border-box',
-    overflow: 'hidden' // Hides any overflow to keep the content tidy
-  };
-
-  return (
-    <div style={containerStyle}>
-      <h2> Vulnearable Functions</h2>
-      {htmlUrl ? (
-        <iframe
-          src={htmlUrl}
-          style={iframeStyle}
-          loading="lazy"
-          title="Pyvis Graph"
-        />
-      ) : (
-        <p>Loading graph...</p>
-      )}
-    </div>
-  );
+  return <IssueDetails data={issueData} />; // Pass the fetched data to IssueDetails
 };
 
 export default VulnerableFunctions;

@@ -38,7 +38,7 @@ class ManageData:
         else:
             self.cursor_techniques_and_findings = self.db_query_service.fetch_attacks_against_cwes(self.findings_list)
             if debugging == True:
-                self.db_query_service.print_cursor(self.cursor_techniques_and_findings) # {'tech': 'technique/T1040', 'cwe': ['319']}, ...
+                #self.db_query_service.print_cursor(self.cursor_techniques_and_findings) # {'tech': 'technique/T1040', 'cwe': ['319']}, ...
                 pass
         
         
@@ -58,7 +58,7 @@ class ManageData:
         'SI-12 (Information Management and Retention)', 'SI-04 (System Monitoring)', 
         'SI-07 (Software, Firmware, and Information Integrity)']}'''
         if debugging == True:
-            self.db_query_service.print_cursor(self.cursor_techniques_and_controls)  
+            #self.db_query_service.print_cursor(self.cursor_techniques_and_controls)  
             pass
         
         
@@ -74,7 +74,7 @@ class ManageData:
         self.cursor_tactic_to_technique = self.db_query_service.fetch_tactics_to_techniques(self.attackTechniquesUsableAgainstSecurityFindings)
         # {'From': 'tactic/TA0002', 'To': 'technique/T1040'}, ...
         if debugging == True:
-            self.db_query_service.print_cursor(self.cursor_tactic_to_technique) # {'From': 'tactic/TA0002', 'To': 'technique/T1040'}, ...
+            #self.db_query_service.print_cursor(self.cursor_tactic_to_technique) # {'From': 'tactic/TA0002', 'To': 'technique/T1040'}, ...
             pass
         
         self.tacticsList = [] # ['tactic/TA0006', ...]
@@ -86,7 +86,7 @@ class ManageData:
         # This graph is not for a complete viasualization.
         # It is used to find the prioriti tactic in the show_prioritization method.
         # The stage in the middle of the path that has the least amount of techniques to neutralize.
-        #self.tacticsOnlyGraph = nx.DiGraph()
+        self.tacticsOnlyGraph = nx.DiGraph()
         '''Nodes in the tactics only graph:  ['tactic/tactic_00003', 'tactic/tactic_00005']
         Edges in the tactics only graph: [('tactic/tactic_00003', 'tactic/tactic_00005')]'''
 
@@ -99,7 +99,11 @@ class ManageData:
 
         self.addNodesAndEdgesBetweenTacticsAndTechniques(self.cursor_tactic_to_technique)
 
+        # Remove duplicates from the list of tactics
+        self.tacticsList = list(set(self.tacticsList))
+
         self.tacticsOriginalIDsList = [item.split('/')[1] for item in self.tacticsList]
+        logging.info(f"tacticsOriginalIDsList: {self.tacticsOriginalIDsList}")
         if debugging == True:
             logging.info(f"tacticsOriginalIDsList: {self.tacticsOriginalIDsList}")
             pass
@@ -107,7 +111,7 @@ class ManageData:
         self.cursor_arangodb_tactic_id = self.db_query_service.fetch_tactic_id(self.tacticsOriginalIDsList)
         if debugging == True:
             logging.info(f"Printing cursor_arangodb_tactic_id: {type(self.cursor_arangodb_tactic_id)}")
-            self.db_query_service.print_cursor(self.cursor_arangodb_tactic_id) 
+            #self.db_query_service.print_cursor(self.cursor_arangodb_tactic_id) 
             pass
         
         self.arangodb_tactic_id_list = self.createListFromCursor(self.cursor_arangodb_tactic_id)
@@ -134,8 +138,27 @@ class ManageData:
         if debugging == True:
             logging.info(f"JSON Priority Controls Table Data: {self.json_priority_controls_table_data}")
             pass
+        
+        # Assuming tacticsOnlyGraph.nodes is an iterable (e.g., dict_keys or similar)
+        listOfTactics = list(self.tacticsOnlyGraph.nodes)
+        self.tacticOriginalIDs = []
+        if debugging == True:
+            logging.info(f"List of tactics: {listOfTactics}")
+            pass
+        logging.info(f"List of tactics: {listOfTactics}")
 
+        #For each item in the list of tactics, run the fetch_original_id method.
+        for tactic in listOfTactics:
+            cursor = self.db_query_service.fetch_original_tacticID(tactic)
+            # Extract value from the cursor and append it to the list of tactic original IDs.
 
+            for doc in cursor:
+                self.tacticOriginalIDs.append(doc)
+        
+        if debugging == True:
+            logging.info(f"List of tactic original IDs: {self.tacticOriginalIDs}")
+            pass
+        logging.info(f"List of tactic original IDs: {self.tacticOriginalIDs}")
 
 
     # Method returns three lists of dictionaries.
@@ -422,12 +445,12 @@ class ManageData:
                 try:
                     if debugging == True:
                         logging.info(f"Adding edge to tacticsOnlyGraph: {edge['_from']} -> {edge['_to']}")
-                    #self.tacticsOnlyGraph.add_edge(edge['_from'], edge['_to'])
+                    self.tacticsOnlyGraph.add_edge(edge['_from'], edge['_to'])
                     if debugging == True:
                         logging.info(f"Successfully added edge to tacticsOnlyGraph: {edge['_from']} -> {edge['_to']}")
                 except Exception as e:
                     logging.info(f"Error adding edge to tacticsOnlyGraph: {e}")
-
+        logging.info(f"Nodes in the tactics only graph:  {self.tacticsOnlyGraph.nodes}")
         if debugging == True:        
             logging.info(f"Edges in the tacticsAndTechniquesGraph: {self.tacticsAndTechniquesGraph.edges}")
             logging.info(f"Neighbors in the tacticsAndTechniquesGraph: {self.tacticsAndTechniquesGraph.neighbors}")
@@ -446,7 +469,8 @@ class ManageData:
 
         # iterate over every node in the graph
         for node in self.tacticsAndTechniquesGraph.__iter__():
-            logging.info(f"Node: {node}")
+            if debugging == True:
+                logging.info(f"Node: {node}")
             # Nodes: ['tactic/TA0002', 'technique/T1040', ...]
             # Edges: [('tactic/TA0002', 'technique/T1040'), ...]
             '''Node: tactic/TA0006

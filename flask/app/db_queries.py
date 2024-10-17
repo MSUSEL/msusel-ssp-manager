@@ -8,7 +8,7 @@ from arango.client import ArangoClient
 from typing import List, Dict, Any
 
 logging.basicConfig(level=logging.INFO)
-debugging = True
+debugging = False
 
 class DatabaseConnection:
     def __init__(self):
@@ -112,11 +112,24 @@ class DatabaseQueryService:
         '''
         bind_vars = {'tacticID': tacticID}
         return self.db_connection.execute_aql(tactic_name_query, bind_vars)
+    
+    def fetch_original_tacticID(self, tacticID: Any) -> Any:
+        """
+        Fetch tactic name for the given tactic ID.
+        """
+        tactic_originalID_query = '''
+            FOR tac in tactic 
+                FILTER tac._id == @tacticID 
+                RETURN tac.original_id
+        '''
+        bind_vars = {'tacticID': tacticID}
+        return self.db_connection.execute_aql(tactic_originalID_query, bind_vars)
 
 
     def fetch_attacks_against_cwes(self, findings_list: List[str]) -> Any:
-        logging.info("Enterred fetch_attacks_against_cwes method.")
-        logging.info(f"findings_list: {findings_list}")
+        if debugging:
+            logging.info("Enterred fetch_attacks_against_cwes method.")
+            logging.info(f"findings_list: {findings_list}")
         """Fetch attacks against the given CWEs."""
         attacks_against_cwe_query = 'for cwe in cwe '\
             + 'filter cwe.original_id in @cwe_list '\

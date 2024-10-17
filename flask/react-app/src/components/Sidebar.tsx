@@ -17,6 +17,7 @@ const Sidebar: React.FC = () => {
       <ul>
         <li><Link to="/test-dependencies">Test Dependencies</Link></li>
         <li><Link to="/priority-stage">Priority Stage</Link></li>
+        <li><Link to="/attack-paths">Attack Paths</Link></li>
         <li><Link to="/priorities">Prioritiy Controls</Link></li>
         <li><Link to="/vulnerable-functions">Vulnerable Functions</Link></li>
       </ul>
