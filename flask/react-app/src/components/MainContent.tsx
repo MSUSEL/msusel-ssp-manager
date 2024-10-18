@@ -32,10 +32,7 @@ const MainContent: React.FC = () => {
           <Route path="/generate-template" element={<GenerateTemplate />} />
           <Route path="/validate" element={<Validate />} />
           <Route path="/test-dependencies" element={<TestDependencies />} />
-          <Route path="/attack-techniques" element={<AttackTechniques />} />
           <Route path="/attack-paths" element={<AttackPaths />} />
-          <Route path="/priority-controls" element={<PriorityControls />} />
-          <Route path="/vulnerable-functions" element={<VulnerableFunctions />} />
           <Route path="/security-controls" element={<SecurityControls />} />
           <Route path="/control-details" element={<ControlDetailsWrapper />} />
           <Route path="/priorities" element={<Priorities />} />

@@ -45,19 +45,4 @@ def create_app():
     from .attack_paths import attack_blueprint
     app.register_blueprint(attack_blueprint, url_prefix='/api/attack')
 
-
-
-
-    from .getGraph import getGraph_blueprint
-    app.register_blueprint(getGraph_blueprint, url_prefix='/api/getGraph')
-
-    from .getPaths import getPaths_blueprint
-    app.register_blueprint(getPaths_blueprint, url_prefix='/api/getPaths')
-
-    from .getTable import getTable_blueprint
-    app.register_blueprint(getTable_blueprint, url_prefix='/api/getTable')
-
-    from .getVulnTable import getVulnTable_blueprint
-    app.register_blueprint(getVulnTable_blueprint, url_prefix='/api/getVulnTable')
-
     return app

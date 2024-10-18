@@ -6,12 +6,10 @@ from typing import List, Dict, Tuple, Any
 import ast
 from .db_queries import DatabaseConnection, DatabaseQueryService
 import networkx as nx
-from pyvis import network as net
 import traceback
 
 logging.basicConfig(level=logging.INFO)
 debugging = False
-
 
 class ManageData:
     def __init__(self, cur_dir: str, db_query_service: DatabaseQueryService):
@@ -31,8 +29,8 @@ class ManageData:
             logging.info(f"findings_list: {self.findings_list}")
             pass
         
+        self.finding_type = self.weaknessOrVulnerability() # Either 'cve' or 'cwe'
         self.cursor_techniques_and_findings = None # {'tech': 'technique/T1040', 'cwe': ['319']}, ...
-        self.finding_type = self.weaknessOrVulnerability()
         if self.finding_type == 'cve':
             self.cursor_techniques_and_findings = self.db_query_service.fetch_attacks_against_cves(self.findings_list)
         else:
@@ -46,7 +44,7 @@ class ManageData:
         self.attackTechniqueIDsAndListOfMatchedFindings = [] # [['technique/T1040', ['319']], ['technique/T1056.004', ['319']], ['technique/T1499', ['400']]]
         
         # Fills attackTechniquesUsableAgainstSecurityFindings and attackTechniqueIDsAndListOfMatchedFindings
-        self.determineAttackTechniquesNotMitigated()
+        self.populateHelperDataStructures()
         
         self.cursor_techniques_and_controls = self.db_query_service.fetch_priority_controls(self.attackTechniquesUsableAgainstSecurityFindings)
         '''{'tech_id': 'technique/T1040', 
@@ -82,18 +80,13 @@ class ManageData:
         # Nodes: ['tactic/TA0002', 'technique/T1040', ...]
         # Edges: [('tactic/TA0002', 'technique/T1040'), ...]
         
-        
-        # This graph is not for a complete viasualization.
-        # It is used to find the prioriti tactic in the show_prioritization method.
+        # It is used to find the prioriti tactic in the colorPriorityStage method.
         # The stage in the middle of the path that has the least amount of techniques to neutralize.
         self.tacticsOnlyGraph = nx.DiGraph()
         '''Nodes in the tactics only graph:  ['tactic/tactic_00003', 'tactic/tactic_00005']
         Edges in the tactics only graph: [('tactic/tactic_00003', 'tactic/tactic_00005')]'''
 
-        self.pyvisTacticsAndTechniquesGraph = net.Network(height='100vh', width='100%', notebook=True, bgcolor="#FFFFFF", font_color="black")
-        logging.info("Initialized pyvisTacticsAndTechniquesGraph attribute. This is a pyvis network object.")
-        self.pyvisAttackPathsGraph = net.Network(height='100vh', width='100%', notebook=True, bgcolor="#FFFFFF", font_color="black")
-        logging.info("Initialized pyvisAttackPathsGraph attribute. This is a pyvis network object.")
+        
         self.user_priority_BRONtacticID = None
         logging.info("Initialized user_priority_BROBtacticID attribute.")
 
@@ -117,9 +110,7 @@ class ManageData:
         self.arangodb_tactic_id_list = self.createListFromCursor(self.cursor_arangodb_tactic_id)
         if debugging == True:
             logging.info(f"arangodb_tactic_id_list: {self.arangodb_tactic_id_list}")
-            pass
-
-        
+            pass     
 
         self.addEdgesBetweenTacticsToGraphs(self.db_query_service.db_connection.tacticToTacticEdgeCollection)
 
@@ -131,34 +122,27 @@ class ManageData:
             logging.info(f"Priority list: {self.priority_list}")
             pass
 
-
         self.priority_controls_table_data = self.create_table(self.db_query_service, self.priority_list, self.recommendationsTableData)
 
         self.json_priority_controls_table_data = self.createJSONFromDictList(self.priority_controls_table_data)
         if debugging == True:
             logging.info(f"JSON Priority Controls Table Data: {self.json_priority_controls_table_data}")
             pass
-        
+       
         # Assuming tacticsOnlyGraph.nodes is an iterable (e.g., dict_keys or similar)
         listOfTactics = list(self.tacticsOnlyGraph.nodes)
-        self.tacticOriginalIDs = []
-        if debugging == True:
-            logging.info(f"List of tactics: {listOfTactics}")
-            pass
-        logging.info(f"List of tactics: {listOfTactics}")
-
+        self.orderedTacticsPathOriginalIDs = []
         #For each item in the list of tactics, run the fetch_original_id method.
         for tactic in listOfTactics:
             cursor = self.db_query_service.fetch_original_tacticID(tactic)
             # Extract value from the cursor and append it to the list of tactic original IDs.
-
             for doc in cursor:
-                self.tacticOriginalIDs.append(doc)
+                self.orderedTacticsPathOriginalIDs.append(doc)  
         
         if debugging == True:
-            logging.info(f"List of tactic original IDs: {self.tacticOriginalIDs}")
+            logging.info(f"List of tactic original IDs: {self.orderedTacticsPathOriginalIDs}")
             pass
-        logging.info(f"List of tactic original IDs: {self.tacticOriginalIDs}")
+        logging.info(f"List of tactic original IDs: {self.orderedTacticsPathOriginalIDs}")
 
 
     # Method returns three lists of dictionaries.
@@ -258,9 +242,9 @@ class ManageData:
                 my_dict[k] = v
         return my_dict
 
-    def determineAttackTechniquesNotMitigated(self):
+    def populateHelperDataStructures(self):
         if debugging == True:
-            logging.info("Enterred determineAttackTechniquesNotMitigated method.")
+            logging.info("Enterred populateHelperDataStructures method.")
             logging.info("Will iterate through the cursor_techniques_and_findings. For each techniqueFinding dictionary in the cursor, we will extract the values and store them in a list.")
             pass
         if debugging == True:

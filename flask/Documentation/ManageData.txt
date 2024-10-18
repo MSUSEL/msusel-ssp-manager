@@ -1,0 +1,145 @@
+You can see the global variable "debugging" to True to log everything that is going on on this file.
+
+
+The ManageData class
+Has a db_qury_service object which queries the arangodb database.
+
+self.security_findings_dictionary_list holds flask/shared/vulnerabilities.json, a file with the output from static analysis tools.
+self.implemented_controls_dictionary_list holds flask/shared/controls.json, a file with NIST SP 800-53 security controls..
+self.vulnerable_functionss holds flask/shared/calledVulnerableFunctionsObjectList.txt, a file with the vulnerable functions found on the dependencies.
+
+self.findings_list = holds the weakness number for elements in security_findings_dictionary_list.
+Ex: ['78', '703', '605', '400', '319']
+
+
+self.finding_type = self.weaknessOrVulnerability() # Either 'cve' or 'cwe'
+
+self.cursor_techniques_and_findings = self.db_query_service.fetch_attacks_against_cves(self.findings_list)
+# {'tech': 'technique/T1040', 'cwe': ['319']}, ... holds attack techniques that can be used against the secuirty finding.
+The cursor is an iterable object. MAY ONLY BE ITERATED UPON ONCE.   
+
+
+self.populateHelperDataStructures()
+The last query returned attack techniques that may be used against the security findings. 
+We want to implement security controls that mitigate those attack techniques.
+We will need to have a map between attack techniques and security controls.
+We want to output security controls that are not implement.
+This method populates two data structures that help us determine what is needed:
+self.attackTechniquesUsableAgainstSecurityFindings = [] # ['technique/T1040', 'technique/T1056.004', 'technique/T1499']
+self.attackTechniqueIDsAndListOfMatchedFindings = [] # [['technique/T1040', ['319']], ['technique/T1056.004', ['319']], ['technique/T1499', ['400']]]
+
+
+Here we get the mapping between the attack techniques and the security findings.
+self.cursor_techniques_and_controls = self.db_query_service.fetch_priority_controls(self.attackTechniquesUsableAgainstSecurityFindings)
+The data in the curso has this form:
+{'tech_id': 'technique/T1040', 
+'tech_name': 'Network Sniffing', 
+ctrl': ['CM-07 (Least Functionality)', 'AC-16 (Security and Privacy Attributes)', 'AC-17 (Remote Access)', 
+        'AC-18 (Wireless Access)', 'AC-19 (Access Control for Mobile Devices)', '
+        IA-02 (Identification and Authentication (organizational Users))', 'IA-05 (Authenticator Management)', 
+        'SC-04 (Information in Shared System Resources)', 'SC-08 (Transmission Confidentiality and Integrity)', 
+        'SI-12 (Information Management and Retention)', 'SI-04 (System Monitoring)', 
+        'SI-07 (Software, Firmware, and Information Integrity)']}
+
+
+Based on these results, we will send data to the frontend to display a table.
+self.recommendationsTableData
+self.buildRecommendationsTableData(self.cursor_techniques_and_controls)
+Recommendations Table Data (example item): 
+{'cwe': ['319'], 
+'Technique ID': 'technique/T1040', 
+'Technique Name': 'Network Sniffing', 
+'Control (Name)': ['CM-07 (Least Functionality)', 
+                    'AC-16 (Security and Privacy Attributes)', 
+                    'AC-17 (Remote Access)', 
+                    'AC-18 (Wireless Access)', 
+                    'AC-19 (Access Control for Mobile Devices)', 
+                    'IA-02 (Identification and Authentication (organizational Users))', 
+                    'IA-05 (Authenticator Management)', 
+                    'SC-04 (Information in Shared System Resources)', 
+                    'SC-08 (Transmission Confidentiality and Integrity)', 
+                    'SI-12 (Information Management and Retention)', 
+                    'SI-04 (System Monitoring)', 
+                    'SI-07 (Software, Firmware, and Information Integrity)']} 
+
+
+
+Cyber attacks develop in stages (initial access, lateral movement, priviledge escalations, ...)
+We want to be aware of the attack stages that the techniques that were found to be usable against the security findings can acomplish.
+Thus, we map the attack technique to attack tatics (MITRE's term for stage).
+self.cursor_tactic_to_technique = self.db_query_service.fetch_tactics_to_techniques(self.attackTechniquesUsableAgainstSecurityFindings)
+The data in the cursor has the form:
+{'From': 'tactic/TA0002', 'To': 'technique/T1040'}, ...
+
+
+
+These data structures will be used to prepare the data that will be send to the frontend to build visualization graphs.
+self.tacticsList = [] # ['tactic/TA0006', ...]
+self.tacticsAndTechniquesGraph = nx.Graph()
+Nodes: ['tactic/TA0002', 'technique/T1040', ...]
+Edges: [('tactic/TA0002', 'technique/T1040'), ...]
+
+
+This graph is used to find the priority tactic in the colorPriorityStage method.
+The priority state is the stage in the middle of the path that has the least amount of techniques to neutralize.
+The heuristic is that you can break up the attack faster if you have to mitigate less techniques to neutralize a stage.
+self.tacticsOnlyGraph = nx.DiGraph()
+Nodes in the tactics only graph:  ['tactic/tactic_00003', 'tactic/tactic_00005']
+Edges in the tactics only graph: [('tactic/tactic_00003', 'tactic/tactic_00005')]
+
+
+self.user_priority_BRONtacticID = None This functionality is not currently implemented. 
+It allows the user to predetermine an attack tactic (stage) whose techniques should be mitigated first.
+For example, if the user is worried that his network is not internally segregated and wants to 
+first mitigate lateral movement techniques, the user would inform the system of this need.
+
+
+
+self.addNodesAndEdgesBetweenTacticsAndTechniques(self.cursor_tactic_to_technique)
+This method populates the data structures that were declared before:
+tacticsList = [] # ['tactic/TA0006', ...]
+self.tacticsAndTechniquesGraph = nx.Graph()
+
+
+
+Remove duplicates from the list of tactics
+self.tacticsList = list(set(self.tacticsList))
+
+
+It so happens that the arandodb database has each MITRE Attack tactics and technique stored, 
+but the database management program adds its own ids for each. It does keep the original ids as part of the entry.
+Here we are storing the original ids for the tactics.
+self.tacticsOriginalIDsList = [item.split('/')[1] for item in self.tacticsList]
+
+And here we store the arangodb ids
+self.cursor_arangodb_tactic_id = self.db_query_service.fetch_tactic_id(self.tacticsOriginalIDsList)
+self.arangodb_tactic_id_list = self.createListFromCursor(self.cursor_arangodb_tactic_id)
+
+
+The addEdgesBetweenTacticsToGraphs method stores the edges between the tactics in the 
+tacticsAndTechniquesGraph and thetacticsOnlyGraph.
+
+
+The colorPriorityNode method determines if tactics can be string together to create an attack path.
+It them marks the tactic to neutralize first, using the heuristic described above.
+self.priority_list = self.colorPriorityNode(self.user_priority_BRONtacticID)
+Priority list: [('tactic/TA0007', 1), ('tactic/TA0009', 1), ('tactic/TA0040', 1), ('tactic/TA0006', 2)]
+Tactic/original_id, NumberOfTechniques that execute the tactic.
+
+
+Here we prepare the data for to return for the priority controls table.
+self.priority_controls_table_data = self.create_table(self.db_query_service, self.priority_list, self.recommendationsTableData)
+self.json_priority_controls_table_data = self.createJSONFromDictList(self.priority_controls_table_data)
+
+
+For the attack paths graph, we want to have the tactics in sequence.
+We save this data in the orderedTacticsPathOriginalIDs list.
+This will be used in attack_paths.py
+listOfTactics = list(self.tacticsOnlyGraph.nodes)
+self.orderedTacticsPathOriginalIDs = []
+        #For each item in the list of tactics, run the fetch_original_id method.
+        for tactic in listOfTactics:
+            cursor = self.db_query_service.fetch_original_tacticID(tactic)
+            # Extract value from the cursor and append it to the list of tactic original IDs.
+            for doc in cursor:
+                self.orderedTacticsPathOriginalIDs.append(doc)  

@@ -122,7 +122,7 @@ def attacks():
     query_service = DatabaseQueryService(db_connection)
     data_manager = ManageData(cur_dir, query_service)
 
-    listOfLists = listTechniquesForEachStage(data_manager.tacticsAndTechniquesGraph, data_manager.tacticOriginalIDs)
+    listOfLists = listTechniquesForEachStage(data_manager.tacticsAndTechniquesGraph, data_manager.orderedTacticsPathOriginalIDs)
     attack_paths_graph = createNetworkXGraph(listOfLists)
     logging.info(f"attack_paths_graph nodes: {attack_paths_graph.nodes}")
     logging.info(f"attack_paths_graph edges: {attack_paths_graph.edges}")

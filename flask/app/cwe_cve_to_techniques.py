@@ -591,6 +591,7 @@ class CreateVisualizations:
             out_file.close()
 
         # determine the highest priority node and change color to red
+        # We want the tactic with the least amount of techniques to neutralize
         print('Low:', low, "\nMid:", mid, "\nHigh:", high)
         logging.info(f"Low: {low}, Mid: {mid}, High: {high}")
         if high.__len__() > 0 and self.tacticsAndTechniquesGraph.has_node(high[0][0]):
