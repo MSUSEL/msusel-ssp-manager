@@ -1,6 +1,6 @@
 #!/bin/bash
 
-WATCH_SSP="../flask/temp_ssp"
+WATCH_SSP="../flask/generateFiles"
 SSP_DIR="../flask/oscal_schemas/system-security-plans"
 
 inotifywait -m "$WATCH_SSP" -e close_write -e moved_to |

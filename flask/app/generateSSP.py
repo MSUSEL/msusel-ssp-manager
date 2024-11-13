@@ -21,7 +21,7 @@ ssp_path="./oscal_schemas/system-security-plans/generated_ssp.yaml"
 
 # TODO: Accept profile input in json format.
 
-templates_path = './templates/'
+templates_path = './app/templates/'
 
 # The path arg can be of type str, bytes, Path, Pathlike
 def load_yaml(path: Union[str, bytes, Path, PathLike]):
