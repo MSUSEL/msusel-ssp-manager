@@ -80,21 +80,14 @@ const PriorityStage: React.FC = () => {
       network.moveTo({
         scale: 1,  // Adjust this value to zoom in more by default
       });
-
-      // Event handler for node click
-      network.on('click', function (params) {
-        if (params.nodes.length > 0) {
-          alert(`Node clicked: ${params.nodes[0]}`);
-        }
-      });
     }
   }, [graphData]);
 
   return (
-    <div style={{ width: '75%', height: '80vh', padding: '20px' }}>
-      <h2>Priority Stage</h2>
+    <div style={{ width: '100%', height: '80vh', padding: '20px' }}>
+      <h2> </h2>
       {graphData ? (
-        <div ref={visJsRef} style={{ height: '75%', width: '75%', border: '1px solid black' }}></div>
+        <div ref={visJsRef} style={{ height: '100%', width: '100%', backgroundColor: '#121212', border: '5px solid black', borderRadius: '10px', boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.8), 0px 8px 20px rgba(0, 0, 0, 0.5)' }}></div>
       ) : (
         <p>Loading graph data...</p>
       )}
