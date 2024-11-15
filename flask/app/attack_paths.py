@@ -103,7 +103,7 @@ def convert2visNetworkFormat(initial):
     for node in initial['nodes']:
         node_map[node['id']] = node_id
         if node_id == 1:
-            nodes.append({'id': node_id, 'label': node['label'], 'color': {'background': '#FF0000', 'border': 'black'}})
+            nodes.append({'id': node_id, 'label': node['label'], 'color': {'background': '#CCE5FF', 'border': 'black'}})
         else:
             nodes.append({'id': node_id, 'label': node['label'], 'color': {'background': '#CCE5FF', 'border': 'black'}})
         node_id += 1
