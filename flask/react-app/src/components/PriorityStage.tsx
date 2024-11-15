@@ -49,15 +49,18 @@ const PriorityStage: React.FC = () => {
           zoomView: true,  // Enable zooming
         },
         nodes: {
-          shape: 'ellipse',
+          size: 5,  // Node size
+          shape: 'dot',  // Dots instead of ellipses
           color: {
-            border: '#000000',
-            background: '#ffffff',
+            border: '#ffffff',
+            background: '#120BEF',
           },
           font: {
-            color: '#000000',
-            size: 20, // Further increase the font size
-            face: 'arial', // Choose a clear and readable font
+            color: '#ffffff',
+            size: 14,  // Font size
+            multi: true,  // Multiline support for labels
+            vadjust: -10,  // Vertically adjust the label
+            face: 'arial', // Font type
           },
         },
         edges: {
