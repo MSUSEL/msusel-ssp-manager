@@ -1,0 +1,248 @@
+---
+system-security-plan:
+  uuid: 7196bd4c-4e5e-4e08-a8b5-346644cd37ef
+  metadata:
+    title: UGov_Services
+    last-modified: 2024-08-28T20:35:11.982099+00:00
+    version: 0.0.1-alpha
+    oscal-version: 1.0.4
+  import-profile:
+    href: ./oscal_schemas/profiles/profile.yaml
+  system-characteristics:
+    system-ids:
+      - id: UGov_Services_provider
+    system-name: UGov_Services
+    description: >
+       Web-based appointment scheduling system that allows clients to book, reschedule, or cancel appointments online and enables staff to manage their schedules efficiently.
+    security-sensitivity-level: low
+    system-information:
+      information-types:
+        - uuid: 8b75fa42-45ed-4828-bb27-c9b088e1b863
+          title: System Assessment
+          description: This system handles development information pertaining to audit and assessment events.
+    security-impact-level:
+      security-objective-confidentiality: low
+      security-objective-integrity: low
+      security-objective-availability: low
+    status:
+      state: operational
+    authorization-boundary:
+      description: This system is for demonstration purposes only.
+  system-implementation:
+    users:
+      - uuid: aff6ccbc-df20-4498-b0e5-6868be268bd7
+    components:
+      - uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+        type: this-system
+        title: OSCAL Testing Workflow Application
+        description: This is an application to demonstrate minimal OSCAL content, and automation to execute tests against the application.
+        status:
+          state: under-development
+  control-implementation:
+    description: This system implements a very minimal set of controls for demonstration only.
+    implemented-requirements:
+    - uuid: f34220ea-4c37-4cbe-b4b9-1c1e32279ae5
+      control-id: ac-2
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: f34220ea-4c37-4cbe-b4b9-1c1e32279ae5
+          description: Role-based access control (RBAC) enforces least privilege access to ensure users can only access resources appropriate for their role.
+    - uuid: 3a1d9f45-8e34-4a0c-b2e3-3c9e4d51a7d1
+      control-id: ac-3
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: 3a1d9f45-8e34-4a0c-b2e3-3c9e4d51a7d1
+          description: Access enforcement mechanisms are implemented to ensure that system resources, including user data and administrative functionality, are accessible only to authorized users. The application enforces security policies for user sessions and prevents unauthorized access attempts through strict validation.
+    - uuid: f2c7b3d5-a842-4a9b-93d5-c1e38f7d5b27
+      control-id: ar-4
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: f2c7b3d5-a842-4a9b-93d5-c1e38f7d5b27
+          description: Privacy monitoring and auditing are implemented to ensure that personal information is handled in compliance with privacy policies and regulations. Logs of access to sensitive data are reviewed monthly to identify unauthorized access or anomalies. Additionally, privacy-related incidents are reported to the designated privacy officer and addressed promptly.
+    - uuid: 2d3584cd-e2ed-46f5-a2e3-31d4fbddd4df
+      control-id: au-2
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: 2d3584cd-e2ed-46f5-a2e3-31d4fbddd4df
+          description: The application generates audit records for all critical events, including user logins, administrative actions, file access, and system configuration changes. These events are defined in collaboration with system owners and security teams to ensure coverage of security-relevant activities.
+    - uuid: 4b2f0d1a-8c3e-4511-9728-227b3f3e2f12
+      control-id: au-3
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: 4b2f0d1a-8c3e-4511-9728-227b3f3e2f12
+          description: Audit records include essential details such as event type, date and time, source IP address, user identity, and outcome (e.g., success or failure). Logs are formatted in JSON for easy parsing and analysis.
+    - uuid: 6f9d7e2c-d07b-482d-b6bf-5a8b17ab23e9
+      control-id: au-4
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: 6f9d7e2c-d07b-482d-b6bf-5a8b17ab23e9
+          description: Logs are stored in a centralized logging server with a storage capacity of 2TB, supporting a retention period of six months. Alerts are configured to notify administrators if storage usage exceeds 80%.
+    - uuid: 8c2b1e32-14b7-4de9-9732-672f2e0a9d19
+      control-id: au-5
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: 8c2b1e32-14b7-4de9-9732-672f2e0a9d19
+          description: In the event of logging failures, the system generates real-time alerts and temporarily halts non-critical operations to ensure that critical events continue to be logged. Failures are escalated to the system administrator within 15 minutes.
+    - uuid: 5d3e9a12-c87f-4f6b-8209-ae5f3248a908
+      control-id: au-6
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: 5d3e9a12-c87f-4f6b-8209-ae5f3248a908
+          description: Audit logs are reviewed weekly using automated log analysis tools to identify anomalies, unauthorized access, or policy violations. Results of the analysis are reported to the Information Security Officer.
+    - uuid: 4a8c37df-f2c1-4b0d-b634-d2a9aef04b2e
+      control-id: au-8
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: 4a8c37df-f2c1-4b0d-b634-d2a9aef04b2e
+          description: All audit records include synchronized timestamps using the Network Time Protocol (NTP). Time synchronization is validated daily.
+    - uuid: 7f3c9d20-d7a6-4f59-9b5d-e24c3b5f82bd
+      control-id: au-9
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: 7f3c9d20-d7a6-4f59-9b5d-e24c3b5f82bd
+          description: Access to logs is restricted to authorized personnel only. Logs are encrypted in transit using TLS 1.3 and at rest using AES-256.
+    - uuid: 9e4b2a91-d0c3-451a-9f62-67ae91b4dc6f
+      control-id: au-10
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: 9e4b2a91-d0c3-451a-9f62-67ae91b4dc6f
+          description: Audit logs are signed with a cryptographic hash to ensure integrity and non-repudiation. Any tampering attempts are detected and logged as a security incident.
+    - uuid: 3f8c4b71-c7a1-46f2-89b2-a9e12c48b05e
+      control-id: au-11
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: 3f8c4b71-c7a1-46f2-89b2-a9e12c48b05e
+          description: Logs are retained for six months in accordance with the organization's policy. After the retention period, logs are archived to encrypted offline storage for an additional 12 months.
+    - uuid: 1d9f37c5-ae02-4c1d-8b75-2a9f37c4b29e
+      control-id: au-12
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: 1d9f37c5-ae02-4c1d-8b75-2a9f37c4b29e
+          description: Audit logs are automatically generated by the application and system components. This includes application-level logs (e.g., user actions) and system-level logs (e.g., OS events). The logging mechanism is tested monthly to ensure accurate generation.
+    - uuid: 5e2b4a9f-d2c1-47f7-a5b3-e9c2f38d5a27
+      control-id: au-16
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: 5e2b4a9f-d2c1-47f7-a5b3-e9c2f38d5a27
+          description: The system supports cross-organizational audit logging by coordinating with external service providers to ensure audit records from integrated systems are collected and stored securely. Logs include relevant details to trace interactions across organizational boundaries, ensuring accountability and traceability.
+    - uuid: a121fb7a-6c22-45cb-a236-c1b6147cf9b6
+      control-id: cm-2
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: a121fb7a-6c22-45cb-a236-c1b6147cf9b6
+          description: The baseline configuration of system components is maintained and updated regularly to ensure secure operation. Configuration changes are tracked, reviewed, and approved through a controlled process.
+    - uuid: b5127f6d-a732-4c65-a5c3-9c2e93b5d7e1
+      control-id: cm-5
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: b5127f6d-a732-4c65-a5c3-9c2e93b5d7e1
+          description: Access to make configuration changes is restricted to authorized personnel only. All changes are logged and include details about the change, who made it, and when it occurred.
+    - uuid: c3e2b6f5-8f79-47d9-ae63-42c7d2a1e39f
+      control-id: cp-6
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: c3e2b6f5-8f79-47d9-ae63-42c7d2a1e39f
+          description: A backup storage site is maintained to support recovery in the event of a primary site failure. Backups are performed daily and tested quarterly to ensure they can be restored as needed.
+    - uuid: d7e5c3f1-ae94-42d7-9f12-c1e25b3742b9
+      control-id: ia-2
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: d7e5c3f1-ae94-42d7-9f12-c1e25b3742b9
+          description: The system requires all users to authenticate using unique credentials. Multi-factor authentication (MFA) is enforced for all staff accounts, requiring a combination of something the user knows (password) and something the user has (e.g., a token or smartphone app).
+    - uuid: 812e432a-6070-408c-89ab-202eae13bf65
+      control-id: ir-4
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: 812e432a-6070-408c-89ab-202eae13bf65
+          description: The system has an incident response plan to detect, log, and address security incidents promptly to minimize disruption and data loss.
+    - uuid: 8b2f37d1-c7a5-48b7-ae42-f9c2d6b7e5a9
+      control-id: ma-2
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: 8b2f37d1-c7a5-48b7-ae42-f9c2d6b7e5a9
+          description: Maintenance of system components is conducted in a controlled manner by authorized personnel. Maintenance logs are maintained, detailing the date, time, personnel, and actions performed. Remote maintenance is authorized only through secure, pre-approved channels.
+    - uuid: a7e9b3d5-42f7-4c92-a5b2-c1e38f6d5a27
+      control-id: ra-5
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: a7e9b3d5-42f7-4c92-a5b2-c1e38f6d5a27
+          description: The system employs automated vulnerability scanning tools to identify and mitigate vulnerabilities in software and hardware components. Scans are conducted weekly, and results are reviewed by the security team. High-risk vulnerabilities are remediated within 48 hours of detection.
+    - uuid: c5e7a4b9-d3c7-4a9f-b3d2-8f29c6d5a9e7
+      control-id: sa-9
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: c5e7a4b9-d3c7-4a9f-b3d2-8f29c6d5a9e7
+          description: External system services used by the application, such as third-party APIs and cloud hosting, are assessed and monitored for compliance with security requirements. Service-level agreements (SLAs) include provisions for security controls, data protection, and incident response. Security assessments are conducted annually to ensure ongoing compliance.
+    - uuid: 7c2f38d1-a7b9-47e9-b2a5-d5c3f6e42b7a
+      control-id: sc-5
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: 7c2f38d1-a7b9-47e9-b2a5-d5c3f6e42b7a
+          description: The system employs rate limiting, traffic filtering, and anomaly detection tools to protect against denial-of-service (DoS) attacks. Suspicious traffic patterns are monitored in real-time, and automated responses are configured to mitigate potential disruptions.
+    - uuid: d9741a72-cc4e-4f34-a12c-05dbc05265c8
+      control-id: sc-6
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: d9741a72-cc4e-4f34-a12c-05dbc05265c8
+          description: Resource availability is ensured by implementing redundant systems, load balancers, and automated failover mechanisms. Resource utilization is monitored continuously to prevent resource exhaustion and ensure consistent performance.
+    - uuid: a6f7b3e1-c5d2-4a9b-82f3-d9c72e38f1b7
+      control-id: sc-7
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: a6f7b3e1-c5d2-4a9b-82f3-d9c72e38f1b7
+          description: The system employs firewalls and network segmentation to protect the boundary between internal and external networks. All traffic crossing the boundary is inspected and filtered to prevent unauthorized access and malicious activity.
+    - uuid: c47f31e7-ff0a-456d-90d4-22bb9c6f7a31
+      control-id: sc-12
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: c47f31e7-ff0a-456d-90d4-22bb9c6f7a31
+          description: The system implements TLS 1.3 to encrypt all communication between client and server, ensuring the confidentiality and integrity of data in transit.
+    - uuid: e7a9b3f5-c2d6-42f1-8b7a-d3e9f72a4c5b
+      control-id: sc-13
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: e7a9b3f5-c2d6-42f1-8b7a-d3e9f72a4c5b
+          description: Cryptographic mechanisms are used to protect sensitive data in transit and at rest. TLS 1.3 is employed for communication between clients and the server, while sensitive data stored in the database is encrypted using AES-256.
+    - uuid: 9f3c7b2d-a5f2-47e9-b3a7-d6c8f1e2b9a4
+      control-id: sc-16
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: 9f3c7b2d-a5f2-47e9-b3a7-d6c8f1e2b9a4
+          description: Security attributes such as user roles and permissions are transmitted securely alongside application data. Attributes are validated at each processing step to ensure consistency and prevent unauthorized escalation of privileges.
+    - uuid: b2e7f3a9-c6d8-42b7-a3f5-d1e9c2a4f7b6
+      control-id: sc-23
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: b2e7f3a9-c6d8-42b7-a3f5-d1e9c2a4f7b6
+          description: The system enforces session authenticity by using secure session tokens. Session tokens are transmitted over encrypted channels and include mechanisms to detect tampering or replay attacks. Sessions automatically expire after a defined period of inactivity.
+    - uuid: d3a7b2f5-c9e4-48f7-b5a2-f1c6e9a42b7f
+      control-id: sc-28
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: d3a7b2f5-c9e4-48f7-b5a2-f1c6e9a42b7f
+          description: Sensitive data at rest, including user credentials and appointment details, is encrypted using AES-256 encryption. Access to data storage is restricted to authorized personnel, and encryption keys are managed securely using an enterprise-grade key management system.
+    - uuid: f3b2a7c6-e9d1-47f5-b3a2-c9e4d6a1b7f2
+      control-id: si-2
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: f3b2a7c6-e9d1-47f5-b3a2-c9e4d6a1b7f2
+          description: The system implements a formal process for identifying, evaluating, and remediating software flaws. Vulnerabilities are identified through automated scanning and manual reviews. Critical vulnerabilities are remediated within 48 hours, and all patches are tested in a staging environment before deployment to production.
+    - uuid: d31a2de8-4f2b-4a1b-a4eb-7a75c54b4b21
+      control-id: si-3
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: d31a2de8-4f2b-4a1b-a4eb-7a75c54b4b21
+          description: Input validation mechanisms are implemented to prevent malicious code execution, ensuring system and data integrity.
+    - uuid: 5f9d6bd0-71b5-4373-b52b-0d15829a7b95
+      control-id: si-4
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: 5f9d6bd0-71b5-4373-b52b-0d15829a7b95
+          description: Continuous monitoring tools are implemented to detect and respond to suspicious activity or potential security breaches in real-time.
+    - uuid: b5c3f7a9-d2e4-42f6-b2a7-c6e9f3d1a4b7
+      control-id: si-7
+      by-components:
+        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
+          uuid: b5c3f7a9-d2e4-42f6-b2a7-c6e9f3d1a4b7
+          description: The system employs cryptographic hashing mechanisms to verify the integrity of software, firmware, and critical information. Files are validated at runtime against known-good hashes, and any discrepancies trigger alerts to the system administrator for further investigation.
+
