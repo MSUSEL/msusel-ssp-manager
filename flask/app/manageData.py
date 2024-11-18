@@ -295,8 +295,15 @@ class ManageData:
                     logging.info("If it is, we will break the loop. If it is not, we will append the techniqueMappedToFinding to the attackTechniquesUsableAgainstSecurityFindings list.")
                     logging.info("We will also append the techniquesAndFindingsList to the attackTechniqueIDsAndListOfMatchedFindings list.")
                 in_list = False
+                logging.info("Will iterate through the implemented_controls_dictionary_list. For each control in the list, we will check if the control is in the controlsToMitigateTechniques list.")
+                logging.info("If it is, we will break the loop. If it is not, we will append the techniqueMappedToFinding to the attackTechniquesUsableAgainstSecurityFindings list.")
+                logging.info("We will also append the techniquesAndFindingsList to the attackTechniqueIDsAndListOfMatchedFindings list.")
+                logging.info(f"Controls to mitigate techniques: {controlsToMitigateTechniques}")
                 for a_ctrl in self.implemented_controls_dictionary_list:
+                    logging.info(f"Control: {a_ctrl}")
                     for  ctrl_value in a_ctrl.values():
+                        logging.info(f"Control value: {ctrl_value}")
+                        logging.info("")
                         alreadyImplementedControl = 'control/' + str(ctrl_value)
                         if alreadyImplementedControl in controlsToMitigateTechniques:
                             in_list = True

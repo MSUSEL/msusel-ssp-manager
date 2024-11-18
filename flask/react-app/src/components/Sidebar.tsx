@@ -37,9 +37,12 @@ const Sidebar: React.FC = () => {
       <h2>External Links</h2>
       <ul>
       <li>
-          <a href="https://pages.nist.gov/OSCAL/" target="_blank" rel="noopener noreferrer">
-            OSCAL Documentation
-          </a>
+      <a href="https://attack.mitre.org/" target="_blank" rel="noopener noreferrer">
+          MITRE ATT&CK<br />
+      </a>
+      <a href="https://pages.nist.gov/OSCAL/" target="_blank" rel="noopener noreferrer">
+          OSCAL Documentation
+      </a>
         </li>
       </ul>
     </Box>

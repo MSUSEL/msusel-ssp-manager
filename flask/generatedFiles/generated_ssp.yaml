@@ -1,0 +1,278 @@
+---
+system-security-plan:
+  uuid: 777a0b42-0b64-4624-a4c5-de8b5aaded51
+  metadata:
+    title: OSCAL_Automated_SSP_Template
+    last-modified: 2024-11-18T04:15:11.489114+00:00
+    version: 0.0.1-alpha
+    oscal-version: 1.0.4
+  import-profile:
+    href: ./oscal_schemas/profiles/profile.yaml
+  system-characteristics:
+    system-ids:
+      - id: saas_system_iaas_customer
+    system-name: Leveraging SaaS System
+    description: >
+      NO CONTENT HERE FOR NOW
+    security-sensitivity-level: low
+    system-information:
+      information-types:
+        - uuid: fb196e1e-c3dc-4917-b14b-791aecf7d669
+          title: System Assessment
+          description: This system handles development information pertaining to audit and assessment events.
+    security-impact-level:
+      security-objective-confidentiality: low
+      security-objective-integrity: low
+      security-objective-availability: low
+    status:
+      state: operational
+    authorization-boundary:
+      description: This system is for demonstration purposes only.
+  system-implementation:
+    users:
+      - uuid: 6b70887e-5334-4aae-9274-b712e021c649
+    components:
+      - uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+        type: this-system
+        title: OSCAL Testing Workflow Application
+        description: This is an application to demonstrate minimal OSCAL content, and automation to execute tests against the application.
+        status:
+          state: under-development
+  control-implementation:
+    description: This system implements a very minimal set of controls for demonstration only.
+    implemented-requirements:
+    - uuid: 853b5af6-a3d1-4200-b316-a153b6d29426
+      control-id: ac-2
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 853b5af6-a3d1-4200-b316-a153b6d29426
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 78df8f1e-97c8-418c-832e-b22f92d5b9e1
+      control-id: ac-3
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 78df8f1e-97c8-418c-832e-b22f92d5b9e1
+          description: This control is implemented for demonstration purposes only.
+    - uuid: aa13c2c7-22be-4b4a-83c2-fb7bfcb745ac
+      control-id: ar-4
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: aa13c2c7-22be-4b4a-83c2-fb7bfcb745ac
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 7d312bbb-8b04-4fc6-a59d-c51f07ec3813
+      control-id: at-2
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 7d312bbb-8b04-4fc6-a59d-c51f07ec3813
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 943d64e6-089e-4b18-a9bb-1beff52a7389
+      control-id: au-2
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 943d64e6-089e-4b18-a9bb-1beff52a7389
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 386f6adf-b190-4de4-ae7d-a282a45838bf
+      control-id: au-3
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 386f6adf-b190-4de4-ae7d-a282a45838bf
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 46369f3e-448a-40b7-bb6f-799ad2efe4b5
+      control-id: au-4
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 46369f3e-448a-40b7-bb6f-799ad2efe4b5
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 35db37d8-95a8-42b5-bb24-1ecbb594db3b
+      control-id: au-5
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 35db37d8-95a8-42b5-bb24-1ecbb594db3b
+          description: This control is implemented for demonstration purposes only.
+    - uuid: bd80c27e-beeb-41d2-b348-64b4e8978534
+      control-id: au-6
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: bd80c27e-beeb-41d2-b348-64b4e8978534
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 6710367a-7ae6-462e-b61e-0e7f85904204
+      control-id: au-8
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 6710367a-7ae6-462e-b61e-0e7f85904204
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 8a83a754-da8c-4b93-b50a-3b8f013978c0
+      control-id: au-9
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 8a83a754-da8c-4b93-b50a-3b8f013978c0
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 595046db-401a-4b57-925d-2519f3123032
+      control-id: au-10
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 595046db-401a-4b57-925d-2519f3123032
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 0c1c8986-fd2c-48a7-9bf3-39eab216be01
+      control-id: au-11
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 0c1c8986-fd2c-48a7-9bf3-39eab216be01
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 370e8e54-057e-4962-b202-e69ff9331ae3
+      control-id: au-12
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 370e8e54-057e-4962-b202-e69ff9331ae3
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 78cf6e17-624e-456f-a34a-399911c96fcc
+      control-id: au-16
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 78cf6e17-624e-456f-a34a-399911c96fcc
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 2679de9b-7e5a-403c-806b-ce30baa1b89d
+      control-id: cm-2
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 2679de9b-7e5a-403c-806b-ce30baa1b89d
+          description: This control is implemented for demonstration purposes only.
+    - uuid: e0ce8c7e-91b8-49fe-a297-b541aa7328fe
+      control-id: cm-5
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: e0ce8c7e-91b8-49fe-a297-b541aa7328fe
+          description: This control is implemented for demonstration purposes only.
+    - uuid: db0c16c9-59c6-40cd-ba04-b97dfc71b59c
+      control-id: cm-8
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: db0c16c9-59c6-40cd-ba04-b97dfc71b59c
+          description: This control is implemented for demonstration purposes only.
+    - uuid: b3978735-6795-4018-9277-52aa820e3baa
+      control-id: cp-6
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: b3978735-6795-4018-9277-52aa820e3baa
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 87a7f425-36e5-4758-81a1-4be4daffac96
+      control-id: ia-2
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 87a7f425-36e5-4758-81a1-4be4daffac96
+          description: This control is implemented for demonstration purposes only.
+    - uuid: c7d409e9-1900-468f-9626-9556b4a239f2
+      control-id: ir-4
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: c7d409e9-1900-468f-9626-9556b4a239f2
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 467fd236-66f3-44a8-b0d5-577b75225bb2
+      control-id: ma-2
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 467fd236-66f3-44a8-b0d5-577b75225bb2
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 74c37fd8-3668-410b-ab5b-3657c481f4c5
+      control-id: ra-5
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 74c37fd8-3668-410b-ab5b-3657c481f4c5
+          description: This control is implemented for demonstration purposes only.
+    - uuid: f21d7570-4769-405e-9a59-f13d4542e1c6
+      control-id: sa-9
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: f21d7570-4769-405e-9a59-f13d4542e1c6
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 26b818e9-0a04-4c14-9da8-19f5b5976225
+      control-id: sa-11
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 26b818e9-0a04-4c14-9da8-19f5b5976225
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 8755b934-99ae-48a4-9e08-4d5516ffb9da
+      control-id: sa-12
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 8755b934-99ae-48a4-9e08-4d5516ffb9da
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 42208144-64f3-4cde-98e0-9eb16147696e
+      control-id: sa-15
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 42208144-64f3-4cde-98e0-9eb16147696e
+          description: This control is implemented for demonstration purposes only.
+    - uuid: cf1fed28-8613-4ec7-931d-c5290c6fd918
+      control-id: sc-5
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: cf1fed28-8613-4ec7-931d-c5290c6fd918
+          description: This control is implemented for demonstration purposes only.
+    - uuid: f50878d3-d387-4fc7-a6de-20f7e69afd29
+      control-id: sc-6
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: f50878d3-d387-4fc7-a6de-20f7e69afd29
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 5a50c2d8-9bfe-4010-b43d-ad88024554f4
+      control-id: sc-7
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 5a50c2d8-9bfe-4010-b43d-ad88024554f4
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 087631ed-bede-4a41-8eb4-5e671bb407de
+      control-id: sc-12
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 087631ed-bede-4a41-8eb4-5e671bb407de
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 081b8f6b-5834-4b49-8e11-150f980feeaf
+      control-id: sc-13
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 081b8f6b-5834-4b49-8e11-150f980feeaf
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 0c727992-6552-4836-a12c-5ab44e64c081
+      control-id: sc-16
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 0c727992-6552-4836-a12c-5ab44e64c081
+          description: This control is implemented for demonstration purposes only.
+    - uuid: fc4f5436-898c-4a78-a24d-2218a38cd0de
+      control-id: sc-23
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: fc4f5436-898c-4a78-a24d-2218a38cd0de
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 7503f797-1327-4c22-867b-c76ae57c4b2a
+      control-id: sc-28
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 7503f797-1327-4c22-867b-c76ae57c4b2a
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 9438f4c9-396a-444c-889b-809b3731ca81
+      control-id: si-2
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 9438f4c9-396a-444c-889b-809b3731ca81
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 9fcbfb45-3b3d-4383-85ef-4a75095a6022
+      control-id: si-3
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 9fcbfb45-3b3d-4383-85ef-4a75095a6022
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 49e57dcc-b56a-467f-a891-ccd779d58bf7
+      control-id: si-4
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 49e57dcc-b56a-467f-a891-ccd779d58bf7
+          description: This control is implemented for demonstration purposes only.
+    - uuid: 5e8b1a64-1ea9-4100-b05f-39139063e587
+      control-id: si-7
+      by-components:
+        - component-uuid: 95c09c50-4db4-4f50-a26a-eae246edb281
+          uuid: 5e8b1a64-1ea9-4100-b05f-39139063e587
+          description: This control is implemented for demonstration purposes only.
+    
