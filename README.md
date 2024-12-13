@@ -57,8 +57,6 @@ docker network create ssp_network
 ```
 Note: ssp_network is the docker network that is referenced in the docker-compose and Dockerfiles files that will create the project containers. 
 
-To change the docker-compose.yml file for the BRON submodule copy the contents of BRON.yml in the root directory and and paste it over the contents on the /BRON/docker-compose.yml file. (Keep the docker-compose.yml name)
-
 To create the graph database containing the different collections of cybersecurity data: <br />
 ```
 cd BRON 
@@ -67,6 +65,15 @@ docker-compose up
 This command will create two containers. One is an arangodb container that will host our database. The second is a bootstrap container that will populate the database with the data from different cybersecurity collections. (The bootstrap process can take up to 45 mins) <br />
 
 Once bootstrap finishes, you can see the database in your browser at localhost:8529. The username is root and the password is changeme. Select the BRON database. <br />
+
+The BRON DB container must be added to the docker network that we are created:
+```
+docker network connect ssp_network brondb
+```
+Note: if you ever have problems connecting to the BROB DB, make sure that the brondb container is part of the ssp_network:
+```
+docker network inspect ssp_network
+```
 
 
 Go back to the msusel-ssp-manager directory and go into the oscal-processing directory: <br />
