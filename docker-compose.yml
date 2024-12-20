@@ -48,6 +48,19 @@ services:
       - "3000:3000"
     networks:
       - ssp_network
+  opa:
+    image: openpolicyagent/opa:latest
+    ports:
+      - "8181:8181"
+    volumes:
+      - ./policies:/policies
+    command:
+      - "run"
+      - "--server"
+      - "--log-level=debug"
+      - "/policies"
+    networks:
+      - ssp_network
 networks:
   ssp_network:
     external: true

@@ -1,0 +1,37 @@
+OPA provides a REST API to:
+
+    Load Policies: Upload policies that define what is allowed (allow) or denied.
+    Query Policies: Send input data to OPA and get policy decisions (e.g., allow/deny).
+    Test Policies: Validate that policies behave as expected using test inputs.
+
+
+We defined authentication.rego
+
+Then:
+docker run -d --name opa -p 8181:8181 openpolicyagent/opa:latest run --server
+
+then loaded the policy:
+curl -X PUT http://localhost:8181/v1/policies/authentication \
+--data-binary @authentication.rego
+
+
+Verified the locad:
+curl http://localhost:8181/v1/policies
+
+
+Use this value for the expiration below (current time plus 300 seconds):
+echo $(( $(date +%s) + 300 ))
+
+And querried the policy:
+curl -X POST http://localhost:8181/v1/data/security/authentication \
+-H "Content-Type: application/json" \
+-d '{
+    "input": {
+        "token": {
+            "payload": {
+                "sub": "testuser",
+                "exp": 1734472090
+            }
+        }
+    }
+}'
