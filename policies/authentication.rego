@@ -1,9 +1,15 @@
 package security.authentication
 
-default allow = false
+import rego.v1
 
-# Policy logic: Allow if the token is valid
-allow {
-    input.token.payload.exp > input.now  # Compare expiration with 'now' passed in input
-    input.token.payload.sub != ""        # Subject field must exist
+# By default, deny access.
+default allow := false
+
+# Allow if the token is valid.
+allow if token_is_valid
+
+# Rule: Check if the token is valid.
+token_is_valid if {
+	input.token.payload.exp > input.now # Token expiration time is valid.
+	input.token.payload.sub != "" # Token subject is present.
 }
