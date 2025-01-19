@@ -87,6 +87,7 @@ This command will create a docker image for NIST's OSCAL validation tool. When a
 
 To prepare for the execution of the application containers, we need to run a script that will set up an environment variable for the path to the project in your local computer. This script stores the current working directory path in a .env file that will be created. The docker-compose command will read this file and inform the UI container of its location in the host file system.
 ```
+cd ..
 cd ./scripts/
 chmod +x ./generate-env.sh
 ./generate-env.sh
