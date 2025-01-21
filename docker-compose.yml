@@ -18,6 +18,7 @@ services:
         - HOST_VOLUME_PATH=${HOST_VOLUME_PATH}
         - HOST_UID=${HOST_UID}
         - HOST_GID=${HOST_GID}
+        - DOCKER_GID=${DOCKER_GID}
     environment:
       - ARANGO_DB_URL=http://brondb:8529
       - ARANGO_DB_NAME=BRON

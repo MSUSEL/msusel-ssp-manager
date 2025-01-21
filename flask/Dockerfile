@@ -4,6 +4,7 @@ FROM python:3.10
 ARG HOST_VOLUME_PATH
 ARG HOST_UID
 ARG HOST_GID
+ARG DOCKER_GID
 
 # Used to later give ownership of everything to the appuser
 WORKDIR /workdir
@@ -12,7 +13,7 @@ WORKDIR /workdir
 RUN useradd -ms /bin/bash appuser
 
 # Add appuser to the group with GID 1001 (host docker group)
-RUN groupadd -g 1001 dockergroup && usermod -aG dockergroup appuser
+RUN groupadd -g ${DOCKER_GID} dockergroup && usermod -aG dockergroup appuser
 
 COPY . .
 
