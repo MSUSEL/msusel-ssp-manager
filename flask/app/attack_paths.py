@@ -11,7 +11,7 @@ import networkx as nx
 
 attack_blueprint = Blueprint('attack', __name__)
 logging.basicConfig(level=logging.INFO)
-debugging = False
+debugging = True
 
 def listTechniquesForEachStage(tacticsAndTechniquesGraph, tacticsOriginalIDsList):
     attackPathGraph = [] # This is a list of lists, where each list contains the techniques for a given tactic
@@ -39,7 +39,7 @@ def listTechniquesForEachStage(tacticsAndTechniquesGraph, tacticsOriginalIDsList
             connected_nodes = tacticsAndTechniquesGraph.neighbors(f"tactic/{tactic}")
             if debugging:
                 logging.info(f"Connected nodes: {connected_nodes}")
-            
+           
             # Filter neighbors to get only techniques (nodes starting with "technique/")
             techniques = [node for node in connected_nodes if node.startswith('technique/')]
             logging.info(f"Techniques for the current tactic: {techniques}")
@@ -50,7 +50,7 @@ def listTechniquesForEachStage(tacticsAndTechniquesGraph, tacticsOriginalIDsList
                 listWithTacticPrependend.append(element)
 
             attackPathGraph.append(listWithTacticPrependend)
-            
+           
             # Print or process the tactic and its directly connected techniques
             #print(f"Tactic: {tactic}, Directly Connected Techniques: {techniques}")
     if debugging:
@@ -61,14 +61,14 @@ def listTechniquesForEachStage(tacticsAndTechniquesGraph, tacticsOriginalIDsList
 
 def createNetworkXGraph(listOfList):
     G = nx.DiGraph()
-    
+   
     # Add the start node
     G.add_node("start")
-    
+   
     # Connect start node to each element of the first list
     for element in listOfList[0]:
         G.add_edge("start", element)
-    
+   
     # Loop through the lists to connect elements from one list to the next
     for i in range(len(listOfList) - 1):
         for elem1 in listOfList[i]:
@@ -76,14 +76,14 @@ def createNetworkXGraph(listOfList):
                 logging.info(f"i is {i}")
                 logging.info(f"Connecting {elem1} to {elem2}")
                 G.add_edge(elem1, elem2)
-    
+   
     # Connect elements of the last list to the end node
     for element in listOfList[-1]:
         G.add_edge(element, "end")
-    
+   
     # Add the end node to the graph
     G.add_node("end")
-    
+   
     return G
 
 def convert_nx_to_vis_format(graph: nx.Graph):
@@ -114,21 +114,32 @@ def convert2visNetworkFormat(initial):
 
 @attack_blueprint.route('/attack_paths', methods=['GET','POST'])
 def attacks():
+    logging.info("Entered attacks method in attack_paths route.")
     # Current working directory or project root
     cur_dir = os.getcwd()
-    
+    logging.info(f"Current working directory: {cur_dir}")
+   
     # Initialize components
     db_connection = DatabaseConnection()
+    logging.info("Initialized database connection object.")
     query_service = DatabaseQueryService(db_connection)
-    data_manager = ManageData(cur_dir, query_service)
+    logging.info("Initialized database query service object.")
 
+    logging.info("Will initialize data manager object. The attack_paths_graph DATA will be created during the initialization of the data manager object.")
+    data_manager = ManageData(cur_dir, query_service)
+    logging.info("")
+    logging.info("")
+   
+    logging.info("Back from data manager object initialization. We're on the attacks method in the attack_paths route.")
+    logging.info("Will pass data_manager.tacticsAndTechniquesGraph and data_manager.orderedTacticsPathOriginalIDs to listTechniquesForEachStage method.")
     listOfLists = listTechniquesForEachStage(data_manager.tacticsAndTechniquesGraph, data_manager.orderedTacticsPathOriginalIDs)
+    logging.info(f"Liat of techniques for each stage. listOfLists: {listOfLists}")
     attack_paths_graph = createNetworkXGraph(listOfLists)
     logging.info(f"attack_paths_graph nodes: {attack_paths_graph.nodes}")
     logging.info(f"attack_paths_graph edges: {attack_paths_graph.edges}")
 
 
-    
+   
     # Combine nodes and edges into a single object
     graph_data = convert_nx_to_vis_format(attack_paths_graph)
     logging.info(f"attack_paths_graph nodes: {attack_paths_graph.nodes}")
@@ -151,6 +162,9 @@ def attacks():
         {'from': 2, 'to': 5}
     ]'''
 
+    logging.info("Will return the graph data in JSON format to the react frontend.")
+    logging.info("")
+    logging.info("")
     return jsonify(convert2visNetworkFormat(graph_data))
 
 def main():
@@ -159,3 +173,4 @@ def main():
 if __name__ == "__main__":
     # Load data from JSON files
     main()
+

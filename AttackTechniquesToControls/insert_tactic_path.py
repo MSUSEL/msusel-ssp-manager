@@ -32,21 +32,21 @@ def create_edge(db):
 
 def insert_paths(tt):
     # specified the tactics
-    temp = 'tactic/tactic_000'
-    collection = temp + '01'
-    command_ctrl = temp + '02'
-    credential_access = temp + '03'
-    defense_evasion = temp + '04'
-    discovery = temp + '05'
-    execution = temp + '06'
-    exfiltration = temp + '07'
-    impact = temp + '08'
-    init_access = temp + '09'
-    lateral_movement = temp + '10'
-    persistence = temp + '11'
-    priv_escalation = temp + '12'
-    reconnaissance = temp + '13'
-    rsrc_dev = temp + '14'
+    temp = 'tactic/TA00'
+    collection = temp + '09'
+    command_ctrl = temp + '11'
+    credential_access = temp + '06'
+    defense_evasion = temp + '05'
+    discovery = temp + '07'
+    execution = temp + '02'
+    exfiltration = temp + '10'
+    impact = temp + '40'
+    init_access = temp + '01'
+    lateral_movement = temp + '08'
+    persistence = temp + '03'
+    priv_escalation = temp + '04'
+    reconnaissance = temp + '43'
+    rsrc_dev = temp + '42'
 
 
     # creat paths between tactics

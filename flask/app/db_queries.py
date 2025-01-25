@@ -38,7 +38,7 @@ class DatabaseConnection:
             ttl=300 argumement used below: Sets a Time-To-Live (TTL) of 300 seconds for the query. 
             The return is as specified in the query."""
         try:
-            return self.db.aql.execute(query, bind_vars=bind_vars, ttl=300) 
+            return self.db.aql.execute(query, bind_vars=bind_vars, ttl=300, count=True) 
         except Exception as e:
             logging.info(f"Failed to execute AQL query: {e}") # e is the exception message.
             raise 

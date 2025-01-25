@@ -2,11 +2,15 @@ You can see the global variable "debugging" to True to log everything that is go
 
 
 The ManageData class
-Has a db_qury_service object which queries the arangodb database.
+Has a db_query_service object which queries the arangodb database.
 
 self.security_findings_dictionary_list holds flask/shared/vulnerabilities.json, a file with the output from static analysis tools.
-self.implemented_controls_dictionary_list holds flask/shared/controls.json, a file with NIST SP 800-53 security controls..
-self.vulnerable_functionss holds flask/shared/calledVulnerableFunctionsObjectList.txt, a file with the vulnerable functions found on the dependencies.
+Ex: [{'cwe': '78'}, {'cwe': '703'}, {'cwe': '605'}, {'cwe': '400'}, {'cwe': '319'}]
+
+self.implemented_controls_dictionary_list holds flask/shared/controls.json, a file with NIST SP 800-53 security controls.
+Ex: [{'control': 'CM-7'}, {'control': 'SC-7'}]
+
+self.vulnerable_functions holds flask/shared/calledVulnerableFunctionsObjectList.txt, a file with the vulnerable functions found on the dependencies.
 
 self.findings_list = holds the weakness number for elements in security_findings_dictionary_list.
 Ex: ['78', '703', '605', '400', '319']
@@ -16,14 +20,14 @@ self.finding_type = self.weaknessOrVulnerability() # Either 'cve' or 'cwe'
 
 self.cursor_techniques_and_findings = self.db_query_service.fetch_attacks_against_cves(self.findings_list)
 # {'tech': 'technique/T1040', 'cwe': ['319']}, ... holds attack techniques that can be used against the secuirty finding.
-The cursor is an iterable object. MAY ONLY BE ITERATED UPON ONCE.   
+The cursor is an iterable object. MAY ONLY BE ITERATED UPON ONCE. That is, the data is lost if you look at it.
 
 
 self.populateHelperDataStructures()
 The last query returned attack techniques that may be used against the security findings. 
 We want to implement security controls that mitigate those attack techniques.
 We will need to have a map between attack techniques and security controls.
-We want to output security controls that are not implement.
+We want to output security controls that are not implemented.
 This method populates two data structures that help us determine what is needed:
 self.attackTechniquesUsableAgainstSecurityFindings = [] # ['technique/T1040', 'technique/T1056.004', 'technique/T1499']
 self.attackTechniqueIDsAndListOfMatchedFindings = [] # [['technique/T1040', ['319']], ['technique/T1056.004', ['319']], ['technique/T1499', ['400']]]

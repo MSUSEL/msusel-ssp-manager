@@ -9,7 +9,7 @@ import networkx as nx
 import traceback
 
 logging.basicConfig(level=logging.INFO)
-debugging = False
+debugging = True
 
 class ManageData:
     def __init__(self, cur_dir: str, db_query_service: DatabaseQueryService):
@@ -38,7 +38,6 @@ class ManageData:
             if debugging == True:
                 #self.db_query_service.print_cursor(self.cursor_techniques_and_findings) # {'tech': 'technique/T1040', 'cwe': ['319']}, ...
                 pass
-        
         
         self.attackTechniquesUsableAgainstSecurityFindings = [] # ['technique/T1040', 'technique/T1056.004', 'technique/T1499']
         self.attackTechniqueIDsAndListOfMatchedFindings = [] # [['technique/T1040', ['319']], ['technique/T1056.004', ['319']], ['technique/T1499', ['400']]]
@@ -96,24 +95,23 @@ class ManageData:
         self.tacticsList = list(set(self.tacticsList))
 
         self.tacticsOriginalIDsList = [item.split('/')[1] for item in self.tacticsList]
-        logging.info(f"tacticsOriginalIDsList: {self.tacticsOriginalIDsList}")
         if debugging == True:
             logging.info(f"tacticsOriginalIDsList: {self.tacticsOriginalIDsList}")
             pass
 
         self.cursor_arangodb_tactic_id = self.db_query_service.fetch_tactic_id(self.tacticsOriginalIDsList)
         if debugging == True:
-            logging.info(f"Printing cursor_arangodb_tactic_id: {type(self.cursor_arangodb_tactic_id)}")
-            #self.db_query_service.print_cursor(self.cursor_arangodb_tactic_id) 
+            #logging.info(f"Printing cursor_arangodb_tactic_id: {type(self.cursor_arangodb_tactic_id)}")
+            #self.db_query_service.print_cursor(self.cursor_arangodb_tactic_id) # tactic/TA0006, ...
             pass
         
         self.arangodb_tactic_id_list = self.createListFromCursor(self.cursor_arangodb_tactic_id)
         if debugging == True:
-            logging.info(f"arangodb_tactic_id_list: {self.arangodb_tactic_id_list}")
+            logging.info(f"arangodb_tactic_id_list: {self.arangodb_tactic_id_list}") # ['tactic/TA0006', 'tactic/TA0005', 'tactic/TA0007', 'tactic/TA0008', 'tactic/TA0003', 'tactic/TA0004', 'tactic/TA0043']
             pass     
 
         self.addEdgesBetweenTacticsToGraphs(self.db_query_service.db_connection.tacticToTacticEdgeCollection)
-
+        
         self.user_priority_BRONtacticID = ''
         self.priority_list = self.colorPriorityNode(self.user_priority_BRONtacticID)
         '''Priority list: [('tactic/TA0007', 1), ('tactic/TA0009', 1), ('tactic/TA0040', 1), ('tactic/TA0006', 2)]
@@ -242,6 +240,14 @@ class ManageData:
                 my_dict[k] = v
         return my_dict
 
+
+
+    # Modified: where not doing this right now.
+    # This method is used to populate the attackTechniquesUsableAgainstSecurityFindings and attackTechniqueIDsAndListOfMatchedFindings lists.
+    # The cursor_techniques_and_findings is a list of dictionaries. Each dictionary contains a key 'tech' and a key 'cwe' or 'cve'.=> {'tech': 'technique/T1040', 'cwe': ['319']}, ...
+    # This methods checks if the controls that can mitigate the attack techniques are implemented. 
+    # For each technique, the controls that can mitigate the technique are stored in the controlsToMitigateTechniques list (we iterate through the techniqueControlCollection).
+    # If the controls are NOT implemented, the technique is added to the attackTechniquesUsableAgainstSecurityFindings list.
     def populateHelperDataStructures(self):
         if debugging == True:
             logging.info("Enterred populateHelperDataStructures method.")
@@ -256,7 +262,7 @@ class ManageData:
                 logging.info(f"Element in cursor is Single technique finding dictionary: {singleTechniqueFindingDictionary}")
                 pass
             
-            controlsToMitigateTechniques = [] # stores control that map to the specific technique
+            controlsToMitigateTechniques = [] # stores controls that map to the current attack technique
             if debugging == True:
                 logging.info("Declared controlsToMitigateTechniques list.")
                 pass
@@ -270,48 +276,27 @@ class ManageData:
                 logging.info(f"Get the technique mapped to finding: {techniqueMappedToFinding}")
                 pass
             
-            '''A new technique that we haven't included in the final lists. We will go to the tech-control collection,
-            iterate through the edges, and identify the control. We will add the control to a list.
-            We will check all implemented controls against that list. If the control is new,
-            we will ADD THE TECHNIQUE to the list.'''
             if debugging == True:
                 logging.info("Will check if the technique mapped to the finding is not in the attackTechniquesUsableAgainstSecurityFindings list.")
+            
+            # Check if the technique has not been added to the attackTechniquesUsableAgainstSecurityFindings list.
             if techniqueMappedToFinding not in self.attackTechniquesUsableAgainstSecurityFindings:
                 if debugging == True:
-                    logging.info("Technique mapped to finding is not in the attackTechniquesUsableAgainstSecurityFindings list.")
-                    logging.info("Will iterate through the techniqueControlCollection. For each techniqueControlEdge in the collection, we will check if the '_from' key is equal to the techniqueMappedToFinding.")
-                    logging.info("If it is, we will append the '_to' key to the controlsToMitigateTechniques list.")
-                    logging.info("This way we map the techniques that can be used against the findings to the controls that can mitigate the techniques.")
+                    logging.info(f"Technique {techniqueMappedToFinding} not in attackTechniquesUsableAgainstSecurityFindings list.")
                     pass
                 
-                for techniqueControlEdge in self.db_query_service.db_connection.techniqueControlCollection: # Tech-control edge collection
+                # Iterate through the techniqueControlCollection to get the controls that can mitigate the technique.
+                for techniqueControlEdge in self.db_query_service.db_connection.techniqueControlCollection: # {'_from': 'technique/T1040', '_to': 'control/CM-07'}, ...
                     if techniqueControlEdge['_from'] == techniqueMappedToFinding:
                         controlsToMitigateTechniques.append(techniqueControlEdge['_to'])
-                #Para cada control en control_dict_list, #check si es igual al control que acabamos de decir que es necesario.
-                #Si ya  esta, no metemos la tecnica en la lista.
-
-                if debugging == True:
-                    logging.info("Will iterate through the implemented_controls_dictionary_list. For each control in the list, we will check if the control is in the controlsToMitigateTechniques list.")
-                    logging.info("If it is, we will break the loop. If it is not, we will append the techniqueMappedToFinding to the attackTechniquesUsableAgainstSecurityFindings list.")
-                    logging.info("We will also append the techniquesAndFindingsList to the attackTechniqueIDsAndListOfMatchedFindings list.")
-                in_list = False
-                logging.info("Will iterate through the implemented_controls_dictionary_list. For each control in the list, we will check if the control is in the controlsToMitigateTechniques list.")
-                logging.info("If it is, we will break the loop. If it is not, we will append the techniqueMappedToFinding to the attackTechniquesUsableAgainstSecurityFindings list.")
-                logging.info("We will also append the techniquesAndFindingsList to the attackTechniqueIDsAndListOfMatchedFindings list.")
+                        logging.info(f"To mitigate technique {techniqueMappedToFinding}, added control to controlsToMitigateTechniques: {techniqueControlEdge['_to']}. Will soon check if this control is implemented.")
+                
+                
                 logging.info(f"Controls to mitigate techniques: {controlsToMitigateTechniques}")
-                for a_ctrl in self.implemented_controls_dictionary_list:
-                    logging.info(f"Control: {a_ctrl}")
-                    for  ctrl_value in a_ctrl.values():
-                        logging.info(f"Control value: {ctrl_value}")
-                        logging.info("")
-                        alreadyImplementedControl = 'control/' + str(ctrl_value)
-                        if alreadyImplementedControl in controlsToMitigateTechniques:
-                            in_list = True
-                            break
-                if not in_list:
-                    self.attackTechniquesUsableAgainstSecurityFindings.append(techniqueMappedToFinding)
-                    self.attackTechniqueIDsAndListOfMatchedFindings.append(techniquesAndFindingsList)
-
+                
+                self.attackTechniquesUsableAgainstSecurityFindings.append(techniqueMappedToFinding)
+                self.attackTechniqueIDsAndListOfMatchedFindings.append(techniquesAndFindingsList)
+                
         if debugging == True:
             logging.info(f"Attack techniques usable against security findings: {self.attackTechniquesUsableAgainstSecurityFindings}")
             logging.info("")
