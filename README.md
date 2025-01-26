@@ -43,13 +43,14 @@ To install VS Code in Ubuntu:
 sudo snap install code --classic
 ```
 
-This project uses as a submodule the BRON database developed by Hemberg et al. at MIT. The original research for the database can be found as: <br /> 
+This project uses the BRON database developed by Hemberg et al. at MIT. The original research for the database can be found as: <br /> 
 Hemberg, Erik, Jonathan Kelly, Michal Shlapentokh-Rothman, Bryn Reinstadler, Katherine Xu, Nick Rutar, and Una-May O'Reilly. "Linking threat tactics, techniques, and patterns with defensive weaknesses, vulnerabilities and affected platform configurations for cyber hunting." arXiv preprint arXiv:2010.00533 (2020). <br />
 
-To clone this repository, including the BRON submodule use: <br />
+To clone this repository, including a version of the BRON database use: <br />
 ```
-git clone --recurse-submodules https://github.com/MSUSEL/msusel-ssp-manager.git 
+git clone https://github.com/MSUSEL/msusel-ssp-manager.git 
 ```
+Note: The BRON version copied here is from commit 8a18686cab1f024fcadcac74fb13f1240f491b86 of the [BRON project.](https://github.com/ALFA-group/BRON)
 
 Since we will need to have the access to the database container from other containers in this project, it is necessary to change the docker-compose.yml file of the BRON submodule to add its containers to a local docker network. To create the local docker network use:
 ```
