@@ -81,7 +81,7 @@ const TestDepnRequest: React.FC<TestDepnRequestProps> = ({ apiEndpoint }) => {
           marginRight: '10px'
         }}
       >
-        Select File
+        Implemented Controls
       </button>
       <input
         type="file"

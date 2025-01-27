@@ -12,8 +12,8 @@ WORKDIR /workdir
 # Create a non-root user
 RUN useradd -ms /bin/bash appuser
 
-# Add appuser to the group with GID 1001 (host docker group)
-RUN groupadd -g ${DOCKER_GID} dockergroup && usermod -aG dockergroup appuser
+# Add appuser to the host's docker group.
+RUN groupadd -g ${DOCKER_GID} docker && usermod -aG docker appuser
 
 COPY . .
 
