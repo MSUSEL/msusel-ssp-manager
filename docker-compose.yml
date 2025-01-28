@@ -27,11 +27,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - "${HOST_VOLUME_PATH}/flask/shared:/shared"
-      - "${HOST_VOLUME_PATH}/flask/temp_ssp:/temp_ssp"
-      - "${HOST_VOLUME_PATH}/flask/temp_ap:/temp_ap"
-      - "${HOST_VOLUME_PATH}/flask/temp_catalog:/temp_catalog"
-      - "${HOST_VOLUME_PATH}/flask/temp_ssp:/temp_component"
-      - "${HOST_VOLUME_PATH}/flask/temp_ssp:/temp_profile"
       - "${HOST_VOLUME_PATH}/flask/generatedFiles:/generatedFiles"
     ports:
       - "5000:5000"
