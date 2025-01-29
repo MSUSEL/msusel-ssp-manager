@@ -1,0 +1,15 @@
+package security.authentication
+
+import rego.v1
+
+# By default, deny access.
+default allow := false
+
+# Allow if the token is valid.
+allow if token_is_valid
+
+# Rule: Check if the token is valid.
+token_is_valid if {
+	input.token.payload.exp > input.now # Token expiration time is valid.
+	input.token.payload.sub != "" # Token subject is present.
+}

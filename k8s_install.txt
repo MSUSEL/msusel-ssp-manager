@@ -1,0 +1,62 @@
+Minikube install
+curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
+
+minikube version
+
+minikube start
+
+
+Install kompose:
+curl -L https://github.com/kubernetes/kompose/releases/latest/download/kompose-linux-amd64 -o kompose
+sudo mv kompose /usr/local/bin/kompose
+sudo chmod +x /usr/local/bin/kompose
+kompose version
+
+
+Generate the manifest files for the app using kompose:
+cd path/to/app/docker-compose.yml
+kompose convert -f docker-compose.yml
+
+Now we want to deploy those files to the cluster.
+kubuctl apply -f filename
+
+We need to build the images in the Minikube docker engine (Minikube has a docker engine independent from the host's docker engine)
+First enable the minikube docker engine registry so that it can store images:
+minikube addons enable registry
+
+ernesto@ernesto-VirtualBox:~/Documents/Ugov_Services/user-registration$ docker build -t localhost:5000/ugov-services:latest .
+ernesto@ernesto-VirtualBox:~/Documents/Ugov_Services/user-registration$ docker tag localhost:5000/ugov-services:latest ugov-services:latest
+ernesto@ernesto-VirtualBox:~/Documents/Ugov_Services/user-registration$ minikube image load ugov-services:latest
+ernesto@ernesto-VirtualBox:~/Documents/kubernetes-manifests/ugov-services$ minikube ssh
+
+docker@minikube:~$ docker images | grep ugov-services
+
+
+sudo snap install kubectl --classic
+
+We'll build our images and then give them the tags that are used in the deployment files (Alternatively, we could change the name given to iamge: in the files)
+ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ docker compose build
+ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ docker tag msusel-ssp-manager-flask:latest msusel-ssp-manager_flask:latest
+ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ docker tag msusel-ssp-manager-react-app:latest msusel-ssp-manager_react-app:latest
+ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ minikube image load msusel-ssp-manager_flask:latest
+ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ minikube image load msusel-ssp-manager_react-app:latest
+ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ kubectl apply -f .
+(You can deploy all yaml files in the directory at once with:
+kubectl apply -f .)
+
+Check that everythingis running:
+ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ kubectl get pods
+NAME                        READY   STATUS    RESTARTS   AGE
+flask-65f95ddb99-8rvmx      1/1     Running   0          102s
+opa-555fdfc45d-x6rzd        1/1     Running   0          102s
+react-app-9bd979778-mlnkg   1/1     Running   0          102s
+
+
+Change directories and apply the app manifest files:
+rnesto@ernesto-VirtualBox:~/Documents/UGov_Services/user-registration$ kubectl apply -f .
+
+
+
+
+
