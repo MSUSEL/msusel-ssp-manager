@@ -8,7 +8,8 @@ const Sidebar: React.FC = () => {
     <Box as="nav" className="sidebar">
       <h2>OSCAL</h2>
       <ul>
-        <li><Link to="/security-controls"> Catalog</Link></li>
+        <li><Link to="/security-controls">Catalog</Link></li>
+        <li><Link to="/control-mappings">Control Mappings</Link></li>
         <li><Link to="/generate-template">Generate Template</Link></li>
         <li><Link to="/validate">Process OSCAL Document</Link></li>
         <li><Link to="/current-status">Current Status</Link></li>

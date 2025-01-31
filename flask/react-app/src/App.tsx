@@ -3,6 +3,8 @@ import { Flex } from '@radix-ui/themes';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import MainContent from './components/MainContent';
+import { Routes, Route } from 'react-router-dom';
+import ControlMappings from './components/ControlMappings';
 
 const App: React.FC = () => {
   return (

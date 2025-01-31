@@ -1,0 +1,81 @@
+.mappings-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.mappings-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.filter-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.filter-input {
+  padding: 8px 12px;
+  border: 2px solid #007bff;
+  border-radius: 4px;
+  width: 300px;
+}
+
+.filter-select {
+  padding: 8px 12px;
+  border: 2px solid #007bff;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.mappings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+.mapping-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 0 0 2px #007bff, 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.control-section, .technique-section {
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.control-section {
+  background-color: #e3f2fd;
+}
+
+.technique-section {
+  background-color: #fff3e0;
+}
+
+.mapping-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #666;
+  font-weight: bold;
+}
+
+h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+
+p {
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: #666;
+}
