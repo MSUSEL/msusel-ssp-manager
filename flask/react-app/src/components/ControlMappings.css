@@ -11,21 +11,21 @@
 
 .filter-controls {
   display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin: 20px 0;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .filter-input {
+  min-width: 250px;
   padding: 8px 12px;
-  border: 2px solid #007bff;
+  border: 1px solid #ddd;
   border-radius: 4px;
-  width: 300px;
+  margin-right: 10px;
 }
 
 .filter-select {
   padding: 8px 12px;
-  border: 2px solid #007bff;
+  border: 1px solid #ddd;
   border-radius: 4px;
   background-color: white;
 }
@@ -77,5 +77,40 @@ h3 {
 p {
   margin: 5px 0 0;
   font-size: 14px;
+  color: #666;
+}
+
+.cwe-section {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.cwe-section h4 {
+  margin-bottom: 0.5rem;
+  color: #666;
+}
+
+.cwe-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cwe-section li {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.cwe-section li.highlighted {
+  background-color: #fff3cd;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border-left: 3px solid #ffc107;
+}
+
+.cwe-description {
+  margin: 0.25rem 0;
+  font-size: 0.85rem;
   color: #666;
 }

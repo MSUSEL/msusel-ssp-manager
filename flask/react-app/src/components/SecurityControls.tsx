@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SecurityControls.css';
-import controls from '/app/public/example.json'; // Adjust the path as needed
+import controls from '/app/public/NIST_SP-800-53_rev5_catalog.json'; // Adjust the path as needed
 import ControlCard from './ControlCard';
 
 interface Control {
