@@ -4,113 +4,66 @@
   margin: 0 auto;
 }
 
-.mappings-header {
-  margin-bottom: 30px;
-  text-align: center;
+.search-container {
+  margin: 20px 0;
 }
 
-.filter-controls {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.filter-input {
-  min-width: 250px;
-  padding: 8px 12px;
+.search-input {
+  width: 100%;
+  padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  margin-right: 10px;
+  font-size: 16px;
 }
 
-.filter-select {
-  padding: 8px 12px;
-  border: 1px solid #ddd;
+.table-container {
+  overflow-x: auto;
+  margin-top: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
   background-color: white;
 }
 
-.mappings-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 20px;
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }
 
-.mapping-card {
-  background-color: #ffffff;
-  border-radius: 8px;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  box-shadow: 0 0 0 2px #007bff, 0 4px 8px rgba(0, 0, 0, 0.2);
+th {
+  background-color: #f5f5f5;
+  font-weight: 600;
 }
 
-.control-section, .technique-section {
-  padding: 10px;
-  border-radius: 4px;
+tr:hover {
+  background-color: #f9f9f9;
 }
 
-.control-section {
-  background-color: #e3f2fd;
-}
-
-.technique-section {
-  background-color: #fff3e0;
-}
-
-.mapping-arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  color: #666;
-  font-weight: bold;
-}
-
-h3 {
+ul {
   margin: 0;
-  font-size: 16px;
+  padding-left: 20px;
+}
+
+li {
+  margin: 2px 0;
+}
+
+h1 {
   color: #333;
+  margin-bottom: 20px;
 }
 
-p {
-  margin: 5px 0 0;
-  font-size: 14px;
-  color: #666;
-}
-
-.cwe-section {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid #eee;
-}
-
-.cwe-section h4 {
-  margin-bottom: 0.5rem;
-  color: #666;
-}
-
-.cwe-section ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.cwe-section li {
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-}
-
-.cwe-section li.highlighted {
-  background-color: #fff3cd;
-  padding: 0.5rem;
-  border-radius: 4px;
-  border-left: 3px solid #ffc107;
-}
-
-.cwe-description {
-  margin: 0.25rem 0;
-  font-size: 0.85rem;
-  color: #666;
+@media (max-width: 768px) {
+  .mappings-container {
+    padding: 10px;
+  }
+  
+  th, td {
+    padding: 8px 10px;
+  }
 }
