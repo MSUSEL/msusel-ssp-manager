@@ -18,6 +18,7 @@ import ControlDetailsWrapper from './ControlDetailsWrapper';
 import Priorities from './Priorities';
 import PriorityStage from './PriorityStage';
 import IssueDetails from './IssueDetails';
+import ControlMappings from './ControlMappings';
 
 // MainContent component (includes Router, Navbar, and Routes)
 const MainContent: React.FC = () => {
@@ -39,6 +40,7 @@ const MainContent: React.FC = () => {
           <Route path="/priority-stage" element={<PriorityStage />} />
           <Route path="/vulnerable-functions" element={<VulnerableFunctions />} />
           <Route path="/issue-details" element={<IssueDetails />} />
+          <Route path="/control-mappings" element={<ControlMappings />} />
         </Routes>
       </Flex>
     </Router>
