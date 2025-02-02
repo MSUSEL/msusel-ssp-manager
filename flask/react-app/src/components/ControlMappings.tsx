@@ -14,9 +14,34 @@ interface Mapping {
   CWE_ID?: string | string[];  // Updated to handle both string and array
 }
 
+const formatTechniqueUrl = (techniqueId: string): string => {
+  return `https://attack.mitre.org/techniques/${techniqueId.replace('.', '/')}`;
+};
+
 const ControlMappings: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [sortField, setSortField] = useState<'Control_ID' | 'Control_Name' | 'Technique_ID'>('Control_ID');
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+
+  const handleSort = (field: 'Control_ID' | 'Control_Name' | 'Technique_ID') => {
+    if (field === sortField) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortField(field);
+      setSortDirection('asc');
+    }
+  };
+
+  const sortMappings = (mappings: Mapping[]) => {
+    return [...mappings].sort((a, b) => {
+      const aValue = a[sortField] || '';
+      const bValue = b[sortField] || '';
+      return sortDirection === 'asc' 
+        ? aValue.localeCompare(bValue)
+        : bValue.localeCompare(aValue);
+    });
+  };
 
   useEffect(() => {
     // Log the first mapping to see its structure
@@ -49,10 +74,10 @@ const ControlMappings: React.FC = () => {
   };
 
   const filteredMappings = Array.isArray(mappings) 
-    ? mappings.filter((mapping: Mapping) => 
+    ? sortMappings(mappings.filter((mapping: Mapping) => 
         mapping.Control_ID.toLowerCase().includes(searchTerm.toLowerCase()) ||
         mapping.Control_Name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+      ))
     : [];
 
   if (isLoading) {
@@ -78,9 +103,15 @@ const ControlMappings: React.FC = () => {
           <table>
             <thead>
               <tr>
-                <th>Control ID</th>
-                <th>Control Name</th>
-                <th>Associated Techniques</th>
+                <th onClick={() => handleSort('Control_ID')} style={{ cursor: 'pointer' }}>
+                  Control ID {sortField === 'Control_ID' && (sortDirection === 'asc' ? '↑' : '↓')}
+                </th>
+                <th onClick={() => handleSort('Control_Name')} style={{ cursor: 'pointer' }}>
+                  Control Name {sortField === 'Control_Name' && (sortDirection === 'asc' ? '↑' : '↓')}
+                </th>
+                <th onClick={() => handleSort('Technique_ID')} style={{ cursor: 'pointer' }}>
+                  Associated Techniques {sortField === 'Technique_ID' && (sortDirection === 'asc' ? '↑' : '↓')}
+                </th>
                 <th>Related CWEs</th>
               </tr>
             </thead>
@@ -97,7 +128,7 @@ const ControlMappings: React.FC = () => {
                           {mapping.Technique_ID.split(',').map((technique, i) => (
                             <li key={i}>
                               <a 
-                                href={`https://attack.mitre.org/techniques/${technique.trim()}`} 
+                                href={formatTechniqueUrl(technique.trim())}
                                 target="_blank" 
                                 rel="noopener noreferrer"
                               >
