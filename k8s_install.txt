@@ -148,6 +148,6 @@ profile.yaml  validation.txt
 
 
 VALIDATE ROUTE: file uploaded failed
-
+The problem here is that oscalprocessing is not finding /shared/profile.yaml but this is particular to minikube. Might be better to just solve it for Azure.
 
 YOU HAVE TO REBUILD AND LOAD THE IMAGES AFTER ANY CHANGES
