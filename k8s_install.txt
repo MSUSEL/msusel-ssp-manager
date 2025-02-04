@@ -18,7 +18,7 @@ Generate the manifest files for the app using kompose:
 cd path/to/app/docker-compose.yml
 kompose convert -f docker-compose.yml
 
-Now we want to deploy those files to the cluster.
+Now we want to deploy those files to the cluster. (Do this in the directory where the manifest are located)
 kubuctl apply -f filename
 
 We need to build the images in the Minikube docker engine (Minikube has a docker engine independent from the host's docker engine)
@@ -35,15 +35,22 @@ docker@minikube:~$ docker images | grep ugov-services
 
 sudo snap install kubectl --classic
 
-We'll build our images and then give them the tags that are used in the deployment files (Alternatively, we could change the name given to iamge: in the files)
-ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ docker compose build
-ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ docker tag msusel-ssp-manager-flask:latest msusel-ssp-manager_flask:latest
-ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ docker tag msusel-ssp-manager-react-app:latest msusel-ssp-manager_react-app:latest
-ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ minikube image load msusel-ssp-manager_flask:latest
-ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ minikube image load msusel-ssp-manager_react-app:latest
-ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ kubectl apply -f .
-(You can deploy all yaml files in the directory at once with:
-kubectl apply -f .)
+We'll build our images and load them to minikube:
+docker compose build
+minikube image load msusel-ssp-manager-flask:latest
+minikube image load msusel-ssp-manager-react-app:latest
+
+If you make changes and rebuild the images, you have to load them again in minikube. This process takes a while:
+minikube delete 
+minikube start
+minikube addons enable registry
+minikube image load msusel-ssp-manager-flask:latest
+minikube image load msusel-ssp-manager-react-app:latest
+minikube image load oscalprocessing:latest
+minikube image load arangodb:3.8.1
+minikube image load bronbootstrap:latest (WWWe haaaaaaven't cccreated manifeest for this service)
+
+kubectl apply -f .
 
 Check that everythingis running:
 ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ kubectl get pods
@@ -53,10 +60,94 @@ opa-555fdfc45d-x6rzd        1/1     Running   0          102s
 react-app-9bd979778-mlnkg   1/1     Running   0          102s
 
 
-Change directories and apply the app manifest files:
-rnesto@ernesto-VirtualBox:~/Documents/UGov_Services/user-registration$ kubectl apply -f .
+
+
+ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ minikube ip
+192.168.49.2
+
+ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ kubectl get services
+NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+app          NodePort    10.108.222.38    <none>        8000:31621/TCP   5d14h
+db           ClusterIP   10.100.191.169   <none>        5432/TCP         5d14h
+flask        ClusterIP   10.96.197.70     <none>        5000/TCP         5d14h
+kubernetes   ClusterIP   10.96.0.1        <none>        443/TCP          5d16h
+opa          ClusterIP   10.96.109.202    <none>        8181/TCP         5d14h
+react-app    NodePort    10.110.248.48    <none>        3000:32000/TCP   5d14h
+
+
+==> react-app is found at 192.168.49.2:32000
+
+
+
+minikube image load oscalprocessing:latest
+
+We need to create the volumes inside minikube:
+minikube ssh
+
+# Create directories
+minikube ssh
+sudo mkdir -p /flask/shared
+sudo mkdir -p /flask/generatedFiles
+sudo chmod -R 777 /flask
+sudo chown -R 1000:1001 /flask
+
+# Ensure docker.sock is accessible
+sudo chmod 777 /var/run/docker.sock
+
+exit
+
+
+
+To delete volumes in minikube:
+ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ for pvc in flask-claim1 flask-claim2 flask-claim3 flask-claim4 flask-claim5 flask-claim6 flask-claim7; do
+  kubectl patch pvc $pvc -n default -p '{"metadata":{"finalizers":null}}' --type=merge
+done
+persistentvolumeclaim/flask-claim1 patched
+persistentvolumeclaim/flask-claim2 patched
+persistentvolumeclaim/flask-claim3 patched
+persistentvolumeclaim/flask-claim4 patched
+persistentvolumeclaim/flask-claim5 patched
+persistentvolumeclaim/flask-claim6 patched
+persistentvolumeclaim/flask-claim7 patched
+ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ kubectl get pvc -n default -o json | jq '.items[] | {name: .metadata.name, finalizers: .metadata.finalizers}'
+ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ kubectl delete pvc flask-claim1 flask-claim2 flask-claim3 flask-claim4 flask-claim5 flask-claim6 flask-claim7 -n default --wait=false
+Error from server (NotFound): persistentvolumeclaims "flask-claim1" not found
+Error from server (NotFound): persistentvolumeclaims "flask-claim2" not found
+Error from server (NotFound): persistentvolumeclaims "flask-claim3" not found
+Error from server (NotFound): persistentvolumeclaims "flask-claim4" not found
+Error from server (NotFound): persistentvolumeclaims "flask-claim5" not found
+Error from server (NotFound): persistentvolumeclaims "flask-claim6" not found
+Error from server (NotFound): persistentvolumeclaims "flask-claim7" not found
+ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ kubectl get pv -o json | jq '.items[] | {name: .metadata.name, finalizers: .metadata.finalizers}'
+ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ kubectl delete pv --all --wait=false
+No resources found
+ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ kubectl get pvc -n default
+No resources found in default namespace.
+ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ kubectl get pv
+No resources found
 
 
 
 
 
+Debugging:
+kubectl logs flask-6f9779c4c7-9qgxg
+
+You can execute commands inside the container running on the pod:
+ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ kubectl exec -it flask-74cb577799-t2rlw -- pwd
+/workdir
+ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ kubectl exec -it flask-74cb577799-t2rlw -- ls
+Dockerfile     OSCAL_Test_Files  app	 artifactsExamples  generatedFiles  output_vulnerability_effectiveness	requirements.txt  shared
+Documentation  __pycache__	 app.py  flaskTree.txt	    oscal_schemas   react-app				run.py		  tests
+ernesto@ernesto-VirtualBox:~/Documents/msusel-ssp-manager$ kubectl exec -it flask-74cb577799-t2rlw -- ls /shared
+profile.yaml  validation.txt
+
+
+
+
+
+
+VALIDATE ROUTE: file uploaded failed
+
+
+YOU HAVE TO REBUILD AND LOAD THE IMAGES AFTER ANY CHANGES

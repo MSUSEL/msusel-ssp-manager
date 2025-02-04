@@ -24,7 +24,7 @@ spec:
         - env:
             - name: REACT_APP_API_URL
               value: http://flask:5000
-          image: msusel-ssp-manager_react-app:latest
+          image: msusel-ssp-manager-react-app:latest
           imagePullPolicy: Never
           name: react-app
           ports:
