@@ -14,8 +14,7 @@ Use this checklist to set up a **GitHub Actions CI/CD pipeline** for deploying a
 ## **2️⃣ Set Up GitHub Secrets**
 - [ ] Go to **GitHub → Your Repository → Settings → Secrets and variables → Actions**.
 - [ ] Click **"New repository secret"** and add the following:
-  - `GHCR_USERNAME` → Your GitHub username.
-  - `GHCR_TOKEN` → A **GitHub personal access token (PAT)** with `read:packages` and `write:packages` permissions.
+  - `GHCR_PAT` → Your GitHub personal access token (PAT).
   - `KUBECONFIG_SECRET` → Your Minikube `kubeconfig` (base64 encoded).
 
 To encode the `kubeconfig`, run:
@@ -49,12 +48,12 @@ jobs:
         uses: docker/setup-buildx-action@v2
       
       - name: Log in to GHCR
-        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
       
       - name: Build and push Docker image
         run: |
-          docker build -t ghcr.io/${{ secrets.GHCR_USERNAME }}/my-app:latest .
-          docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/my-app:latest
+          docker build -t ghcr.io/${{ github.actor }}/my-app:latest .
+          docker push ghcr.io/${{ github.actor }}/my-app:latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -79,7 +78,7 @@ jobs:
 - [ ] Add the workflow file to GitHub:
   ```bash
   git add .github/workflows/deploy.yml
-  git commit -m "Add GitHub Actions pipeline"
+  git commit -m "Setup GitHub Actions for test branch"
   git push origin main
   ```
 
