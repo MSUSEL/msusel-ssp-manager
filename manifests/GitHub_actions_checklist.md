@@ -14,8 +14,8 @@ Use this checklist to set up a **GitHub Actions CI/CD pipeline** for deploying a
 ## **2️⃣ Set Up GitHub Secrets**
 - [ ] Go to **GitHub → Your Repository → Settings → Secrets and variables → Actions**.
 - [ ] Click **"New repository secret"** and add the following:
-  - `ACR_USERNAME` → Your Azure Container Registry (ACR) username.
-  - `ACR_PASSWORD` → Your ACR password.
+  - `GHCR_USERNAME` → Your GitHub username.
+  - `GHCR_TOKEN` → A **GitHub personal access token (PAT)** with `read:packages` and `write:packages` permissions.
   - `KUBECONFIG_SECRET` → Your Minikube `kubeconfig` (base64 encoded).
 
 To encode the `kubeconfig`, run:
@@ -48,13 +48,13 @@ jobs:
       - name: Set up Docker
         uses: docker/setup-buildx-action@v2
       
-      - name: Log in to ACR
-        run: echo "${{ secrets.ACR_PASSWORD }}" | docker login myacr.azurecr.io -u "${{ secrets.ACR_USERNAME }}" --password-stdin
+      - name: Log in to GHCR
+        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
       
       - name: Build and push Docker image
         run: |
-          docker build -t myacr.azurecr.io/my-app:latest .
-          docker push myacr.azurecr.io/my-app:latest
+          docker build -t ghcr.io/${{ secrets.GHCR_USERNAME }}/my-app:latest .
+          docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/my-app:latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -70,7 +70,7 @@ jobs:
 
 🔹 **What this does:**
 1. **Triggers** on `git push` to the `main` branch.
-2. **Builds and pushes** the Docker image to Azure Container Registry.
+2. **Builds and pushes** the Docker image to GitHub Container Registry (GHCR).
 3. **Deploys** the updated application to Minikube using `kubectl`.
 
 ---
