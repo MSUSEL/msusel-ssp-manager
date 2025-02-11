@@ -5,19 +5,17 @@ Use this checklist to set up a **GitHub Actions CI/CD pipeline** for deploying a
 ---
 
 ## **1️⃣ Create the GitHub Repository**
-- [ ] Ensure your application code is stored in **GitHub**.
-- [ ] Add the necessary **Dockerfiles** and **Kubernetes manifests (`k8s-manifests/`)**.
-- [ ] (Optional) Add a `.gitignore` file to exclude unnecessary files.
+
+-
 
 ---
 
 ## **2️⃣ Set Up GitHub Secrets**
-- [ ] Go to **GitHub → Your Repository → Settings → Secrets and variables → Actions**.
-- [ ] Click **"New repository secret"** and add the following:
-  - `GHCR_PAT` → Your GitHub personal access token (PAT).
-  - `KUBECONFIG_SECRET` → Your Minikube `kubeconfig` (base64 encoded).
+
+-
 
 To encode the `kubeconfig`, run:
+
 ```bash
 cat ~/.kube/config | base64 -w 0
 ```
@@ -25,9 +23,8 @@ cat ~/.kube/config | base64 -w 0
 ---
 
 ## **3️⃣ Create the GitHub Actions Workflow File**
-- [ ] In your repository, create the folder `.github/workflows/` (if it doesn't exist).
-- [ ] Inside the folder, create a new file: `deploy.yml`.
-- [ ] Copy the following minimal CI/CD pipeline:
+
+-
 
 ```yaml
 name: Minikube CI/CD
@@ -35,7 +32,7 @@ name: Minikube CI/CD
 on:
   push:
     branches:
-      - main
+      - minikube
 
 jobs:
   build-and-push:
@@ -50,10 +47,18 @@ jobs:
       - name: Log in to GHCR
         run: echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
       
-      - name: Build and push Docker image
+      - name: Build and push Docker images
         run: |
-          docker build -t ghcr.io/${{ github.actor }}/my-app:latest .
-          docker push ghcr.io/${{ github.actor }}/my-app:latest
+          docker build -t ghcr.io/${{ github.actor }}/app:latest -f app/Dockerfile ./app
+          docker push ghcr.io/${{ github.actor }}/app:latest
+          docker build -t ghcr.io/${{ github.actor }}/db:latest -f db/Dockerfile ./db
+          docker push ghcr.io/${{ github.actor }}/db:latest
+          docker build -t ghcr.io/${{ github.actor }}/flask:latest -f flask/Dockerfile ./flask
+          docker push ghcr.io/${{ github.actor }}/flask:latest
+          docker build -t ghcr.io/${{ github.actor }}/opa:latest -f opa/Dockerfile ./opa
+          docker push ghcr.io/${{ github.actor }}/opa:latest
+          docker build -t ghcr.io/${{ github.actor }}/react-app:latest -f react-app/Dockerfile ./react-app
+          docker push ghcr.io/${{ github.actor }}/react-app:latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -63,50 +68,43 @@ jobs:
         run: |
           echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > kubeconfig
           export KUBECONFIG=kubeconfig
-          kubectl apply -f k8s-manifests/
-          kubectl rollout restart deployment my-app -n default
+          kubectl apply -f manifests/
+          kubectl rollout restart deployment app -n default
+          kubectl rollout restart deployment db -n default
+          kubectl rollout restart deployment flask -n default
+          kubectl rollout restart deployment opa -n default
+          kubectl rollout restart deployment react-app -n default
 ```
 
 🔹 **What this does:**
-1. **Triggers** on `git push` to the `main` branch.
-2. **Builds and pushes** the Docker image to GitHub Container Registry (GHCR).
+
+1. **Triggers** on `git push` to the `minikube` branch.
+2. **Builds and pushes** the Docker images for each service to GitHub Container Registry (GHCR).
 3. **Deploys** the updated application to Minikube using `kubectl`.
 
 ---
 
 ## **4️⃣ Commit and Push the Workflow File**
-- [ ] Add the workflow file to GitHub:
-  ```bash
-  git add .github/workflows/deploy.yml
-  git commit -m "Setup GitHub Actions for test branch"
-  git push origin main
-  ```
+
+-
 
 ---
 
 ## **5️⃣ Monitor the Pipeline Execution**
-- [ ] Go to **GitHub → Your Repository → Actions**.
-- [ ] Look for the **"Minikube CI/CD"** workflow and check its execution.
-- [ ] If errors occur, click on the failed job to see logs and debug.
+
+-
 
 ---
 
 ## **6️⃣ Validate the Deployment**
-- [ ] Check if the new version is running in Minikube:
-  ```bash
-  kubectl get pods -n default
-  ```
-- [ ] Verify the logs of your application:
-  ```bash
-  kubectl logs -l app=my-app -n default
-  ```
+
+-
 
 ---
 
 ### 🎯 **Next Steps**
-- [ ] Automate testing before deployment (e.g., add `pytest` step).
-- [ ] Set up notifications for build failures (Slack, email, etc.).
-- [ ] Implement rollbacks in case of failed deployments.
+
+-
 
 🚀 Your GitHub Actions CI/CD pipeline is now live! 🎉
 
