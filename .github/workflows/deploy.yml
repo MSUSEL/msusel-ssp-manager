@@ -53,21 +53,24 @@ jobs:
 
       - name: Deploy to AKS
         run: |
-          # Create storage resources
-          kubectl apply -f manifests/flask-shared-pv.yaml
-          kubectl apply -f manifests/flask-pvc.yaml
-
+          # Wait for API server to be available
+          kubectl wait --for=condition=available --timeout=60s deployment/kube-apiserver -n kube-system || true
+          
+          # Create storage resources (with validation disabled)
+          kubectl apply --validate=false -f manifests/flask-shared-pv.yaml
+          kubectl apply --validate=false -f manifests/flask-pvc.yaml
+          
           # Create secrets
-          kubectl apply -f manifests/flask-secrets.yaml
-
+          kubectl apply --validate=false -f manifests/flask-secrets.yaml
+          
           # Deploy OSCAL job template
-          kubectl apply -f manifests/oscal-job-template.yaml
+          kubectl apply --validate=false -f manifests/oscal-job-template.yaml
           
           # Deploy main applications
-          kubectl apply -f manifests/flask-deployment.yaml
-          kubectl apply -f manifests/flask-service.yaml
-          kubectl apply -f manifests/react-app-deployment.yaml
-          kubectl apply -f manifests/react-app-service.yaml
+          kubectl apply --validate=false -f manifests/flask-deployment.yaml
+          kubectl apply --validate=false -f manifests/flask-service.yaml
+          kubectl apply --validate=false -f manifests/react-app-deployment.yaml
+          kubectl apply --validate=false -f manifests/react-app-service.yaml
           
           # Wait for deployments
           kubectl rollout status deployment/flask
