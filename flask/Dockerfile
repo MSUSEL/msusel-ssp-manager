@@ -1,6 +1,6 @@
 FROM python:3.10
 
-ARG HOST_VOLUME_PATH  # Keep this as it's still used for paths
+ARG HOST_VOLUME_PATH  
 
 WORKDIR /workdir
 
