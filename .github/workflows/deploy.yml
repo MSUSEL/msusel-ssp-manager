@@ -2,7 +2,8 @@ name: Deploy to AKS
 
 on:
   push:
-    branches: [ minikube ]
+    branches: 
+      - minikube
   workflow_dispatch:
 
 jobs:
@@ -12,6 +13,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Set environment variables
+        run: |
+          echo "GITHUB_USER_LOWERCASE=$(echo ${{ github.actor }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
@@ -23,9 +28,9 @@ jobs:
       - name: Build OSCAL Processing image
         run: |
           docker build \
-            -t ghcr.io/${{ format('{0}', github.actor) }}/oscal-processing:latest \
+            -t ghcr.io/${{ env.GITHUB_USER_LOWERCASE }}/oscal-processing:latest \
             ./oscal-processing
-          docker push ghcr.io/${{ format('{0}', github.actor) }}/oscal-processing:latest
+          docker push ghcr.io/${{ env.GITHUB_USER_LOWERCASE }}/oscal-processing:latest
 
       - name: Build Flask image
         run: |
@@ -33,46 +38,13 @@ jobs:
             --build-arg HOST_VOLUME_PATH="/flask" \
             --build-arg HOST_UID="1000" \
             --build-arg HOST_GID="1000" \
-            -t ghcr.io/${{ format('{0}', github.actor) }}/msu-ssp-manager-flask:latest \
+            -t ghcr.io/${{ env.GITHUB_USER_LOWERCASE }}/msu-ssp-manager-flask:latest \
             -f flask/Dockerfile ./flask
-          docker push ghcr.io/${{ format('{0}', github.actor) }}/msu-ssp-manager-flask:latest
+          docker push ghcr.io/${{ env.GITHUB_USER_LOWERCASE }}/msu-ssp-manager-flask:latest
 
       - name: Build React image
         run: |
           docker build \
-            -t ghcr.io/${{ format('{0}', github.actor) }}/msu-ssp-manager-react-app:latest \
+            -t ghcr.io/${{ env.GITHUB_USER_LOWERCASE }}/msu-ssp-manager-react-app:latest \
             ./react-app
-          docker push ghcr.io/${{ format('{0}', github.actor) }}/msu-ssp-manager-react-app:latest
-
-      - name: Set up Kubectl
-        run: |
-          echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > kubeconfig
-          export KUBECONFIG=kubeconfig
-
-      - name: Deploy to AKS
-        run: |
-          # Create storage resources
-          kubectl apply -f manifests/flask-shared-pv.yaml
-          kubectl apply -f manifests/flask-pvc.yaml
-          
-          # Create configs and secrets
-          kubectl apply -f manifests/github-config.yaml
-          kubectl apply -f manifests/arango-root-password-secret.yaml
-          
-          # Deploy OSCAL job template
-          kubectl apply -f manifests/oscal-job-template.yaml
-          
-          # Deploy database and bootstrap
-          kubectl apply -f manifests/brondb-deployment.yaml
-          kubectl apply -f manifests/brondb-service.yaml
-          kubectl apply -f manifests/bootstrap-deployment.yaml
-          
-          # Deploy main applications
-          kubectl apply -f manifests/flask-deployment.yaml
-          kubectl apply -f manifests/flask-service.yaml
-          kubectl apply -f manifests/react-app-deployment.yaml
-          kubectl apply -f manifests/react-app-service.yaml
-          
-          # Wait for deployments
-          kubectl rollout status deployment/flask
-          kubectl rollout status deployment/react-app
+          docker push ghcr.io/${{ env.GITHUB_USER_LOWERCASE }}/msu-ssp-manager-react-app:latest
