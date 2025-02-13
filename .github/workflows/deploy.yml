@@ -46,3 +46,30 @@ jobs:
             -t ghcr.io/${{ env.GITHUB_USER_LOWERCASE }}/msu-ssp-manager-react-app:latest \
             -f flask/react-app/Dockerfile ./flask/react-app
           docker push ghcr.io/${{ env.GITHUB_USER_LOWERCASE }}/msu-ssp-manager-react-app:latest
+      - name: Set up Kubectl
+        run: |
+          echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > kubeconfig
+          export KUBECONFIG=kubeconfig
+
+      - name: Deploy to AKS
+        run: |
+          # Create storage resources
+          kubectl apply -f manifests/flask-shared-pv.yaml
+          kubectl apply -f manifests/flask-pvc.yaml
+
+          # Create secrets
+          kubectl apply -f manifests/flask-secrets.yaml
+
+          # Deploy OSCAL job template
+          kubectl apply -f manifests/oscal-job-template.yaml
+          
+          # Deploy main applications
+          kubectl apply -f manifests/flask-deployment.yaml
+          kubectl apply -f manifests/flask-service.yaml
+          kubectl apply -f manifests/react-app-deployment.yaml
+          kubectl apply -f manifests/react-app-service.yaml
+          
+          # Wait for deployments
+          kubectl rollout status deployment/flask
+          kubectl rollout status deployment/react-app
+
