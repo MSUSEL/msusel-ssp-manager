@@ -16,7 +16,7 @@ spec:
         fsGroup: 1001    # Moved to pod-level security context
       containers:
         - name: flask-backend
-          image: msusel-ssp-manager-flask:latest
+          image: ghcr.io/${{ github.actor }}/msu-ssp-manager-flask:latest
           imagePullPolicy: Never
           ports:
             - containerPort: 5000

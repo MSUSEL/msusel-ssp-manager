@@ -1,0 +1,122 @@
+To automate the InSpec test to run within the Minikube cluster whenever there's a request to the protected route, we can implement this in a few ways. Here's one approach:
+
+(WE ARE GOING TO WANT THIS IN SSP_MANAGER, NOT IN THE USER APP)
+1. First, we need to create a new container that has InSpec installed and contains our test files. Here's a Dockerfile for this:
+
+````dockerfile path=user-registration/Dockerfile.inspec mode=EDIT
+FROM ruby:3.0-slim
+
+# Install required packages
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install InSpec
+RUN gem install inspec
+
+# Copy the InSpec test files
+WORKDIR /tests
+COPY app_opa_integration.rb .
+
+# Script to run the test
+COPY run_test.sh .
+RUN chmod +x run_test.sh
+
+CMD ["./run_test.sh"]
+````
+
+2. Create a script to run the test:
+
+````bash path=user-registration/run_test.sh mode=EDIT
+#!/bin/bash
+while true; do
+    inspec exec app_opa_integration.rb
+    sleep 60  # Run test every minute
+done
+````
+
+3. Create a Kubernetes deployment for the InSpec tests:
+
+````yaml path=user-registration/inspec-deployment.yaml mode=EDIT
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inspec-tests
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inspec-tests
+  template:
+    metadata:
+      labels:
+        app: inspec-tests
+    spec:
+      containers:
+      - name: inspec-tests
+        image: inspec-tests:latest
+        volumeMounts:
+        - name: logs
+          mountPath: /tests/logs
+      volumes:
+      - name: logs
+        emptyDir: {}
+````
+
+4. Modify the app's `auth.py` to trigger the test when the protected route is accessed:
+
+````python path=user-registration/app/routers/auth.py mode=EDIT
+@router.get("/protected")
+async def protected_route(current_user: dict = Depends(get_current_user)):
+    # Log the access attempt for InSpec test to pick up
+    logger.info("Protected route accessed - triggering compliance check")
+    
+    return {"message": "Access granted to protected", "user": current_user}
+````
+
+5. Add this to your existing docker-compose.yml:
+
+````yaml path=user-registration/docker-compose.yml mode=EDIT
+  inspec:
+    build:
+      context: .
+      dockerfile: Dockerfile.inspec
+    volumes:
+      - ./logs:/tests/logs
+    networks:
+      - ssp_network
+````
+
+To deploy this:
+
+1. Build the InSpec container:
+```bash
+docker build -t inspec-tests:latest -f Dockerfile.inspec .
+```
+
+2. Load the image into Minikube:
+```bash
+minikube image load inspec-tests:latest
+```
+
+3. Apply the Kubernetes configuration:
+```bash
+kubectl apply -f inspec-deployment.yaml
+```
+
+This setup will:
+- Run the InSpec tests continuously within the cluster
+- Share the logs volume between the app and InSpec container
+- Monitor the protected route access through the logs
+- Run compliance checks automatically
+
+You can adjust the frequency of tests by modifying the sleep duration in `run_test.sh`. You might also want to add error handling and reporting mechanisms to store test results in a database or send them to a monitoring system.
+
+Note: This is a basic implementation. For production, you might want to:
+- Add error handling and retries
+- Implement proper test result storage
+- Add alerting for failed tests
+- Consider resource limits and requests in the Kubernetes deployment
+- Implement more sophisticated test triggering mechanisms
+

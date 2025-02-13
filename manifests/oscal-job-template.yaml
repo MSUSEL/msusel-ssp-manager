@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: oscal-processing-
+spec:
+  template:
+    spec:
+      containers:
+      - name: oscal-processing
+        image: ghcr.io/${{ github.actor }}/oscal-processing:latest
+        volumeMounts:
+        - name: shared-data
+          mountPath: /shared
+      volumes:
+      - name: shared-data
+        persistentVolumeClaim:
+          claimName: shared-data-pvc
+      restartPolicy: Never
+  backoffLimit: 1

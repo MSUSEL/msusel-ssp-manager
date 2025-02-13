@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inspec-tests
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inspec-tests
+  template:
+    metadata:
+      labels:
+        app: inspec-tests
+    spec:
+      containers:
+      - name: inspec-tests
+        image: inspec-tests:latest
+        imagePullPolicy: Never
+        env:
+        - name: INSPEC_LICENSE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: inspec-license
+              key: license
+        - name: CHEF_LICENSE
+          value: "accept-no-persist"
+        volumeMounts:
+        - name: logs
+          mountPath: /tests/logs
+      volumes:
+      - name: logs
+        emptyDir: {}

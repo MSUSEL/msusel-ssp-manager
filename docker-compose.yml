@@ -57,6 +57,19 @@ services:
       - "/policies"
     networks:
       - ssp_network
+  inspec:
+    build:
+      context: ./InSpec
+      dockerfile: Dockerfile
+    container_name: inspec
+    environment:
+      - INSPEC_LICENSE_KEY=${INSPEC_LICENSE_KEY}
+    volumes:
+      - ./InSpec/logs:/tests/logs
+    networks:
+      - ssp_network
+    depends_on:
+      - opa
 networks:
   ssp_network:
     external: true

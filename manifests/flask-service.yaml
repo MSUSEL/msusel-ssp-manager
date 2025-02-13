@@ -4,13 +4,16 @@ metadata:
   annotations:
     kompose.cmd: kompose convert -f docker-compose.yml
     kompose.version: 1.35.0 (9532ceef3)
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"  # Makes this an internal load balancer
   labels:
     io.kompose.service: flask
   name: flask
 spec:
+  type: LoadBalancer
+  loadBalancerIP: "10.224.0.1"  # Replace with your AKS subnet IP
   ports:
-    - name: "5000"
-      port: 5000
+    - protocol: TCP
+      port: 80
       targetPort: 5000
   selector:
     io.kompose.service: flask

@@ -21,3 +21,4 @@ bandit
 virtualenv
 flask-cors==3.0.10
 pytest
+kubernetes>=28.1.0

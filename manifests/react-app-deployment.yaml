@@ -14,18 +14,14 @@ spec:
       io.kompose.service: react-app
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert -f docker-compose.yml
-        kompose.version: 1.35.0 (9532ceef3)
       labels:
         io.kompose.service: react-app
     spec:
       containers:
         - env:
             - name: REACT_APP_API_URL
-              value: http://flask:5000
-          image: msusel-ssp-manager-react-app:latest
-          imagePullPolicy: Never
+              value: "http://flask.default.svc.cluster.local"  # Using K8s DNS name
+          image: ghcr.io/${{ github.actor }}/msu-ssp-manager-react-app:latest
           name: react-app
           ports:
             - containerPort: 3000

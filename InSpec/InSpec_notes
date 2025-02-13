@@ -1,0 +1,66 @@
+app_opa_integration.rb
+The test performs the following steps:
+	Makes a POST request to login with test credentials
+	Verifies the login response contains an access token
+	Makes a GET request to the protected route using the obtained token
+	Verifies the protected route response
+	Checks the OPA interaction logs at ./logs/opa_interactions.log
+The NodePort service (defined in app-service.yaml) exposes the app on port 30534, which is why the test uses that specific port in the minikube cluster IP (192.168.49.2).
+
+
+
+Explanation:
+control 'token_verification_policy' do:
+This line defines a control block named 'token_verification_policy'.
+A control block in InSpec is used to group related tests (also called checks) that verify specific aspects of your infrastructure or application.
+
+
+
+Structure of an InSpec Control:
+Control Block: Defines a named group of tests.
+Describe Blocks: Contain individual tests or checks.
+Tests: Assertions that verify the state or configuration.
+
+
+Explanation of Example:
+impact 1.0: Specifies the severity of the control (1.0 is the highest severity).
+title: A short description of the control.
+desc: A detailed description of what the control is verifying.
+describe Block: Contains the actual tests. In this case, it checks if the JWT token is valid and if its expiration time (exp) is greater than the current time.
+
+
+
+
+
+describe http(opa_url,
+              method: 'POST',
+              headers: { 'Content-Type' => 'application/json' },
+              data: {
+                input: {
+                  token: { payload: { sub: 'testuser', exp: Time.now.to_i + 3600 } },
+                  now: Time.now.to_i
+                }
+              }.to_json) do
+  its('status') { should cmp 200 }
+  its('body') { should include('"allow":true') }
+end
+
+describe http(opa_url, ...) do: This block defines a test that makes an HTTP POST request to the OPA endpoint.
+method: 'POST': Specifies that the request method is POST.
+headers: { 'Content-Type' => 'application/json' }: Sets the Content-Type header to application/json.
+data: { ... }.to_json: Defines the JSON payload to be sent in the request body. The payload includes:
+input: The input data for the OPA policy.
+token: The token to be verified, with a payload containing:
+sub: The subject (user identifier), set to 'testuser'.
+exp: The expiration time, set to the current time plus 3600 seconds (1 hour).
+now: The current time in Unix timestamp format.
+its('status') { should cmp 200 }: This line checks that the HTTP response status code is 200, indicating a successful request.
+its('body') { should include('"allow":true') }: This line checks that the response body includes the string '"allow":true', indicating that the token is allowed by the OPA policy.
+
+
+
+
+
+
+opa integration
+The last two test fails because we haven't implemented a log file for OPA. (see Microservices App with OPA in the project chat. Look for "Is there a simple way of doing this?") 

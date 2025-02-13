@@ -40,7 +40,21 @@ docker compose build
 minikube image load msusel-ssp-manager-flask:latest
 minikube image load msusel-ssp-manager-react-app:latest
 
+
+
+
+
+
 If you make changes and rebuild the images, you have to load them again in minikube. This process takes a while:
+
+This worked:
+kubectl delete deployment inspec-tests
+minikube ssh
+docker@minikube:~$ docker rmi -f inspec-tests:latest
+
+
+
+If nothing else works:
 minikube delete 
 minikube start
 minikube addons enable registry
@@ -48,7 +62,8 @@ minikube image load msusel-ssp-manager-flask:latest
 minikube image load msusel-ssp-manager-react-app:latest
 minikube image load oscalprocessing:latest
 minikube image load arangodb:3.8.1
-minikube image load bronbootstrap:latest (WWWe haaaaaaven't cccreated manifeest for this service)
+minikube image load bronbootstrap:latest (We haven't created manifest for this service)
+minikube image load inspec-tests:latest
 
 kubectl apply -f .
 

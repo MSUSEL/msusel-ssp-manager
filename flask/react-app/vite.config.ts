@@ -8,7 +8,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'http://flask:5000',
+        target: process.env.REACT_APP_API_URL || 'http://10.224.0.1',  // Replace with your Flask service internal IP
         changeOrigin: true,
         secure: false
       },

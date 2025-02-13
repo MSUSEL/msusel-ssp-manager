@@ -106,6 +106,7 @@ To prepare for the execution of the application containers, we need to run a scr
 ```
 cd ..
 cd ./scripts/
+export INSPEC_LICENSE_KEY="your-inspec-license-key"
 chmod +x ./generate-env.sh
 ./generate-env.sh
 cd ..
