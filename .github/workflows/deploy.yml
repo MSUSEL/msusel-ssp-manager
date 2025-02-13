@@ -36,8 +36,6 @@ jobs:
         run: |
           docker build \
             --build-arg HOST_VOLUME_PATH="/flask" \
-            --build-arg HOST_UID="1000" \
-            --build-arg HOST_GID="1000" \
             -t ghcr.io/${{ env.GITHUB_USER_LOWERCASE }}/msu-ssp-manager-flask:latest \
             -f flask/Dockerfile ./flask
           docker push ghcr.io/${{ env.GITHUB_USER_LOWERCASE }}/msu-ssp-manager-flask:latest
