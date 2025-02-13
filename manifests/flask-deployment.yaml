@@ -12,12 +12,10 @@ spec:
       labels:
         io.kompose.service: flask
     spec:
-      securityContext:
-        fsGroup: 1001    # Moved to pod-level security context
       containers:
         - name: flask-backend
-          image: ghcr.io/${{ github.actor }}/msu-ssp-manager-flask:latest
-          imagePullPolicy: Never
+          image: ghcr.io/${{ github.actor,,}}/msu-ssp-manager-flask:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 5000
           volumeMounts:
@@ -25,15 +23,25 @@ spec:
               name: flask-shared
             - mountPath: /generatedFiles
               name: flask-generated
-            - mountPath: /var/run/docker.sock
-              name: docker-sock
           env:
             - name: HOST_VOLUME_PATH
               value: "/flask"
-          securityContext:
-            privileged: true
-            runAsUser: 1000  # This should match your appuser UID
-            runAsGroup: 1001  # This should match your docker group GID
+            - name: ARANGO_DB_URL
+              value: "http://brondb:8529"
+            - name: ARANGO_DB_NAME
+              value: "BRON"
+            - name: ARANGO_DB_USERNAME
+              value: "root"
+            - name: ARANGO_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: arango-root-password
+                  key: arango-root-password
+            - name: GITHUB_ACTOR
+              valueFrom:
+                configMapKeyRef:
+                  name: github-config
+                  key: github_actor
       volumes:
         - name: flask-shared
           persistentVolumeClaim:
@@ -41,6 +49,3 @@ spec:
         - name: flask-generated
           persistentVolumeClaim:
             claimName: flask-generated-claim
-        - name: docker-sock
-          hostPath:
-            path: /var/run/docker.sock

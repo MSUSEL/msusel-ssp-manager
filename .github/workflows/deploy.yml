@@ -1,52 +1,78 @@
-name: Minikube CI/CD
+name: Deploy to AKS
 
 on:
   push:
-    branches:
-      - minikube
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
-  build-and-push:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      
-      - name: Set up Docker
-        uses: docker/setup-buildx-action@v2
-      
-      - name: Log in to GHCR
-        run: echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
-      
-      - name: Build and push Docker images
-        run: |
-          docker build -t ghcr.io/${{ github.actor }}/msu-ssp-manager-flask:latest -f msu-ssp-manager-flask/Dockerfile ./msu-ssp-manager-flask
-          docker push ghcr.io/${{ github.actor }}/msu-ssp-manager-flask:latest
-          docker build -t ghcr.io/${{ github.actor }}/msu-ssp-manager-react-app:latest -f msu-ssp-manager-react-app/Dockerfile ./msu-ssp-manager-react-app
-          docker push ghcr.io/${{ github.actor }}/msu-ssp-manager-react-app:latest
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build-and-push
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build OSCAL Processing image
+        run: |
+          docker build \
+            -t ghcr.io/${{ github.actor,, }}/oscal-processing:latest \
+            ./oscal-processing
+          docker push ghcr.io/${{ github.actor,, }}/oscal-processing:latest
+
+      - name: Build Flask image
+        run: |
+          docker build \
+            --build-arg HOST_VOLUME_PATH="/flask" \
+            --build-arg HOST_UID="1000" \
+            --build-arg HOST_GID="1000" \
+            -t ghcr.io/${{ github.actor,, }}/msu-ssp-manager-flask:latest \
+            -f flask/Dockerfile ./flask
+          docker push ghcr.io/${{ github.actor,, }}/msu-ssp-manager-flask:latest
+
+      - name: Build React image
+        run: |
+          docker build \
+            -t ghcr.io/${{ github.actor,, }}/msu-ssp-manager-react-app:latest \
+            ./react-app
+          docker push ghcr.io/${{ github.actor,, }}/msu-ssp-manager-react-app:latest
+
       - name: Set up Kubectl
         run: |
           echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > kubeconfig
           export KUBECONFIG=kubeconfig
-          
-          # Apply Flask-related manifests
+
+      - name: Deploy to AKS
+        run: |
+          # Create storage resources
           kubectl apply -f manifests/flask-shared-pv.yaml
           kubectl apply -f manifests/flask-pvc.yaml
+          
+          # Create configs and secrets
+          kubectl apply -f manifests/github-config.yaml
+          kubectl apply -f manifests/arango-root-password-secret.yaml
+          
+          # Deploy OSCAL job template
+          kubectl apply -f manifests/oscal-job-template.yaml
+          
+          # Deploy database and bootstrap
+          kubectl apply -f manifests/brondb-deployment.yaml
+          kubectl apply -f manifests/brondb-service.yaml
+          kubectl apply -f manifests/bootstrap-deployment.yaml
+          
+          # Deploy main applications
           kubectl apply -f manifests/flask-deployment.yaml
           kubectl apply -f manifests/flask-service.yaml
-          
-          # Apply React-app manifests
           kubectl apply -f manifests/react-app-deployment.yaml
           kubectl apply -f manifests/react-app-service.yaml
           
-          # Restart deployments
-          kubectl rollout restart deployment msu-ssp-manager-flask -n default
-          kubectl rollout restart deployment msu-ssp-manager-react-app -n default
+          # Wait for deployments
+          kubectl rollout status deployment/flask
+          kubectl rollout status deployment/react-app

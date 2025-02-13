@@ -21,7 +21,8 @@ spec:
         - env:
             - name: REACT_APP_API_URL
               value: "http://flask.default.svc.cluster.local"  # Using K8s DNS name
-          image: ghcr.io/${{ github.actor }}/msu-ssp-manager-react-app:latest
+          image: ghcr.io/${{ github.actor,,}}/msu-ssp-manager-react-app:latest
+          imagePullPolicy: Always
           name: react-app
           ports:
             - containerPort: 3000
