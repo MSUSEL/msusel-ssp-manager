@@ -44,5 +44,5 @@ jobs:
         run: |
           docker build \
             -t ghcr.io/${{ env.GITHUB_USER_LOWERCASE }}/msu-ssp-manager-react-app:latest \
-            ./react-app
+            -f flask/react-app/Dockerfile ./flask/react-app
           docker push ghcr.io/${{ env.GITHUB_USER_LOWERCASE }}/msu-ssp-manager-react-app:latest
