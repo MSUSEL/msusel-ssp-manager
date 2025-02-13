@@ -23,9 +23,9 @@ jobs:
       - name: Build OSCAL Processing image
         run: |
           docker build \
-            -t ghcr.io/${{ github.actor,, }}/oscal-processing:latest \
+            -t ghcr.io/${{ format('{0}', github.actor) }}/oscal-processing:latest \
             ./oscal-processing
-          docker push ghcr.io/${{ github.actor,, }}/oscal-processing:latest
+          docker push ghcr.io/${{ format('{0}', github.actor) }}/oscal-processing:latest
 
       - name: Build Flask image
         run: |
@@ -33,16 +33,16 @@ jobs:
             --build-arg HOST_VOLUME_PATH="/flask" \
             --build-arg HOST_UID="1000" \
             --build-arg HOST_GID="1000" \
-            -t ghcr.io/${{ github.actor,, }}/msu-ssp-manager-flask:latest \
+            -t ghcr.io/${{ format('{0}', github.actor) }}/msu-ssp-manager-flask:latest \
             -f flask/Dockerfile ./flask
-          docker push ghcr.io/${{ github.actor,, }}/msu-ssp-manager-flask:latest
+          docker push ghcr.io/${{ format('{0}', github.actor) }}/msu-ssp-manager-flask:latest
 
       - name: Build React image
         run: |
           docker build \
-            -t ghcr.io/${{ github.actor,, }}/msu-ssp-manager-react-app:latest \
+            -t ghcr.io/${{ format('{0}', github.actor) }}/msu-ssp-manager-react-app:latest \
             ./react-app
-          docker push ghcr.io/${{ github.actor,, }}/msu-ssp-manager-react-app:latest
+          docker push ghcr.io/${{ format('{0}', github.actor) }}/msu-ssp-manager-react-app:latest
 
       - name: Set up Kubectl
         run: |
