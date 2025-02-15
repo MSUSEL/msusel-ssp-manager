@@ -12,12 +12,21 @@ spec:
       labels:
         io.kompose.service: flask
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: flask-backend
           image: ghcr.io/ernestoortiz3/msu-ssp-manager-flask:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
           volumeMounts:
             - mountPath: /shared
               name: flask-shared
@@ -50,8 +59,6 @@ spec:
                 secretKeyRef:
                   name: arango-root-password
                   key: arango-root-password
-      imagePullSecrets:
-        - name: regcred
       volumes:
         - name: flask-shared
           persistentVolumeClaim:

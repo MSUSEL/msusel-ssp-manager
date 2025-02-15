@@ -80,33 +80,31 @@ jobs:
           kubectl wait --for=delete pod -l io.kompose.service=flask --timeout=60s || true
           kubectl wait --for=delete pod -l io.kompose.service=react-app --timeout=60s || true
           
-          # Create storage resources
-          kubectl apply --validate=false -f manifests/flask-shared-pv.yaml
-          kubectl apply --validate=false -f manifests/flask-pvc.yaml
+          # Verify secrets and configs
+          echo "Checking secrets before deployment..."
+          kubectl get secrets
+          kubectl get secret regcred -o yaml | grep -v "dockerconfigjson:"
           
-          # Create secrets
-          kubectl apply --validate=false -f manifests/flask-secrets.yaml
-          
-          # Create OSCAL job template
-          kubectl create -f manifests/oscal-job-template.yaml --save-config || true
-          
-          # Deploy main applications
+          # Deploy applications
           kubectl apply --validate=false -f manifests/flask-deployment.yaml
           kubectl apply --validate=false -f manifests/flask-service.yaml
-          kubectl apply --validate=false -f manifests/react-app-deployment.yaml
-          kubectl apply --validate=false -f manifests/react-app-service.yaml
           
-          # Debug Flask deployment
-          echo "Checking Flask pods status..."
-          kubectl get pods -l io.kompose.service=flask
-          echo "Checking Flask pod logs..."
-          kubectl logs -l io.kompose.service=flask --tail=100 || true
-          echo "Describing Flask pod..."
+          # Enhanced debugging
+          echo "Waiting 30 seconds for pod creation..."
+          sleep 30
+          
+          echo "Detailed pod information:"
+          kubectl get pods -l io.kompose.service=flask -o wide
+          
+          echo "Full pod description:"
           kubectl describe pod -l io.kompose.service=flask
-          echo "Checking image pull secrets..."
-          kubectl get secrets | grep regcred || true
           
-          # Wait for deployments with increased timeout
+          echo "Node status:"
+          kubectl describe nodes
+          
+          echo "Events from the last 5 minutes:"
+          kubectl get events --sort-by='.lastTimestamp' | tail -n 20
+          
+          # Wait for deployment
           kubectl rollout status deployment/flask --timeout=300s
-          kubectl rollout status deployment/react-app --timeout=300s
 
