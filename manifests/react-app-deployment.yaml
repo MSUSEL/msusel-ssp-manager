@@ -14,12 +14,14 @@ spec:
       labels:
         io.kompose.service: react-app
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: react-app
           image: ghcr.io/ernestoortiz3/msu-ssp-manager-react-app:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 3000
+            - containerPort: 80
           env:
             - name: REACT_APP_API_URL
               value: "http://flask.default.svc.cluster.local"
