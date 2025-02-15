@@ -10,7 +10,6 @@ metadata:
   name: react-app
 spec:
   type: LoadBalancer
-  loadBalancerIP: "52.186.9.225"  # Replace with your Azure public IP
   ports:
     - protocol: TCP
       port: 80
