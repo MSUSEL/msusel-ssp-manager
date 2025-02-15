@@ -5,7 +5,9 @@ on:
     branches: 
       - minikube
   workflow_dispatch:
-
+permissions:
+  contents: read
+  packages: write
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -60,12 +62,12 @@ jobs:
           kubectl cluster-info
       - name: Configure container registry authentication
         run: |
+          kubectl delete secret regcred --ignore-not-found
           kubectl create secret docker-registry regcred \
             --docker-server=ghcr.io \
             --docker-username=${{ github.actor }} \
-            --docker-password=${{ secrets.GITHUB_TOKEN }} \
-            --docker-email=${{ github.actor }}@users.noreply.github.com \
-            -o yaml --dry-run=client | kubectl apply -f -
+            --docker-password=${{ secrets.GHCR_PAT }} \
+            --docker-email=${{ github.actor }}@users.noreply.github.com
       - name: Deploy to AKS
         env:
           KUBECONFIG: /home/runner/.kube/config
