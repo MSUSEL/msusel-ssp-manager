@@ -70,8 +70,8 @@ jobs:
           # Create secrets
           kubectl apply --validate=false -f manifests/flask-secrets.yaml
           
-          # Deploy OSCAL job template
-          kubectl apply --validate=false -f manifests/oscal-job-template.yaml
+          # Create OSCAL job template - using create instead of apply for generateName
+          kubectl create -f manifests/oscal-job-template.yaml --save-config || true
           
           # Deploy main applications
           kubectl apply --validate=false -f manifests/flask-deployment.yaml
