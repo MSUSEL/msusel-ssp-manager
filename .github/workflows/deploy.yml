@@ -58,19 +58,34 @@ jobs:
           export KUBECONFIG=$HOME/.kube/config
           # Verify the connection
           kubectl cluster-info
-
+      - name: Configure container registry authentication
+        run: |
+          kubectl create secret docker-registry regcred \
+            --docker-server=ghcr.io \
+            --docker-username=${{ github.actor }} \
+            --docker-password=${{ secrets.GITHUB_TOKEN }} \
+            --docker-email=${{ github.actor }}@users.noreply.github.com \
+            -o yaml --dry-run=client | kubectl apply -f -
       - name: Deploy to AKS
         env:
           KUBECONFIG: /home/runner/.kube/config
         run: |
-          # Create storage resources (with validation disabled)
+          # Delete old deployments first
+          kubectl delete deployment flask --ignore-not-found=true
+          kubectl delete deployment react-app --ignore-not-found=true
+          
+          # Wait for pods to be deleted
+          kubectl wait --for=delete pod -l io.kompose.service=flask --timeout=60s || true
+          kubectl wait --for=delete pod -l io.kompose.service=react-app --timeout=60s || true
+          
+          # Create storage resources
           kubectl apply --validate=false -f manifests/flask-shared-pv.yaml
           kubectl apply --validate=false -f manifests/flask-pvc.yaml
           
           # Create secrets
           kubectl apply --validate=false -f manifests/flask-secrets.yaml
           
-          # Create OSCAL job template - using create instead of apply for generateName
+          # Create OSCAL job template
           kubectl create -f manifests/oscal-job-template.yaml --save-config || true
           
           # Deploy main applications
@@ -83,9 +98,11 @@ jobs:
           echo "Checking Flask pods status..."
           kubectl get pods -l io.kompose.service=flask
           echo "Checking Flask pod logs..."
-          kubectl logs -l io.kompose.service=flask
-          echo "Describing Flask deployment..."
-          kubectl describe deployment flask
+          kubectl logs -l io.kompose.service=flask --tail=100 || true
+          echo "Describing Flask pod..."
+          kubectl describe pod -l io.kompose.service=flask
+          echo "Checking image pull secrets..."
+          kubectl get secrets | grep regcred || true
           
           # Wait for deployments with increased timeout
           kubectl rollout status deployment/flask --timeout=300s

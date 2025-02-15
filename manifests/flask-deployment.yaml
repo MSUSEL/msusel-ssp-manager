@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: flask-backend
-          image: ghcr.io/ernestoortiz3/msu-ssp-manager-flask:latest  # Replace with your actual GitHub username
+          image: ghcr.io/ernestoortiz3/msu-ssp-manager-flask:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
@@ -50,6 +50,8 @@ spec:
                 secretKeyRef:
                   name: arango-root-password
                   key: arango-root-password
+      imagePullSecrets:
+        - name: regcred
       volumes:
         - name: flask-shared
           persistentVolumeClaim:
