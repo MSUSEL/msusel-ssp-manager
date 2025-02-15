@@ -79,7 +79,15 @@ jobs:
           kubectl apply --validate=false -f manifests/react-app-deployment.yaml
           kubectl apply --validate=false -f manifests/react-app-service.yaml
           
-          # Wait for deployments
-          kubectl rollout status deployment/flask
-          kubectl rollout status deployment/react-app
+          # Debug Flask deployment
+          echo "Checking Flask pods status..."
+          kubectl get pods -l io.kompose.service=flask
+          echo "Checking Flask pod logs..."
+          kubectl logs -l io.kompose.service=flask
+          echo "Describing Flask deployment..."
+          kubectl describe deployment flask
+          
+          # Wait for deployments with increased timeout
+          kubectl rollout status deployment/flask --timeout=300s
+          kubectl rollout status deployment/react-app --timeout=300s
 
