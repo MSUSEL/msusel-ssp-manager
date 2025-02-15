@@ -61,7 +61,7 @@ jobs:
 
       - name: Deploy to AKS
         env:
-          KUBECONFIG: $HOME/.kube/config
+          KUBECONFIG: /home/runner/.kube/config
         run: |
           # Create storage resources (with validation disabled)
           kubectl apply --validate=false -f manifests/flask-shared-pv.yaml
