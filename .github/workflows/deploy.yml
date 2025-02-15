@@ -48,14 +48,17 @@ jobs:
           docker push ghcr.io/${{ env.GITHUB_USER_LOWERCASE }}/msu-ssp-manager-react-app:latest
       - name: Set up Kubectl
         run: |
-          echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > kubeconfig
-          export KUBECONFIG=kubeconfig
+          echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
+          mkdir -p $HOME/.kube
+          export KUBECONFIG=$HOME/.kube/config
+          # Verify the connection
+          kubectl cluster-info
 
       - name: Deploy to AKS
+        env:
+          KUBECONFIG: $HOME/.kube/config
         run: |
-          # Wait for API server to be available
-          kubectl wait --for=condition=available --timeout=60s deployment/kube-apiserver -n kube-system || true
-          
           # Create storage resources (with validation disabled)
           kubectl apply --validate=false -f manifests/flask-shared-pv.yaml
           kubectl apply --validate=false -f manifests/flask-pvc.yaml
