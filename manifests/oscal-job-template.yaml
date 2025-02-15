@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
       - name: oscal-processing
-        image: ghcr.io/${{ env.GITHUB_USER_LOWERCASE }}/oscal-processing:latest
+        image: ghcr.io/ernestoortiz3/oscal-processing:latest
         imagePullPolicy: Always
         volumeMounts:
         - name: shared-data

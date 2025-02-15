@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: flask-backend
-          image: ghcr.io/${{ env.GITHUB_USER_LOWERCASE }}/msu-ssp-manager-flask:latest
+          image: ghcr.io/ernestoortiz3/msu-ssp-manager-flask:latest  # Replace with your actual GitHub username
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
@@ -24,6 +24,19 @@ spec:
             - mountPath: /generatedFiles
               name: flask-generated
           env:
+            - name: FLASK_APP
+              value: "run:create_app"
+            - name: FLASK_ENV
+              value: "production"
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: flask-secrets
+                  key: secret-key
+            - name: UPLOAD_FOLDER
+              value: "/shared"
+            - name: GENERATION_FOLDER
+              value: "/generatedFiles"
             - name: HOST_VOLUME_PATH
               value: "/flask"
             - name: ARANGO_DB_URL
@@ -37,11 +50,6 @@ spec:
                 secretKeyRef:
                   name: arango-root-password
                   key: arango-root-password
-            - name: GITHUB_ACTOR
-              valueFrom:
-                configMapKeyRef:
-                  name: github-config
-                  key: github_actor
       volumes:
         - name: flask-shared
           persistentVolumeClaim:
