@@ -48,9 +48,13 @@ jobs:
           docker push ghcr.io/${{ env.GITHUB_USER_LOWERCASE }}/msu-ssp-manager-react-app:latest
       - name: Set up Kubectl
         run: |
-          echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > $HOME/.kube/config
-          chmod 600 $HOME/.kube/config
+          # First create the directory
           mkdir -p $HOME/.kube
+          # Then decode and write the config file
+          echo "${{ secrets.KUBECONFIG_SECRET }}" | base64 -d > $HOME/.kube/config
+          # Set permissions
+          chmod 600 $HOME/.kube/config
+          # Set environment variable
           export KUBECONFIG=$HOME/.kube/config
           # Verify the connection
           kubectl cluster-info
