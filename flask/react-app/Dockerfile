@@ -1,18 +1,14 @@
-# Use an official Node runtime as a parent image
-FROM node:16-alpine
+# Build stage
+FROM node:16-alpine as builder
 
-# Set the working directory in the container
 WORKDIR /app
-
-# Copy the current directory contents into the container at /app
 COPY . .
-
-# Install any needed packages
 RUN npm install --legacy-peer-deps
-#RUN npm install react-router-dom@latest
+RUN npm run build
 
-# Expose port 3000 to the outside world
-EXPOSE 3000
-
-# Run Vite development server
-CMD ["npm", "run", "dev"]
+# Production stage
+FROM nginx:alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
