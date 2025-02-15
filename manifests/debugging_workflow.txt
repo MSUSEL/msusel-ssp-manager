@@ -1,0 +1,409 @@
+  # Delete old deployments first
+  kubectl delete deployment flask --ignore-not-found=true
+  kubectl delete deployment react-app --ignore-not-found=true
+  
+  # Wait for pods to be deleted
+  kubectl wait --for=delete pod -l io.kompose.service=flask --timeout=60s || true
+  kubectl wait --for=delete pod -l io.kompose.service=react-app --timeout=60s || true
+  
+  # Verify secrets and configs
+  echo "Checking secrets before deployment..."
+  kubectl get secrets
+  kubectl get secret regcred -o yaml | grep -v "dockerconfigjson:"
+  
+  # Deploy applications
+  kubectl apply --validate=false -f manifests/flask-deployment.yaml
+  kubectl apply --validate=false -f manifests/flask-service.yaml
+  
+  # Enhanced debugging
+  echo "Waiting 30 seconds for pod creation..."
+  sleep 30
+  
+  echo "Detailed pod information:"
+  kubectl get pods -l io.kompose.service=flask -o wide
+  
+  echo "Full pod description:"
+  kubectl describe pod -l io.kompose.service=flask
+  
+  echo "Node status:"
+  kubectl describe nodes
+  
+  echo "Events from the last 5 minutes:"
+  kubectl get events --sort-by='.lastTimestamp' | tail -n 20
+  
+  # Wait for deployment
+  kubectl rollout status deployment/flask --timeout=300s
+  shell: /usr/bin/bash -e {0}
+  env:
+    GITHUB_USER_LOWERCASE: ernestoortiz3
+    KUBECONFIG: /home/runner/.kube/config
+deployment.apps "flask" deleted
+pod/flask-d7b498c56-5bbdv condition met
+Checking secrets before deployment...
+NAME                   TYPE                             DATA   AGE
+arango-root-password   Opaque                           1      3s
+flask-secrets          Opaque                           1      13h
+regcred                kubernetes.io/dockerconfigjson   1      3s
+apiVersion: v1
+data:
+kind: Secret
+metadata:
+  creationTimestamp: "2025-02-15T16:37:52Z"
+  name: regcred
+  namespace: default
+  resourceVersion: "1287180"
+  uid: be25f2be-90d9-4f4b-afef-8da310ec316c
+type: kubernetes.io/dockerconfigjson
+deployment.apps/flask created
+service/flask unchanged
+Waiting 30 seconds for pod creation...
+Detailed pod information:
+NAME                    READY   STATUS                       RESTARTS   AGE   IP             NODE                                NOMINATED NODE   READINESS GATES
+flask-d7b498c56-dmkvx   0/1     CreateContainerConfigError   0          31s   10.244.1.122   aks-nodepool1-35562987-vmss000000   <none>           <none>
+Full pod description:
+Name:             flask-d7b498c56-dmkvx
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             aks-nodepool1-35562987-vmss000000/10.224.0.4
+Start Time:       Sat, 15 Feb 2025 16:37:55 +0000
+Labels:           io.kompose.service=flask
+                  pod-template-hash=d7b498c56
+Annotations:      <none>
+Status:           Pending
+IP:               10.244.1.122
+IPs:
+  IP:           10.244.1.122
+Controlled By:  ReplicaSet/flask-d7b498c56
+Containers:
+  flask-backend:
+    Container ID:   
+    Image:          ghcr.io/ernestoortiz3/msu-ssp-manager-flask:latest
+    Image ID:       
+    Port:           5000/TCP
+    Host Port:      0/TCP
+    State:          Waiting
+      Reason:       CreateContainerConfigError
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:     100m
+      memory:  128Mi
+    Environment:
+      FLASK_APP:           run:create_app
+      FLASK_ENV:           production
+      SECRET_KEY:          <set to the key 'secret-key' in secret 'flask-secrets'>  Optional: false
+      UPLOAD_FOLDER:       /shared
+      GENERATION_FOLDER:   /generatedFiles
+      HOST_VOLUME_PATH:    /flask
+      ARANGO_DB_URL:       http://brondb:8529
+      ARANGO_DB_NAME:      BRON
+      ARANGO_DB_USERNAME:  root
+      ARANGO_DB_PASSWORD:  <set to the key 'arango-root-password' in secret 'arango-root-password'>  Optional: false
+    Mounts:
+      /generatedFiles from flask-generated (rw)
+      /shared from flask-shared (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-bdxgx (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  flask-shared:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  flask-shared-claim
+    ReadOnly:   false
+  flask-generated:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  flask-generated-claim
+    ReadOnly:   false
+  kube-api-access-bdxgx:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/memory-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age               From               Message
+  ----     ------     ----              ----               -------
+  Normal   Scheduled  30s               default-scheduler  Successfully assigned default/flask-d7b498c56-dmkvx to aks-nodepool1-35562987-vmss000000
+  Normal   Pulled     30s               kubelet            Successfully pulled image "ghcr.io/ernestoortiz3/msu-ssp-manager-flask:latest" in 319ms (319ms including waiting). Image size: 446433951 bytes.
+  Normal   Pulled     29s               kubelet            Successfully pulled image "ghcr.io/ernestoortiz3/msu-ssp-manager-flask:latest" in 302ms (302ms including waiting). Image size: 446433951 bytes.
+  Normal   Pulled     14s               kubelet            Successfully pulled image "ghcr.io/ernestoortiz3/msu-ssp-manager-flask:latest" in 388ms (388ms including waiting). Image size: 446433951 bytes.
+  Normal   Pulling    0s (x4 over 30s)  kubelet            Pulling image "ghcr.io/ernestoortiz3/msu-ssp-manager-flask:latest"
+  Warning  Failed     0s (x4 over 30s)  kubelet            Error: couldn't find key arango-root-password in Secret default/arango-root-password
+  Normal   Pulled     0s                kubelet            Successfully pulled image "ghcr.io/ernestoortiz3/msu-ssp-manager-flask:latest" in 293ms (293ms including waiting). Image size: 446433951 bytes.
+Node status:
+Name:               aks-nodepool1-35562987-vmss000000
+Roles:              <none>
+Labels:             agentpool=nodepool1
+                    beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/instance-type=Standard_B2s
+                    beta.kubernetes.io/os=linux
+                    failure-domain.beta.kubernetes.io/region=eastus
+                    failure-domain.beta.kubernetes.io/zone=0
+                    kubernetes.azure.com/agentpool=nodepool1
+                    kubernetes.azure.com/azure-cni-overlay=true
+                    kubernetes.azure.com/cluster=MC_SSP_Automation_SSPAKSCluster_eastus
+                    kubernetes.azure.com/consolidated-additional-properties=eb7bcf51-e8b4-11ef-a1ad-3676ca784489
+                    kubernetes.azure.com/kubelet-identity-client-id=24ecae97-167f-472c-9cfa-bd958a5e14ea
+                    kubernetes.azure.com/mode=system
+                    kubernetes.azure.com/network-name=aks-vnet-37083977
+                    kubernetes.azure.com/network-resourcegroup=SSP_Automation
+                    kubernetes.azure.com/network-subnet=aks-subnet
+                    kubernetes.azure.com/network-subscription=95f5e4c2-d561-45ec-a251-e7228b456e1a
+                    kubernetes.azure.com/node-image-version=AKSUbuntu-2204gen2containerd-202501.28.0
+                    kubernetes.azure.com/nodenetwork-vnetguid=9cdd6674-e699-403a-a53f-4be131768406
+                    kubernetes.azure.com/nodepool-type=VirtualMachineScaleSets
+                    kubernetes.azure.com/os-sku=Ubuntu
+                    kubernetes.azure.com/podnetwork-type=overlay
+                    kubernetes.azure.com/role=agent
+                    kubernetes.azure.com/storageprofile=managed
+                    kubernetes.azure.com/storagetier=Premium_LRS
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=aks-nodepool1-35562987-vmss000000
+                    kubernetes.io/os=linux
+                    node.kubernetes.io/instance-type=Standard_B2s
+                    storageprofile=managed
+                    storagetier=Premium_LRS
+                    topology.disk.csi.azure.com/zone=
+                    topology.kubernetes.io/region=eastus
+                    topology.kubernetes.io/zone=0
+Annotations:        alpha.kubernetes.io/provided-node-ip: 10.224.0.4
+                    csi.volume.kubernetes.io/nodeid:
+                      {"disk.csi.azure.com":"aks-nodepool1-35562987-vmss000000","file.csi.azure.com":"aks-nodepool1-35562987-vmss000000"}
+                    node.alpha.kubernetes.io/ttl: 0
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Tue, 11 Feb 2025 20:18:06 +0000
+Taints:             <none>
+Unschedulable:      false
+Lease:
+  HolderIdentity:  aks-nodepool1-35562987-vmss000000
+  AcquireTime:     <unset>
+  RenewTime:       Sat, 15 Feb 2025 16:38:18 +0000
+Conditions:
+  Type                          Status  LastHeartbeatTime                 LastTransitionTime                Reason                          Message
+  ----                          ------  -----------------                 ------------------                ------                          -------
+  FrequentKubeletRestart        False   Sat, 15 Feb 2025 16:37:46 +0000   Tue, 11 Feb 2025 20:22:04 +0000   NoFrequentKubeletRestart        kubelet is functioning properly
+  FrequentDockerRestart         False   Sat, 15 Feb 2025 16:37:46 +0000   Tue, 11 Feb 2025 20:22:04 +0000   NoFrequentDockerRestart         docker is functioning properly
+  KernelDeadlock                False   Sat, 15 Feb 2025 16:37:46 +0000   Tue, 11 Feb 2025 20:22:03 +0000   KernelHasNoDeadlock             kernel has no deadlock
+  KubeletProblem                False   Sat, 15 Feb 2025 16:37:46 +0000   Tue, 11 Feb 2025 20:22:03 +0000   KubeletIsUp                     kubelet service is up
+  FrequentContainerdRestart     False   Sat, 15 Feb 2025 16:37:46 +0000   Tue, 11 Feb 2025 20:22:04 +0000   NoFrequentContainerdRestart     containerd is functioning properly
+  FilesystemCorruptionProblem   False   Sat, 15 Feb 2025 16:37:46 +0000   Tue, 11 Feb 2025 20:22:03 +0000   FilesystemIsOK                  Filesystem is healthy
+  FrequentUnregisterNetDevice   False   Sat, 15 Feb 2025 16:37:46 +0000   Tue, 11 Feb 2025 20:22:03 +0000   NoFrequentUnregisterNetDevice   node is functioning properly
+  VMEventScheduled              False   Sat, 15 Feb 2025 16:37:46 +0000   Tue, 11 Feb 2025 20:22:04 +0000   NoVMEventScheduled              VM has no scheduled event
+  ReadonlyFilesystem            False   Sat, 15 Feb 2025 16:37:46 +0000   Tue, 11 Feb 2025 20:22:03 +0000   FilesystemIsNotReadOnly         Filesystem is not read-only
+  ContainerRuntimeProblem       False   Sat, 15 Feb 2025 16:37:46 +0000   Tue, 11 Feb 2025 20:22:03 +0000   ContainerRuntimeIsUp            container runtime service is up
+  MemoryPressure                False   Sat, 15 Feb 2025 16:38:09 +0000   Tue, 11 Feb 2025 20:18:06 +0000   KubeletHasSufficientMemory      kubelet has sufficient memory available
+  DiskPressure                  False   Sat, 15 Feb 2025 16:38:09 +0000   Tue, 11 Feb 2025 20:18:06 +0000   KubeletHasNoDiskPressure        kubelet has no disk pressure
+  PIDPressure                   False   Sat, 15 Feb 2025 16:38:09 +0000   Tue, 11 Feb 2025 20:18:06 +0000   KubeletHasSufficientPID         kubelet has sufficient PID available
+  Ready                         True    Sat, 15 Feb 2025 16:38:09 +0000   Tue, 11 Feb 2025 20:18:27 +0000   KubeletReady                    kubelet is posting ready status
+Addresses:
+  InternalIP:  10.224.0.4
+  Hostname:    aks-nodepool1-35562987-vmss000000
+Capacity:
+  cpu:                2
+  ephemeral-storage:  129886128Ki
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             4007168Ki
+  pods:               250
+Allocatable:
+  cpu:                1900m
+  ephemeral-storage:  119703055367
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             2856192Ki
+  pods:               250
+System Info:
+  Machine ID:                 5817d93630244bbfaa71d08c029ee42f
+  System UUID:                ab0a3d27-4c9e-487f-ae64-5f5b33dd7810
+  Boot ID:                    a3b90026-814d-4197-a924-fa0b6ec4f3ee
+  Kernel Version:             5.15.0-1079-azure
+  OS Image:                   Ubuntu 22.04.5 LTS
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  containerd://1.7.25-1
+  Kubelet Version:            v1.30.9
+  Kube-Proxy Version:         v1.30.9
+ProviderID:                   azure:///subscriptions/95f5e4c2-d561-45ec-a251-e7228b456e1a/resourceGroups/mc_ssp_automation_sspakscluster_eastus/providers/Microsoft.Compute/virtualMachineScaleSets/aks-nodepool1-35562987-vmss/virtualMachines/0
+Non-terminated Pods:          (12 in total)
+  Namespace                   Name                                  CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                                  ------------  ----------  ---------------  -------------  ---
+  default                     flask-d7b498c56-dmkvx                 100m (5%)     500m (26%)  128Mi (4%)       512Mi (18%)    32s
+  default                     oscal-processing-m5cfn-gzknv          0 (0%)        0 (0%)      0 (0%)           0 (0%)         13h
+  kube-system                 azure-cns-djngb                       40m (2%)      40m (2%)    250Mi (8%)       250Mi (8%)     3d20h
+  kube-system                 azure-ip-masq-agent-6fc8r             100m (5%)     500m (26%)  50Mi (1%)        250Mi (8%)     3d20h
+  kube-system                 cloud-node-manager-djt4n              50m (2%)      0 (0%)      50Mi (1%)        512Mi (18%)    3d20h
+  kube-system                 coredns-659fcb469c-dgwgq              100m (5%)     3 (157%)    70Mi (2%)        500Mi (17%)    3d20h
+  kube-system                 csi-azuredisk-node-lf9nb              30m (1%)      0 (0%)      60Mi (2%)        1400Mi (50%)   3d20h
+  kube-system                 csi-azurefile-node-s8nrh              30m (1%)      0 (0%)      60Mi (2%)        600Mi (21%)    3d20h
+  kube-system                 konnectivity-agent-89844cf74-x2qs4    20m (1%)      1 (52%)     20Mi (0%)        1Gi (36%)      3d20h
+  kube-system                 kube-proxy-nwqnp                      100m (5%)     0 (0%)      0 (0%)           0 (0%)         3d20h
+  kube-system                 metrics-server-7d95c7bd8d-2hznc       156m (8%)     251m (13%)  138Mi (4%)       408Mi (14%)    3d20h
+  kube-system                 metrics-server-7d95c7bd8d-xjs4f       156m (8%)     251m (13%)  138Mi (4%)       408Mi (14%)    3d20h
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests     Limits
+  --------           --------     ------
+  cpu                882m (46%)   5542m (291%)
+  memory             964Mi (34%)  5864Mi (210%)
+  ephemeral-storage  0 (0%)       0 (0%)
+  hugepages-1Gi      0 (0%)       0 (0%)
+  hugepages-2Mi      0 (0%)       0 (0%)
+Events:              <none>
+
+
+Name:               aks-nodepool1-35562987-vmss000001
+Roles:              <none>
+Labels:             agentpool=nodepool1
+                    beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/instance-type=Standard_B2s
+                    beta.kubernetes.io/os=linux
+                    failure-domain.beta.kubernetes.io/region=eastus
+                    failure-domain.beta.kubernetes.io/zone=0
+                    kubernetes.azure.com/agentpool=nodepool1
+                    kubernetes.azure.com/azure-cni-overlay=true
+                    kubernetes.azure.com/cluster=MC_SSP_Automation_SSPAKSCluster_eastus
+                    kubernetes.azure.com/consolidated-additional-properties=eb7bcf51-e8b4-11ef-a1ad-3676ca784489
+                    kubernetes.azure.com/kubelet-identity-client-id=24ecae97-167f-472c-9cfa-bd958a5e14ea
+                    kubernetes.azure.com/mode=system
+                    kubernetes.azure.com/network-name=aks-vnet-37083977
+                    kubernetes.azure.com/network-resourcegroup=SSP_Automation
+                    kubernetes.azure.com/network-subnet=aks-subnet
+                    kubernetes.azure.com/network-subscription=95f5e4c2-d561-45ec-a251-e7228b456e1a
+                    kubernetes.azure.com/node-image-version=AKSUbuntu-2204gen2containerd-202501.28.0
+                    kubernetes.azure.com/nodenetwork-vnetguid=9cdd6674-e699-403a-a53f-4be131768406
+                    kubernetes.azure.com/nodepool-type=VirtualMachineScaleSets
+                    kubernetes.azure.com/os-sku=Ubuntu
+                    kubernetes.azure.com/podnetwork-type=overlay
+                    kubernetes.azure.com/role=agent
+                    kubernetes.azure.com/storageprofile=managed
+                    kubernetes.azure.com/storagetier=Premium_LRS
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=aks-nodepool1-35562987-vmss000001
+                    kubernetes.io/os=linux
+                    node.kubernetes.io/instance-type=Standard_B2s
+                    storageprofile=managed
+                    storagetier=Premium_LRS
+                    topology.disk.csi.azure.com/zone=
+                    topology.kubernetes.io/region=eastus
+                    topology.kubernetes.io/zone=0
+Annotations:        alpha.kubernetes.io/provided-node-ip: 10.224.0.5
+                    csi.volume.kubernetes.io/nodeid:
+                      {"disk.csi.azure.com":"aks-nodepool1-35562987-vmss000001","file.csi.azure.com":"aks-nodepool1-35562987-vmss000001"}
+                    node.alpha.kubernetes.io/ttl: 0
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Tue, 11 Feb 2025 20:18:01 +0000
+Taints:             <none>
+Unschedulable:      false
+Lease:
+  HolderIdentity:  aks-nodepool1-35562987-vmss000001
+  AcquireTime:     <unset>
+  RenewTime:       Sat, 15 Feb 2025 16:38:25 +0000
+Conditions:
+  Type                          Status  LastHeartbeatTime                 LastTransitionTime                Reason                          Message
+  ----                          ------  -----------------                 ------------------                ------                          -------
+  FrequentDockerRestart         False   Sat, 15 Feb 2025 16:33:26 +0000   Tue, 11 Feb 2025 20:20:34 +0000   NoFrequentDockerRestart         docker is functioning properly
+  FilesystemCorruptionProblem   False   Sat, 15 Feb 2025 16:33:26 +0000   Tue, 11 Feb 2025 20:20:34 +0000   FilesystemIsOK                  Filesystem is healthy
+  VMEventScheduled              False   Sat, 15 Feb 2025 16:33:26 +0000   Tue, 11 Feb 2025 20:22:39 +0000   NoVMEventScheduled              VM has no scheduled event
+  KubeletProblem                False   Sat, 15 Feb 2025 16:33:26 +0000   Tue, 11 Feb 2025 20:20:34 +0000   KubeletIsUp                     kubelet service is up
+  ReadonlyFilesystem            False   Sat, 15 Feb 2025 16:33:26 +0000   Tue, 11 Feb 2025 20:20:34 +0000   FilesystemIsNotReadOnly         Filesystem is not read-only
+  FrequentContainerdRestart     False   Sat, 15 Feb 2025 16:33:26 +0000   Tue, 11 Feb 2025 20:20:34 +0000   NoFrequentContainerdRestart     containerd is functioning properly
+  FrequentKubeletRestart        False   Sat, 15 Feb 2025 16:33:26 +0000   Tue, 11 Feb 2025 20:20:34 +0000   NoFrequentKubeletRestart        kubelet is functioning properly
+  FrequentUnregisterNetDevice   False   Sat, 15 Feb 2025 16:33:26 +0000   Tue, 11 Feb 2025 20:20:34 +0000   NoFrequentUnregisterNetDevice   node is functioning properly
+  ContainerRuntimeProblem       False   Sat, 15 Feb 2025 16:33:26 +0000   Tue, 11 Feb 2025 20:20:34 +0000   ContainerRuntimeIsUp            container runtime service is up
+  KernelDeadlock                False   Sat, 15 Feb 2025 16:33:26 +0000   Tue, 11 Feb 2025 20:20:34 +0000   KernelHasNoDeadlock             kernel has no deadlock
+  MemoryPressure                False   Sat, 15 Feb 2025 16:35:17 +0000   Tue, 11 Feb 2025 20:18:01 +0000   KubeletHasSufficientMemory      kubelet has sufficient memory available
+  DiskPressure                  False   Sat, 15 Feb 2025 16:35:17 +0000   Tue, 11 Feb 2025 20:18:01 +0000   KubeletHasNoDiskPressure        kubelet has no disk pressure
+  PIDPressure                   False   Sat, 15 Feb 2025 16:35:17 +0000   Tue, 11 Feb 2025 20:18:01 +0000   KubeletHasSufficientPID         kubelet has sufficient PID available
+  Ready                         True    Sat, 15 Feb 2025 16:35:17 +0000   Tue, 11 Feb 2025 20:18:24 +0000   KubeletReady                    kubelet is posting ready status
+Addresses:
+  InternalIP:  10.224.0.5
+  Hostname:    aks-nodepool1-35562987-vmss000001
+Capacity:
+  cpu:                2
+  ephemeral-storage:  129886128Ki
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             4007172Ki
+  pods:               250
+Allocatable:
+  cpu:                1900m
+  ephemeral-storage:  119703055367
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             2856196Ki
+  pods:               250
+System Info:
+  Machine ID:                 cd56681b69c04f87ae53148aed680134
+  System UUID:                9c532700-7f41-4820-ada6-96eb05d2fc20
+  Boot ID:                    35ec57cf-2979-435b-a619-a2ed7a38c70f
+  Kernel Version:             5.15.0-1079-azure
+  OS Image:                   Ubuntu 22.04.5 LTS
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  containerd://1.7.25-1
+  Kubelet Version:            v1.30.9
+  Kube-Proxy Version:         v1.30.9
+ProviderID:                   azure:///subscriptions/95f5e4c2-d561-45ec-a251-e7228b456e1a/resourceGroups/mc_ssp_automation_sspakscluster_eastus/providers/Microsoft.Compute/virtualMachineScaleSets/aks-nodepool1-35562987-vmss/virtualMachines/1
+Non-terminated Pods:          (13 in total)
+  Namespace                   Name                                  CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                                  ------------  ----------  ---------------  -------------  ---
+  default                     oscal-processing-5nsfj-65pjq          0 (0%)        0 (0%)      0 (0%)           0 (0%)         13h
+  default                     oscal-processing-6dlx5-vcwgp          0 (0%)        0 (0%)      0 (0%)           0 (0%)         12h
+  default                     oscal-processing-946hh-m7v4h          0 (0%)        0 (0%)      0 (0%)           0 (0%)         13h
+  default                     oscal-processing-v9mn4-zr9t9          0 (0%)        0 (0%)      0 (0%)           0 (0%)         13h
+  kube-system                 azure-cns-2xb52                       40m (2%)      40m (2%)    250Mi (8%)       250Mi (8%)     3d20h
+  kube-system                 azure-ip-masq-agent-wm4dx             100m (5%)     500m (26%)  50Mi (1%)        250Mi (8%)     3d20h
+  kube-system                 cloud-node-manager-5j2h9              50m (2%)      0 (0%)      50Mi (1%)        512Mi (18%)    3d20h
+  kube-system                 coredns-659fcb469c-ftbxl              100m (5%)     3 (157%)    70Mi (2%)        500Mi (17%)    3d20h
+  kube-system                 coredns-autoscaler-bfcb7c74c-p8ffz    20m (1%)      200m (10%)  10Mi (0%)        500Mi (17%)    3d20h
+  kube-system                 csi-azuredisk-node-2xf4j              30m (1%)      0 (0%)      60Mi (2%)        1400Mi (50%)   3d20h
+  kube-system                 csi-azurefile-node-4xrjz              30m (1%)      0 (0%)      60Mi (2%)        600Mi (21%)    3d20h
+  kube-system                 konnectivity-agent-89844cf74-mbw7c    20m (1%)      1 (52%)     20Mi (0%)        1Gi (36%)      3d20h
+  kube-system                 kube-proxy-zq2lg                      100m (5%)     0 (0%)      0 (0%)           0 (0%)         3d20h
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests     Limits
+  --------           --------     ------
+  cpu                490m (25%)   4740m (249%)
+  memory             570Mi (20%)  5036Mi (180%)
+  ephemeral-storage  0 (0%)       0 (0%)
+  hugepages-1Gi      0 (0%)       0 (0%)
+  hugepages-2Mi      0 (0%)       0 (0%)
+Events:              <none>
+Events from the last 5 minutes:
+16m         Normal    Pulled                 pod/flask-d7b498c56-5bbdv          Successfully pulled image "ghcr.io/ernestoortiz3/msu-ssp-manager-flask:latest" in 330ms (330ms including waiting). Image size: 446431860 bytes.
+15m         Normal    Pulled                 pod/flask-d7b498c56-5bbdv          Successfully pulled image "ghcr.io/ernestoortiz3/msu-ssp-manager-flask:latest" in 303ms (303ms including waiting). Image size: 446431860 bytes.
+15m         Warning   Failed                 pod/flask-d7b498c56-5bbdv          Error: secret "arango-root-password" not found
+5m17s       Normal    BackOff                pod/oscal-processing-v9mn4-zr9t9   Back-off pulling image "ghcr.io/ernestoortiz3/oscal-processing:latest"
+3m31s       Normal    BackOff                pod/oscal-processing-6dlx5-vcwgp   Back-off pulling image "ghcr.io/ernestoortiz3/oscal-processing:latest"
+3m25s       Warning   InspectFailed          pod/oscal-processing-5nsfj-65pjq   Failed to apply default image tag "ghcr.io/${{ env.GITHUB_USER_LOWERCASE }}/oscal-processing:latest": couldn't parse image name "ghcr.io/${{ env.GITHUB_USER_LOWERCASE }}/oscal-processing:latest": invalid reference format: repository name (${{ env.GITHUB_USER_LOWERCASE }}/oscal-processing) must be lowercase
+2m23s       Normal    BackOff                pod/oscal-processing-946hh-m7v4h   Back-off pulling image "ghcr.io/ernestoortiz3/oscal-processing:latest"
+2m2s        Normal    Pulling                pod/flask-d7b498c56-5bbdv          Pulling image "ghcr.io/ernestoortiz3/msu-ssp-manager-flask:latest"
+91s         Normal    EnsuringLoadBalancer   service/flask                      Ensuring load balancer
+88s         Normal    EnsuringLoadBalancer   service/react-app                  Ensuring load balancer
+32s         Normal    SuccessfulCreate       replicaset/flask-d7b498c56         Created pod: flask-d7b498c56-dmkvx
+32s         Normal    ScalingReplicaSet      deployment/flask                   Scaled up replica set flask-d7b498c56 to 1
+31s         Normal    Pulled                 pod/flask-d7b498c56-dmkvx          Successfully pulled image "ghcr.io/ernestoortiz3/msu-ssp-manager-flask:latest" in 319ms (319ms including waiting). Image size: 446433951 bytes.
+30s         Normal    Pulled                 pod/flask-d7b498c56-dmkvx          Successfully pulled image "ghcr.io/ernestoortiz3/msu-ssp-manager-flask:latest" in 302ms (302ms including waiting). Image size: 446433951 bytes.
+28s         Warning   InspectFailed          pod/oscal-processing-m5cfn-gzknv   Failed to apply default image tag "ghcr.io/${{ env.GITHUB_USER_LOWERCASE }}/oscal-processing:latest": couldn't parse image name "ghcr.io/${{ env.GITHUB_USER_LOWERCASE }}/oscal-processing:latest": invalid reference format: repository name (${{ env.GITHUB_USER_LOWERCASE }}/oscal-processing) must be lowercase
+18s         Normal    Pulling                pod/oscal-processing-v9mn4-zr9t9   Pulling image "ghcr.io/ernestoortiz3/oscal-processing:latest"
+15s         Normal    Pulled                 pod/flask-d7b498c56-dmkvx          Successfully pulled image "ghcr.io/ernestoortiz3/msu-ssp-manager-flask:latest" in 388ms (388ms including waiting). Image size: 446433951 bytes.
+1s          Normal    Pulled                 pod/flask-d7b498c56-dmkvx          Successfully pulled image "ghcr.io/ernestoortiz3/msu-ssp-manager-flask:latest" in 293ms (293ms including waiting). Image size: 446433951 bytes.
+1s          Normal    Pulling                pod/flask-d7b498c56-dmkvx          Pulling image "ghcr.io/ernestoortiz3/msu-ssp-manager-flask:latest"
+1s          Warning   Failed                 pod/flask-d7b498c56-dmkvx          Error: couldn't find key arango-root-password in Secret default/arango-root-password
+Waiting for deployment "flask" rollout to finish: 0 of 1 updated replicas are available...
+error: timed out waiting for the condition
