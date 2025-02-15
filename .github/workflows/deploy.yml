@@ -68,6 +68,15 @@ jobs:
             --docker-username=${{ github.actor }} \
             --docker-password=${{ secrets.GHCR_PAT }} \
             --docker-email=${{ github.actor }}@users.noreply.github.com
+      - name: Create required secrets
+        run: |
+          # Create ArangoDB password secret
+          kubectl create secret generic arango-root-password \
+            --from-literal=password=${{ secrets.ARANGO_ROOT_PASSWORD }} \
+            --dry-run=client -o yaml | kubectl apply -f -
+          
+          # Verify secret creation
+          kubectl get secret arango-root-password
       - name: Deploy to AKS
         env:
           KUBECONFIG: /home/runner/.kube/config
