@@ -5,6 +5,7 @@ import techniqueCWEs from '../data/technique-cwes.json';
 import cweCollection from '../data/cwe_collection.json';
 import controls from '../data/NIST_SP-800-53_rev5_catalog.json';
 import techniques from '../data/techniques.json';
+import implementationGuides from '../data/implementation_guides.json';
 import './ControlMappings.css';
 
 interface Mapping {
@@ -23,6 +24,14 @@ const ControlMappings: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortField, setSortField] = useState<'Control_ID' | 'Control_Name' | 'Technique_ID'>('Control_ID');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+  const [expandedGuides, setExpandedGuides] = useState<{[key: string]: boolean}>({});
+
+  const toggleGuide = (controlId: string) => {
+    setExpandedGuides(prev => ({
+      ...prev,
+      [controlId]: !prev[controlId]
+    }));
+  };
 
   const handleSort = (field: 'Control_ID' | 'Control_Name' | 'Technique_ID') => {
     if (field === sortField) {
@@ -110,14 +119,19 @@ const ControlMappings: React.FC = () => {
                   Control Name {sortField === 'Control_Name' && (sortDirection === 'asc' ? '↑' : '↓')}
                 </th>
                 <th onClick={() => handleSort('Technique_ID')} style={{ cursor: 'pointer' }}>
-                  Associated Techniques {sortField === 'Technique_ID' && (sortDirection === 'asc' ? '↑' : '↓')}
+                  Associated Attack Techniques {sortField === 'Technique_ID' && (sortDirection === 'asc' ? '↑' : '↓')}
                 </th>
                 <th>Related CWEs</th>
+                <th>Implementation Guide</th>
               </tr>
             </thead>
             <tbody>
               {filteredMappings.map((mapping: Mapping, index) => {
                 const cwes = getCWEs(mapping);
+                const controlId = mapping.Control_ID;
+                const guide = implementationGuides[controlId];
+                const isExpanded = expandedGuides[controlId] || false;
+                
                 return (
                   <tr key={index}>
                     <td>{mapping.Control_ID}</td>
@@ -158,6 +172,25 @@ const ControlMappings: React.FC = () => {
                         </ul>
                       ) : (
                         'N/A'
+                      )}
+                    </td>
+                    <td>
+                      {guide ? (
+                        <div className="implementation-guide">
+                          <button 
+                            className="guide-toggle-button"
+                            onClick={() => toggleGuide(controlId)}
+                          >
+                            {isExpanded ? 'Hide Guide' : 'Show Guide'}
+                          </button>
+                          {isExpanded && (
+                            <div className="guide-content">
+                              {guide}
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        'No guide available'
                       )}
                     </td>
                   </tr>
