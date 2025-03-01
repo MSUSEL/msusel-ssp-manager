@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import controls from '../data/NIST_SP-800-53_rev5_catalog.json';
 import enrichedControls from '../data/enriched_800_53_controls.json';
@@ -24,18 +24,66 @@ interface EnrichedControl {
 const SecurityControls: React.FC = () => {
   const [expandedControl, setExpandedControl] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<string>('overview');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedFamily, setSelectedFamily] = useState<string>('');
 
-  const toggleControl = (controlId: string) => {
-    setExpandedControl(expandedControl === controlId ? null : controlId);
-  };
+  const families = useMemo(() => {
+    const uniqueFamilies = new Set(enrichedControls.map(control => control.family));
+    return Array.from(uniqueFamilies).sort();
+  }, []);
 
   const findEnrichedControl = (controlId: string): EnrichedControl | undefined => {
     return enrichedControls.find(control => control.control_id.toLowerCase() === controlId.toLowerCase());
   };
 
+  const filteredControls = useMemo(() => {
+    return controls.filter((control: NISTControl) => {
+      const enrichedControl = findEnrichedControl(control.id);
+      const matchesSearch = 
+        control.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        control.title.toLowerCase().includes(searchTerm.toLowerCase());
+      
+      if (selectedFamily && enrichedControl) {
+        return matchesSearch && enrichedControl.family === selectedFamily;
+      }
+      return matchesSearch;
+    });
+  }, [searchTerm, selectedFamily]);
+
+  const toggleControl = (controlId: string) => {
+    setExpandedControl(expandedControl === controlId ? null : controlId);
+  };
+
   return (
     <div className="controls-container">
-      {controls.map((control: NISTControl) => {
+      <div className="controls-header">
+        <div className="search-filter-container">
+          <input
+            type="text"
+            placeholder="Search by control ID or title..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="search-input"
+          />
+          <select
+            value={selectedFamily}
+            onChange={(e) => setSelectedFamily(e.target.value)}
+            className="family-select"
+          >
+            <option value="">All Families</option>
+            {families.map(family => (
+              <option key={family} value={family}>{family}</option>
+            ))}
+          </select>
+        </div>
+        {searchTerm && (
+          <div className="search-results-count">
+            Found {filteredControls.length} controls
+          </div>
+        )}
+      </div>
+
+      {filteredControls.map((control: NISTControl) => {
         const enrichedControl = findEnrichedControl(control.id);
         
         return (
@@ -53,7 +101,7 @@ const SecurityControls: React.FC = () => {
             
             {expandedControl === control.id && (
               <div className="control-details">
-                <Tabs value={activeTab} onValueChange={setActiveTab}>
+                <Tabs defaultValue="overview">
                   <TabsList>
                     <TabsTrigger value="overview">Overview</TabsTrigger>
                     <TabsTrigger value="statements">Control Statements</TabsTrigger>

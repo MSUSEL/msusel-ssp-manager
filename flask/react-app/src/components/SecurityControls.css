@@ -1,3 +1,35 @@
+.controls-header {
+  margin-bottom: 24px;
+}
+
+.search-filter-container {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.family-select {
+  min-width: 200px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+}
+
+.search-results-count {
+  color: #666;
+  font-size: 14px;
+}
+
 .controls-container {
   padding: 20px;
   max-width: 1200px;
