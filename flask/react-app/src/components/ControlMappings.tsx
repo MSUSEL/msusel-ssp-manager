@@ -33,8 +33,29 @@ interface CWE {
   };
 }
 
+interface Technique {
+  _key: string;
+  name: string;
+  metadata: {
+    description: string;
+    short_description: string;
+  };
+}
+
 const formatTechniqueUrl = (techniqueId: string): string => {
   return `https://attack.mitre.org/techniques/${techniqueId.replace('.', '/')}`;
+};
+
+const getTechniqueDetails = (techniqueId: string): Technique | undefined => {
+  // Remove any 'technique/' prefix if present
+  const techKey = techniqueId.replace('technique/', '');
+  
+  // Search through all values to find matching _key
+  const technique = Object.values(techniques).find(
+    (entry: Technique) => entry._key === techKey
+  );
+  
+  return technique;
 };
 
 interface CWEModalProps {
@@ -86,9 +107,12 @@ const ControlCard: React.FC<{
     const cwes = new Set<string>();
     
     techniqueIds.forEach(techniqueId => {
+      // Remove any 'technique/' prefix for matching
+      const techId = techniqueId.replace('technique/', '');
+      
       const matchingTechniques = techniqueCWEs.filter(tc => {
-        const techId = tc.tech.replace('technique/', '');
-        return techId.startsWith(techniqueId);
+        const tcTechId = tc.tech.replace('technique/', '');
+        return tcTechId === techId;
       });
       
       matchingTechniques.forEach(technique => {
@@ -108,10 +132,6 @@ const ControlCard: React.FC<{
     const cwe = Object.values(cweCollection).find(
       (entry: CWE) => entry._key === searchKey
     );
-    
-    console.log('Input cweId:', cweId);
-    console.log('Searching for _key:', searchKey);
-    console.log('Found CWE:', cwe);
     
     return cwe;
   };
@@ -140,7 +160,13 @@ const ControlCard: React.FC<{
                   target="_blank" 
                   rel="noopener noreferrer"
                 >
-                  {technique.trim()}
+                  {(() => {
+                    const techDetails = getTechniqueDetails(technique);
+                    const techId = technique.replace('technique/', '');
+                    return techDetails 
+                      ? `${techId}: ${techDetails.name}`
+                      : techId;
+                  })()}
                 </a>
               </li>
             ))}
@@ -210,47 +236,48 @@ const ControlMappings: React.FC = () => {
   const filteredAndSortedMappings = useMemo(() => {
     if (!Array.isArray(mappings)) return [];
 
-    const filtered = mappings.filter((mapping: Mapping) => 
-      mapping.Control_ID.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      mapping.Control_Name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    return [...filtered].sort((a, b) => {
-      const aValue = a[sortConfig.field] || '';
-      const bValue = b[sortConfig.field] || '';
-      return sortConfig.direction === 'asc' 
-        ? aValue.localeCompare(bValue)
-        : bValue.localeCompare(aValue);
-    });
+    return [...mappings]
+      .filter((mapping: Mapping) => {
+        const searchLower = searchTerm.toLowerCase();
+        return (
+          mapping.Control_ID.toLowerCase().includes(searchLower) ||
+          mapping.Control_Name.toLowerCase().includes(searchLower) ||
+          (mapping.Technique_ID || '').toLowerCase().includes(searchLower)
+        );
+      })
+      .sort((a: Mapping, b: Mapping) => {
+        const aValue = a[sortConfig.field] || '';
+        const bValue = b[sortConfig.field] || '';
+        
+        if (sortConfig.direction === 'asc') {
+          return aValue.localeCompare(bValue);
+        } else {
+          return bValue.localeCompare(aValue);
+        }
+      });
   }, [mappings, searchTerm, sortConfig]);
 
   return (
     <div className="mappings-container">
-      <h1>Control Mappings</h1>
-      
-      <div className="controls-header">
-        <div className="search-container">
+      <div className="controls-section">
+        <div className="search-controls">
           <input
             type="text"
             placeholder="Search controls..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="search-input"
           />
         </div>
         
         <div className="sort-controls">
-          <button 
-            onClick={() => handleSort('Control_ID')}
-            className={sortConfig.field === 'Control_ID' ? 'active' : ''}
-          >
-            Control ID {sortConfig.field === 'Control_ID' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+          <button onClick={() => handleSort('Control_ID')}>
+            Sort by ID {sortConfig.field === 'Control_ID' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
           </button>
-          <button 
-            onClick={() => handleSort('Control_Name')}
-            className={sortConfig.field === 'Control_Name' ? 'active' : ''}
-          >
-            Name {sortConfig.field === 'Control_Name' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+          <button onClick={() => handleSort('Control_Name')}>
+            Sort by Name {sortConfig.field === 'Control_Name' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+          </button>
+          <button onClick={() => handleSort('Technique_ID')}>
+            Sort by Technique {sortConfig.field === 'Technique_ID' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
           </button>
         </div>
       </div>
