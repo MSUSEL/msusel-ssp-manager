@@ -100,25 +100,24 @@ const ControlCard: React.FC<{
   };
 
   const getCWEDetails = (cweId: string): CWE | undefined => {
-    // First try direct access
-    let cwe = cweCollection[cweId] as CWE;
+    // Remove any existing CWE- prefix and get just the number
+    const numberOnly = cweId.replace('CWE-', '');
+    const searchKey = `CWE-${numberOnly}`;
     
-    // If not found, try searching with CWE- prefix
-    if (!cwe) {
-      cwe = cweCollection[`CWE-${cweId}`] as CWE;
-    }
+    // Search through all values to find matching _key
+    const cwe = Object.values(cweCollection).find(
+      (entry: CWE) => entry._key === searchKey
+    );
     
-    // If still not found, try searching through all entries
-    if (!cwe) {
-      const foundCwe = Object.values(cweCollection).find(
-        (entry: any) => entry._key === `CWE-${cweId}` || entry.original_id === cweId
-      );
-      if (foundCwe) {
-        cwe = foundCwe as CWE;
-      }
-    }
-
+    console.log('Input cweId:', cweId);
+    console.log('Searching for _key:', searchKey);
+    console.log('Found CWE:', cwe);
+    
     return cwe;
+  };
+
+  const formatCWEUrl = (cweId: string): string => {
+    return `https://cwe.mitre.org/data/definitions/${cweId.replace('CWE-', '')}.html`;
   };
 
   const cweList = getCWEs();
@@ -159,13 +158,15 @@ const ControlCard: React.FC<{
               const cwe = getCWEDetails(cweId);
               return (
                 <li key={i}>
-                  <button 
-                    className="cwe-button"
-                    onClick={() => cwe && setSelectedCWE(cwe)}
+                  <a 
+                    className="cwe-link"
+                    href={formatCWEUrl(cwe?._key || cweId)}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     title={cwe?.metadata.short_description}
                   >
                     {cweId}: {cwe?.name || 'Unknown'}
-                  </button>
+                  </a>
                 </li>
               );
             })}
