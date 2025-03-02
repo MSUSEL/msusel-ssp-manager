@@ -126,7 +126,7 @@
 }
 
 .techniques-section a {
-  color: #646cff;
+  color: #2c5282; /* Dark blue */
   text-decoration: none;
   font-size: 0.9em;
 }
@@ -139,7 +139,7 @@
 .cwe-button {
   background: none;
   border: none;
-  color: #646cff;
+  color: #2c5282; /* Dark blue - same as others */
   padding: 0;
   font-size: 0.9em;
   cursor: pointer;
@@ -147,6 +147,17 @@
 }
 
 .cwe-button:hover {
+  text-decoration: underline;
+}
+
+/* CWE link styling */
+.cwe-link {
+  color: #2c5282; /* Dark blue - same as techniques */
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+.cwe-link:hover {
   text-decoration: underline;
 }
 
