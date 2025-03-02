@@ -76,15 +76,15 @@ table {
 }
 
 .priority-level-1 {
-  border-top: 4px solid #e74c3c;
+  border-top: 4px solid #2c5282; /* Dark blue */
 }
 
 .priority-level-2 {
-  border-top: 4px solid #f39c12;
+  border-top: 4px solid #3182ce; /* Medium blue */
 }
 
 .priority-level-3 {
-  border-top: 4px solid #2ecc71;
+  border-top: 4px solid #63b3ed; /* Light blue */
 }
 
 .priority-header {
@@ -96,7 +96,7 @@ table {
 .priority-number {
   display: inline-block;
   padding: 0.25rem 0.75rem;
-  background: #e74c3c;
+  background: #2c5282; /* Dark blue to match priority-level-1 */
   color: white;
   border-radius: 12px;
   font-size: 0.875rem;
