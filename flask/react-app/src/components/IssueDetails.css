@@ -40,3 +40,156 @@ table {
   word-wrap: break-word; /* This will wrap long words onto the next line */
   white-space: normal;   /* Ensure the text can break onto multiple lines */
 }
+
+/* Add this to your IssueDetails.css */
+.issue-details-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.description {
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.vulnerability-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.card-header {
+  background: #f8f9fa;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.card-header h3 {
+  margin: 0;
+  color: #2c3e50;
+}
+
+.highlight {
+  color: #2980b9;
+}
+
+.file-info {
+  margin-top: 8px;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.label {
+  font-weight: 500;
+  margin-right: 8px;
+}
+
+.issues-container {
+  padding: 20px;
+}
+
+.issue-item {
+  border-left: 4px solid #ddd;
+  margin-bottom: 16px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 0 4px 4px 0;
+}
+
+.issue-item.severity-high {
+  border-left-color: #e74c3c;
+}
+
+.issue-item.severity-medium {
+  border-left-color: #f39c12;
+}
+
+.issue-item.severity-low {
+  border-left-color: #3498db;
+}
+
+.issue-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.line-number {
+  font-family: monospace;
+  background: #e9ecef;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.issue-metrics {
+  display: flex;
+  gap: 12px;
+}
+
+.severity, .confidence {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-weight: 500;
+}
+
+.severity.high {
+  background: #fde8e8;
+  color: #c53030;
+}
+
+.severity.medium {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.severity.low {
+  background: #e1effe;
+  color: #1e40af;
+}
+
+.confidence.high {
+  background: #def7ec;
+  color: #046c4e;
+}
+
+.confidence.medium {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.confidence.low {
+  background: #e1effe;
+  color: #1e40af;
+}
+
+.issue-content {
+  margin-top: 12px;
+}
+
+.issue-text {
+  margin: 0 0 12px 0;
+  color: #4a5568;
+}
+
+.issue-links {
+  display: flex;
+  gap: 16px;
+}
+
+.cwe-link, .more-info-link {
+  text-decoration: none;
+  color: #2980b9;
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+}
+
+.cwe-link:hover, .more-info-link:hover {
+  text-decoration: underline;
+}
