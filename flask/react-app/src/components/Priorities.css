@@ -34,4 +34,154 @@ table {
   li {
     margin-bottom: 5px; /* Adds some spacing between items */
   }
+
+/* Priorities.css */
+.priorities-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.priorities-container h1 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.priorities-description {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.priority-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.priority-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.priority-card:hover {
+  transform: translateY(-4px);
+}
+
+.priority-level-1 {
+  border-top: 4px solid #e74c3c;
+}
+
+.priority-level-2 {
+  border-top: 4px solid #f39c12;
+}
+
+.priority-level-3 {
+  border-top: 4px solid #2ecc71;
+}
+
+.priority-header {
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-bottom: 1px solid #eee;
+}
+
+.priority-number {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: #e74c3c;
+  color: white;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.priority-header h2 {
+  margin: 0.5rem 0;
+  color: #2c3e50;
+  font-size: 1.25rem;
+}
+
+.tactic-id {
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.priority-content {
+  padding: 1.5rem;
+}
+
+.tactic-description {
+  color: #666;
+  margin-bottom: 1.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.techniques-section,
+.controls-section {
+  margin-bottom: 1.5rem;
+}
+
+.techniques-section h3,
+.controls-section h3 {
+  color: #2c3e50;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.techniques-section ul,
+.controls-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.techniques-section li,
+.controls-section li {
+  padding: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  color: #444;
+}
+
+.no-data {
+  color: #666;
+  font-style: italic;
+  font-size: 0.875rem;
+}
+
+.priorities-loading,
+.priorities-error {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.priorities-error {
+  color: #e74c3c;
+}
+
+@media (max-width: 768px) {
+  .priorities-container {
+    padding: 1rem;
+  }
+
+  .priority-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .priority-card {
+    margin-bottom: 1rem;
+  }
+}
   
