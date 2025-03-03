@@ -1,66 +1,114 @@
+.controls-header {
+  margin-bottom: 24px;
+}
+
+.search-filter-container {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.family-select {
+  min-width: 200px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+}
+
+.search-results-count {
+  color: #666;
+  font-size: 14px;
+}
+
 .controls-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Four columns */
-    gap: 20px;
-    padding: 20px;
-    justify-content: center;
-  }
-  
-  .control-card {
-    background-color: #ffffff;
-    color: #333333; /* Charcoal color */
-    border: 2px solid #ffffff;
-    border-radius: 8px;
-    width: 150px;
-    padding: 10px;
-    box-shadow: 
-    0 0 0 2px #007bff, /* Card border */
-    0 4px 8px rgba(0, 0, 0, 0.2); /* Existing shadow */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    justify-content: space-between; /* Distribute space between elements */
-  }
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-  .control-card h3 {
-    font-size: 12px; /* Set font size for control IDs and names */
-    margin: 10px 0; /* Add margin for spacing */
-    color: #333333; /* Charcoal color */
-  }
+.control-section {
+  margin-bottom: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+}
 
-  .control-card .content {
-    flex-grow: 1; /* Allow content to grow and take up available space */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Center content vertically */
-  }
-  
-  .toggle-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 5px 10px; /* Adjusted padding to make the button smaller */
-    font-size: 10px; /* Adjusted font size to make the button text smaller */
-    margin-top: 15px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .toggle-button:hover {
-    background-color: #0073ff;
-  }
-  
-  .control-details {
-    margin-top: 15px;
-    text-align: left;
-    width: 100%;
-  }
-  
-  .control-details ul {
-    padding-left: 20px;
-  }
-  
-  .control-details h4 {
-    margin-bottom: 5px;
-  }
+.control-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.control-title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.control-family {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.control-header:hover {
+  background-color: #eeeeee;
+}
+
+.control-header.expanded {
+  background-color: #e8e8e8;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.control-details {
+  padding: 20px;
+}
+
+.implementation-checklist {
+  list-style: none;
+  padding: 0;
+}
+
+.implementation-checklist li {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  align-items: flex-start;
+}
+
+.implementation-checklist input[type="checkbox"] {
+  margin-top: 4px;
+}
+
+.overview-section,
+.statements-section,
+.implementation-section,
+.assessment-section {
+  padding: 16px;
+}
+
+h3 {
+  color: #333;
+  margin-bottom: 12px;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 8px;
+}

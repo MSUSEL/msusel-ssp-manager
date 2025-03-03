@@ -4,66 +4,178 @@
   margin: 0 auto;
 }
 
+.controls-header {
+  margin-bottom: 24px;
+}
+
+/* Search section */
 .search-container {
   margin: 20px 0;
 }
 
 .search-input {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 16px;
+  transition: border-color 0.2s;
 }
 
-.table-container {
-  overflow-x: auto;
-  margin-top: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
+.search-input:focus {
+  outline: none;
+  border-color: #646cff;
+  box-shadow: 0 0 0 2px rgba(100, 108, 255, 0.1);
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: white;
+/* Sorting controls */
+.sort-controls {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
 }
 
-th, td {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-th {
+.sort-controls button {
+  padding: 8px 16px;
   background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sort-controls button.active {
+  background-color: #646cff;
+  color: white;
+  border-color: #646cff;
+}
+
+.sort-controls button:hover {
+  background-color: #e5e5e5;
+}
+
+.sort-controls button.active:hover {
+  background-color: #535bf2;
+}
+
+/* Cards container and individual cards */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.control-card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.control-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.control-header {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.control-header h3 {
+  margin: 0 0 8px 0;
+  color: #333;
+  font-size: 1.2em;
+}
+
+.control-header h4 {
+  margin: 0;
+  color: #666;
+  font-size: 1em;
+  font-weight: normal;
+}
+
+/* Techniques and CWEs sections */
+.techniques-section,
+.cwes-section {
+  margin-top: 16px;
+}
+
+.techniques-section h5,
+.cwes-section h5 {
+  margin: 0 0 8px 0;
+  color: #444;
+  font-size: 0.9em;
   font-weight: 600;
 }
 
-tr:hover {
-  background-color: #f9f9f9;
-}
-
-ul {
+.techniques-section ul,
+.cwes-section ul {
+  list-style: none;
+  padding: 0;
   margin: 0;
-  padding-left: 20px;
 }
 
-li {
-  margin: 2px 0;
+.techniques-section li,
+.cwes-section li {
+  margin: 4px 0;
 }
 
-h1 {
-  color: #333;
-  margin-bottom: 20px;
+.techniques-section a {
+  color: #2c5282; /* Dark blue */
+  text-decoration: none;
+  font-size: 0.9em;
 }
 
+.techniques-section a:hover {
+  text-decoration: underline;
+}
+
+/* CWE button styling */
+.cwe-button {
+  background: none;
+  border: none;
+  color: #2c5282; /* Dark blue - same as others */
+  padding: 0;
+  font-size: 0.9em;
+  cursor: pointer;
+  text-align: left;
+}
+
+.cwe-button:hover {
+  text-decoration: underline;
+}
+
+/* CWE link styling */
+.cwe-link {
+  color: #2c5282; /* Dark blue - same as techniques */
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+.cwe-link:hover {
+  text-decoration: underline;
+}
+
+/* Responsive design */
 @media (max-width: 768px) {
   .mappings-container {
-    padding: 10px;
+    padding: 16px;
   }
-  
-  th, td {
-    padding: 8px 10px;
+
+  .cards-container {
+    grid-template-columns: 1fr;
+  }
+
+  .sort-controls {
+    flex-direction: column;
+  }
+
+  .sort-controls button {
+    width: 100%;
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import './IssueDetails.css'; // Add custom styles here if needed
+import './IssueDetails.css';
 
 interface IssueData {
   function: string;
@@ -14,48 +14,66 @@ interface IssueData {
 
 const IssueDetails: React.FC<{ data: IssueData }> = ({ data }) => {
   return (
-    <div className="issue-details">
-      <h2>Issue Details</h2>
-      <table className="issue-table">
-        <thead>
-          <tr>
-            <th>Function</th>
-            <th>Filename</th>
-            <th>Line Numbers</th>
-            <th>Issue Text</th>
-            <th>Severity</th>
-            <th>Confidence</th>
-            <th>CWE</th>
-            <th>More Info</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.line_number.map((_, index) => (
-            <tr key={index}>
-              {index === 0 && (
-                <>
-                  <td rowSpan={data.line_number.length}>{data.function}</td>
-                  <td rowSpan={data.line_number.length}>{data.filename}</td>
-                </>
-              )}
-              <td>{data.line_number[index]}</td>
-              <td>{data.issue_text[index]}</td>
-              <td>{data.issue_severity[index]}</td>
-              <td>{data.issue_confidence[index]}</td>
-              <td>
-                <a href={data.issue_cwe[index].link} target="_blank" rel="noopener noreferrer">
-                  CWE-{data.issue_cwe[index].id}
-                </a>
-              </td>
-              <td>
-                <a href={data.more_info[index]} target="_blank" rel="noopener noreferrer">
-                  More Info
-                </a>
-              </td>
-            </tr>
+    <div className="issue-details-container">
+      <h2>Security Issues Found</h2>
+      <p className="description">
+        The following security issues were detected in your codebase. 
+        Each card represents a vulnerable function and its associated issues.
+      </p>
+
+      <div className="vulnerability-card">
+        <div className="card-header">
+          <h3>Function: <span className="highlight">{data.function}</span></h3>
+          <div className="file-info">
+            <span className="label">File:</span>
+            <span className="value">{data.filename}</span>
+          </div>
+        </div>
+
+        <div className="issues-container">
+          {data.line_number.map((lineNum, index) => (
+            <div 
+              key={index} 
+              className={`issue-item severity-${data.issue_severity[index].toLowerCase()}`}
+            >
+              <div className="issue-header">
+                <span className="line-number">Line {lineNum}</span>
+                <div className="issue-metrics">
+                  <span className={`severity ${data.issue_severity[index].toLowerCase()}`}>
+                    {data.issue_severity[index]}
+                  </span>
+                  <span className={`confidence ${data.issue_confidence[index].toLowerCase()}`}>
+                    Confidence: {data.issue_confidence[index]}
+                  </span>
+                </div>
+              </div>
+
+              <div className="issue-content">
+                <p className="issue-text">{data.issue_text[index]}</p>
+                
+                <div className="issue-links">
+                  <a 
+                    href={data.issue_cwe[index].link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cwe-link"
+                  >
+                    CWE-{data.issue_cwe[index].id}
+                  </a>
+                  <a 
+                    href={data.more_info[index]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="more-info-link"
+                  >
+                    Learn More
+                  </a>
+                </div>
+              </div>
+            </div>
           ))}
-        </tbody>
-      </table>
+        </div>
+      </div>
     </div>
   );
 };
