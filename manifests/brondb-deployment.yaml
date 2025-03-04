@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: brondb
+  namespace: bron
+  labels:
+    io.kompose.service: brondb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: brondb
+  template:
+    metadata:
+      labels:
+        io.kompose.service: brondb
+    spec:
+      containers:
+        - name: brondb
+          image: arangodb:3.8.1
+          ports:
+            - containerPort: 8529
+          env:
+            - name: ARANGO_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: arango-root-password
+                  key: password
+          volumeMounts:
+            - name: brondb-data-container
+              mountPath: /var/lib/arangodb3
+            - name: brondb-apps-data-container
+              mountPath: /var/lib/arangodb3-apps
+          readinessProbe:
+            httpGet:
+              path: /_api/version
+              port: 8529
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /_api/version
+              port: 8529
+            initialDelaySeconds: 20
+            periodSeconds: 15
+      volumes:
+        - name: brondb-data-container
+          persistentVolumeClaim:
+            claimName: brondb-data-container
+        - name: brondb-apps-data-container
+          persistentVolumeClaim:
+            claimName: brondb-apps-data-container

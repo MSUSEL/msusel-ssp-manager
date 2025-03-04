@@ -49,6 +49,83 @@ minikube image load msusel-ssp-manager-react-app:latest
 minikube image load oscalprocessing:latest
 minikube image load arangodb:3.8.1
 minikube image load bronbootstrap:latest (WWWe haaaaaaven't cccreated manifeest for this service)
+minikube image load msusel-ssp-manager-driver:latest
+
+minikube ssh
+# Create directories for ArangoDB
+sudo mkdir -p /var/lib/arangodb3
+sudo mkdir -p /var/lib/arangodb3-apps
+sudo mkdir -p /data  # This is for the bootstrap container
+
+# Set permissions
+# ArangoDB typically runs as arangodb user (uid 999)
+sudo chown -R 999:999 /var/lib/arangodb3
+sudo chown -R 999:999 /var/lib/arangodb3-apps
+sudo chmod -R 700 /var/lib/arangodb3
+sudo chmod -R 700 /var/lib/arangodb3-apps
+
+# For bootstrap data
+sudo chmod -R 777 /data
+
+exit
+
+# Create namespace (optional but recommended)
+kubectl create namespace bron
+The `kubectl create namespace bron` command creates a new namespace in your Kubernetes cluster called "bron".
+A namespace in Kubernetes is a way to create a logical isolation between resources in your cluster. Think of it like a virtual cluster within your physical cluster. Namespaces help you:
+1. Organize resources into groups (e.g., keeping all BRON-related resources together)
+2. Avoid naming conflicts between different projects
+3. Control resource access and quotas for different teams or projects
+4. Keep your cluster resources organized and separated
+Without specifying a namespace, all resources are created in the `default` namespace. By creating a dedicated `bron` namespace, we:
+- Keep all BRON-related resources (deployments, services, secrets, etc.) organized together
+- Make it easier to manage and clean up (you can delete all BRON resources by deleting the namespace)
+- Prevent conflicts with other applications in your cluster
+- Make it clearer which resources belong to the BRON system
+After creating the namespace, you would need to add `-n bron` to your kubectl commands or add `namespace: bron` to your manifest metadata to deploy resources into this namespace. Would you like me to show you how to modify the manifests to use this namespace?
+
+# Apply all manifests (they will automatically go to the bron namespace)
+# Apply all storage and secrets first
+kubectl apply -f arango-root-password-secret.yaml
+kubectl apply -f brondb-data-container-persistentvolumeclaim.yaml
+kubectl apply -f brondb-apps-data-container-persistentvolumeclaim.yaml
+kubectl apply -f bootstrap-data-container-persistentvolumeclaim.yaml
+
+# Deploy ArangoDB
+kubectl apply -f brondb-deployment.yaml
+kubectl apply -f brondb-service.yaml
+
+# Wait for ArangoDB to be ready
+kubectl wait --for=condition=available deployment/brondb --timeout=300s
+
+# Deploy bootstrap job
+kubectl apply -f bootstrap-deployment.yaml
+
+# Wait for bootstrap to complete
+# Monitor the bootstrap job progress
+kubectl logs -f -n bron job/bootstrap
+
+# In a separate terminal, you can check the status
+kubectl get jobs -n bron
+
+# Wait for completion with extended timeout (1 hour)
+kubectl wait --for=condition=complete job/bootstrap -n bron --timeout=3600s
+
+# Deploy driver job
+kubectl apply -f driver-deployment.yaml
+
+# To check resources in the bron namespace
+kubectl get all -n bron
+
+# To check specific resource types
+kubectl get pods -n bron
+kubectl get services -n bron
+kubectl get jobs -n bron
+
+
+#In case of trouble
+kubectl delete deployment -n bron brondb (for example)
+
 
 kubectl apply -f .
 
