@@ -107,4 +107,58 @@
   background: #fed7d7;
   color: #9b2c2c;
 }
+
+/* Add these new styles */
+.select-container {
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.select-label {
+  font-weight: 500;
+  color: #4a5568;
+}
+
+.SelectTrigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  line-height: 1;
+  gap: 8px;
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  color: #4a5568;
+  cursor: pointer;
+  min-width: 150px;
+}
+
+.SelectTrigger:hover {
+  background-color: #f7fafc;
+}
+
+.SelectContent {
+  overflow: hidden;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+.SelectItem {
+  font-size: 14px;
+  line-height: 1;
+  color: #4a5568;
+  padding: 8px 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.SelectItem:hover {
+  background-color: #f7fafc;
+}
   
