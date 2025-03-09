@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import * as Select from '@radix-ui/react-select';
-import { ChevronDownIcon } from '@radix-ui/react-icons';
+import { ChevronDownIcon, FileIcon } from '@radix-ui/react-icons';
 import './FileUploader.css';
 
 interface FileUploaderProps {
@@ -11,13 +11,16 @@ const GenTemplateFileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) =
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState<string | null>(null);
-  const [generationtionResults, setGenerationtionResults] = useState<any | null>(null); // Changed to 'any' to handle JSON
+  const [generationtionResults, setGenerationtionResults] = useState<any | null>(null);
   const [fileType, setFileType] = useState<string>('profile');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const fileTypes = [
-    'profile'
-  ];
+  const fileTypes = ['profile'];
+
+  const getStatusClass = (status: string | null) => {
+    if (!status) return '';
+    return status.includes('successfully') ? 'status-success' : 'status-error';
+  };
 
   const handleClick = () => {
     fileInputRef.current?.click();
@@ -27,8 +30,8 @@ const GenTemplateFileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) =
     const files = event.target.files;
     if (files && files.length > 0) {
       setSelectedFile(files[0]);
-      setUploadStatus(null); // Clear previous status
-      setGenerationtionResults(null); // Clear previous results
+      setUploadStatus(null);
+      setGenerationtionResults(null);
     }
   };
 
@@ -46,7 +49,7 @@ const GenTemplateFileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) =
         });
 
         if (response.ok) {
-          const resultText = await response.json(); // Parse JSON response
+          const resultText = await response.json();
           setGenerationtionResults(resultText);
           setUploadStatus('File successfully uploaded');
         } else {
@@ -62,8 +65,8 @@ const GenTemplateFileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) =
 
   return (
     <div>
-      <div style={{ marginBottom: '15px' }}>
-        <label htmlFor="fileType" style={{ marginRight: '10px' }}>Document Type:</label>
+      <div className="select-container">
+        <label htmlFor="fileType" className="select-label">Document Type:</label>
         <Select.Root onValueChange={(value) => setFileType(value)} value={fileType}>
           <Select.Trigger className="SelectTrigger">
             <Select.Value />
@@ -82,53 +85,61 @@ const GenTemplateFileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) =
           </Select.Content>
         </Select.Root>
       </div>
-      <button
-        onClick={handleClick}
-        style={{ 
-          backgroundColor: '#007bff', 
-          color: 'white', 
-          padding: '10px 20px', 
-          border: 'none', 
-          borderRadius: '4px', 
-          cursor: 'pointer',
-          marginRight: '10px'
-        }}
-      >
-        Select File
-      </button>
-      <input
-        type="file"
-        ref={fileInputRef}
-        style={{ display: 'none' }}
-        onChange={handleFileChange}
-      />
-      {selectedFile && (
-        <>
-          <p>File selected: {selectedFile.name}</p>
-          <button
-            onClick={handleUpload}
-            disabled={uploading}
-            style={{
-              backgroundColor: uploading ? '#6c757d' : '#007bff',
-              color: 'white',
-              padding: '10px 20px',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: uploading ? 'not-allowed' : 'pointer'
-            }}
-          >
-            {uploading ? 'Uploading...' : 'Upload File'}
-          </button>
-        </>
+
+      <div className="upload-controls">
+        <button
+          onClick={handleClick}
+          className="upload-button primary"
+          disabled={uploading}
+        >
+          Select File
+        </button>
+        <input
+          type="file"
+          ref={fileInputRef}
+          style={{ display: 'none' }}
+          onChange={handleFileChange}
+        />
+        
+        {selectedFile && (
+          <>
+            <p className="selected-file">
+              <FileIcon /> {selectedFile.name}
+            </p>
+            <button
+              onClick={handleUpload}
+              disabled={uploading}
+              className={`upload-button ${uploading ? 'disabled' : 'primary'}`}
+            >
+              {uploading ? 'Uploading...' : 'Upload File'}
+            </button>
+          </>
+        )}
+      </div>
+
+      {uploadStatus && (
+        <div className={`status-message ${getStatusClass(uploadStatus)}`}>
+          {uploadStatus}
+        </div>
       )}
-      {uploadStatus && <p>{uploadStatus}</p>}
+
       {generationtionResults && (
-        <div style={{ marginTop: '20px', padding: '10px', border: '1px solid #ccc', borderRadius: '5px' }}>
-          <h3>Processing Results:</h3>
-          <h4>Output:</h4>
-          <ul style={{ listStyleType: 'disc', marginLeft: '20px', marginBottom: '10px' }}>
-            {generationtionResults.message}
-          </ul>
+        <div className="results-container">
+          <div className="results-header">
+            <h3>Processing Results</h3>
+          </div>
+          
+          <div className="results-content">
+            <div className="file-info">
+              <FileIcon className="file-icon" />
+              <strong>{selectedFile?.name}</strong>
+            </div>
+
+            <h4>Output</h4>
+            <div className="output-item">
+              {generationtionResults.message}
+            </div>
+          </div>
         </div>
       )}
     </div>

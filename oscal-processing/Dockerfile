@@ -8,7 +8,7 @@ RUN apt-get update && \
     apt-get install unzip
 
 RUN mkdir -p /tmp/oscal-cli
-COPY ./cli-core-0.3.1-oscal-cli /tmp/oscal-cli
+COPY ./cli-core-v2.4.0-oscal-cli /tmp/oscal-cli
 RUN chmod +x /tmp/oscal-cli/bin/oscal-cli
 
 FROM maven@${MAVEN_VERSION} 

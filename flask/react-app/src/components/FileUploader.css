@@ -1,43 +1,164 @@
+.upload-controls {
+  margin-bottom: 24px;
+}
+
+.upload-button {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.upload-button.primary {
+  background: #3182ce;
+  color: white;
+}
+
+.upload-button.primary:hover {
+  background: #2c5282;
+}
+
+.upload-button.disabled {
+  background: #cbd5e0;
+  cursor: not-allowed;
+}
+
+.selected-file {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0;
+  padding: 8px 12px;
+  background: #edf2f7;
+  border-radius: 4px;
+  color: #4a5568;
+}
+
+.results-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 24px;
+  overflow: hidden;
+}
+
+.results-header {
+  background: #f8f9fa;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.results-header h3 {
+  margin: 0;
+  color: #2d3748;
+  font-size: 1.25rem;
+}
+
+.results-content {
+  padding: 20px;
+}
+
+.file-info {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f1f5f9;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.file-icon {
+  margin-right: 12px;
+  color: #4a5568;
+}
+
+.output-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.output-item {
+  padding: 12px 16px;
+  border-left: 3px solid #3182ce;
+  background: #f8fafc;
+  margin-bottom: 8px;
+  border-radius: 0 4px 4px 0;
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: #1a202c;
+}
+
+.status-message {
+  padding: 8px 16px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.status-success {
+  background: #c6f6d5;
+  color: #276749;
+}
+
+.status-error {
+  background: #fed7d7;
+  color: #9b2c2c;
+}
+
+/* Add these new styles */
+.select-container {
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.select-label {
+  font-weight: 500;
+  color: #4a5568;
+}
+
 .SelectTrigger {
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 15px;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 200px; /* Adjusted width for a cleaner layout */
-  }
-  
-  .SelectContent {
-    background-color: white;
-    border-radius: 4px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-  }
-  
-  .SelectViewport {
-    padding: 5px;
-  }
-  
-  .SelectItem {
-    padding: 10px 15px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .SelectItem:hover {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .SelectItemText {
-    display: block;
-  }
-  
-  .SelectIcon {
-    margin-left: 10px;
-  }
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  line-height: 1;
+  gap: 8px;
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  color: #4a5568;
+  cursor: pointer;
+  min-width: 150px;
+}
+
+.SelectTrigger:hover {
+  background-color: #f7fafc;
+}
+
+.SelectContent {
+  overflow: hidden;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+.SelectItem {
+  font-size: 14px;
+  line-height: 1;
+  color: #4a5568;
+  padding: 8px 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.SelectItem:hover {
+  background-color: #f7fafc;
+}
   
