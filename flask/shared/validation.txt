@@ -1,3 +1,2 @@
-[1;33mThis command path is deprecated. Please use 'validate'.[m
 Validating 'file:/shared/profile.yaml' as YAML.
 The file 'file:/shared/profile.yaml' is valid.
