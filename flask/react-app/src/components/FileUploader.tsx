@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import * as Select from '@radix-ui/react-select';
-import { ChevronDownIcon } from '@radix-ui/react-icons';
+import { ChevronDownIcon, FileIcon } from '@radix-ui/react-icons';
 import './FileUploader.css';
 
 interface FileUploaderProps {
@@ -87,6 +87,11 @@ const FileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) => {
     }
   };
 
+  const getStatusClass = (status: string | null) => {
+    if (!status) return '';
+    return status.includes('successfully') ? 'status-success' : 'status-error';
+  };
+
   return (
     <div>
       <div style={{ marginBottom: '15px' }}>
@@ -129,56 +134,64 @@ const FileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) => {
           </Select.Content>
         </Select.Root>
       </div>
-      <button
-        onClick={handleClick}
-        style={{ 
-          backgroundColor: '#007bff', 
-          color: 'white', 
-          padding: '10px 20px', 
-          border: 'none', 
-          borderRadius: '4px', 
-          cursor: 'pointer',
-          marginRight: '10px'
-        }}
-      >
-        Select File
-      </button>
-      <input
-        type="file"
-        ref={fileInputRef}
-        style={{ display: 'none' }}
-        onChange={handleFileChange}
-      />
-      {selectedFile && (
-        <>
-          <p>File selected: {selectedFile.name}</p>
-          <button
-            onClick={handleUpload}
-            disabled={uploading}
-            style={{
-              backgroundColor: uploading ? '#6c757d' : '#007bff',
-              color: 'white',
-              padding: '10px 20px',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: uploading ? 'not-allowed' : 'pointer'
-            }}
-          >
-            {uploading ? 'Uploading...' : 'Upload File'}
-          </button>
-        </>
+      <div className="upload-controls">
+        <button
+          onClick={handleClick}
+          className="upload-button primary"
+          disabled={uploading}
+        >
+          Select File
+        </button>
+        <input
+          type="file"
+          ref={fileInputRef}
+          style={{ display: 'none' }}
+          onChange={handleFileChange}
+        />
+        
+        {selectedFile && (
+          <>
+            <p className="selected-file">
+              <FileIcon /> {selectedFile.name}
+            </p>
+            <button
+              onClick={handleUpload}
+              disabled={uploading}
+              className={`upload-button ${uploading ? 'disabled' : 'primary'}`}
+            >
+              {uploading ? 'Uploading...' : 'Upload File'}
+            </button>
+          </>
+        )}
+      </div>
+
+      {uploadStatus && (
+        <div className={`status-message ${getStatusClass(uploadStatus)}`}>
+          {uploadStatus}
+        </div>
       )}
-      {uploadStatus && <p>{uploadStatus}</p>}
+
       {validationResults && (
-        <div style={{ marginTop: '20px', padding: '10px', border: '1px solid #ccc', borderRadius: '5px' }}>
-          <h3>Processing Results:</h3>
-          <p><strong>File Name:</strong> {validationResults.fileName}</p>
-          <h4>Output:</h4>
-          <ul style={{ listStyleType: 'disc', marginLeft: '20px', marginBottom: '10px' }}>
-            {validationResults.oscal_processing_output_list && validationResults.oscal_processing_output_list.map((output: string, index: number) => (
-              <li key={index} style={{ marginBottom: '10px' }}>{cleanOutput(output)}</li>
-            ))}
-          </ul>
+        <div className="results-container">
+          <div className="results-header">
+            <h3>Processing Results</h3>
+          </div>
+          
+          <div className="results-content">
+            <div className="file-info">
+              <FileIcon className="file-icon" />
+              <strong>{validationResults.fileName}</strong>
+            </div>
+
+            <h4>Output</h4>
+            <ul className="output-list">
+              {validationResults.oscal_processing_output_list?.map((output: string, index: number) => (
+                <li key={index} className="output-item">
+                  {cleanOutput(output)}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       )}
     </div>
