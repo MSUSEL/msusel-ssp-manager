@@ -18,6 +18,13 @@ spec:
       containers:
         - name: brondb
           image: arangodb:3.8.1
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "2Gi"
+              cpu: "500m"
           ports:
             - containerPort: 8529
           env:
@@ -26,27 +33,25 @@ spec:
                 secretKeyRef:
                   name: arango-root-password
                   key: password
+            - name: ARANGO_STORAGE_ENGINE
+              value: "rocksdb"
+            - name: ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY
+              value: "4G"
           volumeMounts:
-            - name: brondb-data-container
+            - name: brondb-data
               mountPath: /var/lib/arangodb3
-            - name: brondb-apps-data-container
+            - name: brondb-apps-data
               mountPath: /var/lib/arangodb3-apps
           readinessProbe:
             httpGet:
-              path: /_api/version
+              path: /
               port: 8529
             initialDelaySeconds: 10
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /_api/version
-              port: 8529
-            initialDelaySeconds: 20
-            periodSeconds: 15
+            periodSeconds: 5
       volumes:
-        - name: brondb-data-container
+        - name: brondb-data
           persistentVolumeClaim:
             claimName: brondb-data-container
-        - name: brondb-apps-data-container
+        - name: brondb-apps-data
           persistentVolumeClaim:
             claimName: brondb-apps-data-container

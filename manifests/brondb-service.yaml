@@ -6,9 +6,11 @@ metadata:
   labels:
     io.kompose.service: brondb
 spec:
+  type: NodePort
   ports:
     - name: "8529"
       port: 8529
       targetPort: 8529
+      nodePort: 30529  # Static port on the node
   selector:
     io.kompose.service: brondb

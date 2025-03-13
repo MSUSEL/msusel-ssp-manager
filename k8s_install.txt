@@ -4,10 +4,14 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-a
 
 minikube version
 
-minikube start
+sudo snap install kubectl --classic
 
+minikube start --memory=5120 --cpus=2 (for a 4 core and 8GB of RAM VM)
 
-Install kompose:
+Minikube has a docker engine independent from the host's docker engine. Enable the minikube docker engine registry so that it can store images:
+minikube addons enable registry 
+
+Install kompose: (Users don't need this. I need it!)
 curl -L https://github.com/kubernetes/kompose/releases/latest/download/kompose-linux-amd64 -o kompose
 sudo mv kompose /usr/local/bin/kompose
 sudo chmod +x /usr/local/bin/kompose
@@ -17,57 +21,82 @@ kompose version
 Generate the manifest files for the app using kompose:
 cd path/to/app/docker-compose.yml
 kompose convert -f docker-compose.yml
+(This gives a starting point. The manifest files will need additional modification.)
 
-Now we want to deploy those files to the cluster. (Do this in the directory where the manifest are located)
+After modification, we want to deploy those files to the cluster. (Do this in the directory where the manifest are located)
 kubuctl apply -f filename
 
-We need to build the images in the Minikube docker engine (Minikube has a docker engine independent from the host's docker engine)
-First enable the minikube docker engine registry so that it can store images:
-minikube addons enable registry
+
 
 ernesto@ernesto-VirtualBox:~/Documents/Ugov_Services/user-registration$ docker build -t localhost:5000/ugov-services:latest .
 ernesto@ernesto-VirtualBox:~/Documents/Ugov_Services/user-registration$ docker tag localhost:5000/ugov-services:latest ugov-services:latest
 ernesto@ernesto-VirtualBox:~/Documents/Ugov_Services/user-registration$ minikube image load ugov-services:latest
 ernesto@ernesto-VirtualBox:~/Documents/kubernetes-manifests/ugov-services$ minikube ssh
 
-docker@minikube:~$ docker images | grep ugov-services
+docker@minikube:~$ docker images | grep ugov-service
 
 
-sudo snap install kubectl --classic
-
-We'll build our images and load them to minikube:
-docker compose build
-minikube image load msusel-ssp-manager-flask:latest
-minikube image load msusel-ssp-manager-react-app:latest
-
-If you make changes and rebuild the images, you have to load them again in minikube. This process takes a while:
-minikube delete 
-minikube start
-minikube addons enable registry
+Build your images locally (Ex: docker compose build) and load them to minikube. This process takes a while:
 minikube image load msusel-ssp-manager-flask:latest
 minikube image load msusel-ssp-manager-react-app:latest
 minikube image load oscalprocessing:latest
 minikube image load arangodb:3.8.1
-minikube image load bronbootstrap:latest (WWWe haaaaaaven't cccreated manifeest for this service)
+minikube image load bronbootstrap:latest 
 minikube image load msusel-ssp-manager-driver:latest
 
-minikube ssh
+If you make changes and rebuild the images, you have to load them again in minikube. 
+minikube delete 
+minikube start --memory=5120 --cpus=2
+minikube addons enable registry
+Load all the images.
+
+
 # Create directories for ArangoDB
 sudo mkdir -p /var/lib/arangodb3
 sudo mkdir -p /var/lib/arangodb3-apps
 sudo mkdir -p /data  # This is for the bootstrap container
 
-# Set permissions
-# ArangoDB typically runs as arangodb user (uid 999)
-sudo chown -R 999:999 /var/lib/arangodb3
-sudo chown -R 999:999 /var/lib/arangodb3-apps
-sudo chmod -R 700 /var/lib/arangodb3
-sudo chmod -R 700 /var/lib/arangodb3-apps
-
-# For bootstrap data
-sudo chmod -R 777 /data
+# Set correct ownership (arangodb runs as user 999)
+sudo chown -R 999:docker /var/lib/arangodb3
+sudo chown -R 999:docker /var/lib/arangodb3-apps
+sudo chown -R 999:docker /data
 
 exit
+
+# 1. Create namespace
+kubectl create namespace bron
+
+# 2. Create PVs first (since we've prepared the directories)
+kubectl apply -f manifests/brondb-pv.yaml
+
+# 3. Create PVCs
+kubectl apply -f manifests/brondb-data-container-persistentvolumeclaim.yaml
+kubectl apply -f manifests/brondb-apps-data-container-persistentvolumeclaim.yaml
+kubectl apply -f manifests/bootstrap-data-container-persistentvolumeclaim.yaml
+
+# 4. Create database secret
+kubectl apply -f manifests/arango-root-password-secret.yaml
+
+# 5. Deploy ArangoDB
+kubectl apply -f manifests/brondb-deployment.yaml
+kubectl apply -f manifests/brondb-service.yaml
+
+# 6. Wait for ArangoDB to be ready (important before proceeding, i.e., the database needs to be ready before we attempt to populate it.)
+kubectl wait --for=condition=available -n bron deployment/brondb --timeout=300s
+
+# 7. Deploy bootstrap job
+kubectl apply -f manifests/bootstrap-deployment.yaml
+
+# 8. Monitor bootstrap progress (in a separate terminal)
+kubectl logs -f -n bron job/bootstrap
+
+# 9. Wait for bootstrap completion
+kubectl wait --for=condition=complete job/bootstrap -n bron --timeout=3600s
+
+# 10. Deploy driver job
+kubectl apply -f manifests/driver-deployment.yaml
+
+
 
 # Create namespace (optional but recommended)
 kubectl create namespace bron
@@ -96,7 +125,7 @@ kubectl apply -f brondb-deployment.yaml
 kubectl apply -f brondb-service.yaml
 
 # Wait for ArangoDB to be ready
-kubectl wait --for=condition=available deployment/brondb --timeout=300s
+kubectl wait --for=condition=available -n bron deployment/brondb --timeout=300s
 
 # Deploy bootstrap job
 kubectl apply -f bootstrap-deployment.yaml
@@ -125,6 +154,39 @@ kubectl get jobs -n bron
 
 #In case of trouble
 kubectl delete deployment -n bron brondb (for example)
+kubectl delete deployment -n bron --all
+kubectl delete job -n bron --all
+kubectl delete pvc -n bron --all
+kubectl delete pv -n bron --all
+kubectl delete service -n bron --all
+kubectl delete secret -n bron --all
+
+# 1. Create PVs first
+kubectl apply -f brondb-pv.yaml
+
+# 2. Create PVCs
+kubectl apply -f brondb-data-container-persistentvolumeclaim.yaml
+kubectl apply -f brondb-apps-data-container-persistentvolumeclaim.yaml
+kubectl apply -f bootstrap-data-container-persistentvolumeclaim.yaml
+
+# 3. Create the database secret
+kubectl apply -f arango-root-password-secret.yaml
+
+# 4. Deploy ArangoDB
+kubectl apply -f brondb-deployment.yaml
+kubectl apply -f brondb-service.yaml
+
+# 5. Wait for ArangoDB to be ready
+kubectl wait --for=condition=available deployment/brondb -n bron --timeout=300s
+
+# 6. Deploy bootstrap job
+kubectl apply -f bootstrap-deployment.yaml
+
+# 7. Wait for bootstrap to complete before proceeding
+kubectl wait --for=condition=complete job/bootstrap -n bron --timeout=3600s
+
+# 8. Finally, deploy the driver job
+kubectl apply -f driver-deployment.yaml
 
 
 kubectl apply -f .
@@ -228,3 +290,10 @@ VALIDATE ROUTE: file uploaded failed
 The problem here is that oscalprocessing is not finding /shared/profile.yaml but this is particular to minikube. Might be better to just solve it for Azure.
 
 YOU HAVE TO REBUILD AND LOAD THE IMAGES AFTER ANY CHANGES
+
+Debugging:
+kubectl delete job bootstrap -n bron
+kubectl delete pods -l job-name=bootstrap -n bron
+kubectl delete deployment brondb -n bron
+kubectl exec -it -n bron $(kubectl get pod -n bron -l job-name=bootstrap -o jsonpath='{.items[0].metadata.name}') -- ls -la /data/raw
+

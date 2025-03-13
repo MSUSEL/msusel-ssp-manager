@@ -28,7 +28,7 @@ spec:
                 name: arango-root-password
                 key: password
       initContainers:
-      - name: wait-for-bootstrap
+      - name: wait-for-db
         image: busybox
-        command: ['sh', '-c', 'until kubectl get job bootstrap -o jsonpath="{.status.succeeded}" | grep 1; do echo waiting for bootstrap; sleep 5; done;']
+        command: ['sh', '-c', 'until wget -q --spider http://brondb:8529/_api/version; do echo waiting for brondb; sleep 2; done;']
       restartPolicy: OnFailure

@@ -62,7 +62,7 @@ const Priorities: React.FC = () => {
 
   return (
     <div className="priorities-container">
-      <h1>Attack Path Priorities</h1>
+      <h1>Security Control Priorities</h1>
       <p className="priorities-description">
         Tactics are prioritized based on ease of mitigation. 
         Tactics with fewer techniques to neutralize appear first, 

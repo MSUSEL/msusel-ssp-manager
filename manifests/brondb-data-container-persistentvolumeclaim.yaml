@@ -8,4 +8,6 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 100Mi
+      storage: 1Gi
+  storageClassName: standard
+  volumeName: brondb-data-pv

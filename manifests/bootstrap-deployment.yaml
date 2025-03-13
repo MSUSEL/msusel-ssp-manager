@@ -5,33 +5,46 @@ metadata:
   namespace: bron
 spec:
   backoffLimit: 4
-  activeDeadlineSeconds: 3600  # 1 hour timeout
   template:
-    metadata:
-      labels:
-        app: bootstrap
     spec:
       containers:
       - name: bootstrap
         image: bronbootstrap:latest
         imagePullPolicy: Never
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "2Gi"
+            cpu: "1"
+        workingDir: /usr/local/bron
+        command: ["/bin/bash", "-c"]
+        args:
+          - |
+            # Make bootstrap.sh executable
+            chmod +x ./bootstrap.sh
+            # Create symbolic link for path compatibility
+            rm -rf /usr/local/bron/data
+            ln -s /data /usr/local/bron/data
+            # Run original bootstrap script
+            ./bootstrap.sh
         env:
-          - name: DATA_DIR
-            value: /data
-          - name: ARANGO_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: arango-root-password
-                key: password
+        - name: DATA_DIR
+          value: /data
+        - name: ARANGO_ROOT_PASSWORD_FILE
+          value: /run/secrets/arango_root_password
         volumeMounts:
-          - name: bootstrap-data
-            mountPath: /data
-      volumes:
         - name: bootstrap-data
-          persistentVolumeClaim:
-            claimName: bootstrap-data-container
-      initContainers:
-      - name: wait-for-db
-        image: busybox
-        command: ['sh', '-c', 'until wget -q --spider http://brondb:8529/_api/version; do echo waiting for brondb; sleep 2; done;']
+          mountPath: /data
+        - name: arango-root-password
+          mountPath: /run/secrets/arango_root_password
+          subPath: password
+      volumes:
+      - name: bootstrap-data
+        persistentVolumeClaim:
+          claimName: bootstrap-data-container
+      - name: arango-root-password
+        secret:
+          secretName: arango-root-password
       restartPolicy: OnFailure
