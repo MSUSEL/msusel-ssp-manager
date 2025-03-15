@@ -5,7 +5,7 @@ It runs on Linux (In particular, it is being developed on Ubuntu 22.04 LTS. An i
 In Windows, you can install Ubuntu 22.04 LTS in WSL2. Git clone this repo into your WSL2 file system (/home/userName/). <br />
 
 ## Installation
-Make sure you have Git, Docker and Docker-Compose installed. <br />
+Make sure you have Git, Docker and Docker-Compose installed. (Please see minikube-v2 branch manifests/ for kubernetes installation.)<br />
 ```
 git --version
 ```
