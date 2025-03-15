@@ -5,7 +5,7 @@ It runs on Linux (In particular, it is being developed on Ubuntu 22.04 LTS. An i
 In Windows, you can install Ubuntu 22.04 LTS in WSL2. Git clone this repo into your WSL2 file system (/home/userName/). <br />
 
 ## Installation
-Make sure you have Git, Docker and Docker-Compose installed. (Please see minikube-v2 branch manifests/ for kubernetes installation.)<br />
+Make sure you have Git, Docker and Docker-Compose installed. (Please see manifests/README.md for kubernetes installation.)<br />
 ```
 git --version
 ```
@@ -68,7 +68,7 @@ git clone https://github.com/MSUSEL/msusel-ssp-manager.git
 ```
 Note: The BRON version copied here is from commit 8a18686cab1f024fcadcac74fb13f1240f491b86 of the [BRON project.](https://github.com/ALFA-group/BRON)
 
-Since we will need to have the access to the database container from other containers in this project, it is necessary to change the docker-compose.yml file of the BRON submodule to add its containers to a local docker network. To create the local docker network use:
+Since we will need to have the access to the database container from other containers in this project, it is necessary to create a local docker network:
 ```
 docker network create ssp_network
 ```
@@ -83,7 +83,7 @@ This command will create two containers. One is an arangodb container that will 
 
 Once bootstrap finishes, you can see the database in your browser at localhost:8529. The username is root and the password is changeme. Select the BRON database. <br />
 
-The BRON DB container must be added to the docker network that we are created:
+The BRON DB container must be added to the docker network that we previously created:
 ```
 docker network connect ssp_network brondb
 ```

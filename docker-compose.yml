@@ -1,14 +1,14 @@
 services:
-  #driver:
-    #container_name: driver
-    #build: ./AttackTechniquesToControls
-    #environment:
-      #- ARANGO_DB_URL=http://brondb:8529
-      #- ARANGO_DB_NAME=BRON
-      #- ARANGO_DB_USERNAME=root
-      #- ARANGO_DB_PASSWORD=changeme
-    #networks:
-      #- ssp_network
+  driver:
+    container_name: driver
+    build: ./AttackTechniquesToControls
+    environment:
+      - ARANGO_DB_URL=http://brondb:8529
+      - ARANGO_DB_NAME=BRON
+      - ARANGO_DB_USERNAME=root
+      - ARANGO_DB_PASSWORD=changeme
+    networks:
+      - ssp_network
   flask:
     container_name: flask-backend
     build:
