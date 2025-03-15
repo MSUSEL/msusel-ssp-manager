@@ -189,21 +189,12 @@ Example output:
 
 You can now access the application components using:
 - React frontend: `http://192.168.49.2:32000`
-- Flask API: `http://192.168.49.2:31621`
+- BRONDB: `http://192.168.49.2:30529`
 
 Alternatively, you can use this command to get a URL and open it in your browser:
 ```bash
 minikube service react-app -n bron --url
 ```
-
-Key points to ensure communication works:
-
-Same namespace: All services (brondb, flask, react-app) should be in the same namespace (bron).
-Service discovery: Within the same namespace, services can reach each other using just the service name (e.g., http://brondb:8529).
-External access: You mentioned accessing BronDB via http://192.168.49.2:30529. This works because the BronDB service is exposed as a NodePort service on port 30529. Similarly, your React app will be accessible at http://192.168.49.2:32000.
-Environment variables: The Flask container needs the correct environment variables to connect to BronDB, which we've set in the deployment.
-After applying these manifests, your Flask service should be able to communicate with BronDB using the URL http://brondb:8529, and your React app should be able to communicate with Flask using http://flask:5000.
-
 
 ### 10. Debugging
 
