@@ -2,6 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: flask-shared-claim
+  namespace: bron 
 spec:
   accessModes:
     - ReadWriteOnce
@@ -14,6 +15,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: flask-generated-claim
+  namespace: bron
 spec:
   accessModes:
     - ReadWriteOnce

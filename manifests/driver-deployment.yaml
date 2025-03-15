@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: driver
-        image: msusel-ssp-manager-driver:latest
+        image: msusel-ssp-manager_driver:latest
         imagePullPolicy: Never
         env:
           - name: ARANGO_DB_URL
@@ -27,8 +27,4 @@ spec:
               secretKeyRef:
                 name: arango-root-password
                 key: password
-      initContainers:
-      - name: wait-for-db
-        image: busybox
-        command: ['sh', '-c', 'until wget -q --spider http://brondb:8529/_api/version; do echo waiting for brondb; sleep 2; done;']
       restartPolicy: OnFailure
