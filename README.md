@@ -118,6 +118,7 @@ In your terminal, in the msusel-ssp-manager directory: <br />
 ```
 docker-compose up
 ```
+The application UI can be found at localhost:3000 <br />
 Note: for now, after running docker compose once, you have to comment out the driver service in the docker-compose file, as you don't need to run it again. In the future we will just run it independently.
 ```
 #driver:
