@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Executes the commands in the README.md
+# Must be tested
+
 # Create logs directory if it doesn't exist
 mkdir -p ./scripts/logs
 

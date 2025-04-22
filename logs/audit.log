@@ -1,0 +1,24 @@
+{"timestamp":"2025-04-22T23:45:57.010Z","event_type":"login","user_id":"regular_user","ip_address":"::ffff:127.0.0.1","auth_method":"password","outcome":"success"}
+{"timestamp":"2025-04-22T23:45:57.052Z","event_type":"login","user_id":"regular_user","ip_address":"::ffff:127.0.0.1","auth_method":"password","outcome":"success"}
+{"timestamp":"2025-04-22T23:45:57.065Z","event_type":"login","user_id":"admin_user","ip_address":"::ffff:127.0.0.1","auth_method":"password","outcome":"success"}
+{"timestamp":"2025-04-22T23:45:57.078Z","event_type":"login","user_id":"regular_user","ip_address":"::ffff:127.0.0.1","auth_method":"password","outcome":"success"}
+{"timestamp":"2025-04-22T23:45:57.099Z","event_type":"login","user_id":"regular_user","ip_address":"::ffff:127.0.0.1","auth_method":"password","outcome":"success"}
+{"timestamp":"2025-04-22T23:45:57.116Z","event_type":"login","user_id":"regular_user","ip_address":"::ffff:127.0.0.1","auth_method":"password","outcome":"success"}
+{"timestamp":"2025-04-22T23:45:57.129Z","event_type":"login","user_id":"admin_user","ip_address":"::ffff:127.0.0.1","auth_method":"password","outcome":"success"}
+{"timestamp":"2025-04-22T23:45:57.144Z","event_type":"login","user_id":"regular_user","ip_address":"::ffff:127.0.0.1","auth_method":"password","outcome":"success"}
+{"timestamp":"2025-04-22T23:45:57.172Z","event_type":"data_access","user_id":"regular_user","resource":"user_profile","outcome":"success","data_id":"regular_user"}
+{"timestamp":"2025-04-22T23:45:57.184Z","event_type":"access_denied","user_id":"regular_user","resource":"admin_panel","outcome":"failure","reason":"Admin access required"}
+{"timestamp":"2025-04-22T23:45:57.192Z","event_type":"admin_action","user_id":"admin_user","resource":"admin_panel","outcome":"success"}
+{"timestamp":"2025-04-22T23:45:57.201Z","event_type":"data_access","user_id":"regular_user","resource":"user_profile","outcome":"success","data_id":"regular_user"}
+{"timestamp":"2025-04-22T23:52:56.024Z","event_type":"login","user_id":"regular_user","ip_address":"::ffff:127.0.0.1","auth_method":"password","outcome":"success"}
+{"timestamp":"2025-04-22T23:52:56.041Z","event_type":"login","user_id":"regular_user","ip_address":"::ffff:127.0.0.1","auth_method":"password","outcome":"success"}
+{"timestamp":"2025-04-22T23:52:56.051Z","event_type":"login","user_id":"admin_user","ip_address":"::ffff:127.0.0.1","auth_method":"password","outcome":"success"}
+{"timestamp":"2025-04-22T23:52:56.058Z","event_type":"login","user_id":"regular_user","ip_address":"::ffff:127.0.0.1","auth_method":"password","outcome":"success"}
+{"timestamp":"2025-04-22T23:52:56.070Z","event_type":"login","user_id":"regular_user","ip_address":"::ffff:127.0.0.1","auth_method":"password","outcome":"success"}
+{"timestamp":"2025-04-22T23:52:56.076Z","event_type":"login","user_id":"regular_user","ip_address":"::ffff:127.0.0.1","auth_method":"password","outcome":"success"}
+{"timestamp":"2025-04-22T23:52:56.082Z","event_type":"login","user_id":"admin_user","ip_address":"::ffff:127.0.0.1","auth_method":"password","outcome":"success"}
+{"timestamp":"2025-04-22T23:52:56.088Z","event_type":"login","user_id":"regular_user","ip_address":"::ffff:127.0.0.1","auth_method":"password","outcome":"success"}
+{"timestamp":"2025-04-22T23:52:56.104Z","event_type":"data_access","user_id":"regular_user","resource":"user_profile","outcome":"success","data_id":"regular_user"}
+{"timestamp":"2025-04-22T23:52:56.109Z","event_type":"access_denied","user_id":"regular_user","resource":"admin_panel","outcome":"failure","reason":"Admin access required"}
+{"timestamp":"2025-04-22T23:52:56.112Z","event_type":"admin_action","user_id":"admin_user","resource":"admin_panel","outcome":"success"}
+{"timestamp":"2025-04-22T23:52:56.117Z","event_type":"data_access","user_id":"regular_user","resource":"user_profile","outcome":"success","data_id":"regular_user"}

@@ -48,7 +48,7 @@ services:
     ports:
       - "8181:8181"
     volumes:
-      - ./policies:/policies
+      - ./policies:/policies/
     command:
       - "run"
       - "--server"

@@ -1,0 +1,108 @@
+{
+  "resources": {
+    "user_profile": {
+      "required_roles": ["user", "admin"]
+    },
+    "admin_panel": {
+      "required_roles": ["admin"]
+    },
+    "appointment_calendar": {
+      "required_roles": ["user", "staff", "admin"]
+    },
+    "system_settings": {
+      "required_roles": ["admin"]
+    },
+    "user_data": {
+      "required_roles": ["user", "staff", "admin"]
+    }
+  },
+  "suspicious_ips": [
+    "192.168.1.100",
+    "10.0.0.25",
+    "172.16.0.10"
+  ],
+  "revoked_tokens": [
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.revoked1",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.revoked2"
+  ],
+  "field_limits": {
+    "username": {
+      "max_length": 50
+    },
+    "password": {
+      "max_length": 128
+    },
+    "email": {
+      "max_length": 100
+    },
+    "name": {
+      "max_length": 100
+    },
+    "address": {
+      "max_length": 200
+    },
+    "phone": {
+      "max_length": 20
+    },
+    "comment": {
+      "max_length": 500
+    }
+  },
+  "file_hashes": {
+    "config.json": "a1b2c3d4e5f6g7h8i9j0",
+    "app.js": "1a2b3c4d5e6f7g8h9i0j",
+    "index.html": "abcdef1234567890"
+  },
+  "baselines": {
+    "web_server": {
+      "settings": [
+        {"name": "max_connections", "value": 1000},
+        {"name": "timeout", "value": 60},
+        {"name": "ssl_enabled", "value": true},
+        {"name": "min_tls_version", "value": "TLS 1.2"},
+        {"name": "default_charset", "value": "UTF-8"}
+      ]
+    },
+    "database": {
+      "settings": [
+        {"name": "max_connections", "value": 100},
+        {"name": "query_timeout", "value": 30},
+        {"name": "encryption_enabled", "value": true},
+        {"name": "backup_enabled", "value": true}
+      ]
+    }
+  },
+  "inventory": {
+    "web-server-01": {
+      "type": "web_server",
+      "version": "1.2.3",
+      "last_updated": "2023-01-15T12:00:00Z"
+    },
+    "db-server-01": {
+      "type": "database",
+      "version": "4.5.6",
+      "last_updated": "2023-01-10T09:30:00Z"
+    }
+  },
+  "approved_dependencies": [
+    "express@4.18.2",
+    "react@18.2.0",
+    "node@18.12.1",
+    "postgresql@14.5",
+    "nginx@1.22.1"
+  ],
+  "authentication": {
+    "failed_attempts": [
+      {
+        "user_id": "user123",
+        "timestamp": 1650000000,
+        "ip_address": "192.168.1.50"
+      },
+      {
+        "user_id": "user456",
+        "timestamp": 1650001000,
+        "ip_address": "192.168.1.51"
+      }
+    ]
+  }
+}
