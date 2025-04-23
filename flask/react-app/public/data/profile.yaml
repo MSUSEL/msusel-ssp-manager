@@ -1,0 +1,80 @@
+---
+profile:
+  uuid: 51a969c1-af30-4eb7-99a2-0d3ddbd8cacb
+  metadata:
+    title: Bloss@m Minimal Baseline for Demonstration
+    last-modified: 2022-11-22T00:00:00.000000-04:00
+    version: 0.0.1-alpha
+    oscal-version: 1.0.4
+    roles:
+      - id: creator
+        title: Document Creator
+      - id: contact
+        title: Contact
+    parties:
+      - uuid: 33434b58-3a4b-4a4f-a490-e7369c068847
+        type: organization
+        name: CSD Development
+        email-addresses:
+          - blossom@nist.gov
+        addresses:
+          - addr-lines:
+              - National Institute of Standards and Technology
+              - "Attn: Computer Security Division"
+              - Information Technology Laboratory
+              - 100 Bureau Drive (Mail Stop 8930)
+            city: Gaithersburg
+            state: MD
+            postal-code: 20899-8930
+    responsible-parties:
+      - role-id: creator
+        party-uuids:
+          - 33434b58-3a4b-4a4f-a490-e7369c068847
+      - role-id: contact
+        party-uuids:
+          - 33434b58-3a4b-4a4f-a490-e7369c068847
+  imports:
+    - href: https://raw.githubusercontent.com/usnistgov/oscal-content/ba2efa4c90155650b0fd536f3bffd13042ac6dc7/nist.gov/SP800-53/rev5/yaml/NIST_SP-800-53_rev5_LOW-baseline-resolved-profile_catalog.yaml
+      include-controls:
+        - with-ids:
+            - ac-2
+            - ac-3
+            - ar-4
+            - at-2
+            - au-2
+            - au-3
+            - au-4
+            - au-5
+            - au-6
+            - au-8
+            - au-9
+            - au-10
+            - au-11
+            - au-12
+            - au-16
+            - cm-2
+            - cm-5
+            - cm-8
+            - cp-6
+            - ia-2
+            - ir-4
+            - ma-2
+            - ra-5
+            - sa-9
+            - sa-11
+            - sa-12
+            - sa-15
+            - sc-5
+            - sc-6
+            - sc-7
+            - sc-12
+            - sc-13
+            - sc-16
+            - sc-23
+            - sc-28
+            - si-2
+            - si-3
+            - si-4
+            - si-7
+  merge:
+    as-is: true

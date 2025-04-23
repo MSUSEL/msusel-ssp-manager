@@ -1,0 +1,115 @@
+[
+  {
+    "control_id": "ac-2",
+    "status": "passed",
+    "test_results": [
+      {
+        "test_name": "Role-based access control",
+        "status": "passed",
+        "message": "Regular user can access user profile"
+      },
+      {
+        "test_name": "Access restrictions",
+        "status": "passed",
+        "message": "Regular user cannot access admin panel"
+      }
+    ]
+  },
+  {
+    "control_id": "ac-3",
+    "status": "passed",
+    "test_results": [
+      {
+        "test_name": "Access enforcement",
+        "status": "passed",
+        "message": "Admin user can access admin panel"
+      },
+      {
+        "test_name": "Time-based restrictions",
+        "status": "passed",
+        "message": "Access is denied outside business hours"
+      }
+    ]
+  },
+  {
+    "control_id": "ia-2",
+    "status": "failed",
+    "test_results": [
+      {
+        "test_name": "Authentication with password",
+        "status": "passed",
+        "message": "Regular user can authenticate with password"
+      },
+      {
+        "test_name": "Multi-factor authentication",
+        "status": "failed",
+        "message": "Staff user can authenticate without MFA"
+      }
+    ]
+  },
+  {
+    "control_id": "au-2",
+    "status": "passed",
+    "test_results": [
+      {
+        "test_name": "Audit event generation",
+        "status": "passed",
+        "message": "Login events are properly audited"
+      }
+    ]
+  },
+  {
+    "control_id": "au-3",
+    "status": "passed",
+    "test_results": [
+      {
+        "test_name": "Audit record content",
+        "status": "passed",
+        "message": "Audit records contain required fields"
+      }
+    ]
+  },
+  {
+    "control_id": "sc-23",
+    "status": "failed",
+    "test_results": [
+      {
+        "test_name": "Session token validation",
+        "status": "passed",
+        "message": "Valid session tokens are accepted"
+      },
+      {
+        "test_name": "Session inactivity timeout",
+        "status": "failed",
+        "message": "Sessions do not timeout after inactivity"
+      }
+    ]
+  },
+  {
+    "control_id": "si-3",
+    "status": "passed",
+    "test_results": [
+      {
+        "test_name": "SQL injection prevention",
+        "status": "passed",
+        "message": "SQL injection attempts are blocked"
+      },
+      {
+        "test_name": "XSS prevention",
+        "status": "passed",
+        "message": "XSS attempts are blocked"
+      }
+    ]
+  },
+  {
+    "control_id": "si-7",
+    "status": "passed",
+    "test_results": [
+      {
+        "test_name": "File integrity validation",
+        "status": "passed",
+        "message": "File integrity checks are enforced"
+      }
+    ]
+  }
+]

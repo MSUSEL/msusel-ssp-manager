@@ -13,6 +13,7 @@ import AttackPaths from './AttackPaths';
 import PriorityControls from './PriorityControls';
 import VulnerableFunctions from './VulnerableFunctions';
 import SecurityControls from './SecurityControls';
+import CurrentStatus from './CurrentStatus';
 import './MainContent.css';
 import ControlDetailsWrapper from './ControlDetailsWrapper';
 import Priorities from './Priorities';
@@ -36,6 +37,7 @@ const MainContent: React.FC = () => {
           <Route path="/attack-paths" element={<AttackPaths />} />
           <Route path="/security-controls" element={<SecurityControls />} />
           <Route path="/control-details" element={<ControlDetailsWrapper />} />
+          <Route path="/current-status" element={<CurrentStatus />} />
           <Route path="/priorities" element={<Priorities />} />
           <Route path="/priority-stage" element={<PriorityStage />} />
           <Route path="/vulnerable-functions" element={<VulnerableFunctions />} />

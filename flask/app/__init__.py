@@ -45,4 +45,8 @@ def create_app():
     from .attack_paths import attack_blueprint
     app.register_blueprint(attack_blueprint, url_prefix='/api/attack')
 
+    # Register test runner blueprint
+    from .test_runner import test_runner_bp
+    app.register_blueprint(test_runner_bp)
+
     return app
