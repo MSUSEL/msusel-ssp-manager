@@ -1,4 +1,5 @@
-control 'authentication-policy' do
+# Change the control ID to match what the frontend expects
+control 'ia-2' do
   impact 1.0
   title 'Validate Authentication Controls'
   desc 'Ensure that identification and authentication controls are properly enforced (IA-2)'

@@ -47,6 +47,11 @@ const CurrentStatus: React.FC = () => {
   const [isRunningTests, setIsRunningTests] = useState(false);
   const [lastTestRun, setLastTestRun] = useState<string | null>(null);
 
+  // Add an effect to log when testResults changes
+  useEffect(() => {
+    console.log('testResults state changed:', testResults);
+  }, [testResults]);
+
   // Load the required data
   useEffect(() => {
     const loadData = async () => {
@@ -118,6 +123,8 @@ const CurrentStatus: React.FC = () => {
 
   // Combine all data to create a list of controls with their status
   const controls = useMemo(() => {
+    console.log('controls useMemo running with testResults:', testResults); // Debug log
+    
     return requiredControls.map(controlId => {
       // Find if the control is implemented
       const implemented = implementedControls.find(
@@ -128,6 +135,12 @@ const CurrentStatus: React.FC = () => {
       const testResult = testResults.find(
         result => result.control_id.toLowerCase() === controlId.toLowerCase()
       );
+      
+      if (testResult) {
+        console.log(`Found test result for ${controlId}:`, testResult); // Debug log
+      } else {
+        console.log(`No test result found for ${controlId}`); // Debug log
+      }
 
       // Determine status
       let status: 'passed' | 'failed' | 'not-tested' | 'not-implemented' = 'not-implemented';
@@ -188,6 +201,12 @@ const CurrentStatus: React.FC = () => {
   // Toggle expanded control
   const toggleControl = (controlId: string) => {
     setExpandedControl(expandedControl === controlId ? null : controlId);
+    
+    // Debug: Log the control's test results when expanded
+    if (expandedControl !== controlId) {
+      const control = controls.find(c => c.id === controlId);
+      console.log(`Expanded control ${controlId} test results:`, control?.testResult);
+    }
   };
 
   // Run InSpec tests
@@ -196,14 +215,32 @@ const CurrentStatus: React.FC = () => {
 
     try {
       // Call the backend API to run tests
-      // In Docker, this will be proxied through Vite to the Flask container
       const response = await axios.post('/api/run-tests');
+      console.log('API response:', response.data);
 
       if (response.status === 200) {
         // Reload test results
         const testResultsResponse = await fetch('/data/test_results.json');
         const testResultsData = await testResultsResponse.json();
+        console.log('Fetched test results:', testResultsData); // Debug log
+        
+        // Check the structure of the test results
+        if (Array.isArray(testResultsData)) {
+          console.log(`Test results is an array with ${testResultsData.length} items`);
+          if (testResultsData.length > 0) {
+            console.log('First test result:', testResultsData[0]);
+            console.log('Expected properties:', 
+              'control_id' in testResultsData[0], 
+              'status' in testResultsData[0], 
+              'test_results' in testResultsData[0]
+            );
+          }
+        } else {
+          console.log('Test results is not an array:', typeof testResultsData);
+        }
+        
         setTestResults(testResultsData);
+        console.log('After setTestResults, current state:', testResults);
 
         // Update last test run time
         setLastTestRun(new Date().toLocaleString());

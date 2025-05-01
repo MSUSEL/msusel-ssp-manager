@@ -27,6 +27,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - "${HOST_VOLUME_PATH}/flask/shared:/shared"
       - "${HOST_VOLUME_PATH}/flask/generatedFiles:/generatedFiles"
+      - "${HOST_VOLUME_PATH}/flask/react-app/public/data:/react-app/public/data"
     ports:
       - "5000:5000"
     privileged: true

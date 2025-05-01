@@ -1,0 +1,846 @@
+[2025-04-22 20:31:38] Starting InSpec test watcher
+[2025-04-22 20:31:38] Starting to watch for trigger file: ./flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-22 20:40:30] Starting InSpec test watcher
+[2025-04-22 20:40:30] ===========================
+[2025-04-22 20:40:31] Configuration:
+[2025-04-22 20:40:31]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-04-22 20:40:31]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-22 20:40:31]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-22 20:40:31]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-22 20:40:31]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 20:40:31]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-04-22 20:40:31] ===========================
+[2025-04-22 20:40:34] InSpec is installed: 6.8.11
+[2025-04-22 20:40:34] InSpec directory exists: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 20:40:34] Found 6 InSpec test files
+[2025-04-22 20:40:34] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-22 20:40:34] Watch directory exists: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-22 20:40:34] Watch directory is writable: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-22 20:40:34] Successfully wrote test file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_write_1745376034.txt
+[2025-04-22 20:40:34] Starting watch loop...
+[2025-04-22 20:42:21] Trigger file found with timestamp: 2025-04-23T02:42:20.256186
+[2025-04-22 20:42:21] Trigger file removed successfully
+[2025-04-22 20:42:21] Trigger detected. Running InSpec tests...
+[2025-04-22 20:42:21] Running InSpec tests from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 20:42:26] ERROR: InSpec command failed with exit code 1
+[2025-04-22 20:45:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-22 20:47:10] Starting InSpec test watcher
+[2025-04-22 20:47:10] ===========================
+[2025-04-22 20:47:10] Configuration:
+[2025-04-22 20:47:10]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-04-22 20:47:10]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-22 20:47:10]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-22 20:47:10]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-22 20:47:10]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 20:47:10]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-04-22 20:47:10] ===========================
+[2025-04-22 20:47:14] InSpec is installed: 6.8.11
+[2025-04-22 20:47:14] InSpec directory exists: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 20:47:14] Found 6 InSpec test files
+[2025-04-22 20:47:14] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-22 20:47:14] Watch directory exists: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-22 20:47:14] Watch directory is writable: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-22 20:47:14] Successfully wrote test file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_write_1745376434.txt
+[2025-04-22 20:47:14] Starting watch loop...
+[2025-04-22 20:49:06] Trigger file found with timestamp: 2025-04-23T02:49:06.818638
+[2025-04-22 20:49:06] Trigger file removed successfully
+[2025-04-22 20:49:06] Trigger detected. Running InSpec tests...
+[2025-04-22 20:49:06] Running InSpec tests from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 20:49:12] Processing InSpec results...
+[2025-04-22 20:49:12] InSpec tests completed. Results saved to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-22 20:50:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-22 20:51:51] Starting InSpec test watcher
+[2025-04-22 20:51:51] ===========================
+[2025-04-22 20:51:51] Configuration:
+[2025-04-22 20:51:51]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-04-22 20:51:51]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-22 20:51:51]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-22 20:51:51]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-22 20:51:51]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 20:51:51]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-04-22 20:51:51] ===========================
+[2025-04-22 20:51:54] InSpec is installed: 6.8.11
+[2025-04-22 20:51:54] InSpec directory exists: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 20:51:54] Found 6 InSpec test files
+[2025-04-22 20:51:54] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-22 20:51:54] Watch directory exists: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-22 20:51:54] Watch directory is writable: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-22 20:51:55] Successfully wrote test file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_write_1745376715.txt
+[2025-04-22 20:51:55] Starting watch loop...
+[2025-04-22 20:52:05] Trigger file found with timestamp: 2025-04-23T02:52:04.210066
+[2025-04-22 20:52:05] Trigger file removed successfully
+[2025-04-22 20:52:05] Trigger detected. Running InSpec tests...
+[2025-04-22 20:52:05] Running InSpec tests from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 20:52:10] Processing InSpec results...
+[2025-04-22 20:52:10] Using jq to process InSpec results
+[2025-04-22 20:52:10] WARNING: jq processing failed, using simplified processing
+[2025-04-22 20:52:10] InSpec tests completed. Results saved to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-22 20:55:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-22 20:56:47] Starting InSpec test watcher
+[2025-04-22 20:56:47] ===========================
+[2025-04-22 20:56:47] Configuration:
+[2025-04-22 20:56:47]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-04-22 20:56:47]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-22 20:56:47]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-22 20:56:47]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-22 20:56:47]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 20:56:47]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-04-22 20:56:47] ===========================
+[2025-04-22 20:56:51] InSpec is installed: 6.8.11
+[2025-04-22 20:56:51] InSpec directory exists: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 20:56:51] Found 6 InSpec test files
+[2025-04-22 20:56:51] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-22 20:56:51] Watch directory exists: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-22 20:56:51] Watch directory is writable: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-22 20:56:51] Successfully wrote test file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_write_1745377011.txt
+[2025-04-22 20:56:51] Starting watch loop...
+[2025-04-22 20:57:06] Trigger file found with timestamp: 2025-04-23T02:57:05.771056
+[2025-04-22 20:57:06] Trigger file removed successfully
+[2025-04-22 20:57:06] Trigger detected. Running InSpec tests...
+[2025-04-22 20:57:06] Running InSpec tests from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 20:57:06] Using existing InSpec profile at /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 20:57:06] Running InSpec command: inspec exec "/home/ernesto/Documents/msusel-ssp-manager/inspec" --reporter json:"/tmp/inspec_output_1745377026.json"
+[2025-04-22 20:57:12] Processing InSpec results...
+[2025-04-22 20:57:12] Parsing InSpec output file: /tmp/inspec_output_1745377026.json
+[2025-04-22 20:57:12] InSpec output is valid JSON, extracting controls
+[2025-04-22 20:57:12] Using Python to process InSpec results
+[2025-04-22 20:57:12] WARNING: Python processing failed, using default test results
+[2025-04-22 20:57:12] Created default test results
+[2025-04-22 20:57:12] InSpec tests completed. Results saved to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-22 21:00:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-22 21:00:34] Starting InSpec test watcher
+[2025-04-22 21:00:34] ===========================
+[2025-04-22 21:00:34] Configuration:
+[2025-04-22 21:00:34]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-04-22 21:00:34]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-22 21:00:34]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-22 21:00:34]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-22 21:00:34]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 21:00:34]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-04-22 21:00:34] ===========================
+[2025-04-22 21:00:37] InSpec is installed: 6.8.11
+[2025-04-22 21:00:37] InSpec directory exists: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 21:00:37] Found 6 InSpec test files
+[2025-04-22 21:00:37] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-22 21:00:37] Watch directory exists: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-22 21:00:37] Watch directory is writable: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-22 21:00:37] Successfully wrote test file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_write_1745377237.txt
+[2025-04-22 21:00:37] Starting watch loop...
+[2025-04-22 21:00:50] Trigger file found with timestamp: 2025-04-23T03:00:50.023972
+[2025-04-22 21:00:50] Trigger file removed successfully
+[2025-04-22 21:00:50] Trigger detected. Running InSpec tests...
+[2025-04-22 21:00:50] Running InSpec tests from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 21:00:50] Using existing InSpec profile at /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 21:00:50] Running InSpec command: inspec exec "/home/ernesto/Documents/msusel-ssp-manager/inspec" --reporter json:"/tmp/inspec_output_1745377250.json"
+[2025-04-22 21:00:57] Processing InSpec results...
+[2025-04-22 21:00:57] Parsing InSpec output file: /tmp/inspec_output_1745377250.json
+[2025-04-22 21:00:57] InSpec output is valid JSON, extracting controls
+[2025-04-22 21:00:57] Using Python to process InSpec results
+[2025-04-22 21:00:57] Running Python script: /tmp/inspec_process_1745377257.py
+[2025-04-22 21:00:57] 
+[2025-04-22 21:00:57] WARNING: Python processing failed, using default test results
+[2025-04-22 21:00:57] Created default test results
+[2025-04-22 21:00:57] InSpec tests completed. Results saved to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-22 21:05:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-22 21:07:37] Starting InSpec test watcher
+[2025-04-22 21:07:37] ===========================
+[2025-04-22 21:07:37] Configuration:
+[2025-04-22 21:07:37]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-04-22 21:07:37]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-22 21:07:37]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-22 21:07:37]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-22 21:07:37]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 21:07:37]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-04-22 21:07:37] ===========================
+[2025-04-22 21:07:41] InSpec is installed: 6.8.11
+[2025-04-22 21:07:41] InSpec directory exists: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 21:07:41] Found 6 InSpec test files
+[2025-04-22 21:07:41] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-22 21:07:41] Watch directory exists: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-22 21:07:41] Watch directory is writable: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-22 21:07:41] Successfully wrote test file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_write_1745377661.txt
+[2025-04-22 21:07:41] Starting watch loop...
+[2025-04-22 21:07:52] Trigger file found with timestamp: 2025-04-23T03:07:51.913580
+[2025-04-22 21:07:52] Trigger file removed successfully
+[2025-04-22 21:07:52] Trigger detected. Running InSpec tests...
+[2025-04-22 21:07:52] Running InSpec tests from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 21:07:52] Using existing InSpec profile at /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 21:07:52] Running InSpec command: inspec exec "/home/ernesto/Documents/msusel-ssp-manager/inspec" --reporter json:"/tmp/inspec_output_1745377672.json"
+[2025-04-22 21:07:58] Processing InSpec results...
+[2025-04-22 21:07:58] Parsing InSpec output file: /tmp/inspec_output_1745377672.json
+[2025-04-22 21:07:58] InSpec output is valid JSON, extracting controls
+[2025-04-22 21:07:58] Using Python to process InSpec results
+[2025-04-22 21:07:58] Running Python script: /tmp/inspec_process_1745377678.py
+[2025-04-22 21:07:58] TEMP_OUTPUT=/tmp/inspec_output_1745377672.json
+[2025-04-22 21:07:58] RESULTS_FILE=/home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-22 21:07:58] TEMP_OUTPUT file exists, size: 680 bytes
+[2025-04-22 21:07:58] First 100 bytes of TEMP_OUTPUT: 7b22706c6174666f726d223a7b226e616d65223a227562756e7475222c22
+72656c65617365223a2232342e3034222c227461726765745f6964223a22
+64323131313038332d363065322d353238612d386137352d313465326532
+343630656433227d2c22
+[2025-04-22 21:07:58] Python script output:\nProcessing InSpec output from /tmp/inspec_output_1745377672.json
+Writing results to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+Read 680 bytes from /tmp/inspec_output_1745377672.json
+First 100 characters: {"platform":{"name":"ubuntu","release":"24.04","target_id":"d2111083-60e2-528a-8a75-14e2e2460ed3"},"
+InSpec output contains 0 controls
+Keys in data: ['platform', 'profiles', 'statistics', 'version']
+No controls found, creating default ones
+Successfully wrote 2 controls to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-22 21:07:58] Python script exit code: 0
+[2025-04-22 21:07:58] Python script saved at: /tmp/inspec_process_1745377678.py
+[2025-04-22 21:07:58] Python processing successful
+[2025-04-22 21:07:58] InSpec tests completed. Results saved to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-22 21:10:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-22 21:10:34] Starting InSpec test watcher
+[2025-04-22 21:10:34] ===========================
+[2025-04-22 21:10:34] Configuration:
+[2025-04-22 21:10:34]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-04-22 21:10:34]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-22 21:10:34]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-22 21:10:34]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-22 21:10:34]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 21:10:34]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-04-22 21:10:34] ===========================
+[2025-04-22 21:10:37] InSpec is installed: 6.8.11
+[2025-04-22 21:10:37] InSpec directory exists: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 21:10:37] Found 6 InSpec test files
+[2025-04-22 21:10:37] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-22 21:10:37] Watch directory exists: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-22 21:10:37] Watch directory is writable: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-22 21:10:37] Successfully wrote test file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_write_1745377837.txt
+[2025-04-22 21:10:37] Starting watch loop...
+[2025-04-22 21:10:51] Trigger file found with timestamp: 2025-04-23T03:10:50.592894
+[2025-04-22 21:10:51] Trigger file removed successfully
+[2025-04-22 21:10:51] Trigger detected. Running InSpec tests...
+[2025-04-22 21:10:51] Running InSpec tests from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 21:10:51] Using existing InSpec profile at /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-22 21:10:51] Running InSpec command: inspec exec "/home/ernesto/Documents/msusel-ssp-manager/inspec" --reporter json:"/tmp/inspec_output_1745377851.json"
+[2025-04-22 21:10:57] Processing InSpec results...
+[2025-04-22 21:10:57] Parsing InSpec output file: /tmp/inspec_output_1745377851.json
+[2025-04-22 21:10:57] InSpec output is valid JSON, extracting controls
+[2025-04-22 21:10:57] Using Python to process InSpec results
+[2025-04-22 21:10:57] Running Python script: /tmp/inspec_process_1745377857.py
+[2025-04-22 21:10:57] TEMP_OUTPUT=/tmp/inspec_output_1745377851.json
+[2025-04-22 21:10:57] RESULTS_FILE=/home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-22 21:10:57] TEMP_OUTPUT file exists, size: 680 bytes
+[2025-04-22 21:10:57] First 100 bytes of TEMP_OUTPUT: 7b22706c6174666f726d223a7b226e616d65223a227562756e7475222c22
+72656c65617365223a2232342e3034222c227461726765745f6964223a22
+64323131313038332d363065322d353238612d386137352d313465326532
+343630656433227d2c22
+[2025-04-22 21:10:57] Python script output:\nProcessing InSpec output from /tmp/inspec_output_1745377851.json
+Writing results to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+Read 680 bytes from /tmp/inspec_output_1745377851.json
+First 100 characters: {"platform":{"name":"ubuntu","release":"24.04","target_id":"d2111083-60e2-528a-8a75-14e2e2460ed3"},"
+InSpec output contains 0 controls
+Keys in data: ['platform', 'profiles', 'statistics', 'version']
+No controls found, creating default ones
+Successfully wrote 2 controls to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-22 21:10:57] Python script exit code: 0
+[2025-04-22 21:10:57] Python script saved at: /tmp/inspec_process_1745377857.py
+[2025-04-22 21:10:57] Python processing successful
+[2025-04-22 21:10:57] InSpec tests completed. Results saved to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-23 11:16:48] Starting InSpec test watcher
+[2025-04-23 11:16:48] ===========================
+[2025-04-23 11:16:48] Configuration:
+[2025-04-23 11:16:48]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-04-23 11:16:48]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-23 11:16:48]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-23 11:16:48]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-23 11:16:48]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-23 11:16:48]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-04-23 11:16:48] ===========================
+[2025-04-23 11:16:55] InSpec is installed: 6.8.11
+[2025-04-23 11:16:55] InSpec directory exists: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-23 11:16:55] Found 6 InSpec test files
+[2025-04-23 11:16:55] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-23 11:16:55] Watch directory exists: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-23 11:16:56] Watch directory is writable: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-23 11:16:56] Successfully wrote test file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_write_1745428616.txt
+[2025-04-23 11:16:56] Starting watch loop...
+[2025-04-23 11:20:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-23 11:24:37] Starting InSpec test watcher
+[2025-04-23 11:24:37] ===========================
+[2025-04-23 11:24:37] Configuration:
+[2025-04-23 11:24:37]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-04-23 11:24:37]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-23 11:24:37]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-23 11:24:37]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-23 11:24:37]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-23 11:24:37]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-04-23 11:24:37] ===========================
+[2025-04-23 11:24:41] InSpec is installed: 6.8.11
+[2025-04-23 11:24:41] InSpec directory exists: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-23 11:24:41] Found 6 InSpec test files
+[2025-04-23 11:24:41] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-23 11:24:41] Watch directory exists: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-23 11:24:41] Watch directory is writable: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-23 11:24:41] Successfully wrote test file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_write_1745429081.txt
+[2025-04-23 11:24:41] Starting watch loop...
+[2025-04-23 11:24:59] Trigger file found with timestamp: 2025-04-23T17:24:59.612853
+[2025-04-23 11:24:59] Trigger file removed successfully
+[2025-04-23 11:24:59] Trigger detected. Running InSpec tests...
+[2025-04-23 11:24:59] Running InSpec tests from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-23 11:24:59] Using existing InSpec profile at /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-23 11:24:59] Running InSpec command: inspec exec "/home/ernesto/Documents/msusel-ssp-manager/inspec" --reporter json:"/tmp/inspec_output_1745429099.json"
+[2025-04-23 11:25:07] Processing InSpec results...
+[2025-04-23 11:25:07] Parsing InSpec output file: /tmp/inspec_output_1745429099.json
+[2025-04-23 11:25:07] InSpec output is valid JSON, extracting controls
+[2025-04-23 11:25:07] Using Python to process InSpec results
+[2025-04-23 11:25:07] Running Python script: /tmp/inspec_process_1745429107.py
+[2025-04-23 11:25:07] TEMP_OUTPUT=/tmp/inspec_output_1745429099.json
+[2025-04-23 11:25:07] RESULTS_FILE=/home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-23 11:25:07] TEMP_OUTPUT file exists, size: 680 bytes
+[2025-04-23 11:25:07] First 100 bytes of TEMP_OUTPUT: 7b22706c6174666f726d223a7b226e616d65223a227562756e7475222c22
+72656c65617365223a2232342e3034222c227461726765745f6964223a22
+64323131313038332d363065322d353238612d386137352d313465326532
+343630656433227d2c22
+[2025-04-23 11:25:07] Python script output:\nProcessing InSpec output from /tmp/inspec_output_1745429099.json
+Writing results to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+Read 680 bytes from /tmp/inspec_output_1745429099.json
+First 100 characters: {"platform":{"name":"ubuntu","release":"24.04","target_id":"d2111083-60e2-528a-8a75-14e2e2460ed3"},"
+InSpec output contains 0 controls
+Keys in data: ['platform', 'profiles', 'statistics', 'version']
+No controls found, creating default ones
+Successfully wrote 2 controls to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-23 11:25:07] Python script exit code: 0
+[2025-04-23 11:25:07] Python script saved at: /tmp/inspec_process_1745429107.py
+[2025-04-23 11:25:07] Python processing successful
+[2025-04-23 11:25:07] InSpec tests completed. Results saved to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-23 11:30:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-23 11:35:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-23 11:40:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-23 11:45:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-23 11:50:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 09:11:45] Starting InSpec test watcher
+[2025-04-24 09:11:45] ===========================
+[2025-04-24 09:11:45] Configuration:
+[2025-04-24 09:11:45]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-04-24 09:11:45]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-24 09:11:45]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 09:11:45]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 09:11:45]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 09:11:45]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-04-24 09:11:45] ===========================
+[2025-04-24 09:11:53] InSpec is installed: 6.8.11
+[2025-04-24 09:11:53] InSpec directory exists: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 09:11:53] Found 6 InSpec test files
+[2025-04-24 09:11:53] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 09:11:53] Watch directory exists: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-24 09:11:53] Watch directory is writable: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-24 09:11:53] Successfully wrote test file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_write_1745507513.txt
+[2025-04-24 09:11:53] Starting watch loop...
+[2025-04-24 09:12:57] Trigger file found with timestamp: 2025-04-24T15:12:57.410614
+[2025-04-24 09:12:57] Trigger file removed successfully
+[2025-04-24 09:12:57] Trigger detected. Running InSpec tests...
+[2025-04-24 09:12:57] Running InSpec tests from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 09:12:57] Using existing InSpec profile at /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 09:12:57] Running InSpec command: inspec exec "/home/ernesto/Documents/msusel-ssp-manager/inspec" --reporter json:"/tmp/inspec_output_1745507577.json"
+[2025-04-24 09:13:06] Processing InSpec results...
+[2025-04-24 09:13:06] Parsing InSpec output file: /tmp/inspec_output_1745507577.json
+[2025-04-24 09:13:06] InSpec output is valid JSON, extracting controls
+[2025-04-24 09:13:06] Using Python to process InSpec results
+[2025-04-24 09:13:06] Running Python script: /tmp/inspec_process_1745507586.py
+[2025-04-24 09:13:06] TEMP_OUTPUT=/tmp/inspec_output_1745507577.json
+[2025-04-24 09:13:06] RESULTS_FILE=/home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 09:13:06] TEMP_OUTPUT file exists, size: 680 bytes
+[2025-04-24 09:13:06] First 100 bytes of TEMP_OUTPUT: 7b22706c6174666f726d223a7b226e616d65223a227562756e7475222c22
+72656c65617365223a2232342e3034222c227461726765745f6964223a22
+64323131313038332d363065322d353238612d386137352d313465326532
+343630656433227d2c22
+[2025-04-24 09:13:06] Python script output:\nProcessing InSpec output from /tmp/inspec_output_1745507577.json
+Writing results to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+Read 680 bytes from /tmp/inspec_output_1745507577.json
+First 100 characters: {"platform":{"name":"ubuntu","release":"24.04","target_id":"d2111083-60e2-528a-8a75-14e2e2460ed3"},"
+InSpec output contains 0 controls
+Keys in data: ['platform', 'profiles', 'statistics', 'version']
+No controls found, creating default ones
+Successfully wrote 2 controls to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 09:13:06] Python script exit code: 0
+[2025-04-24 09:13:06] Python script saved at: /tmp/inspec_process_1745507586.py
+[2025-04-24 09:13:06] Python processing successful
+[2025-04-24 09:13:06] InSpec tests completed. Results saved to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 09:15:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 09:20:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 09:25:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 09:30:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 09:35:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 09:40:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 09:45:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 09:50:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 09:55:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 10:00:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 10:05:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 10:10:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 10:15:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 10:20:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 10:25:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 10:30:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 10:35:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 10:40:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 10:42:53] Starting InSpec test watcher
+[2025-04-24 10:42:53] ===========================
+[2025-04-24 10:42:53] Configuration:
+[2025-04-24 10:42:53]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-04-24 10:42:53]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-24 10:42:53]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 10:42:53]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 10:42:53]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 10:42:53]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-04-24 10:42:53] ===========================
+[2025-04-24 10:42:57] InSpec is installed: 6.8.11
+[2025-04-24 10:42:57] InSpec directory exists: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 10:42:57] Found 6 InSpec test files
+[2025-04-24 10:42:57] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 10:42:57] Watch directory exists: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-24 10:42:57] Watch directory is writable: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-24 10:42:57] Successfully wrote test file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_write_1745512977.txt
+[2025-04-24 10:42:57] Starting watch loop...
+[2025-04-24 10:43:55] Trigger file found with timestamp: 2025-04-24T16:43:55.183768
+[2025-04-24 10:43:55] Trigger file removed successfully
+[2025-04-24 10:43:55] Trigger detected. Running InSpec tests...
+[2025-04-24 10:43:55] Running InSpec tests from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 10:43:55] Running InSpec command: inspec exec "/home/ernesto/Documents/msusel-ssp-manager/inspec" --reporter json:"/tmp/inspec_output_1745513035.json"
+[2025-04-24 10:44:01] Processing InSpec results...
+[2025-04-24 10:44:01] Parsing InSpec output file: /tmp/inspec_output_1745513035.json
+[2025-04-24 10:44:02] InSpec output is valid JSON, extracting controls
+[2025-04-24 10:44:02] Using Python to process InSpec results
+[2025-04-24 10:44:02] Running Python script: /tmp/inspec_process_1745513042.py
+[2025-04-24 10:44:02] TEMP_OUTPUT=/tmp/inspec_output_1745513035.json
+[2025-04-24 10:44:02] RESULTS_FILE=/home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 10:44:02] TEMP_OUTPUT file exists, size: 679 bytes
+[2025-04-24 10:44:02] First 100 bytes of TEMP_OUTPUT: 7b22706c6174666f726d223a7b226e616d65223a227562756e7475222c22
+72656c65617365223a2232342e3034222c227461726765745f6964223a22
+64323131313038332d363065322d353238612d386137352d313465326532
+343630656433227d2c22
+[2025-04-24 10:44:02] Python script output:\nProcessing InSpec output from /tmp/inspec_output_1745513035.json
+Writing results to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+Read 679 bytes from /tmp/inspec_output_1745513035.json
+First 100 characters: {"platform":{"name":"ubuntu","release":"24.04","target_id":"d2111083-60e2-528a-8a75-14e2e2460ed3"},"
+InSpec output contains 0 controls
+Keys in data: ['platform', 'profiles', 'statistics', 'version']
+No controls found, creating default ones
+Successfully wrote 2 controls to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 10:44:02] Python script exit code: 0
+[2025-04-24 10:44:02] Python script saved at: /tmp/inspec_process_1745513042.py
+[2025-04-24 10:44:02] Python processing successful
+[2025-04-24 10:44:02] InSpec tests completed. Results saved to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 10:45:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 10:48:47] Starting InSpec test watcher
+[2025-04-24 10:48:47] ===========================
+[2025-04-24 10:48:47] Configuration:
+[2025-04-24 10:48:47]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-04-24 10:48:47]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-24 10:48:47]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 10:48:47]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 10:48:47]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 10:48:47]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-04-24 10:48:47] ===========================
+[2025-04-24 10:48:50] InSpec is installed: 6.8.11
+[2025-04-24 10:48:50] InSpec directory exists: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 10:48:50] Found 6 InSpec test files
+[2025-04-24 10:48:50] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 10:48:50] Watch directory exists: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-24 10:48:50] Watch directory is writable: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-24 10:48:50] Successfully wrote test file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_write_1745513330.txt
+[2025-04-24 10:48:50] Starting watch loop...
+[2025-04-24 10:49:07] Trigger file found with timestamp: 2025-04-24T16:49:06.930132
+[2025-04-24 10:49:07] Trigger file removed successfully
+[2025-04-24 10:49:07] Trigger detected. Running InSpec tests...
+[2025-04-24 10:49:07] Running InSpec tests from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 10:49:07] Running InSpec command: inspec exec "/home/ernesto/Documents/msusel-ssp-manager/inspec" --reporter json:"/tmp/inspec_output_1745513347.json"
+[2025-04-24 10:49:12] Processing InSpec results...
+[2025-04-24 10:49:12] Parsing InSpec output file: /tmp/inspec_output_1745513347.json
+[2025-04-24 10:49:12] InSpec output is valid JSON, extracting controls
+[2025-04-24 10:49:12] Using Python to process InSpec results
+[2025-04-24 10:49:12] Running Python script: /tmp/inspec_process_1745513352.py
+[2025-04-24 10:49:12] TEMP_OUTPUT=/tmp/inspec_output_1745513347.json
+[2025-04-24 10:49:12] RESULTS_FILE=/home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 10:49:12] TEMP_OUTPUT file exists, size: 680 bytes
+[2025-04-24 10:49:12] First 100 bytes of TEMP_OUTPUT: 7b22706c6174666f726d223a7b226e616d65223a227562756e7475222c22
+72656c65617365223a2232342e3034222c227461726765745f6964223a22
+64323131313038332d363065322d353238612d386137352d313465326532
+343630656433227d2c22
+[2025-04-24 10:49:12] Python script output:\nProcessing InSpec output from /tmp/inspec_output_1745513347.json
+Writing results to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+Read 680 bytes from /tmp/inspec_output_1745513347.json
+First 100 characters: {"platform":{"name":"ubuntu","release":"24.04","target_id":"d2111083-60e2-528a-8a75-14e2e2460ed3"},"
+InSpec output contains 0 controls
+Keys in data: ['platform', 'profiles', 'statistics', 'version']
+No controls found, creating default ones
+Successfully wrote 2 controls to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 10:49:12] Python script exit code: 0
+[2025-04-24 10:49:12] Python script saved at: /tmp/inspec_process_1745513352.py
+[2025-04-24 10:49:12] Python processing successful
+[2025-04-24 10:49:12] InSpec tests completed. Results saved to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 10:50:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 10:55:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 11:00:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 11:05:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 11:10:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 11:15:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 11:20:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 11:25:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 12:34:54] Starting InSpec test watcher
+[2025-04-24 12:34:54] ===========================
+[2025-04-24 12:34:54] Configuration:
+[2025-04-24 12:34:54]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-04-24 12:34:54]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-24 12:34:54]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 12:34:54]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 12:34:54]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 12:34:55]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-04-24 12:34:55] ===========================
+[2025-04-24 12:35:03] InSpec is installed: 6.8.11
+[2025-04-24 12:35:03] InSpec directory exists: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 12:35:03] Found 6 InSpec test files
+[2025-04-24 12:35:03] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 12:35:03] Watch directory exists: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-24 12:35:03] Watch directory is writable: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-24 12:35:03] Successfully wrote test file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_write_1745519703.txt
+[2025-04-24 12:35:03] Starting watch loop...
+[2025-04-24 12:36:04] Trigger file found with timestamp: 2025-04-24T18:36:03.871435
+[2025-04-24 12:36:04] Trigger file removed successfully
+[2025-04-24 12:36:04] Trigger detected. Running InSpec tests...
+[2025-04-24 12:36:04] Running InSpec tests from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 12:36:04] Running InSpec command: inspec exec "/home/ernesto/Documents/msusel-ssp-manager/inspec" --reporter json:""
+[2025-04-24 12:36:59] Processing InSpec results...
+[2025-04-24 12:36:59] Parsing InSpec output file: /tmp/inspec_output_1745519800.json
+[2025-04-24 12:36:59] InSpec output is valid JSON, extracting controls
+[2025-04-24 12:36:59] Using Python to process InSpec results
+[2025-04-24 12:36:59] Running Python script: /tmp/inspec_process_1745519819.py
+[2025-04-24 12:36:59] TEMP_OUTPUT=/tmp/inspec_output_1745519800.json
+[2025-04-24 12:37:00] RESULTS_FILE=/home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 12:37:00] TEMP_OUTPUT file exists, size: 680 bytes
+[2025-04-24 12:37:00] First 100 bytes of TEMP_OUTPUT: 7b22706c6174666f726d223a7b226e616d65223a227562756e7475222c22
+72656c65617365223a2232342e3034222c227461726765745f6964223a22
+64323131313038332d363065322d353238612d386137352d313465326532
+343630656433227d2c22
+[2025-04-24 12:37:00] Python script output:\nProcessing InSpec output from /tmp/inspec_output_1745519800.json
+Writing results to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+Read 680 bytes from /tmp/inspec_output_1745519800.json
+First 100 characters: {"platform":{"name":"ubuntu","release":"24.04","target_id":"d2111083-60e2-528a-8a75-14e2e2460ed3"},"
+InSpec output contains 0 controls
+Keys in data: ['platform', 'profiles', 'statistics', 'version']
+No controls found, creating default ones
+Successfully wrote 2 controls to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 12:37:00] Python script exit code: 0
+[2025-04-24 12:37:00] Python script saved at: /tmp/inspec_process_1745519819.py
+[2025-04-24 12:37:00] Python processing successful
+[2025-04-24 12:37:00] InSpec tests completed. Results saved to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 12:39:50] Trigger file found with timestamp: 2025-04-24T18:39:49.451851
+[2025-04-24 12:39:50] Trigger file removed successfully
+[2025-04-24 12:39:50] Trigger detected. Running InSpec tests...
+[2025-04-24 12:39:50] Running InSpec tests from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 12:39:50] Running InSpec command: inspec exec "/home/ernesto/Documents/msusel-ssp-manager/inspec" --reporter json:"/tmp/inspec_output_1745519800.json"
+[2025-04-24 12:40:32] Processing InSpec results...
+[2025-04-24 12:40:32] Parsing InSpec output file: /tmp/inspec_output_1745520021.json
+[2025-04-24 12:40:32] InSpec output is valid JSON, extracting controls
+[2025-04-24 12:40:32] Using Python to process InSpec results
+[2025-04-24 12:40:32] Running Python script: /tmp/inspec_process_1745520032.py
+[2025-04-24 12:40:32] TEMP_OUTPUT=/tmp/inspec_output_1745520021.json
+[2025-04-24 12:40:32] RESULTS_FILE=/home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 12:40:32] TEMP_OUTPUT file exists, size: 680 bytes
+[2025-04-24 12:40:32] First 100 bytes of TEMP_OUTPUT: 7b22706c6174666f726d223a7b226e616d65223a227562756e7475222c22
+72656c65617365223a2232342e3034222c227461726765745f6964223a22
+64323131313038332d363065322d353238612d386137352d313465326532
+343630656433227d2c22
+[2025-04-24 12:40:32] Python script output:\nProcessing InSpec output from /tmp/inspec_output_1745520021.json
+Writing results to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+Read 680 bytes from /tmp/inspec_output_1745520021.json
+First 100 characters: {"platform":{"name":"ubuntu","release":"24.04","target_id":"d2111083-60e2-528a-8a75-14e2e2460ed3"},"
+InSpec output contains 0 controls
+Keys in data: ['platform', 'profiles', 'statistics', 'version']
+No controls found, creating default ones
+Successfully wrote 2 controls to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 12:40:32] Python script exit code: 0
+[2025-04-24 12:40:32] Python script saved at: /tmp/inspec_process_1745520032.py
+[2025-04-24 12:40:32] Python processing successful
+[2025-04-24 12:40:32] InSpec tests completed. Results saved to /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 12:45:00] Still watching for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 19:18:34] Starting InSpec test watcher
+[2025-04-24 19:18:34] ===========================
+[2025-04-24 19:18:34] Configuration:
+[2025-04-24 19:18:34]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-04-24 19:18:34]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-24 19:18:34]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 19:18:34]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 19:18:34]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 19:18:34]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-04-24 19:18:34] ===========================
+[2025-04-24 19:18:41] InSpec is installed: 6.8.11
+[2025-04-24 19:18:41] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 19:20:10] Trigger file found with timestamp: 2025-04-25T01:20:09.436743
+[2025-04-24 19:20:10] Trigger detected. Running InSpec tests...
+[2025-04-24 19:20:10] Running InSpec tests from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 19:20:10] Running test: /home/ernesto/Documents/msusel-ssp-manager/inspec/access_control_test.rb
+[2025-04-24 19:20:18] Test completed with exit code 100
+[2025-04-24 19:20:18] Running test: /home/ernesto/Documents/msusel-ssp-manager/inspec/audit_test.rb
+[2025-04-24 19:20:25] Test completed with exit code 100
+[2025-04-24 19:20:25] Running test: /home/ernesto/Documents/msusel-ssp-manager/inspec/authentication_test.rb
+[2025-04-24 19:20:32] Test completed with exit code 100
+[2025-04-24 19:20:32] Running test: /home/ernesto/Documents/msusel-ssp-manager/inspec/configuration_management_test.rb
+[2025-04-24 19:20:38] Test completed with exit code 100
+[2025-04-24 19:20:38] Running test: /home/ernesto/Documents/msusel-ssp-manager/inspec/input_validation_test.rb
+[2025-04-24 19:20:44] Test completed with exit code 0
+[2025-04-24 19:20:44] Running test: /home/ernesto/Documents/msusel-ssp-manager/inspec/session_crypto_test.rb
+[2025-04-24 19:20:49] Test completed with exit code 100
+[2025-04-24 19:20:49] Processing InSpec results with Python
+[2025-04-24 19:20:49] Successfully processed InSpec results
+[2025-04-24 19:20:49] InSpec tests completed
+[2025-04-24 19:33:44] Starting InSpec test watcher
+[2025-04-24 19:33:44] ===========================
+[2025-04-24 19:33:44] Configuration:
+[2025-04-24 19:33:44]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-04-24 19:33:44]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-24 19:33:44]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 19:33:44]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 19:33:44]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 19:33:44]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-04-24 19:33:44]   Python processor: /home/ernesto/Documents/msusel-ssp-manager/process_inspec_results.py
+[2025-04-24 19:33:44] ===========================
+[2025-04-24 19:33:48] InSpec is installed: 6.8.11
+[2025-04-24 19:33:48] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 19:33:58] Trigger file found with timestamp: 2025-04-25T01:33:57.914938
+[2025-04-24 19:33:58] Trigger detected. Running InSpec tests...
+[2025-04-24 19:33:58] Running InSpec tests from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 19:34:04] Tests completed with exit code 0
+[2025-04-24 19:34:04] Processing InSpec results with Python
+[2025-04-24 19:34:04] Successfully processed InSpec results
+[2025-04-24 19:34:04] InSpec tests completed
+[2025-04-24 20:25:58] Starting InSpec test watcher
+[2025-04-24 20:25:59] ===========================
+[2025-04-24 20:25:59] Configuration:
+[2025-04-24 20:25:59]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-04-24 20:25:59]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-24 20:25:59]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 20:25:59]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 20:25:59]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 20:25:59]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-04-24 20:25:59]   Python processor: /home/ernesto/Documents/msusel-ssp-manager/process_inspec_results.py
+[2025-04-24 20:25:59] ===========================
+[2025-04-24 20:26:03] InSpec is installed: 6.8.11
+[2025-04-24 20:26:03] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 20:26:24] Trigger file found with timestamp: 2025-04-25T02:26:24.250071
+[2025-04-24 20:26:24] Trigger detected. Running InSpec tests...
+[2025-04-24 20:26:24] Running InSpec tests from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 20:26:30] Tests completed with exit code 0
+[2025-04-24 20:26:30] Processing InSpec results with Python
+[2025-04-24 20:26:31] Successfully processed InSpec results
+[2025-04-24 20:26:31] InSpec tests completed
+[2025-04-24 20:41:35] Starting InSpec test watcher
+[2025-04-24 20:41:35] ===========================
+[2025-04-24 20:41:35] Configuration:
+[2025-04-24 20:41:35]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-04-24 20:41:35]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-04-24 20:41:35]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 20:41:35]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-04-24 20:41:35]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 20:41:35]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-04-24 20:41:35]   Python processor: /home/ernesto/Documents/msusel-ssp-manager/process_inspec_results.py
+[2025-04-24 20:41:35] ===========================
+[2025-04-24 20:41:39] InSpec is installed: 6.8.11
+[2025-04-24 20:41:39] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-04-24 20:42:03] Trigger file found with timestamp: 2025-04-25T02:42:02.477772
+[2025-04-24 20:42:03] Trigger detected. Running InSpec tests...
+[2025-04-24 20:42:03] Running InSpec profile from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 20:42:10] Tests completed with exit code 100
+[2025-04-24 20:42:10] Processing InSpec results with Python
+[2025-04-24 20:42:10] Successfully processed InSpec results
+[2025-04-24 20:42:10] InSpec tests completed
+[2025-04-24 20:54:29] Trigger file found with timestamp: 2025-04-25T02:54:28.714484
+[2025-04-24 20:54:29] Trigger detected. Running InSpec tests...
+[2025-04-24 20:54:29] Running InSpec profile from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 20:54:37] Tests completed with exit code 100
+[2025-04-24 20:54:37] Processing InSpec results with Python
+[2025-04-24 20:54:37] Successfully processed InSpec results
+[2025-04-24 20:54:37] InSpec tests completed
+[2025-04-24 21:01:37] Trigger file found with timestamp: 2025-04-25T03:01:37.103894
+[2025-04-24 21:01:37] Trigger detected. Running InSpec tests...
+[2025-04-24 21:01:37] Running InSpec profile from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-04-24 21:01:46] Tests completed with exit code 100
+[2025-04-24 21:01:46] Processing InSpec results with Python
+[2025-04-24 21:01:46] Successfully processed InSpec results
+[2025-04-24 21:01:46] InSpec tests completed
+[2025-05-01 09:48:58] Starting InSpec test watcher
+[2025-05-01 09:48:58] ===========================
+[2025-05-01 09:48:58] Configuration:
+[2025-05-01 09:48:58]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-05-01 09:48:58]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-05-01 09:48:58]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-05-01 09:48:58]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-05-01 09:48:58]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-01 09:48:58]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-05-01 09:48:58]   Python processor: /home/ernesto/Documents/msusel-ssp-manager/process_inspec_results.py
+[2025-05-01 09:48:58] ===========================
+[2025-05-01 09:49:07] InSpec is installed: 6.8.11
+[2025-05-01 09:49:07] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-05-01 09:51:03] Trigger file found with timestamp: 2025-05-01T15:51:03.151789
+[2025-05-01 09:51:03] Trigger detected. Running InSpec tests...
+[2025-05-01 09:51:03] Running InSpec profile from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-01 09:51:12] Tests completed with exit code 100
+[2025-05-01 09:51:12] Processing InSpec results with Python
+[2025-05-01 09:51:12] Successfully processed InSpec results
+[2025-05-01 09:51:12] InSpec tests completed
+[2025-05-01 10:27:58] Trigger file found with timestamp: 2025-05-01T16:27:58.287955
+[2025-05-01 10:27:58] Trigger detected. Running InSpec tests...
+[2025-05-01 10:27:58] Running InSpec profile from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-01 10:28:05] Tests completed with exit code 100
+[2025-05-01 10:28:05] Processing InSpec results with Python
+[2025-05-01 10:28:05] Successfully processed InSpec results
+[2025-05-01 10:28:05] InSpec tests completed
+[2025-05-01 10:33:08] Starting InSpec test watcher
+[2025-05-01 10:33:08] ===========================
+[2025-05-01 10:33:08] Configuration:
+[2025-05-01 10:33:08]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-05-01 10:33:08]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-05-01 10:33:08]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-05-01 10:33:08]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-05-01 10:33:08]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-01 10:33:08]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-05-01 10:33:08]   Python processor: /home/ernesto/Documents/msusel-ssp-manager/process_inspec_results.py
+[2025-05-01 10:33:08] ===========================
+[2025-05-01 10:33:12] InSpec is installed: 6.8.11
+[2025-05-01 10:33:12] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-05-01 10:33:25] Trigger file found with timestamp: 2025-05-01T16:33:25.459073
+[2025-05-01 10:33:25] Trigger detected. Running InSpec tests...
+[2025-05-01 10:33:25] Running InSpec profile from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-01 10:33:32] Tests completed with exit code 100
+[2025-05-01 10:33:32] Processing InSpec results with Python
+[2025-05-01 10:33:32] Successfully processed InSpec results
+[2025-05-01 10:33:32] InSpec tests completed
+[2025-05-01 11:02:35] Starting InSpec test watcher
+[2025-05-01 11:02:35] ===========================
+[2025-05-01 11:02:35] Configuration:
+[2025-05-01 11:02:36]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-05-01 11:02:36]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-05-01 11:02:36]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-05-01 11:02:36]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-05-01 11:02:36]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-01 11:02:36]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-05-01 11:02:36]   Python processor: /home/ernesto/Documents/msusel-ssp-manager/process_inspec_results.py
+[2025-05-01 11:02:36] ===========================
+[2025-05-01 11:02:39] InSpec is installed: 6.8.11
+[2025-05-01 11:02:39] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-05-01 11:02:39] Trigger file found with timestamp: 2025-05-01T17:02:05.438074
+[2025-05-01 11:02:39] Trigger detected. Running InSpec tests...
+[2025-05-01 11:02:39] Running InSpec profile from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-01 11:02:45] Tests completed with exit code 100
+[2025-05-01 11:02:45] Processing InSpec results with Python
+[2025-05-01 11:02:45] Successfully processed InSpec results
+[2025-05-01 11:02:45] InSpec tests completed
+[2025-05-01 11:05:46] Trigger file found with timestamp: 2025-05-01T17:05:45.704735
+[2025-05-01 11:05:46] Trigger detected. Running InSpec tests...
+[2025-05-01 11:05:46] Running InSpec profile from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-01 11:05:52] Tests completed with exit code 100
+[2025-05-01 11:05:52] Processing InSpec results with Python
+[2025-05-01 11:05:53] Successfully processed InSpec results
+[2025-05-01 11:05:53] InSpec tests completed
+[2025-05-01 12:47:19] Starting InSpec test watcher
+[2025-05-01 12:47:19] ===========================
+[2025-05-01 12:47:19] Configuration:
+[2025-05-01 12:47:19]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-05-01 12:47:19]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-05-01 12:47:19]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-05-01 12:47:19]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-05-01 12:47:19]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-01 12:47:19]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-05-01 12:47:19]   Python processor: /home/ernesto/Documents/msusel-ssp-manager/process_inspec_results.py
+[2025-05-01 12:47:19] ===========================
+[2025-05-01 12:47:33] InSpec is installed: 6.8.11
+[2025-05-01 12:47:33] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-05-01 12:48:31] Trigger file found with timestamp: 2025-05-01T18:48:30.240833
+[2025-05-01 12:48:31] Trigger detected. Running InSpec tests...
+[2025-05-01 12:48:31] Running InSpec profile from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-01 12:48:40] InSpec command output:
+[2025-05-01 12:48:40] [2025-05-01T12:48:36-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-01T12:48:37-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-01T12:48:37-06:00] DEBUG: Option backend_cache is enabled
+[2025-05-01T12:48:37-06:00] DEBUG: Resolve /home/ernesto/Documents/msusel-ssp-manager/inspec into cache /home/ernesto/.inspec/cache
+[2025-05-01T12:48:37-06:00] DEBUG: Dependency does not exist in the cache /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-01T12:48:37-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-01T12:48:37-06:00] DEBUG: TUI Engine initialized.
+[2025-05-01T12:48:37-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-01T12:48:37-06:00] DEBUG: TUI Engine initialized.
+[2025-05-01T12:48:37-06:00] DEBUG: Trying to connect to https://services.chef.io/licensing
+[2025-05-01T12:48:37-06:00] DEBUG: HTTP Cache: [GET /licensing/v1/client?entitlementId=3ff52c37-e41f-4f6c-ad4d-365192205968&licenseId=free-8388a8eb-3fb6-4854-8f74-41bb9bbc5eb8-6529] fresh
+[2025-05-01T12:48:37-06:00] DEBUG: Connection succeeded to https://services.chef.io/licensing
+[2025-05-01T12:48:37-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-01T12:48:37-06:00] DEBUG: Starting run with targets: ["Inspec::Profile<ugov-services-security-controls>"]
+[2025-05-01T12:48:37-06:00] DEBUG: Fetching license context for telemetry check
+[2025-05-01T12:48:37-06:00] DEBUG: Determined HTTP instance for telemetry
+[2025-05-01T12:48:37-06:00] DEBUG: Initiating telemetry for InSpec
+[2025-05-01T12:48:37-06:00] DEBUG: Using existing lockfile /home/ernesto/Documents/msusel-ssp-manager/inspec/inspec.lock
+[2025-05-01T12:48:37-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-01T12:48:37-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/access_control_test.rb into #<Inspec::ProfileContext:0x00007a70d6c88248>
+[2025-05-01T12:48:37-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_test.rb into #<Inspec::ProfileContext:0x00007a70d6c88248>
+[2025-05-01T12:48:37-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/authentication_test.rb into #<Inspec::ProfileContext:0x00007a70d6c88248>
+[2025-05-01T12:48:37-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/configuration_management_test.rb into #<Inspec::ProfileContext:0x00007a70d6c88248>
+[2025-05-01T12:48:37-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/input_validation_test.rb into #<Inspec::ProfileContext:0x00007a70d6c88248>
+[2025-05-01T12:48:37-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/session_crypto_test.rb into #<Inspec::ProfileContext:0x00007a70d6c88248>
+[2025-05-01T12:48:37-06:00] DEBUG: Registering rule access-control-policy
+[2025-05-01T12:48:37-06:00] DEBUG: Registering rule audit-policy
+[2025-05-01T12:48:38-06:00] DEBUG: Registering rule ia-2
+[2025-05-01T12:48:38-06:00] DEBUG: Registering rule configuration-management-policy
+[2025-05-01T12:48:38-06:00] DEBUG: Registering rule input-validation-policy
+[2025-05-01T12:48:38-06:00] DEBUG: Registering rule session-crypto-policy
+[2025-05-01T12:48:39-06:00] DEBUG: Prepping to run feature 'inspec-reporter-json'
+[2025-05-01T12:48:39-06:00] DEBUG: Initialising wrapper for telemetry
+[2025-05-01T12:48:39-06:00] DEBUG: Fetching license IDs for telemetry
+[2025-05-01T12:48:39-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-01T12:48:39-06:00] DEBUG: TUI Engine initialized.
+[2025-05-01T12:48:39-06:00] DEBUG: Final data for telemetry upload -> {:version=>2.0, :createdTimeUTC=>"2025-05-01T18:48:39Z", :environment=>"cli", :licenseIds=>["free-8388a8eb-3fb6-4854-8f74-41bb9bbc5eb8-6529"], :source=>"inspec:6.8.11", :type=>"job", :platform=>"ubuntu", :jobs=>[{:type=>"InSpec", :environment=>{:host=>"unknown", :os=>"ubuntu", :version=>"24.04", :architecture=>"x86_64", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :runtime=>"6.8.11", :content=>[{:name=>"4e2100d54dfb2ac04b26a21d3e77a4c68dc7e91c9004629afc1c0ec775c41846", :version=>"0.1.0", :sha256=>"a70e6ca2b48513a762944a833e55e6975323dedc0faa2fa6c738ded1f43458e1", :maintainer=>"Security Team", :type=>"profile"}], :steps=>[{:id=>"b1e6a1cddd8053e3fedcc89f7deb2fe961a3980bf4da546f12565cb0ae8c5876", :name=>"inspec-control", :description=>"Ensure that role-based access control is properly enforced (AC-2, AC-3)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"71f880c30d300e280c8f9cb284b41bf31c8c79dcb16526d2c390d58bf33e922d", :name=>"inspec-control", :description=>"Ensure that audit events are properly captured and formatted (AU-2, AU-3, AU-6)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"f6faf090858e67e8f69a9d09a82baf48376d792ef44303240a6f2d4cec6b9194", :name=>"inspec-control", :description=>"Ensure that identification and authentication controls are properly enforced (IA-2)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"34b61551ab2c7dadb68cf55ea59ca9b2d3aafef2ea16e35f173855ed3fd0c467", :name=>"inspec-control", :description=>"Ensure that configuration management controls are properly enforced (CM-2, CM-5, CM-8)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"021d4295d44187bd30ec067ec4041336d250d84c793f096242202c74f624a08e", :name=>"inspec-control", :description=>"Ensure that input validation mechanisms are properly enforced (SI-3, SI-7)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"480bca11d470647ec10434cd38e1cf5d5037a4853fbd0575c3de54040c8371a8", :name=>"inspec-control", :description=>"Ensure that session authenticity and cryptographic protections are properly enforced (SC-23, SC-12, SC-13)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}]}]}
+[2025-05-01T12:48:39-06:00] DEBUG: Finishing telemetry for InSpec
+[2025-05-01T12:48:40-06:00] DEBUG: HTTP connection with Telemetry Client successful.
+[2025-05-01T12:48:40-06:00] DEBUG: HTTP response from Telemetry Client -> {:status=>200, :body=>{"data"=>{"msg"=>"Jobs payload processed successfully"}, "error"=>"", "status"=>200}, :response_headers=>{"connection"=>"keep-alive", "content-length"=>"78", "content-type"=>"application/json", "x-request-id"=>"51fa9ee8-cc84-4fc1-9928-7704b91fc5a2", "accept-ranges"=>"bytes", "date"=>"Thu, 01 May 2025 18:48:40 GMT", "via"=>"1.1 varnish", "x-served-by"=>"cache-sjc10027-SJC", "x-cache"=>"MISS", "x-cache-hits"=>"0", "x-timer"=>"S1746125320.684283,VS0,VE534"}}
+[2025-05-01 12:48:40] Tests completed with exit code 100
+[2025-05-01 12:48:40] Processing InSpec results with Python
+[2025-05-01 12:48:40] Successfully processed InSpec results
+[2025-05-01 12:48:40] InSpec tests completed
+[2025-05-01 14:10:02] Trigger file found with timestamp: 2025-05-01T20:10:02.046567
+[2025-05-01 14:10:02] Trigger detected. Running InSpec tests...
+[2025-05-01 14:10:02] Running InSpec profile from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-01 14:10:09] InSpec command output:
+[2025-05-01 14:10:09] [2025-05-01T14:10:07-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-01T14:10:07-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-01T14:10:07-06:00] DEBUG: Option backend_cache is enabled
+[2025-05-01T14:10:07-06:00] DEBUG: Resolve /home/ernesto/Documents/msusel-ssp-manager/inspec into cache /home/ernesto/.inspec/cache
+[2025-05-01T14:10:07-06:00] DEBUG: Dependency does not exist in the cache /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-01T14:10:07-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-01T14:10:07-06:00] DEBUG: TUI Engine initialized.
+[2025-05-01T14:10:07-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-01T14:10:07-06:00] DEBUG: TUI Engine initialized.
+[2025-05-01T14:10:07-06:00] DEBUG: Trying to connect to https://services.chef.io/licensing
+[2025-05-01T14:10:07-06:00] DEBUG: HTTP Cache: [GET /licensing/v1/client?entitlementId=3ff52c37-e41f-4f6c-ad4d-365192205968&licenseId=free-8388a8eb-3fb6-4854-8f74-41bb9bbc5eb8-6529] fresh
+[2025-05-01T14:10:07-06:00] DEBUG: Connection succeeded to https://services.chef.io/licensing
+[2025-05-01T14:10:07-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-01T14:10:07-06:00] DEBUG: Starting run with targets: ["Inspec::Profile<ugov-services-security-controls>"]
+[2025-05-01T14:10:07-06:00] DEBUG: Fetching license context for telemetry check
+[2025-05-01T14:10:07-06:00] DEBUG: Determined HTTP instance for telemetry
+[2025-05-01T14:10:07-06:00] DEBUG: Initiating telemetry for InSpec
+[2025-05-01T14:10:07-06:00] DEBUG: Using existing lockfile /home/ernesto/Documents/msusel-ssp-manager/inspec/inspec.lock
+[2025-05-01T14:10:07-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-01T14:10:07-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/access_control_test.rb into #<Inspec::ProfileContext:0x00007873df072b20>
+[2025-05-01T14:10:07-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_test.rb into #<Inspec::ProfileContext:0x00007873df072b20>
+[2025-05-01T14:10:07-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/authentication_test.rb into #<Inspec::ProfileContext:0x00007873df072b20>
+[2025-05-01T14:10:07-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/configuration_management_test.rb into #<Inspec::ProfileContext:0x00007873df072b20>
+[2025-05-01T14:10:07-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/input_validation_test.rb into #<Inspec::ProfileContext:0x00007873df072b20>
+[2025-05-01T14:10:07-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/session_crypto_test.rb into #<Inspec::ProfileContext:0x00007873df072b20>
+[2025-05-01T14:10:07-06:00] DEBUG: Registering rule access-control-policy
+[2025-05-01T14:10:08-06:00] DEBUG: Registering rule audit-policy
+[2025-05-01T14:10:08-06:00] DEBUG: Registering rule ia-2
+[2025-05-01T14:10:08-06:00] DEBUG: Registering rule configuration-management-policy
+[2025-05-01T14:10:08-06:00] DEBUG: Registering rule input-validation-policy
+[2025-05-01T14:10:08-06:00] DEBUG: Registering rule session-crypto-policy
+[2025-05-01T14:10:09-06:00] DEBUG: Prepping to run feature 'inspec-reporter-json'
+[2025-05-01T14:10:09-06:00] DEBUG: Initialising wrapper for telemetry
+[2025-05-01T14:10:09-06:00] DEBUG: Fetching license IDs for telemetry
+[2025-05-01T14:10:09-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-01T14:10:09-06:00] DEBUG: TUI Engine initialized.
+[2025-05-01T14:10:09-06:00] DEBUG: Final data for telemetry upload -> {:version=>2.0, :createdTimeUTC=>"2025-05-01T20:10:09Z", :environment=>"cli", :licenseIds=>["free-8388a8eb-3fb6-4854-8f74-41bb9bbc5eb8-6529"], :source=>"inspec:6.8.11", :type=>"job", :platform=>"ubuntu", :jobs=>[{:type=>"InSpec", :environment=>{:host=>"unknown", :os=>"ubuntu", :version=>"24.04", :architecture=>"x86_64", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :runtime=>"6.8.11", :content=>[{:name=>"4e2100d54dfb2ac04b26a21d3e77a4c68dc7e91c9004629afc1c0ec775c41846", :version=>"0.1.0", :sha256=>"a70e6ca2b48513a762944a833e55e6975323dedc0faa2fa6c738ded1f43458e1", :maintainer=>"Security Team", :type=>"profile"}], :steps=>[{:id=>"b1e6a1cddd8053e3fedcc89f7deb2fe961a3980bf4da546f12565cb0ae8c5876", :name=>"inspec-control", :description=>"Ensure that role-based access control is properly enforced (AC-2, AC-3)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"71f880c30d300e280c8f9cb284b41bf31c8c79dcb16526d2c390d58bf33e922d", :name=>"inspec-control", :description=>"Ensure that audit events are properly captured and formatted (AU-2, AU-3, AU-6)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"f6faf090858e67e8f69a9d09a82baf48376d792ef44303240a6f2d4cec6b9194", :name=>"inspec-control", :description=>"Ensure that identification and authentication controls are properly enforced (IA-2)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"34b61551ab2c7dadb68cf55ea59ca9b2d3aafef2ea16e35f173855ed3fd0c467", :name=>"inspec-control", :description=>"Ensure that configuration management controls are properly enforced (CM-2, CM-5, CM-8)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"021d4295d44187bd30ec067ec4041336d250d84c793f096242202c74f624a08e", :name=>"inspec-control", :description=>"Ensure that input validation mechanisms are properly enforced (SI-3, SI-7)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"480bca11d470647ec10434cd38e1cf5d5037a4853fbd0575c3de54040c8371a8", :name=>"inspec-control", :description=>"Ensure that session authenticity and cryptographic protections are properly enforced (SC-23, SC-12, SC-13)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}]}]}
+[2025-05-01T14:10:09-06:00] DEBUG: Finishing telemetry for InSpec
+[2025-05-01T14:10:09-06:00] DEBUG: HTTP connection with Telemetry Client successful.
+[2025-05-01T14:10:09-06:00] DEBUG: HTTP response from Telemetry Client -> {:status=>200, :body=>{"data"=>{"msg"=>"Jobs payload processed successfully"}, "error"=>"", "status"=>200}, :response_headers=>{"connection"=>"keep-alive", "content-length"=>"78", "content-type"=>"application/json", "x-request-id"=>"f6fb9ee8-cc84-4fc1-9928-7704b91fc5a2", "accept-ranges"=>"bytes", "date"=>"Thu, 01 May 2025 20:10:09 GMT", "via"=>"1.1 varnish", "x-served-by"=>"cache-sjc10065-SJC", "x-cache"=>"MISS", "x-cache-hits"=>"0", "x-timer"=>"S1746130209.363207,VS0,VE474"}}
+[2025-05-01 14:10:09] Tests completed with exit code 100
+[2025-05-01 14:10:09] Processing InSpec results with Python
+[2025-05-01 14:10:10] Successfully processed InSpec results
+[2025-05-01 14:10:10] InSpec tests completed
