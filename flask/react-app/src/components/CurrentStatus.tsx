@@ -35,6 +35,8 @@ interface TestResult {
   }[];
 }
 
+import catalogData from '../data/NIST_SP-800-53_rev5_catalog.json';
+
 const CurrentStatus: React.FC = () => {
   // State for our data
   const [requiredControls, setRequiredControls] = useState<string[]>([]);
@@ -75,15 +77,38 @@ const CurrentStatus: React.FC = () => {
         }
 
         // Load control details (for families, titles, etc.)
-        const controlsResponse = await fetch('/data/NIST_SP-800-53_rev5_catalog.json');
-        const controlsData = await controlsResponse.json();
+        try {
+          console.log('Loading control details from imported catalog...');
+          const controlsData = catalogData;
+          console.log('Control details data type:', typeof controlsData);
+          console.log('Control details is array:', Array.isArray(controlsData));
 
-        // Create a lookup object for control details
-        const controlDetailsMap: Record<string, any> = {};
-        controlsData.forEach((control: any) => {
-          controlDetailsMap[control.id] = control;
-        });
-        setControlDetails(controlDetailsMap);
+          if (Array.isArray(controlsData)) {
+            console.log('Control details array length:', controlsData.length);
+            if (controlsData.length > 0) {
+              console.log('First control:', controlsData[0]);
+            }
+          } else {
+            console.error('Control details is not an array:', controlsData);
+          }
+          
+          // Create a lookup object for control details
+          const controlDetailsMap: Record<string, any> = {};
+          if (Array.isArray(controlsData)) {
+            controlsData.forEach((control: any, index: number) => {
+              if (control && typeof control === 'object' && 'id' in control) {
+                controlDetailsMap[control.id] = control;
+                controlDetailsMap[control.id.toLowerCase()] = control;
+              } else {
+                console.warn('Invalid control object at index', index, control);
+              }
+            });
+            console.log('Control details map created with', Object.keys(controlDetailsMap).length, 'entries');
+          }
+          setControlDetails(controlDetailsMap);
+        } catch (error) {
+          console.error('Error loading control details:', error);
+        }
 
         // Try to load test results if they exist
         try {
@@ -154,7 +179,8 @@ const CurrentStatus: React.FC = () => {
       }
 
       // Get control details
-      const details = controlDetails[controlId] || { title: 'Unknown Control', family: 'Unknown' };
+      const normalizedControlId = controlId.toLowerCase();
+      let details = controlDetails[controlId] || controlDetails[normalizedControlId] || { title: 'Unknown Control', family: 'Unknown' };
 
       return {
         id: controlId,
