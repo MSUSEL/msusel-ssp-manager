@@ -260,3 +260,16 @@
   border-radius: 4px;
   overflow-x: auto;
 }
+
+.failure-reason {
+  margin-bottom: 8px;
+  color: #d32f2f;
+}
+
+.remediation-advice {
+  padding: 8px;
+  background-color: #e8f5e9;
+  border-left: 3px solid #4caf50;
+  margin-top: 8px;
+  color: #2e7d32;
+}

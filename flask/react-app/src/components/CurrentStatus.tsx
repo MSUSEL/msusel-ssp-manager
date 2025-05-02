@@ -285,6 +285,49 @@ const CurrentStatus: React.FC = () => {
     }
   };
 
+  // Format failure message to be more user-friendly
+  const formatFailureMessage = (message: string): string => {
+    // Default case - just clean up the message a bit
+    return message
+      .replace(/\(compared using ==\)/g, '')
+      .replace(/\n/g, ' ')
+      .trim();
+  };
+
+  // Provide remediation advice based on control ID and test name
+  const getRemediationAdvice = (controlId: string, testName: string): string => {
+    // Map of control IDs to remediation advice
+    const remediationMap: Record<string, string> = {
+      'ac-2': 'Review account management settings and ensure proper role-based access controls are implemented.',
+      'ac-3': 'Check time-based access restrictions and ensure they are properly enforced in the authorization policy.',
+      'ac-4': 'Verify information flow control mechanisms are properly configured and enforced.',
+      'ac-5': 'Ensure separation of duties is properly implemented and enforced.',
+      'au-2': 'Review audit logging configuration to ensure all required events are being captured.',
+      'au-3': 'Verify audit records contain all required content fields.',
+      'au-6': 'Ensure audit review, analysis, and reporting processes are in place.',
+      'ia-2': 'Verify multi-factor authentication is properly implemented and enforced.',
+      'ia-5': 'Review password complexity and management settings.',
+      'sc-8': 'Ensure transmission confidentiality and integrity using approved cryptographic mechanisms.',
+      'si-10': 'Verify input validation is properly implemented for all system inputs.'
+    };
+    
+    // More specific advice based on test name
+    if (testName.includes('outside business hours')) {
+      return 'Configure the time-based access control policy to properly restrict access outside of authorized hours.';
+    }
+    
+    if (testName.includes('multi-factor')) {
+      return 'Ensure multi-factor authentication is properly configured and enforced for all privileged accounts.';
+    }
+    
+    if (testName.includes('audit')) {
+      return 'Review audit logging configuration and ensure all required events are being captured with the necessary detail.';
+    }
+    
+    // Default to the general advice for the control
+    return remediationMap[controlId] || 'Review the control implementation and ensure it meets all requirements.';
+  };
+
   return (
     <div className="status-container">
       <div className="status-header">
@@ -415,11 +458,6 @@ const CurrentStatus: React.FC = () => {
                                     {test.status === 'passed' ? 'Passed' : 'Failed'}
                                   </Badge>
                                 </div>
-                                {test.message && (
-                                  <div className="test-message">
-                                    {test.message}
-                                  </div>
-                                )}
                               </li>
                             ))}
                           </ul>
