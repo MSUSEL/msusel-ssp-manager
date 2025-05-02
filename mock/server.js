@@ -69,79 +69,245 @@ const users = {
   }
 };
 
-// Login endpoint
+// Authentication (IA-2) endpoints
 app.post('/login', (req, res) => {
-  const { username, password, mfa_code, type, factors } = req.body;
-  const user = users[username];
+  const { username, password, factors, method, mfa_code, user_type } = req.body;
 
-  // Log the login attempt
-  logAuditEvent({
-    event_type: 'login',
-    user_id: username,
-    ip_address: req.ip,
-    auth_method: factors >= 2 ? 'mfa' : 'password',
-    outcome: user && user.password === password ? 'success' : 'failure'
-  });
+  // Check if credentials are valid
+  const isValidCredentials = (
+    (username === 'regular_user' && password === 'SecurePassword123') ||
+    (username === 'admin_user' && password === 'AdminSecurePass456')
+  );
 
-  // Check if user exists and password is correct
-  if (!user || user.password !== password) {
+  if (!isValidCredentials) {
     return res.status(401).json({
-      authenticated: false,
-      reason: 'Invalid username or password'
+      error: 'unauthorized',
+      message: 'Invalid credentials'
     });
   }
 
-  // Check if MFA is required for staff and admin users
-  if ((user.type === 'staff' || user.type === 'admin') && factors < 2) {
+  // Check if MFA is required for privileged users
+  if (user_type === 'privileged' && factors < 2) {
     return res.status(401).json({
-      authenticated: false,
-      reason: 'MFA required for staff and admin users'
+      error: 'unauthorized',
+      message: 'mfa_required'
     });
   }
 
-  // Generate a token
-  const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.${Buffer.from(JSON.stringify({
-    sub: username,
-    role: user.roles.includes('admin') ? 'admin' : 'user',
-    exp: Math.floor(Date.now() / 1000) + 3600,
-    iat: Math.floor(Date.now() / 1000),
-    jti: Math.random().toString(36).substring(2)
-  })).toString('base64')}.signature`;
+  // Generate token based on user type
+  const token = user_type === 'privileged' ? 'valid_admin_token' : 'valid_user_token';
 
   // Log OPA interaction
   logOpaInteraction({
     package: 'security.authentication',
     decision: 'authentication_valid',
     input: {
-      user: {
-        id: username,
-        type: user.type
-      },
-      authentication: {
-        method: factors >= 2 ? 'mfa' : 'password',
-        factors: factors
-      },
       token: {
         payload: {
+          exp: Math.floor(Date.now() / 1000) + 3600,
           sub: username,
-          exp: Math.floor(Date.now() / 1000) + 3600
+          iat: Math.floor(Date.now() / 1000),
+          jti: 'random-jwt-id'
         }
       },
-      now: Math.floor(Date.now() / 1000)
+      now: Math.floor(Date.now() / 1000),
+      user: {
+        type: user_type || 'regular'
+      },
+      authentication: {
+        method: method || 'password',
+        factors: factors || 1
+      }
+    },
+    result: true
+  });
+
+  // Log audit event
+  logAuditEvent({
+    timestamp: new Date().toISOString(),
+    user: username,
+    action: 'login',
+    status: 'success',
+    source_ip: req.ip,
+    details: {
+      method: method || 'password',
+      factors: factors || 1
+    }
+  });
+
+  return res.status(200).json({
+    access_token: token,
+    token_type: 'Bearer',
+    expires_in: 3600
+  });
+});
+
+app.post('/network_login', (req, res) => {
+  const { access_type, method } = req.body;
+  const clientCert = req.headers['x-client-cert'];
+
+  if (!clientCert || clientCert !== 'valid_cert_data') {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid certificate'
+    });
+  }
+
+  // Log OPA interaction
+  logOpaInteraction({
+    package: 'security.authentication',
+    decision: 'authentication_valid',
+    input: {
+      token: {
+        payload: {
+          exp: Math.floor(Date.now() / 1000) + 3600,
+          sub: 'network-user',
+          iat: Math.floor(Date.now() / 1000),
+          jti: 'random-jwt-id'
+        }
+      },
+      now: Math.floor(Date.now() / 1000),
+      access: {
+        type: access_type || 'network'
+      },
+      authentication: {
+        method: method || 'certificate'
+      }
     },
     result: true
   });
 
   return res.status(200).json({
-    authenticated: true,
-    access_token: token
+    access_token: 'valid_network_token',
+    token_type: 'Bearer',
+    expires_in: 3600
+  });
+});
+
+app.get('/protected_resource', (req, res) => {
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  // Check if token is revoked
+  if (token === 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.revoked1') {
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.authentication',
+      decision: 'token_revoked',
+      input: {
+        token: {
+          raw: token
+        }
+      },
+      result: true
+    });
+
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'token_revoked'
+    });
+  }
+
+  // For other tokens, check if they're valid
+  if (token !== 'valid_user_token' && token !== 'valid_admin_token' && token !== 'valid_network_token') {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  return res.status(200).json({
+    resource: 'Protected resource data'
+  });
+});
+
+// Transmission Security (SC-8) endpoints
+app.get('/check_tls', (req, res) => {
+  const simulateVersion = req.query.simulate_version || '1.2';
+  const simulateCipher = req.query.simulate_cipher || 'TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384';
+
+  // Check TLS version
+  if (parseFloat(simulateVersion) < 1.2) {
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.transmission',
+      decision: 'transmission_security_valid',
+      input: {
+        connection: {
+          tls: {
+            enabled: true,
+            version: simulateVersion,
+            cipher: simulateCipher
+          }
+        }
+      },
+      result: false
+    });
+
+    return res.status(403).json({
+      error: 'forbidden',
+      message: 'tls_version_not_supported'
+    });
+  }
+
+  // Check cipher strength
+  const strongCiphers = [
+    'TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256',
+    'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384',
+    'TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256',
+    'TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384',
+    'TLS_DHE_RSA_WITH_AES_128_GCM_SHA256',
+    'TLS_DHE_RSA_WITH_AES_256_GCM_SHA384'
+  ];
+
+  if (!strongCiphers.includes(simulateCipher)) {
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.transmission',
+      decision: 'strong_cipher_used',
+      input: {
+        connection: {
+          tls: {
+            enabled: true,
+            version: simulateVersion,
+            cipher: simulateCipher
+          }
+        }
+      },
+      result: false
+    });
+
+    return res.status(403).json({
+      error: 'forbidden',
+      message: 'cipher_not_supported'
+    });
+  }
+
+  // Log OPA interaction for successful check
+  logOpaInteraction({
+    package: 'security.transmission',
+    decision: 'transmission_security_valid',
+    input: {
+      connection: {
+        tls: {
+          enabled: true,
+          version: simulateVersion,
+          cipher: simulateCipher
+        }
+      }
+    },
+    result: true
+  });
+
+  return res.status(200).json({
+    message: 'TLS and cipher checks passed'
   });
 });
 
 // User profile endpoint
 app.get('/user_profile', (req, res) => {
   const authHeader = req.headers.authorization;
-  
+
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({
       allowed: false,
@@ -151,7 +317,7 @@ app.get('/user_profile', (req, res) => {
 
   const token = authHeader.split(' ')[1];
   const tokenParts = token.split('.');
-  
+
   if (tokenParts.length !== 3) {
     return res.status(401).json({
       allowed: false,
@@ -219,7 +385,7 @@ app.get('/user_profile', (req, res) => {
 // Admin panel endpoint
 app.get('/admin_panel', (req, res) => {
   const authHeader = req.headers.authorization;
-  
+
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({
       allowed: false,
@@ -229,7 +395,7 @@ app.get('/admin_panel', (req, res) => {
 
   const token = authHeader.split(' ')[1];
   const tokenParts = token.split('.');
-  
+
   if (tokenParts.length !== 3) {
     return res.status(401).json({
       allowed: false,
@@ -332,7 +498,7 @@ app.get('/admin_panel', (req, res) => {
 // Input validation endpoint
 app.post('/submit_data', (req, res) => {
   const { field_type, data } = req.body;
-  
+
   // Log OPA interaction
   const opaInput = {
     field_type: field_type,
@@ -343,7 +509,7 @@ app.post('/submit_data', (req, res) => {
 
   // Check for SQL injection
   const sqlPatterns = ['SELECT', 'INSERT', 'UPDATE', 'DELETE', 'DROP', 'UNION', '--', ';'];
-  const hasSqlInjection = sqlPatterns.some(pattern => 
+  const hasSqlInjection = sqlPatterns.some(pattern =>
     data.toUpperCase().includes(pattern)
   );
 
@@ -363,7 +529,7 @@ app.post('/submit_data', (req, res) => {
 
   // Check for XSS
   const xssPatterns = ['<script', 'javascript:', 'onerror=', 'onload=', 'eval('];
-  const hasXss = xssPatterns.some(pattern => 
+  const hasXss = xssPatterns.some(pattern =>
     data.toLowerCase().includes(pattern)
   );
 
@@ -467,7 +633,7 @@ app.post('/submit_data', (req, res) => {
 // File validation endpoint
 app.post('/validate_file', (req, res) => {
   const { file } = req.body;
-  
+
   // Known file hashes
   const knownHashes = {
     'config.json': 'a1b2c3d4e5f6g7h8i9j0',
@@ -526,7 +692,7 @@ app.get('/storage_info', (req, res) => {
 // Configuration change endpoint
 app.post('/config_change', (req, res) => {
   const authHeader = req.headers.authorization;
-  
+
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({
       allowed: false,
@@ -536,7 +702,7 @@ app.post('/config_change', (req, res) => {
 
   const token = authHeader.split(' ')[1];
   const tokenParts = token.split('.');
-  
+
   if (tokenParts.length !== 3) {
     return res.status(401).json({
       allowed: false,
@@ -584,7 +750,7 @@ app.post('/config_change', (req, res) => {
     // Check if change is within allowed hours
     const simulatedTime = req.query.simulate_time;
     let currentHour;
-    
+
     if (simulatedTime) {
       const [hours] = simulatedTime.split(':').map(Number);
       currentHour = hours;
@@ -687,7 +853,7 @@ app.post('/config_change', (req, res) => {
 // Check compliance endpoint
 app.post('/check_compliance', (req, res) => {
   const { component } = req.body;
-  
+
   // Baseline configurations
   const baselines = {
     'web_server': {
@@ -751,7 +917,7 @@ app.post('/check_compliance', (req, res) => {
 // Check inventory endpoint
 app.post('/check_inventory', (req, res) => {
   const { component } = req.body;
-  
+
   // Inventory
   const inventory = {
     'web-server-01': {
@@ -787,7 +953,7 @@ app.post('/check_inventory', (req, res) => {
 // Check dependencies endpoint
 app.post('/check_dependencies', (req, res) => {
   const { component } = req.body;
-  
+
   // Approved dependencies
   const approvedDependencies = [
     'express@4.18.2',
@@ -820,6 +986,469 @@ app.post('/check_dependencies', (req, res) => {
     return res.status(200).json({
       approved: false,
       unapproved_dependencies: unapprovedDependencies
+    });
+  }
+});
+
+// Account Management (AC-2) endpoints
+app.post('/create_user', (req, res) => {
+  const { user } = req.body;
+
+  // Check if request has valid admin token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  if (token !== 'valid_admin_token') {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Only administrators can create users'
+    });
+  }
+
+  // Check if user creation request is valid
+  if (!user.id || !user.roles || !user.approved_by || !user.expiration_date) {
+    return res.status(400).json({
+      error: 'missing_required_fields',
+      message: user.approved_by ? 'Missing required fields' : 'missing_approval'
+    });
+  }
+
+  // Log OPA interaction
+  logOpaInteraction({
+    package: 'security.access_control',
+    decision: 'account_management_valid',
+    input: {
+      user: {
+        id: user.id,
+        status: 'active',
+        roles: user.roles,
+        creation: {
+          approved_by: user.approved_by,
+          date: new Date().toISOString()
+        },
+        expiration: {
+          date: user.expiration_date
+        }
+      }
+    },
+    result: true
+  });
+
+  // Log audit event
+  logAuditEvent({
+    timestamp: new Date().toISOString(),
+    user: req.headers.authorization ? 'admin' : 'anonymous',
+    action: 'create_user',
+    status: 'success',
+    source_ip: req.ip,
+    details: {
+      user_id: user.id,
+      roles: user.roles,
+      approved_by: user.approved_by
+    }
+  });
+
+  return res.status(200).json({
+    account_created: true,
+    user_id: user.id
+  });
+});
+
+app.get('/check_user', (req, res) => {
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  if (token === 'expired_user_token') {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'account_expired'
+    });
+  }
+
+  // For other tokens, check if they're valid
+  if (token !== 'valid_user_token' && token !== 'valid_admin_token') {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  return res.status(200).json({
+    user_valid: true
+  });
+});
+
+// Time-restricted resource endpoint
+app.get('/time_restricted_resource', (req, res) => {
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  // Check if token is valid
+  if (token !== 'valid_user_token' && token !== 'valid_admin_token') {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  // Check time restrictions
+  const simulatedTime = req.headers['x-simulated-time'] || new Date().toTimeString().split(' ')[0];
+  const allowedStartTime = '08:00:00';
+  const allowedEndTime = '18:00:00';
+
+  if (simulatedTime < allowedStartTime || simulatedTime > allowedEndTime) {
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.access_control',
+      decision: 'access_control_enforced',
+      input: {
+        user: {
+          authenticated: true,
+          roles: token === 'valid_admin_token' ? ['admin', 'user'] : ['user']
+        },
+        resource: {
+          required_role: 'user',
+          time_restrictions: [
+            {
+              start_time: allowedStartTime,
+              end_time: allowedEndTime
+            }
+          ]
+        },
+        request: {
+          time: simulatedTime
+        }
+      },
+      result: false
+    });
+
+    return res.status(403).json({
+      error: 'access_denied',
+      message: 'outside_allowed_hours'
+    });
+  }
+
+  // Log OPA interaction
+  logOpaInteraction({
+    package: 'security.access_control',
+    decision: 'access_control_enforced',
+    input: {
+      user: {
+        authenticated: true,
+        roles: token === 'valid_admin_token' ? ['admin', 'user'] : ['user']
+      },
+      resource: {
+        required_role: 'user',
+        time_restrictions: [
+          {
+            start_time: allowedStartTime,
+            end_time: allowedEndTime
+          }
+        ]
+      },
+      request: {
+        time: simulatedTime
+      }
+    },
+    result: true
+  });
+
+  return res.status(200).json({
+    resource_data: 'This is time-restricted data'
+  });
+});
+
+// SI-3: Malicious Code Protection endpoint
+app.post('/scan_file', (req, res) => {
+  const { file } = req.body;
+
+  // Initialize response
+  let isMalicious = false;
+  let reason = '';
+  let action = 'allow';
+
+  // Check for malicious file extensions
+  const maliciousExtensions = ['.exe', '.bat', '.vbs', '.js', '.ps1'];
+  if (file.name && !file.approved) {
+    for (const ext of maliciousExtensions) {
+      if (file.name.endsWith(ext)) {
+        isMalicious = true;
+        reason = 'malicious extension';
+        break;
+      }
+    }
+  }
+
+  // Check for malicious content patterns
+  const maliciousPatterns = ['eval(', 'system(', 'exec(', '<script>', 'powershell -e'];
+  if (file.content) {
+    for (const pattern of maliciousPatterns) {
+      if (file.content.includes(pattern)) {
+        isMalicious = true;
+        reason = 'malicious pattern';
+        break;
+      }
+    }
+  }
+
+  // Check for suspicious file size
+  if (file.size > 10000000 && file.type === 'document') {
+    isMalicious = true;
+    reason = 'suspicious size';
+  }
+
+  // Determine action based on malicious status and override
+  if (isMalicious) {
+    if (file.override) {
+      action = 'quarantine';
+    } else {
+      action = 'block';
+    }
+  }
+
+  // Log OPA interaction
+  logOpaInteraction({
+    package: 'security.malicious_code_protection',
+    decision: 'malicious_code_detected',
+    input: {
+      file: file
+    },
+    result: isMalicious
+  });
+
+  // Log audit event if malicious
+  if (isMalicious) {
+    logAuditEvent({
+      event_type: 'security_event',
+      category: 'malicious_code',
+      file_name: file.name,
+      file_type: file.type,
+      action: action,
+      reason: reason
+    });
+  }
+
+  return res.status(200).json({
+    allowed: !isMalicious || (file.approved && !isMalicious),
+    malicious: isMalicious,
+    reason: reason,
+    action: action
+  });
+});
+
+// SC-7: Boundary Protection endpoints
+app.get('/firewall_config', (req, res) => {
+  // Log OPA interaction
+  logOpaInteraction({
+    package: 'security.boundary_protection',
+    decision: 'firewall_rules_valid',
+    input: {
+      firewall: {
+        enabled: true,
+        default_policy: 'deny',
+        rules: [
+          { id: 1, source: '10.0.0.0/8', destination: 'web', port: '443', action: 'allow' },
+          { id: 2, source: '10.0.0.0/8', destination: 'api', port: '8443', action: 'allow' },
+          { id: 3, source: '192.168.1.0/24', destination: 'web', port: '443', action: 'allow' }
+        ]
+      }
+    },
+    result: true
+  });
+
+  return res.status(200).json({
+    enabled: true,
+    default_policy: 'deny',
+    last_updated: new Date().toISOString()
+  });
+});
+
+app.get('/firewall_rules', (req, res) => {
+  return res.status(200).json({
+    rules: [
+      { id: 1, source: '10.0.0.0/8', destination: 'web', port: '443', action: 'allow' },
+      { id: 2, source: '10.0.0.0/8', destination: 'api', port: '8443', action: 'allow' },
+      { id: 3, source: '192.168.1.0/24', destination: 'web', port: '443', action: 'allow' },
+      { id: 4, source: '172.16.0.0/12', destination: 'web', port: '443', action: 'allow' }
+    ]
+  });
+});
+
+app.get('/network_zones', (req, res) => {
+  // Log OPA interaction
+  logOpaInteraction({
+    package: 'security.boundary_protection',
+    decision: 'network_segmentation_valid',
+    input: {
+      network: {
+        zones: [
+          { name: 'external', description: 'External network zone' },
+          { name: 'dmz', description: 'Demilitarized zone' },
+          { name: 'internal', description: 'Internal network zone' }
+        ],
+        access_controls: [
+          { source: 'external', destination: 'dmz', allowed_ports: ['443'] },
+          { source: 'dmz', destination: 'internal', allowed_ports: ['8443'] },
+          { source: 'internal', destination: 'dmz', allowed_ports: ['443', '8443'] }
+        ]
+      }
+    },
+    result: true
+  });
+
+  return res.status(200).json({
+    zones: [
+      { name: 'external', description: 'External network zone' },
+      { name: 'dmz', description: 'Demilitarized zone' },
+      { name: 'internal', description: 'Internal network zone' }
+    ]
+  });
+});
+
+app.get('/zone_access_controls', (req, res) => {
+  return res.status(200).json({
+    access_controls: [
+      { source: 'external', destination: 'dmz', allowed_ports: ['443'] },
+      { source: 'dmz', destination: 'internal', allowed_ports: ['8443'] },
+      { source: 'internal', destination: 'dmz', allowed_ports: ['443', '8443'] }
+    ]
+  });
+});
+
+app.get('/intrusion_detection', (req, res) => {
+  // Log OPA interaction
+  logOpaInteraction({
+    package: 'security.boundary_protection',
+    decision: 'intrusion_detection_active',
+    input: {
+      security: {
+        ids: {
+          enabled: true,
+          updated_within_days: 3,
+          monitoring_active: true,
+          signatures: {
+            count: 5000,
+            last_updated: new Date().toISOString()
+          }
+        }
+      }
+    },
+    result: true
+  });
+
+  return res.status(200).json({
+    enabled: true,
+    updated_within_days: 3,
+    monitoring_active: true,
+    signatures: {
+      count: 5000,
+      last_updated: new Date().toISOString()
+    }
+  });
+});
+
+app.get('/boundary_monitoring', (req, res) => {
+  // Log OPA interaction
+  logOpaInteraction({
+    package: 'security.boundary_protection',
+    decision: 'boundary_monitoring_active',
+    input: {
+      monitoring: {
+        boundary: {
+          enabled: true,
+          alert_on_unauthorized: true,
+          monitored_points: [
+            { name: 'internet-dmz', description: 'Internet to DMZ boundary' },
+            { name: 'dmz-internal', description: 'DMZ to internal network boundary' }
+          ]
+        }
+      }
+    },
+    result: true
+  });
+
+  return res.status(200).json({
+    enabled: true,
+    alert_on_unauthorized: true,
+    monitored_points: [
+      { name: 'internet-dmz', description: 'Internet to DMZ boundary' },
+      { name: 'dmz-internal', description: 'DMZ to internal network boundary' }
+    ]
+  });
+});
+
+app.post('/test_boundary_access', (req, res) => {
+  const { source_ip, source_type, destination } = req.body;
+
+  // Check if source IP is in trusted sources
+  const trustedSources = [
+    '192.168.1.0/24',
+    '10.0.0.0/8',
+    '172.16.0.0/12'
+  ];
+
+  // Simple CIDR check (not fully accurate but sufficient for mock)
+  const isIpInRange = (ip, cidr) => {
+    const [range, bits] = cidr.split('/');
+    const mask = ~(2 ** (32 - parseInt(bits)) - 1);
+
+    const ipParts = ip.split('.').map(Number);
+    const rangeParts = range.split('.').map(Number);
+
+    const ipInt = (ipParts[0] << 24) | (ipParts[1] << 16) | (ipParts[2] << 8) | ipParts[3];
+    const rangeInt = (rangeParts[0] << 24) | (rangeParts[1] << 16) | (rangeParts[2] << 8) | rangeParts[3];
+
+    return (ipInt & mask) === (rangeInt & mask);
+  };
+
+  const isTrustedSource = trustedSources.some(cidr => isIpInRange(source_ip, cidr));
+
+  // Check if destination is allowed for this source type
+  const allowedDestinations = {
+    'internal': ['web', 'api', 'database'],
+    'dmz': ['web'],
+    'external': ['web']
+  };
+
+  const isDestinationAllowed = source_type &&
+                              allowedDestinations[source_type] &&
+                              allowedDestinations[source_type].includes(destination);
+
+  const isAllowed = isTrustedSource && isDestinationAllowed;
+
+  // Log OPA interaction
+  logOpaInteraction({
+    package: 'security.boundary_protection',
+    decision: 'allow_network_traffic',
+    input: {
+      traffic: {
+        source_ip: source_ip,
+        source_type: source_type || 'unknown',
+        destination: destination
+      }
+    },
+    result: isAllowed
+  });
+
+  // Log audit event
+  logAuditEvent({
+    event_type: 'network_access',
+    source_ip: source_ip,
+    source_type: source_type || 'unknown',
+    destination: destination,
+    outcome: isAllowed ? 'allowed' : 'blocked',
+    timestamp: new Date().toISOString()
+  });
+
+  if (isAllowed) {
+    return res.status(200).json({
+      allowed: true,
+      message: 'Access allowed'
+    });
+  } else {
+    return res.status(403).json({
+      allowed: false,
+      message: 'Access denied by boundary protection'
     });
   }
 });

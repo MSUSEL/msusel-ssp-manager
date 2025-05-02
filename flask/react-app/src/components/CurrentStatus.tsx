@@ -91,7 +91,7 @@ const CurrentStatus: React.FC = () => {
           } else {
             console.error('Control details is not an array:', controlsData);
           }
-          
+
           // Create a lookup object for control details
           const controlDetailsMap: Record<string, any> = {};
           if (Array.isArray(controlsData)) {
@@ -149,7 +149,7 @@ const CurrentStatus: React.FC = () => {
   // Combine all data to create a list of controls with their status
   const controls = useMemo(() => {
     console.log('controls useMemo running with testResults:', testResults); // Debug log
-    
+
     return requiredControls.map(controlId => {
       // Find if the control is implemented
       const implemented = implementedControls.find(
@@ -160,7 +160,7 @@ const CurrentStatus: React.FC = () => {
       const testResult = testResults.find(
         result => result.control_id.toLowerCase() === controlId.toLowerCase()
       );
-      
+
       if (testResult) {
         console.log(`Found test result for ${controlId}:`, testResult); // Debug log
       } else {
@@ -227,7 +227,7 @@ const CurrentStatus: React.FC = () => {
   // Toggle expanded control
   const toggleControl = (controlId: string) => {
     setExpandedControl(expandedControl === controlId ? null : controlId);
-    
+
     // Debug: Log the control's test results when expanded
     if (expandedControl !== controlId) {
       const control = controls.find(c => c.id === controlId);
@@ -249,22 +249,22 @@ const CurrentStatus: React.FC = () => {
         const testResultsResponse = await fetch('/data/test_results.json');
         const testResultsData = await testResultsResponse.json();
         console.log('Fetched test results:', testResultsData); // Debug log
-        
+
         // Check the structure of the test results
         if (Array.isArray(testResultsData)) {
           console.log(`Test results is an array with ${testResultsData.length} items`);
           if (testResultsData.length > 0) {
             console.log('First test result:', testResultsData[0]);
-            console.log('Expected properties:', 
-              'control_id' in testResultsData[0], 
-              'status' in testResultsData[0], 
+            console.log('Expected properties:',
+              'control_id' in testResultsData[0],
+              'status' in testResultsData[0],
               'test_results' in testResultsData[0]
             );
           }
         } else {
           console.log('Test results is not an array:', typeof testResultsData);
         }
-        
+
         setTestResults(testResultsData);
         console.log('After setTestResults, current state:', testResults);
 
@@ -334,22 +334,23 @@ const CurrentStatus: React.FC = () => {
       'ia-2': 'Verify multi-factor authentication is properly implemented and enforced.',
       'ia-5': 'Review password complexity and management settings.',
       'sc-8': 'Ensure transmission confidentiality and integrity using approved cryptographic mechanisms.',
+      'si-3': 'Ensure malicious code protection mechanisms are properly implemented and updated regularly.',
       'si-10': 'Verify input validation is properly implemented for all system inputs.'
     };
-    
+
     // More specific advice based on test name
     if (testName.includes('outside business hours')) {
       return 'Configure the time-based access control policy to properly restrict access outside of authorized hours.';
     }
-    
+
     if (testName.includes('multi-factor')) {
       return 'Ensure multi-factor authentication is properly configured and enforced for all privileged accounts.';
     }
-    
+
     if (testName.includes('audit')) {
       return 'Review audit logging configuration and ensure all required events are being captured with the necessary detail.';
     }
-    
+
     // Default to the general advice for the control
     return remediationMap[controlId] || 'Review the control implementation and ensure it meets all requirements.';
   };

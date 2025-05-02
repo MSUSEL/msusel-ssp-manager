@@ -99,7 +99,7 @@ def run_tests():
             try:
                 with open(test_results_path, 'r') as f:
                     test_results_content = json.load(f)
-                    logging.info(f"Test results content: {json.dumps(test_results_content, indent=2)}")
+                    #logging.info(f"Test results content: {json.dumps(test_results_content, indent=2)}")
             except Exception as e:
                 logging.error(f"Error reading test results file: {e}")
 
