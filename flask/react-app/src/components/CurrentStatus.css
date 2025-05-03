@@ -59,9 +59,9 @@
 
 .test-controls {
   display: flex;
+  gap: 10px;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .run-tests-button {
@@ -81,6 +81,12 @@
 .run-tests-button:disabled {
   background-color: #bbdefb;
   cursor: not-allowed;
+}
+
+.refresh-button {
+  cursor: pointer;
+  z-index: 10; /* Ensure button is clickable */
+  position: relative; /* Ensure z-index works */
 }
 
 .last-run {

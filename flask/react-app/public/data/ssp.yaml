@@ -53,12 +53,6 @@ system-security-plan:
         - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
           uuid: 3a1d9f45-8e34-4a0c-b2e3-3c9e4d51a7d1
           description: Access enforcement mechanisms are implemented to ensure that system resources, including user data and administrative functionality, are accessible only to authorized users. The application enforces security policies for user sessions and prevents unauthorized access attempts through strict validation.
-    - uuid: 040295b9-5a78-4103-8e47-123eee96873e
-      control-id: at-2
-      by-components:
-        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
-          uuid: 040295b9-5a78-4103-8e47-123eee96873e
-          description: Developers receive annual security awareness training, including secure coding practices, software supply-chain risks, and organizational security policies. Training materials are updated annually to reflect emerging threats.
     - uuid: 2d3584cd-e2ed-46f5-a2e3-31d4fbddd4df
       control-id: au-2
       by-components:

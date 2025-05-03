@@ -40,6 +40,8 @@ services:
     container_name: react-app
     environment:
       - REACT_APP_API_URL=http://flask:5000
+    volumes:
+      - "${HOST_VOLUME_PATH}/flask/react-app/public/data:/app/public/data"
     ports:
       - "3000:3000"
     networks:

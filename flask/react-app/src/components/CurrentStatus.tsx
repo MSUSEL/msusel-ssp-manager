@@ -54,17 +54,21 @@ const CurrentStatus: React.FC = () => {
   // Add a function to check file modification times
   const checkFileModifications = async () => {
     try {
+      console.log("Checking file modifications..."); // Add debug log
+      
       // Check profile modification time
-      const profileResponse = await fetch('/data/profile.yaml', { method: 'HEAD' });
+      const profileResponse = await fetch('/data/profile.yaml', { method: 'HEAD', cache: 'no-store' });
       const profileModified = profileResponse.headers.get('last-modified');
       if (profileModified) {
+        console.log("Profile last modified:", new Date(profileModified).toLocaleString());
         setProfileLastModified(new Date(profileModified).toLocaleString());
       }
 
       // Check SSP modification time
-      const sspResponse = await fetch('/data/ssp.yaml', { method: 'HEAD' });
+      const sspResponse = await fetch('/data/ssp.yaml', { method: 'HEAD', cache: 'no-store' });
       const sspModified = sspResponse.headers.get('last-modified');
       if (sspModified) {
+        console.log("SSP last modified:", new Date(sspModified).toLocaleString());
         setSspLastModified(new Date(sspModified).toLocaleString());
       }
     } catch (error) {
@@ -452,7 +456,10 @@ const CurrentStatus: React.FC = () => {
             {isRunningTests ? 'Running Tests...' : 'Run Tests'}
           </Button>
           <Button
-            onClick={checkFileModifications}
+            onClick={() => {
+              console.log("Refresh button clicked");
+              checkFileModifications();
+            }}
             className="refresh-button"
           >
             Refresh File Status
