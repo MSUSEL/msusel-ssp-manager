@@ -114,12 +114,20 @@ const CurrentStatus: React.FC = () => {
         try {
           const testResultsResponse = await fetch('/data/test_results.json');
           const testResultsData = await testResultsResponse.json();
-          setTestResults(testResultsData);
-
-          // Set last test run time from the file metadata
-          const lastModified = testResultsResponse.headers.get('last-modified');
-          if (lastModified) {
-            setLastTestRun(new Date(lastModified).toLocaleString());
+          
+          // Check if the new format with metadata is used
+          if (testResultsData.metadata && testResultsData.results) {
+            setTestResults(testResultsData.results);
+            setLastTestRun(new Date(testResultsData.metadata.generated_at).toLocaleString());
+          } else {
+            // Legacy format without metadata
+            setTestResults(testResultsData);
+            
+            // Set last test run time from the file metadata
+            const lastModified = testResultsResponse.headers.get('last-modified');
+            if (lastModified) {
+              setLastTestRun(new Date(lastModified).toLocaleString());
+            }
           }
         } catch (error) {
           console.log('No test results found or error loading them:', error);

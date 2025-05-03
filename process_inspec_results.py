@@ -4,6 +4,7 @@ import json
 import sys
 import os
 import logging
+from datetime import datetime
 
 # Configure logging
 logging.basicConfig(
@@ -108,6 +109,8 @@ def process_inspec_results(input_file, output_file):
                         control_id = 'si-3'
                     elif control_id == 'boundary-protection-policy':
                         control_id = 'sc-7'
+                    elif control_id == 'data-protection-policy':
+                        control_id = 'sc-28'
 
                     logging.info(f"Processing control: {control_id} (original ID: {control.get('id', '')})")
 
@@ -134,8 +137,8 @@ def process_inspec_results(input_file, output_file):
                     for result in control_results:
                         test_results.append({
                             'test_name': result.get('code_desc', 'Unknown test'),
-                            'status': result.get('status', 'unknown'),
-                            'message': result.get('message', '')
+                            'status': result.get('status', 'unknown')
+                            # 'message' field removed
                         })
 
                     # Add the control to the results
@@ -181,9 +184,25 @@ def process_inspec_results(input_file, output_file):
         # Add all new results
         merged_results.extend(results)
 
+        # Add timestamp to the merged results
+        timestamp = datetime.now().isoformat()
+
         # Write the merged results to the output file
         with open(output_file, 'w') as f:
-            json.dump(merged_results, f, indent=2)
+            # Add a metadata object with timestamp
+            final_output = {
+                "metadata": {
+                    "timestamp": timestamp,
+                    "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                },
+                "results": merged_results
+            }
+            json.dump(final_output, f, indent=2)
+
+        # After writing the file
+        file_stat = os.stat(output_file)
+        logging.info(f"File {output_file} written with size {file_stat.st_size} bytes")
+        logging.info(f"File modification time: {datetime.fromtimestamp(file_stat.st_mtime).isoformat()}")
 
         logging.info(f"Successfully wrote {len(merged_results)} controls to {output_file}")
         logging.info(f"Merged results contain controls: {[r.get('control_id') for r in merged_results]}")
@@ -215,8 +234,8 @@ def create_default_results(output_file):
             'status': 'passed',
             'test_results': [{
                 'test_name': 'Account Management - Role-based access control',
-                'status': 'passed',
-                'message': 'Sample test that always passes'
+                'status': 'passed'
+                # 'message' field removed
             }]
         },
         {
@@ -224,8 +243,8 @@ def create_default_results(output_file):
             'status': 'failed',
             'test_results': [{
                 'test_name': 'Identification and Authentication - Multi-factor Authentication',
-                'status': 'failed',
-                'message': 'Sample test that always fails'
+                'status': 'failed'
+                # 'message' field removed
             }]
         }
     ]

@@ -683,9 +683,14 @@ app.get('/tls_info', (req, res) => {
 
 // Storage information endpoint
 app.get('/storage_info', (req, res) => {
+  console.log('Storage info endpoint called');
   return res.status(200).json({
     encryption_algorithm: 'AES-256',
-    key_management: 'enterprise_kms'
+    key_management: 'enterprise_kms',
+    access_control: {
+      least_privilege: true,
+      shared_credentials: false
+    }
   });
 });
 
@@ -1451,6 +1456,99 @@ app.post('/test_boundary_access', (req, res) => {
       message: 'Access denied by boundary protection'
     });
   }
+});
+
+// SC-28: Protection of Information at Rest endpoints
+
+app.post('/check_data_protection', (req, res) => {
+  const { storage } = req.body;
+
+  // Initialize response
+  let isValid = true;
+  let reason = '';
+
+  // Check encryption
+  if (!storage.encryption.enabled ||
+      !['AES-256', 'AES-256-GCM', 'AES-256-CBC'].includes(storage.encryption.algorithm)) {
+    isValid = false;
+    reason = 'Invalid encryption configuration';
+  }
+
+  // Check key management
+  if (isValid && (
+      !['enterprise_kms', 'hardware_security_module', 'cloud_kms'].includes(storage.key_management.system) ||
+      !storage.key_management.key_rotation_enabled ||
+      !storage.key_management.access_restricted)) {
+    isValid = false;
+    reason = 'Invalid key management configuration';
+  }
+
+  // Check access control
+  if (isValid && (
+      !storage.access_control.enabled ||
+      !storage.access_control.least_privilege ||
+      storage.access_control.shared_credentials)) {
+    isValid = false;
+    reason = 'Invalid access control configuration';
+  }
+
+  // Log OPA interactions for all decisions
+  logOpaInteraction({
+    package: 'security.data_protection',
+    decision: 'protection_valid',
+    input: {
+      storage: storage
+    },
+    result: isValid
+  });
+
+  // Log data encryption decision
+  logOpaInteraction({
+    package: 'security.data_protection',
+    decision: 'data_encryption_valid',
+    input: {
+      storage: storage
+    },
+    result: storage.encryption.enabled &&
+            ['AES-256', 'AES-256-GCM', 'AES-256-CBC'].includes(storage.encryption.algorithm)
+  });
+
+  // Log key management decision
+  logOpaInteraction({
+    package: 'security.data_protection',
+    decision: 'key_management_valid',
+    input: {
+      storage: storage
+    },
+    result: ['enterprise_kms', 'hardware_security_module', 'cloud_kms'].includes(storage.key_management.system) &&
+            storage.key_management.key_rotation_enabled &&
+            storage.key_management.access_restricted
+  });
+
+  // Log access control decision
+  logOpaInteraction({
+    package: 'security.data_protection',
+    decision: 'access_control_valid',
+    input: {
+      storage: storage
+    },
+    result: storage.access_control.enabled &&
+            storage.access_control.least_privilege &&
+            !storage.access_control.shared_credentials
+  });
+
+  // Log audit event
+  logAuditEvent({
+    event_type: 'security_check',
+    category: 'data_protection',
+    result: isValid ? 'passed' : 'failed',
+    reason: reason || 'All checks passed'
+  });
+
+  return res.status(200).json({
+    valid: isValid,
+    reason: reason || 'All checks passed'
+  });
 });
 
 // Start server

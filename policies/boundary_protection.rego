@@ -1,16 +1,17 @@
 package security.boundary_protection
 
 import future.keywords.in
+import rego.v1
 
 # Default deny
-default allow_network_traffic = false
-default firewall_rules_valid = false
-default network_segmentation_valid = false
-default intrusion_detection_active = false
-default boundary_monitoring_active = false
+default allow_network_traffic := false
+default firewall_rules_valid := false
+default network_segmentation_valid := false
+default intrusion_detection_active := false
+default boundary_monitoring_active := false
 
 # Allow network traffic if source is trusted and destination is allowed
-allow_network_traffic {
+allow_network_traffic if {
     # Check if source IP is in allowed list
     input.traffic.source_ip in data.trusted_sources
 
@@ -21,7 +22,7 @@ allow_network_traffic {
 }
 
 # Validate firewall rules
-firewall_rules_valid {
+firewall_rules_valid if {
     # Ensure firewall is enabled
     input.firewall.enabled == true
     
@@ -36,7 +37,7 @@ firewall_rules_valid {
 }
 
 # Check for overly permissive rules
-has_overly_permissive_rules {
+has_overly_permissive_rules if {
     some i
     rule := input.firewall.rules[i]
     rule.source == "any"
@@ -46,7 +47,7 @@ has_overly_permissive_rules {
 }
 
 # Validate network segmentation
-network_segmentation_valid {
+network_segmentation_valid if {
     # Ensure network zones are defined
     count(input.network.zones) >= 2
     
@@ -55,7 +56,7 @@ network_segmentation_valid {
 }
 
 # Check that all zones have access controls
-all_zones_have_access_controls {
+all_zones_have_access_controls if {
     # For each pair of zones, there should be an access control
     count([x | 
         zone1 := input.network.zones[_]
@@ -66,21 +67,21 @@ all_zones_have_access_controls {
 }
 
 # Check if there's an access control between two zones
-has_access_control(zone1, zone2) = true {
+has_access_control(zone1, zone2) = true if {
     some i
     input.network.access_controls[i].source == zone1
     input.network.access_controls[i].destination == zone2
 }
 
 # Check if intrusion detection is active
-intrusion_detection_active {
+intrusion_detection_active if {
     input.security.ids.enabled == true
     input.security.ids.updated_within_days <= 7  # Signatures updated within last week
     input.security.ids.monitoring_active == true
 }
 
 # Check if boundary monitoring is active
-boundary_monitoring_active {
+boundary_monitoring_active if {
     input.monitoring.boundary.enabled == true
     input.monitoring.boundary.alert_on_unauthorized == true
     count(input.monitoring.boundary.monitored_points) > 0
