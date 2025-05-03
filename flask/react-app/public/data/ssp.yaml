@@ -53,12 +53,6 @@ system-security-plan:
         - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
           uuid: 3a1d9f45-8e34-4a0c-b2e3-3c9e4d51a7d1
           description: Access enforcement mechanisms are implemented to ensure that system resources, including user data and administrative functionality, are accessible only to authorized users. The application enforces security policies for user sessions and prevents unauthorized access attempts through strict validation.
-    - uuid: f2c7b3d5-a842-4a9b-93d5-c1e38f7d5b27
-      control-id: ar-4
-      by-components:
-        - component-uuid: eda18525-8e58-4576-871f-fdeb2a1adad9
-          uuid: f2c7b3d5-a842-4a9b-93d5-c1e38f7d5b27
-          description: Privacy monitoring and auditing are implemented to ensure that personal information is handled in compliance with privacy policies and regulations. Logs of access to sensitive data are reviewed monthly to identify unauthorized access or anomalies. Additionally, privacy-related incidents are reported to the designated privacy officer and addressed promptly.
     - uuid: 040295b9-5a78-4103-8e47-123eee96873e
       control-id: at-2
       by-components:

@@ -48,6 +48,29 @@ const CurrentStatus: React.FC = () => {
   const [selectedFamily, setSelectedFamily] = useState<string>('');
   const [isRunningTests, setIsRunningTests] = useState(false);
   const [lastTestRun, setLastTestRun] = useState<string | null>(null);
+  const [profileLastModified, setProfileLastModified] = useState<string | null>(null);
+  const [sspLastModified, setSspLastModified] = useState<string | null>(null);
+
+  // Add a function to check file modification times
+  const checkFileModifications = async () => {
+    try {
+      // Check profile modification time
+      const profileResponse = await fetch('/data/profile.yaml', { method: 'HEAD' });
+      const profileModified = profileResponse.headers.get('last-modified');
+      if (profileModified) {
+        setProfileLastModified(new Date(profileModified).toLocaleString());
+      }
+
+      // Check SSP modification time
+      const sspResponse = await fetch('/data/ssp.yaml', { method: 'HEAD' });
+      const sspModified = sspResponse.headers.get('last-modified');
+      if (sspModified) {
+        setSspLastModified(new Date(sspModified).toLocaleString());
+      }
+    } catch (error) {
+      console.error('Error checking file modifications:', error);
+    }
+  };
 
   // Add an effect to log when testResults changes
   useEffect(() => {
@@ -133,12 +156,21 @@ const CurrentStatus: React.FC = () => {
           console.log('No test results found or error loading them:', error);
           // This is expected if no tests have been run yet
         }
+
+        // Add call to check file modifications
+        await checkFileModifications();
       } catch (error) {
         console.error('Error loading data:', error);
       }
     };
 
     loadData();
+
+    // Set up a periodic check for file modifications
+    const intervalId = setInterval(checkFileModifications, 30000); // Check every 30 seconds
+
+    // Clean up the interval when the component unmounts
+    return () => clearInterval(intervalId);
   }, []);
 
   // Get unique families from the control details
@@ -390,6 +422,27 @@ const CurrentStatus: React.FC = () => {
           </div>
         </div>
 
+        <div className="file-timestamps">
+          {profileLastModified && (
+            <div className="timestamp-item">
+              <span className="timestamp-label">Profile Last Modified:</span>
+              <span className="timestamp-value">{profileLastModified}</span>
+            </div>
+          )}
+          {sspLastModified && (
+            <div className="timestamp-item">
+              <span className="timestamp-label">SSP Last Modified:</span>
+              <span className="timestamp-value">{sspLastModified}</span>
+            </div>
+          )}
+          {lastTestRun && (
+            <div className="timestamp-item">
+              <span className="timestamp-label">Last Test Run:</span>
+              <span className="timestamp-value">{lastTestRun}</span>
+            </div>
+          )}
+        </div>
+
         <div className="test-controls">
           <Button
             onClick={runTests}
@@ -397,6 +450,12 @@ const CurrentStatus: React.FC = () => {
             className="run-tests-button"
           >
             {isRunningTests ? 'Running Tests...' : 'Run Tests'}
+          </Button>
+          <Button
+            onClick={checkFileModifications}
+            className="refresh-button"
+          >
+            Refresh File Status
           </Button>
           {lastTestRun && (
             <div className="last-run">
