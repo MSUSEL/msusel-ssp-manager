@@ -1,20 +1,9 @@
 {
   "metadata": {
-    "timestamp": "2025-05-03T20:01:21.233534",
-    "generated_at": "2025-05-03 20:01:21"
+    "timestamp": "2025-05-03T20:22:02.226495",
+    "generated_at": "2025-05-03 20:22:02"
   },
   "results": [
-    {
-      "control_id": "ac-2",
-      "status": "passed",
-      "test_results": [
-        {
-          "test_name": "Account Management - Role-based access control",
-          "status": "passed",
-          "message": "Sample test that always passes"
-        }
-      ]
-    },
     {
       "control_id": "audit-content",
       "status": "passed",
@@ -570,6 +559,80 @@
         {
           "test_name": "File ./logs/opa_interactions.log content is expected to include \"encryption_at_rest_valid\"",
           "status": "failed"
+        }
+      ]
+    },
+    {
+      "control_id": "ac-2",
+      "status": "passed",
+      "test_results": [
+        {
+          "test_name": "Account creation with proper approval should allow account creation with proper approval",
+          "status": "passed"
+        },
+        {
+          "test_name": "Account creation without proper approval should deny account creation without proper approval",
+          "status": "passed"
+        },
+        {
+          "test_name": "Account creation by non-admin should deny account creation by non-admin",
+          "status": "passed"
+        },
+        {
+          "test_name": "Account modification with proper authorization should allow account modification with proper authorization",
+          "status": "passed"
+        },
+        {
+          "test_name": "Account modification without proper authorization should deny account modification without proper authorization",
+          "status": "passed"
+        },
+        {
+          "test_name": "Self-modification of non-privileged information should allow self-modification of non-privileged information",
+          "status": "passed"
+        },
+        {
+          "test_name": "Account disabling with proper authorization should allow account disabling with proper authorization",
+          "status": "passed"
+        },
+        {
+          "test_name": "Account disabling without proper authorization should deny account disabling without proper authorization",
+          "status": "passed"
+        },
+        {
+          "test_name": "Account removal with proper authorization should allow account removal with proper authorization",
+          "status": "passed"
+        },
+        {
+          "test_name": "Account removal without proper authorization should deny account removal without proper authorization",
+          "status": "passed"
+        },
+        {
+          "test_name": "Account expiration enforcement should enforce account expiration",
+          "status": "passed"
+        },
+        {
+          "test_name": "Account review should provide account review information",
+          "status": "passed"
+        },
+        {
+          "test_name": "File ./logs/opa_interactions.log content is expected to include \"account_management\"",
+          "status": "passed"
+        },
+        {
+          "test_name": "File ./logs/opa_interactions.log content is expected to include \"account_creation_valid\"",
+          "status": "passed"
+        },
+        {
+          "test_name": "File ./logs/opa_interactions.log content is expected to include \"account_modification_valid\"",
+          "status": "passed"
+        },
+        {
+          "test_name": "File ./logs/opa_interactions.log content is expected to include \"account_disabling_valid\"",
+          "status": "passed"
+        },
+        {
+          "test_name": "File ./logs/opa_interactions.log content is expected to include \"account_removal_valid\"",
+          "status": "passed"
         }
       ]
     }

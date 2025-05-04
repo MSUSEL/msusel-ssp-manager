@@ -8,6 +8,7 @@ import data.security.audit_content
 import data.security.session_crypto
 import data.security.input_validation
 import data.security.configuration_management
+import data.security.account_management
 
 # Main decision point for all security controls
 default allow := false
