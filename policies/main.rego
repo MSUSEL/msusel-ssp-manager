@@ -55,23 +55,33 @@ allow if {
     input_validation.file_integrity_valid
 }
 
+# Determine outcome
+outcome := "failure"
+outcome := "success" if {
+    allow
+}
+
 # Generate comprehensive audit record for all requests
 audit_record := {
     "timestamp": input.request.time,
     "user_id": input.user.id,
     "event_type": input.action,
     "resource": input.resource,
-    "outcome": allow ? "success" : "failure",
+    "outcome": outcome,
     "ip_address": input.request.ip,
     "session_id": input.session.id,
     "request_details": input.request
 }
 
 # Validate audit record content
-audit_content_valid := audit_content.audit_content_valid with input as {"audit_record": audit_record}
+audit_content_valid if {
+    audit_content.audit_content_valid with input as {"audit_record": audit_record}
+}
 
 # Validate audit storage capacity
-audit_storage_compliant := audit_storage.audit_storage_compliant with input as {"audit_storage": input.audit_storage}
+audit_storage_compliant if {
+    audit_storage.audit_storage_compliant with input as {"audit_storage": input.audit_storage}
+}
 
 # Flag suspicious activities
 suspicious_activity if {
