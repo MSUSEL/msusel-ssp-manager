@@ -4,6 +4,7 @@ import rego.v1
 import data.security.access_control
 import data.security.authentication
 import data.security.audit
+import data.security.audit_content
 import data.security.session_crypto
 import data.security.input_validation
 import data.security.configuration_management
@@ -15,13 +16,13 @@ default allow := false
 allow if {
     # Authentication controls (IA-2)
     authentication.allow
-    
+
     # Access control (AC-2, AC-3)
     access_control.allow
-    
+
     # Session management (SC-23)
     session_crypto.valid_session
-    
+
     # Input validation (SI-3)
     input.request.data
     input_validation.input_valid
@@ -30,11 +31,11 @@ allow if {
 # For configuration changes, check additional controls
 allow if {
     input.action == "configuration_change"
-    
+
     # Authentication and access control
     authentication.allow
     access_control.allow
-    
+
     # Configuration management controls (CM-2, CM-5)
     configuration_management.valid_change
 }
@@ -42,11 +43,11 @@ allow if {
 # For file access, check integrity
 allow if {
     input.action == "file_access"
-    
+
     # Authentication and access control
     authentication.allow
     access_control.allow
-    
+
     # File integrity (SI-7)
     input.file
     input_validation.file_integrity_valid
@@ -56,13 +57,16 @@ allow if {
 audit_record := {
     "timestamp": input.request.time,
     "user_id": input.user.id,
-    "action": input.action,
+    "event_type": input.action,
     "resource": input.resource,
-    "outcome": allow,
-    "client_ip": input.request.ip,
+    "outcome": allow ? "success" : "failure",
+    "ip_address": input.request.ip,
     "session_id": input.session.id,
     "request_details": input.request
 }
+
+# Validate audit record content
+audit_content_valid := audit_content.audit_content_valid with input as {"audit_record": audit_record}
 
 # Flag suspicious activities
 suspicious_activity if {
@@ -86,7 +90,7 @@ suspicious_activity if {
 # Generate security incident for suspicious activities
 security_incident if {
     suspicious_activity
-    
+
     # Create incident record
     incident := {
         "timestamp": input.request.time,

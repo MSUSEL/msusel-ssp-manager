@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "timestamp": "2025-05-03T19:13:55.297953",
-    "generated_at": "2025-05-03 19:13:55"
+    "timestamp": "2025-05-03T20:01:21.233534",
+    "generated_at": "2025-05-03 20:01:21"
   },
   "results": [
     {
@@ -12,6 +12,64 @@
           "test_name": "Account Management - Role-based access control",
           "status": "passed",
           "message": "Sample test that always passes"
+        }
+      ]
+    },
+    {
+      "control_id": "audit-content",
+      "status": "passed",
+      "test_results": [
+        {
+          "test_name": "Basic audit record content should include all basic required fields",
+          "status": "passed"
+        },
+        {
+          "test_name": "Basic audit record content should have timestamp in ISO 8601 format",
+          "status": "passed"
+        },
+        {
+          "test_name": "Basic audit record content should have a valid event type",
+          "status": "passed"
+        },
+        {
+          "test_name": "Basic audit record content should have a valid outcome",
+          "status": "passed"
+        },
+        {
+          "test_name": "Login event content should have a login entry in the audit log",
+          "status": "passed"
+        },
+        {
+          "test_name": "Login event content should include login-specific fields",
+          "status": "passed"
+        },
+        {
+          "test_name": "Data access event content should have a data access entry in the audit log",
+          "status": "passed"
+        },
+        {
+          "test_name": "Data access event content should include data access-specific fields",
+          "status": "passed"
+        },
+        {
+          "test_name": "Configuration change event content should have a configuration change entry in the audit log",
+          "status": "passed"
+        },
+        {
+          "test_name": "Configuration change event content should include configuration change-specific fields",
+          "status": "passed"
+        },
+        {
+          "test_name": "Failed login event content should have a failed login entry in the audit log",
+          "status": "passed"
+        },
+        {
+          "test_name": "Failed login event content should include reason for failure",
+          "status": "passed"
+        },
+        {
+          "test_name": "OPA validation of audit content should contain audit content validation in OPA logs",
+          "status": "passed"
         }
       ]
     },
@@ -45,6 +103,64 @@
         },
         {
           "test_name": "File ./logs/opa_interactions.log content is expected to include \"deny_access\"",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "control_id": "au-3",
+      "status": "passed",
+      "test_results": [
+        {
+          "test_name": "Basic audit record content should include all basic required fields",
+          "status": "passed"
+        },
+        {
+          "test_name": "Basic audit record content should have timestamp in ISO 8601 format",
+          "status": "passed"
+        },
+        {
+          "test_name": "Basic audit record content should have a valid event type",
+          "status": "passed"
+        },
+        {
+          "test_name": "Basic audit record content should have a valid outcome",
+          "status": "passed"
+        },
+        {
+          "test_name": "Login event content should have a login entry in the audit log",
+          "status": "passed"
+        },
+        {
+          "test_name": "Login event content should include login-specific fields",
+          "status": "passed"
+        },
+        {
+          "test_name": "Data access event content should have a data access entry in the audit log",
+          "status": "passed"
+        },
+        {
+          "test_name": "Data access event content should include data access-specific fields",
+          "status": "passed"
+        },
+        {
+          "test_name": "Configuration change event content should have a configuration change entry in the audit log",
+          "status": "passed"
+        },
+        {
+          "test_name": "Configuration change event content should include configuration change-specific fields",
+          "status": "passed"
+        },
+        {
+          "test_name": "Failed login event content should have a failed login entry in the audit log",
+          "status": "passed"
+        },
+        {
+          "test_name": "Failed login event content should include reason for failure",
+          "status": "passed"
+        },
+        {
+          "test_name": "OPA validation of audit content should contain audit content validation in OPA logs",
           "status": "passed"
         }
       ]
