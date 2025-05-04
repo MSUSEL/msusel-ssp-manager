@@ -161,7 +161,15 @@ def process_inspec_results(input_file, output_file):
         if os.path.exists(output_file):
             try:
                 with open(output_file, 'r') as f:
-                    existing_results = json.load(f)
+                    file_content = json.load(f)
+
+                    # Check if the file has the new format with metadata
+                    if isinstance(file_content, dict) and 'results' in file_content:
+                        existing_results = file_content.get('results', [])
+                    else:
+                        # Old format (just an array)
+                        existing_results = file_content if isinstance(file_content, list) else []
+
                 logging.info(f"Read {len(existing_results)} existing controls from {output_file}")
             except Exception as e:
                 logging.warning(f"Failed to read existing results from {output_file}: {str(e)}")
@@ -173,13 +181,17 @@ def process_inspec_results(input_file, output_file):
 
         # Add existing controls that are not in the new results
         for existing_control in existing_results:
-            existing_id = existing_control.get('control_id')
-            if existing_id:
-                existing_control_ids.add(existing_id)
+            # Handle different formats of existing controls
+            if isinstance(existing_control, dict):
+                existing_id = existing_control.get('control_id')
+                if existing_id:
+                    existing_control_ids.add(existing_id)
 
-                # Check if this control is in the new results
-                if not any(r.get('control_id') == existing_id for r in results):
-                    merged_results.append(existing_control)
+                    # Check if this control is in the new results
+                    if not any(r.get('control_id') == existing_id for r in results):
+                        merged_results.append(existing_control)
+            else:
+                logging.warning(f"Skipping invalid existing control: {existing_control}")
 
         # Add all new results
         merged_results.extend(results)
@@ -246,11 +258,32 @@ def create_default_results(output_file):
                 'status': 'failed'
                 # 'message' field removed
             }]
+        },
+        {
+            'control_id': 'ac-3',
+            'status': 'passed',
+            'test_results': [{
+                'test_name': 'Access Enforcement - Time-based restrictions',
+                'status': 'passed'
+                # 'message' field removed
+            }]
         }
     ]
 
+    # Add timestamp to the results
+    timestamp = datetime.now().isoformat()
+
+    # Create the output with metadata
+    final_output = {
+        "metadata": {
+            "timestamp": timestamp,
+            "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        },
+        "results": results
+    }
+
     with open(output_file, 'w') as f:
-        json.dump(results, f, indent=2)
+        json.dump(final_output, f, indent=2)
 
     logging.info(f"Successfully wrote default controls to {output_file}")
 

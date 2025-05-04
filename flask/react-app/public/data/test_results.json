@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "timestamp": "2025-05-02T21:11:49.907519",
-    "generated_at": "2025-05-02 21:11:49"
+    "timestamp": "2025-05-03T18:48:36.920345",
+    "generated_at": "2025-05-03 18:48:36"
   },
   "results": [
     {
@@ -17,23 +17,23 @@
     },
     {
       "control_id": "ac-3",
-      "status": "failed",
+      "status": "passed",
       "test_results": [
         {
           "test_name": "Regular user accessing user profile should allow access to user profile",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Regular user accessing admin panel should deny access to admin panel",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Admin user accessing admin panel should allow admin access to admin panel",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Regular user accessing resources outside business hours should deny access outside business hours for regular users",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "File ./logs/opa_interactions.log content is expected to include \"access_control\"",
@@ -41,11 +41,11 @@
         },
         {
           "test_name": "File ./logs/opa_interactions.log content is expected to include \"allow_access\"",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "File ./logs/opa_interactions.log content is expected to include \"deny_access\"",
-          "status": "failed"
+          "status": "passed"
         }
       ]
     },
@@ -221,7 +221,7 @@
         },
         {
           "test_name": "Unauthorized configuration change (non-admin user) should deny configuration change by non-admin user",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Unauthorized configuration change (outside allowed hours) should deny configuration change outside allowed hours",

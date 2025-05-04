@@ -1170,3 +1170,111 @@
 {"timestamp":"2025-05-03T03:11:48.700Z","event_type":"security_event","category":"malicious_code","file_name":"script.txt","file_type":"document","action":"block","reason":"malicious pattern"}
 {"timestamp":"2025-05-03T03:11:48.702Z","event_type":"security_event","category":"malicious_code","file_name":"large_document.pdf","file_type":"document","action":"block","reason":"suspicious size"}
 {"timestamp":"2025-05-03T03:11:48.706Z","event_type":"security_event","category":"malicious_code","file_name":"suspicious.exe","file_type":"executable","action":"quarantine","reason":"malicious extension"}
+{"timestamp":"2025-05-04T00:40:15.706Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:40:15.731Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:40:15.744Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:40:15.754Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:40:15.772Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:40:15.783Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:40:15.797Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:40:15.808Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:40:32.287Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:40:32.303Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:40:32.312Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:40:32.326Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:40:32.342Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:40:32.361Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:40:32.377Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:40:32.387Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:41:22.611Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:41:22.632Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:41:22.646Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:41:22.658Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:41:22.679Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:41:22.693Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:41:22.705Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:41:22.717Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:41:22.799Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:41:23.037Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:41:23.255Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:41:23.267Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:41:23.278Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:41:23.312Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:41:23.321Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:41:23.332Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:41:23.735Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:41:23.751Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":2}}
+{"timestamp":"2025-05-04T00:41:23.869Z","event_type":"network_access","source_ip":"203.0.113.1","source_type":"unknown","destination":"database","outcome":"blocked"}
+{"timestamp":"2025-05-04T00:41:23.877Z","event_type":"network_access","source_ip":"10.0.0.5","source_type":"internal","destination":"web","outcome":"allowed"}
+{"timestamp":"2025-05-04T00:41:23.982Z","event_type":"security_check","category":"data_protection","result":"passed","reason":"All checks passed"}
+{"timestamp":"2025-05-04T00:41:23.993Z","event_type":"security_check","category":"data_protection","result":"failed","reason":"Invalid encryption configuration"}
+{"timestamp":"2025-05-04T00:41:24.000Z","event_type":"security_check","category":"data_protection","result":"failed","reason":"Invalid key management configuration"}
+{"timestamp":"2025-05-04T00:41:24.009Z","event_type":"security_check","category":"data_protection","result":"failed","reason":"Invalid access control configuration"}
+{"timestamp":"2025-05-04T00:41:24.085Z","event_type":"security_event","category":"malicious_code","file_name":"suspicious.exe","file_type":"executable","action":"block","reason":"malicious extension"}
+{"timestamp":"2025-05-04T00:41:24.092Z","event_type":"security_event","category":"malicious_code","file_name":"script.txt","file_type":"document","action":"block","reason":"malicious pattern"}
+{"timestamp":"2025-05-04T00:41:24.098Z","event_type":"security_event","category":"malicious_code","file_name":"large_document.pdf","file_type":"document","action":"block","reason":"suspicious size"}
+{"timestamp":"2025-05-04T00:41:24.110Z","event_type":"security_event","category":"malicious_code","file_name":"suspicious.exe","file_type":"executable","action":"quarantine","reason":"malicious extension"}
+{"timestamp":"2025-05-04T00:42:33.894Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:42:33.911Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:42:33.919Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:42:33.929Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:42:33.943Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:42:33.949Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:42:33.978Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:42:33.988Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:43:48.042Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:43:48.070Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:43:48.080Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:43:48.093Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:43:48.110Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:43:48.119Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:43:48.127Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:43:48.143Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:43:48.162Z","event_type":"access_denied","user_id":"regular_user","resource":"user_profile","outcome":"failure","reason":"Access outside business hours"}
+{"timestamp":"2025-05-04T00:43:48.189Z","event_type":"access_denied","user_id":"regular_user","resource":"admin_panel","outcome":"failure","reason":"Admin access required"}
+{"timestamp":"2025-05-04T00:43:48.210Z","event_type":"admin_action","user_id":"admin_user","resource":"admin_panel","outcome":"success"}
+{"timestamp":"2025-05-04T00:43:48.220Z","event_type":"access_denied","user_id":"regular_user","resource":"user_profile","outcome":"failure","reason":"Access outside business hours"}
+{"timestamp":"2025-05-04T00:45:07.768Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:45:07.797Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:45:07.809Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:45:07.821Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:45:07.850Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:45:07.861Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:45:07.882Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:45:07.903Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:45:07.931Z","event_type":"data_access","user_id":"regular_user","resource":"user_profile","outcome":"success","data_id":"regular_user"}
+{"timestamp":"2025-05-04T00:45:07.952Z","event_type":"access_denied","user_id":"regular_user","resource":"admin_panel","outcome":"failure","reason":"Admin access required"}
+{"timestamp":"2025-05-04T00:45:07.960Z","event_type":"admin_action","user_id":"admin_user","resource":"admin_panel","outcome":"success"}
+{"timestamp":"2025-05-04T00:45:07.969Z","event_type":"access_denied","user_id":"regular_user","resource":"user_profile","outcome":"failure","reason":"Access outside business hours"}
+{"timestamp":"2025-05-04T00:48:34.471Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:48:34.491Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:48:34.500Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:48:34.508Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:48:34.522Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:48:34.530Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:48:34.538Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:48:34.545Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:48:34.634Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:48:34.767Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:48:34.920Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:48:34.930Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:48:34.939Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:48:34.973Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:48:34.982Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:48:34.990Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:48:35.281Z","event_type":"data_access","user_id":"regular_user","resource":"user_profile","outcome":"success","data_id":"regular_user"}
+{"timestamp":"2025-05-04T00:48:35.288Z","event_type":"access_denied","user_id":"regular_user","resource":"admin_panel","outcome":"failure","reason":"Admin access required"}
+{"timestamp":"2025-05-04T00:48:35.292Z","event_type":"admin_action","user_id":"admin_user","resource":"admin_panel","outcome":"success"}
+{"timestamp":"2025-05-04T00:48:35.298Z","event_type":"access_denied","user_id":"regular_user","resource":"user_profile","outcome":"failure","reason":"Access outside business hours"}
+{"timestamp":"2025-05-04T00:48:35.312Z","user":"regular_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":1}}
+{"timestamp":"2025-05-04T00:48:35.345Z","user":"admin_user","action":"login","status":"success","source_ip":"::ffff:127.0.0.1","details":{"method":"password","factors":2}}
+{"timestamp":"2025-05-04T00:48:35.423Z","event_type":"network_access","source_ip":"203.0.113.1","source_type":"unknown","destination":"database","outcome":"blocked"}
+{"timestamp":"2025-05-04T00:48:35.427Z","event_type":"network_access","source_ip":"10.0.0.5","source_type":"internal","destination":"web","outcome":"allowed"}
+{"timestamp":"2025-05-04T00:48:35.492Z","event_type":"security_check","category":"data_protection","result":"passed","reason":"All checks passed"}
+{"timestamp":"2025-05-04T00:48:35.497Z","event_type":"security_check","category":"data_protection","result":"failed","reason":"Invalid encryption configuration"}
+{"timestamp":"2025-05-04T00:48:35.501Z","event_type":"security_check","category":"data_protection","result":"failed","reason":"Invalid key management configuration"}
+{"timestamp":"2025-05-04T00:48:35.505Z","event_type":"security_check","category":"data_protection","result":"failed","reason":"Invalid access control configuration"}
+{"timestamp":"2025-05-04T00:48:35.549Z","event_type":"security_event","category":"malicious_code","file_name":"suspicious.exe","file_type":"executable","action":"block","reason":"malicious extension"}
+{"timestamp":"2025-05-04T00:48:35.553Z","event_type":"security_event","category":"malicious_code","file_name":"script.txt","file_type":"document","action":"block","reason":"malicious pattern"}
+{"timestamp":"2025-05-04T00:48:35.557Z","event_type":"security_event","category":"malicious_code","file_name":"large_document.pdf","file_type":"document","action":"block","reason":"suspicious size"}
+{"timestamp":"2025-05-04T00:48:35.563Z","event_type":"security_event","category":"malicious_code","file_name":"suspicious.exe","file_type":"executable","action":"quarantine","reason":"malicious extension"}
