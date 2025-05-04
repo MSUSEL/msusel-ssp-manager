@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "timestamp": "2025-05-03T20:22:02.226495",
-    "generated_at": "2025-05-03 20:22:02"
+    "timestamp": "2025-05-03T20:52:03.550330",
+    "generated_at": "2025-05-03 20:52:03"
   },
   "results": [
     {
@@ -97,6 +97,80 @@
       ]
     },
     {
+      "control_id": "ac-2",
+      "status": "passed",
+      "test_results": [
+        {
+          "test_name": "Account creation with proper approval should allow account creation with proper approval",
+          "status": "passed"
+        },
+        {
+          "test_name": "Account creation without proper approval should deny account creation without proper approval",
+          "status": "passed"
+        },
+        {
+          "test_name": "Account creation by non-admin should deny account creation by non-admin",
+          "status": "passed"
+        },
+        {
+          "test_name": "Account modification with proper authorization should allow account modification with proper authorization",
+          "status": "passed"
+        },
+        {
+          "test_name": "Account modification without proper authorization should deny account modification without proper authorization",
+          "status": "passed"
+        },
+        {
+          "test_name": "Self-modification of non-privileged information should allow self-modification of non-privileged information",
+          "status": "passed"
+        },
+        {
+          "test_name": "Account disabling with proper authorization should allow account disabling with proper authorization",
+          "status": "passed"
+        },
+        {
+          "test_name": "Account disabling without proper authorization should deny account disabling without proper authorization",
+          "status": "passed"
+        },
+        {
+          "test_name": "Account removal with proper authorization should allow account removal with proper authorization",
+          "status": "passed"
+        },
+        {
+          "test_name": "Account removal without proper authorization should deny account removal without proper authorization",
+          "status": "passed"
+        },
+        {
+          "test_name": "Account expiration enforcement should enforce account expiration",
+          "status": "passed"
+        },
+        {
+          "test_name": "Account review should provide account review information",
+          "status": "passed"
+        },
+        {
+          "test_name": "File ./logs/opa_interactions.log content is expected to include \"account_management\"",
+          "status": "passed"
+        },
+        {
+          "test_name": "File ./logs/opa_interactions.log content is expected to include \"account_creation_valid\"",
+          "status": "passed"
+        },
+        {
+          "test_name": "File ./logs/opa_interactions.log content is expected to include \"account_modification_valid\"",
+          "status": "passed"
+        },
+        {
+          "test_name": "File ./logs/opa_interactions.log content is expected to include \"account_disabling_valid\"",
+          "status": "passed"
+        },
+        {
+          "test_name": "File ./logs/opa_interactions.log content is expected to include \"account_removal_valid\"",
+          "status": "passed"
+        }
+      ]
+    },
+    {
       "control_id": "au-3",
       "status": "passed",
       "test_results": [
@@ -150,6 +224,96 @@
         },
         {
           "test_name": "OPA validation of audit content should contain audit content validation in OPA logs",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "control_id": "au-4",
+      "status": "passed",
+      "test_results": [
+        {
+          "test_name": "Audit storage capacity configuration should have sufficient storage capacity",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit storage capacity configuration should have monitoring enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit storage capacity configuration should have appropriate monitoring interval",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit storage capacity configuration should have alerts configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit storage capacity configuration should have appropriate warning threshold",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit storage capacity configuration should have appropriate critical threshold",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit storage capacity configuration should have alert recipients configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit retention policy configuration should have retention policy enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit retention policy configuration should have appropriate retention period",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit retention policy configuration should have archiving enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Current storage usage should be within acceptable limits",
+          "status": "passed"
+        },
+        {
+          "test_name": "Current storage usage should generate appropriate alerts when approaching capacity",
+          "status": "passed"
+        },
+        {
+          "test_name": "Current storage usage should generate appropriate alerts when at critical capacity",
+          "status": "passed"
+        },
+        {
+          "test_name": "Automatic actions for capacity management should have automatic actions enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Automatic actions for capacity management should have at least one action configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "OPA policy validation for audit storage should contain audit storage validation in OPA logs",
+          "status": "passed"
+        },
+        {
+          "test_name": "System response to approaching capacity should detect approaching capacity",
+          "status": "passed"
+        },
+        {
+          "test_name": "System response to approaching capacity should generate warning alert",
+          "status": "passed"
+        },
+        {
+          "test_name": "System response to critical capacity should detect critical capacity",
+          "status": "passed"
+        },
+        {
+          "test_name": "System response to critical capacity should generate critical alert",
+          "status": "passed"
+        },
+        {
+          "test_name": "System response to critical capacity should trigger automatic actions",
           "status": "passed"
         }
       ]
@@ -559,80 +723,6 @@
         {
           "test_name": "File ./logs/opa_interactions.log content is expected to include \"encryption_at_rest_valid\"",
           "status": "failed"
-        }
-      ]
-    },
-    {
-      "control_id": "ac-2",
-      "status": "passed",
-      "test_results": [
-        {
-          "test_name": "Account creation with proper approval should allow account creation with proper approval",
-          "status": "passed"
-        },
-        {
-          "test_name": "Account creation without proper approval should deny account creation without proper approval",
-          "status": "passed"
-        },
-        {
-          "test_name": "Account creation by non-admin should deny account creation by non-admin",
-          "status": "passed"
-        },
-        {
-          "test_name": "Account modification with proper authorization should allow account modification with proper authorization",
-          "status": "passed"
-        },
-        {
-          "test_name": "Account modification without proper authorization should deny account modification without proper authorization",
-          "status": "passed"
-        },
-        {
-          "test_name": "Self-modification of non-privileged information should allow self-modification of non-privileged information",
-          "status": "passed"
-        },
-        {
-          "test_name": "Account disabling with proper authorization should allow account disabling with proper authorization",
-          "status": "passed"
-        },
-        {
-          "test_name": "Account disabling without proper authorization should deny account disabling without proper authorization",
-          "status": "passed"
-        },
-        {
-          "test_name": "Account removal with proper authorization should allow account removal with proper authorization",
-          "status": "passed"
-        },
-        {
-          "test_name": "Account removal without proper authorization should deny account removal without proper authorization",
-          "status": "passed"
-        },
-        {
-          "test_name": "Account expiration enforcement should enforce account expiration",
-          "status": "passed"
-        },
-        {
-          "test_name": "Account review should provide account review information",
-          "status": "passed"
-        },
-        {
-          "test_name": "File ./logs/opa_interactions.log content is expected to include \"account_management\"",
-          "status": "passed"
-        },
-        {
-          "test_name": "File ./logs/opa_interactions.log content is expected to include \"account_creation_valid\"",
-          "status": "passed"
-        },
-        {
-          "test_name": "File ./logs/opa_interactions.log content is expected to include \"account_modification_valid\"",
-          "status": "passed"
-        },
-        {
-          "test_name": "File ./logs/opa_interactions.log content is expected to include \"account_disabling_valid\"",
-          "status": "passed"
-        },
-        {
-          "test_name": "File ./logs/opa_interactions.log content is expected to include \"account_removal_valid\"",
-          "status": "passed"
         }
       ]
     }

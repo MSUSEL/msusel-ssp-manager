@@ -1,0 +1,98 @@
+{
+  "metadata": {
+    "timestamp": "2025-05-03T20:51:32.546842",
+    "generated_at": "2025-05-03 20:51:32"
+  },
+  "results": [
+    {
+      "control_id": "au-4",
+      "status": "passed",
+      "test_results": [
+        {
+          "test_name": "Audit storage capacity configuration should have sufficient storage capacity",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit storage capacity configuration should have monitoring enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit storage capacity configuration should have appropriate monitoring interval",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit storage capacity configuration should have alerts configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit storage capacity configuration should have appropriate warning threshold",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit storage capacity configuration should have appropriate critical threshold",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit storage capacity configuration should have alert recipients configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit retention policy configuration should have retention policy enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit retention policy configuration should have appropriate retention period",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit retention policy configuration should have archiving enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Current storage usage should be within acceptable limits",
+          "status": "passed"
+        },
+        {
+          "test_name": "Current storage usage should generate appropriate alerts when approaching capacity",
+          "status": "passed"
+        },
+        {
+          "test_name": "Current storage usage should generate appropriate alerts when at critical capacity",
+          "status": "passed"
+        },
+        {
+          "test_name": "Automatic actions for capacity management should have automatic actions enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Automatic actions for capacity management should have at least one action configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "OPA policy validation for audit storage should contain audit storage validation in OPA logs",
+          "status": "passed"
+        },
+        {
+          "test_name": "System response to approaching capacity should detect approaching capacity",
+          "status": "passed"
+        },
+        {
+          "test_name": "System response to approaching capacity should generate warning alert",
+          "status": "passed"
+        },
+        {
+          "test_name": "System response to critical capacity should detect critical capacity",
+          "status": "passed"
+        },
+        {
+          "test_name": "System response to critical capacity should generate critical alert",
+          "status": "passed"
+        },
+        {
+          "test_name": "System response to critical capacity should trigger automatic actions",
+          "status": "passed"
+        }
+      ]
+    }
+  ]
+}

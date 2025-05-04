@@ -5,6 +5,7 @@ import data.security.access_control
 import data.security.authentication
 import data.security.audit
 import data.security.audit_content
+import data.security.audit_storage
 import data.security.session_crypto
 import data.security.input_validation
 import data.security.configuration_management
@@ -68,6 +69,9 @@ audit_record := {
 
 # Validate audit record content
 audit_content_valid := audit_content.audit_content_valid with input as {"audit_record": audit_record}
+
+# Validate audit storage capacity
+audit_storage_compliant := audit_storage.audit_storage_compliant with input as {"audit_storage": input.audit_storage}
 
 # Flag suspicious activities
 suspicious_activity if {
