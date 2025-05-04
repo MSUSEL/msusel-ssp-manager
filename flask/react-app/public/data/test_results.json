@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "timestamp": "2025-05-03T18:48:36.920345",
-    "generated_at": "2025-05-03 18:48:36"
+    "timestamp": "2025-05-03T19:13:55.297953",
+    "generated_at": "2025-05-03 19:13:55"
   },
   "results": [
     {
@@ -51,7 +51,7 @@
     },
     {
       "control_id": "au-2",
-      "status": "failed",
+      "status": "passed",
       "test_results": [
         {
           "test_name": "Login event auditing should include \"login\" and \"test_user\" in the audit log",
@@ -59,7 +59,7 @@
         },
         {
           "test_name": "Login event auditing should include required audit fields",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Resource access auditing should log data access in the audit log",
@@ -67,7 +67,7 @@
         },
         {
           "test_name": "Resource access auditing should include required fields",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Configuration change auditing should log configuration change in the audit log",
@@ -75,7 +75,7 @@
         },
         {
           "test_name": "Configuration change auditing should include all change tracking fields",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Failed login auditing should record failed login in the audit log",
@@ -83,27 +83,27 @@
         },
         {
           "test_name": "Failed login auditing should include outcome: failure in audit entry",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Failed login auditing should include required fields for failed login",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "OPA interaction log should include audit keywords should contain 'audit'",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "OPA interaction log should include audit keywords should contain 'should_audit'",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "OPA interaction log should include audit keywords should contain 'audit_record_valid'",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "OPA interaction log should include audit keywords should contain 'flag_for_review'",
-          "status": "failed"
+          "status": "passed"
         }
       ]
     },
@@ -257,7 +257,7 @@
         },
         {
           "test_name": "File ./logs/opa_interactions.log content is expected to include \"config_change_authorized\"",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "File ./logs/opa_interactions.log content is expected to include \"config_compliant_with_baseline\"",

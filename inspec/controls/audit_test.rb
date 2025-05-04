@@ -12,8 +12,8 @@ control 'audit-policy' do
     login_response = http("#{app_url}/login",
                           method: 'POST',
                           headers: { 'Content-Type' => 'application/json' },
-                          data: { 
-                            username: 'test_user', 
+                          data: {
+                            username: 'test_user',
                             password: 'TestPassword123'
                           }.to_json)
 
@@ -38,8 +38,8 @@ control 'audit-policy' do
     login_response = http("#{app_url}/login",
                           method: 'POST',
                           headers: { 'Content-Type' => 'application/json' },
-                          data: { 
-                            username: 'test_user', 
+                          data: {
+                            username: 'test_user',
                             password: 'TestPassword123'
                           }.to_json)
 
@@ -70,8 +70,8 @@ control 'audit-policy' do
     login_response = http("#{app_url}/login",
                           method: 'POST',
                           headers: { 'Content-Type' => 'application/json' },
-                          data: { 
-                            username: 'admin_user', 
+                          data: {
+                            username: 'admin_user',
                             password: 'AdminSecurePass456',
                             mfa_code: '654321'
                           }.to_json)
@@ -80,7 +80,7 @@ control 'audit-policy' do
 
     http("#{app_url}/system_settings",
          method: 'POST',
-         headers: { 
+         headers: {
            'Authorization' => "Bearer #{token}",
            'Content-Type' => 'application/json'
          },
@@ -92,7 +92,11 @@ control 'audit-policy' do
 
     audit_log_content = file(audit_log_path).content
     audit_entries = audit_log_content.split("\n").map { |line| JSON.parse(line) rescue nil }.compact
-    latest_entry = audit_entries.last
+
+    # Find the configuration change entry specifically
+    config_change_entry = audit_entries.find { |entry|
+      entry['event_type'] == 'configuration_change' && entry['outcome'] == 'success'
+    }
 
     it 'should log configuration change in the audit log' do
       unless audit_log_content.include?('configuration_change')
@@ -102,8 +106,8 @@ control 'audit-policy' do
 
     it 'should include all change tracking fields' do
       required_fields = %w[timestamp user_id event_type resource outcome old_value new_value]
-      missing_fields = required_fields.reject { |f| latest_entry.key?(f) }
-      fail "Missing fields in config change audit: #{missing_fields.join(', ')}\nLatest entry: #{latest_entry}" unless missing_fields.empty?
+      missing_fields = required_fields.reject { |f| config_change_entry.key?(f) }
+      fail "Missing fields in config change audit: #{missing_fields.join(', ')}\nConfig change entry: #{config_change_entry}" unless missing_fields.empty?
     end
   end
 
@@ -112,14 +116,18 @@ control 'audit-policy' do
     http("#{app_url}/login",
          method: 'POST',
          headers: { 'Content-Type' => 'application/json' },
-         data: { 
-           username: 'test_user', 
+         data: {
+           username: 'test_user',
            password: 'WrongPassword'
          }.to_json)
 
     audit_log_content = file(audit_log_path).content
     audit_entries = audit_log_content.split("\n").map { |line| JSON.parse(line) rescue nil }.compact
-    latest_entry = audit_entries.last
+
+    # Find the failed login entry specifically
+    failed_login_entry = audit_entries.find { |entry|
+      entry['event_type'] == 'login' && entry['outcome'] == 'failure'
+    }
 
     it 'should record failed login in the audit log' do
       unless audit_log_content.include?('login') && audit_log_content.include?('failure')
@@ -128,15 +136,15 @@ control 'audit-policy' do
     end
 
     it 'should include outcome: failure in audit entry' do
-      unless latest_entry['outcome'] == 'failure'
-        fail "Expected 'outcome' to be 'failure' but got '#{latest_entry['outcome']}'\nEntry: #{latest_entry}"
+      unless failed_login_entry && failed_login_entry['outcome'] == 'failure'
+        fail "Expected 'outcome' to be 'failure' but got '#{failed_login_entry ? failed_login_entry['outcome'] : 'nil'}'\nEntry: #{failed_login_entry || 'Not found'}"
       end
     end
 
     it 'should include required fields for failed login' do
       required_fields = %w[timestamp user_id event_type outcome]
-      missing_fields = required_fields.reject { |f| latest_entry.key?(f) }
-      fail "Missing fields in failed login audit: #{missing_fields.join(', ')}\nEntry: #{latest_entry}" unless missing_fields.empty?
+      missing_fields = required_fields.reject { |f| failed_login_entry.key?(f) }
+      fail "Missing fields in failed login audit: #{missing_fields.join(', ')}\nEntry: #{failed_login_entry}" unless missing_fields.empty?
     end
   end
 

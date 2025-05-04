@@ -229,7 +229,6 @@ const CurrentStatus: React.FC = () => {
       return {
         id: controlId,
         title: details.title || 'Unknown Control',
-        family: details.family || 'Unknown',
         status,
         implemented,
         testResult
