@@ -293,30 +293,31 @@ const CurrentStatus: React.FC = () => {
         const testResultsData = await testResultsResponse.json();
         console.log('Fetched test results:', testResultsData); // Debug log
 
-        // Check the structure of the test results
-        if (Array.isArray(testResultsData)) {
-          console.log(`Test results is an array with ${testResultsData.length} items`);
-          if (testResultsData.length > 0) {
-            console.log('First test result:', testResultsData[0]);
-            console.log('Expected properties:',
-              'control_id' in testResultsData[0],
-              'status' in testResultsData[0],
-              'test_results' in testResultsData[0]
-            );
-          }
+        // Check if the new format with metadata is used
+        if (testResultsData.metadata && testResultsData.results) {
+          console.log('Using new format with metadata');
+          setTestResults(testResultsData.results);
+          setLastTestRun(new Date(testResultsData.metadata.generated_at).toLocaleString());
         } else {
-          console.log('Test results is not an array:', typeof testResultsData);
+          // Legacy format or unexpected format
+          console.log('Using legacy format or unexpected format');
+          if (Array.isArray(testResultsData)) {
+            setTestResults(testResultsData);
+          } else {
+            console.warn('Unexpected test results format:', typeof testResultsData);
+          }
+          // Update last test run time from current time
+          setLastTestRun(new Date().toLocaleString());
         }
-
-        setTestResults(testResultsData);
-        console.log('After setTestResults, current state:', testResults);
-
-        // Update last test run time
-        setLastTestRun(new Date().toLocaleString());
       }
     } catch (error) {
       console.error('Error running tests:', error);
-      alert('Error running tests. Please check the console for details.');
+      // Show more specific error message based on the error type
+      if (axios.isAxiosError(error) && error.response) {
+        alert(`Test execution failed: ${error.response.data?.message || error.message}`);
+      } else {
+        alert('Error running tests. Please check the console for details and verify the test runner is properly configured.');
+      }
     } finally {
       setIsRunningTests(false);
     }
