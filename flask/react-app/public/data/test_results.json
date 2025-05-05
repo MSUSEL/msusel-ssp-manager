@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "timestamp": "2025-05-04T22:26:42.595740",
-    "generated_at": "2025-05-04 22:26:42"
+    "timestamp": "2025-05-04T22:48:36.968531",
+    "generated_at": "2025-05-04 22:48:36"
   },
   "results": [
     {
@@ -177,6 +177,274 @@
         },
         {
           "test_name": "OPA validation of audit content should contain audit content validation in OPA logs",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "control_id": "au-10",
+      "status": "passed",
+      "test_results": [
+        {
+          "test_name": "Digital signature configuration should have digital signatures enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Digital signature configuration should use strong signature algorithm",
+          "status": "passed"
+        },
+        {
+          "test_name": "Digital signature configuration should have key management enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Digital signature configuration should have appropriate key protection",
+          "status": "passed"
+        },
+        {
+          "test_name": "Identity binding configuration should have identity binding enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Identity binding configuration should have binding mechanisms configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Identity binding configuration should require identity verification",
+          "status": "passed"
+        },
+        {
+          "test_name": "Identity binding configuration should use strong authentication for identity binding",
+          "status": "passed"
+        },
+        {
+          "test_name": "Signature validation configuration should have signature validation enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Signature validation configuration should have validation mechanisms configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Signature validation configuration should enforce validation",
+          "status": "passed"
+        },
+        {
+          "test_name": "Signature validation configuration should check certificate revocation",
+          "status": "passed"
+        },
+        {
+          "test_name": "Timestamp binding configuration should have timestamp binding enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Timestamp binding configuration should use trusted timestamp source",
+          "status": "passed"
+        },
+        {
+          "test_name": "Timestamp binding configuration should use cryptographic binding",
+          "status": "passed"
+        },
+        {
+          "test_name": "Timestamp binding configuration should have timestamp source verification",
+          "status": "passed"
+        },
+        {
+          "test_name": "Evidence collection configuration should have evidence collection enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Evidence collection configuration should have collection mechanisms configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Evidence collection configuration should have secure storage for evidence",
+          "status": "passed"
+        },
+        {
+          "test_name": "Evidence collection configuration should collect comprehensive evidence",
+          "status": "passed"
+        },
+        {
+          "test_name": "Chain of custody configuration should have chain of custody enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Chain of custody configuration should have tracking mechanisms configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Chain of custody configuration should have custody verification enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Chain of custody configuration should use tamper-evident mechanisms",
+          "status": "passed"
+        },
+        {
+          "test_name": "Signature validation endpoint should validate correct signatures",
+          "status": "passed"
+        },
+        {
+          "test_name": "Signature validation endpoint should reject incorrect signatures",
+          "status": "passed"
+        },
+        {
+          "test_name": "Action non-repudiation should create actions with digital signatures",
+          "status": "passed"
+        },
+        {
+          "test_name": "Action non-repudiation should create actions with identity binding",
+          "status": "passed"
+        },
+        {
+          "test_name": "Action non-repudiation should create actions with secure timestamps",
+          "status": "passed"
+        },
+        {
+          "test_name": "Action non-repudiation should log actions for evidence",
+          "status": "passed"
+        },
+        {
+          "test_name": "OPA policy validation for non-repudiation should contain non-repudiation validation in OPA logs",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "control_id": "au-9",
+      "status": "passed",
+      "test_results": [
+        {
+          "test_name": "Audit access control configuration should have access controls enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit access control configuration should have authorized roles configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit access control configuration should have appropriate access control mechanisms",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit access control configuration should restrict access to authorized personnel only",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit encryption configuration should have encryption enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit encryption configuration should use strong encryption algorithm",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit encryption configuration should have key management enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit encryption configuration should have appropriate key rotation policy",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit integrity configuration should have integrity verification enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit integrity configuration should have appropriate integrity mechanisms",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit integrity configuration should have appropriate verification frequency",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit integrity configuration should use cryptographic mechanisms for integrity",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit backup configuration should have backup enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit backup configuration should have appropriate backup frequency",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit backup configuration should have backup storage location configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit backup configuration should have appropriate backup retention period",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit backup configuration should have backup verification process",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit tools protection should have tools protection enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit tools protection should have appropriate protection mechanisms",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit tools protection should restrict tools access to authorized personnel only",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit tools protection should have integrity verification for audit tools",
+          "status": "passed"
+        },
+        {
+          "test_name": "Deletion protection should have deletion protection enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Deletion protection should have appropriate protection mechanisms",
+          "status": "passed"
+        },
+        {
+          "test_name": "Deletion protection should require approval for deletion",
+          "status": "passed"
+        },
+        {
+          "test_name": "Deletion protection should log all deletion attempts",
+          "status": "passed"
+        },
+        {
+          "test_name": "Modification protection should have modification protection enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Modification protection should have appropriate protection mechanisms",
+          "status": "passed"
+        },
+        {
+          "test_name": "Modification protection should log all modification attempts",
+          "status": "passed"
+        },
+        {
+          "test_name": "Modification protection should use write-once or immutable storage",
+          "status": "passed"
+        },
+        {
+          "test_name": "OPA policy validation for audit protection should contain audit protection validation in OPA logs",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit log file permissions should have restricted file permissions",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit log file permissions should have appropriate owner and group",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit log file permissions should have appropriate permission mode",
           "status": "passed"
         }
       ]

@@ -5414,6 +5414,1690 @@ app.post('/validate_timestamp', async (req, res) => {
   }
 });
 
+// Initialize global audit protection configuration for AU-9
+global.auditProtectionConfig = {
+  // Access control configuration
+  access_controls: {
+    enabled: true,
+    authorized_roles: ['admin', 'security', 'auditor'],
+    mechanisms: [
+      {
+        type: 'role_based_access_control',
+        description: 'Restrict access based on user roles'
+      },
+      {
+        type: 'multi_factor_authentication',
+        description: 'Require MFA for accessing audit logs'
+      },
+      {
+        type: 'ip_restriction',
+        description: 'Restrict access to specific IP addresses'
+      }
+    ],
+    last_updated: new Date().toISOString()
+  },
+
+  // Encryption configuration
+  encryption: {
+    enabled: true,
+    algorithm: 'AES-256',
+    mode: 'GCM',
+    key_management: {
+      enabled: true,
+      rotation_days: 90,
+      storage: 'hardware_security_module',
+      last_rotation: new Date().toISOString()
+    },
+    last_updated: new Date().toISOString()
+  },
+
+  // Integrity configuration
+  integrity: {
+    enabled: true,
+    mechanisms: [
+      {
+        type: 'hash',
+        algorithm: 'SHA-256',
+        description: 'Compute hash of audit records'
+      },
+      {
+        type: 'digital_signature',
+        algorithm: 'RSA-2048',
+        description: 'Sign audit records with digital signature'
+      },
+      {
+        type: 'blockchain',
+        description: 'Store hash of audit records in blockchain'
+      }
+    ],
+    verification_frequency_hours: 24,
+    last_verification: new Date().toISOString(),
+    last_updated: new Date().toISOString()
+  },
+
+  // Backup configuration
+  backup: {
+    enabled: true,
+    frequency_hours: 24,
+    storage_location: 'encrypted_s3_bucket',
+    retention_days: 90,
+    verification_enabled: true,
+    verification_frequency_days: 7,
+    last_backup: new Date().toISOString(),
+    last_verification: new Date().toISOString(),
+    last_updated: new Date().toISOString()
+  },
+
+  // Tools protection configuration
+  tools_protection: {
+    enabled: true,
+    authorized_roles: ['admin', 'security'],
+    mechanisms: [
+      {
+        type: 'access_control',
+        description: 'Restrict access to audit tools'
+      },
+      {
+        type: 'integrity_verification',
+        description: 'Verify integrity of audit tools'
+      },
+      {
+        type: 'change_monitoring',
+        description: 'Monitor changes to audit tools'
+      }
+    ],
+    last_updated: new Date().toISOString()
+  },
+
+  // Deletion protection configuration
+  deletion_protection: {
+    enabled: true,
+    requires_approval: true,
+    log_attempts: true,
+    mechanisms: [
+      {
+        type: 'retention_policy',
+        description: 'Enforce retention policy for audit logs'
+      },
+      {
+        type: 'approval_workflow',
+        description: 'Require approval for deletion'
+      },
+      {
+        type: 'immutable_storage',
+        description: 'Store audit logs in immutable storage'
+      }
+    ],
+    last_updated: new Date().toISOString()
+  },
+
+  // Modification protection configuration
+  modification_protection: {
+    enabled: true,
+    log_modifications: true,
+    mechanisms: [
+      {
+        type: 'write_once',
+        description: 'Use write-once media for audit logs'
+      },
+      {
+        type: 'integrity_verification',
+        description: 'Verify integrity of audit logs'
+      },
+      {
+        type: 'access_control',
+        description: 'Restrict modification access'
+      }
+    ],
+    last_updated: new Date().toISOString()
+  },
+
+  // File permissions configuration
+  file_permissions: {
+    restricted: true,
+    owner: 'audit',
+    group: 'audit',
+    mode: '640',
+    last_updated: new Date().toISOString()
+  }
+};
+
+// AU-9: Protection of Audit Information - Access Control Endpoint
+app.get('/audit_access_control', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current access control configuration
+    const accessControl = global.auditProtectionConfig.access_controls;
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_protection: {
+        access_controls: accessControl
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_protection',
+      decision: 'audit_access_controls_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_protection', 'audit_access_controls_configured', opaInput);
+    }
+
+    // Log audit event for accessing access control configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_access_control',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'audit_access_control'
+    });
+
+    // Return the access control configuration
+    return res.status(200).json(accessControl);
+  } catch (error) {
+    console.error('Error in audit_access_control endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-9: Protection of Audit Information - Encryption Configuration Endpoint
+app.get('/audit_encryption_config', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current encryption configuration
+    const encryption = global.auditProtectionConfig.encryption;
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_protection: {
+        encryption: encryption
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_protection',
+      decision: 'audit_encryption_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_protection', 'audit_encryption_configured', opaInput);
+    }
+
+    // Log audit event for accessing encryption configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_encryption_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'audit_encryption_config'
+    });
+
+    // Return the encryption configuration
+    return res.status(200).json(encryption);
+  } catch (error) {
+    console.error('Error in audit_encryption_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-9: Protection of Audit Information - Integrity Configuration Endpoint
+app.get('/audit_integrity_config', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current integrity configuration
+    const integrity = global.auditProtectionConfig.integrity;
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_protection: {
+        integrity: integrity
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_protection',
+      decision: 'audit_integrity_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_protection', 'audit_integrity_configured', opaInput);
+    }
+
+    // Log audit event for accessing integrity configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_integrity_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'audit_integrity_config'
+    });
+
+    // Return the integrity configuration
+    return res.status(200).json(integrity);
+  } catch (error) {
+    console.error('Error in audit_integrity_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-9: Protection of Audit Information - Backup Configuration Endpoint
+app.get('/audit_backup_config', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current backup configuration
+    const backup = global.auditProtectionConfig.backup;
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_protection: {
+        backup: backup
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_protection',
+      decision: 'audit_backup_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_protection', 'audit_backup_configured', opaInput);
+    }
+
+    // Log audit event for accessing backup configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_backup_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'audit_backup_config'
+    });
+
+    // Return the backup configuration
+    return res.status(200).json(backup);
+  } catch (error) {
+    console.error('Error in audit_backup_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-9: Protection of Audit Information - Tools Protection Endpoint
+app.get('/audit_tools_protection', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current tools protection configuration
+    const toolsProtection = global.auditProtectionConfig.tools_protection;
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_protection: {
+        tools_protection: toolsProtection
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_protection',
+      decision: 'audit_tools_protection_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_protection', 'audit_tools_protection_configured', opaInput);
+    }
+
+    // Log audit event for accessing tools protection configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_tools_protection',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'audit_tools_protection'
+    });
+
+    // Return the tools protection configuration
+    return res.status(200).json(toolsProtection);
+  } catch (error) {
+    console.error('Error in audit_tools_protection endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-9: Protection of Audit Information - Deletion Protection Endpoint
+app.get('/audit_deletion_protection', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current deletion protection configuration
+    const deletionProtection = global.auditProtectionConfig.deletion_protection;
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_protection: {
+        deletion_protection: deletionProtection
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_protection',
+      decision: 'deletion_protection_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_protection', 'deletion_protection_configured', opaInput);
+    }
+
+    // Log audit event for accessing deletion protection configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_deletion_protection',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'audit_deletion_protection'
+    });
+
+    // Return the deletion protection configuration
+    return res.status(200).json(deletionProtection);
+  } catch (error) {
+    console.error('Error in audit_deletion_protection endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-9: Protection of Audit Information - Modification Protection Endpoint
+app.get('/audit_modification_protection', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current modification protection configuration
+    const modificationProtection = global.auditProtectionConfig.modification_protection;
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_protection: {
+        modification_protection: modificationProtection
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_protection',
+      decision: 'modification_protection_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_protection', 'modification_protection_configured', opaInput);
+    }
+
+    // Log audit event for accessing modification protection configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_modification_protection',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'audit_modification_protection'
+    });
+
+    // Return the modification protection configuration
+    return res.status(200).json(modificationProtection);
+  } catch (error) {
+    console.error('Error in audit_modification_protection endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-9: Protection of Audit Information - File Permissions Endpoint
+app.get('/audit_file_permissions', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current file permissions configuration
+    const filePermissions = global.auditProtectionConfig.file_permissions;
+
+    // Log audit event for accessing file permissions configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_file_permissions',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'audit_file_permissions'
+    });
+
+    // Return the file permissions configuration
+    return res.status(200).json(filePermissions);
+  } catch (error) {
+    console.error('Error in audit_file_permissions endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Initialize global non-repudiation configuration for AU-10
+global.nonrepudiationConfig = {
+  // Digital signature configuration
+  digital_signature: {
+    enabled: true,
+    algorithm: 'RSA-2048',
+    hash_algorithm: 'SHA-256',
+    key_management: {
+      enabled: true,
+      rotation_days: 365,
+      protection_mechanism: 'hardware_security_module',
+      last_rotation: new Date().toISOString()
+    },
+    last_updated: new Date().toISOString()
+  },
+
+  // Identity binding configuration
+  identity_binding: {
+    enabled: true,
+    identity_verification_required: true,
+    mechanisms: [
+      {
+        type: 'multi_factor',
+        description: 'Require multi-factor authentication for identity binding'
+      },
+      {
+        type: 'certificate_based',
+        description: 'Use X.509 certificates for identity binding'
+      },
+      {
+        type: 'context_based',
+        description: 'Use contextual information for additional identity verification'
+      }
+    ],
+    last_updated: new Date().toISOString()
+  },
+
+  // Signature validation configuration
+  signature_validation: {
+    enabled: true,
+    enforce_validation: true,
+    valid_format: '^[A-Za-z0-9+/=]+$',
+    trusted_issuers: ['trusted_authority', 'internal_ca', 'government_ca'],
+    mechanisms: [
+      {
+        type: 'certificate_validation',
+        description: 'Validate certificate chain',
+        check_revocation: true
+      },
+      {
+        type: 'signature_verification',
+        description: 'Cryptographically verify signature'
+      },
+      {
+        type: 'timestamp_verification',
+        description: 'Verify signature timestamp'
+      }
+    ],
+    last_updated: new Date().toISOString()
+  },
+
+  // Timestamp binding configuration
+  timestamp_binding: {
+    enabled: true,
+    trusted_timestamp_source: true,
+    cryptographic_binding: true,
+    source_verification_enabled: true,
+    timestamp_sources: [
+      'internal_timeserver',
+      'nist_timeserver',
+      'trusted_third_party'
+    ],
+    last_updated: new Date().toISOString()
+  },
+
+  // Evidence collection configuration
+  evidence_collection: {
+    enabled: true,
+    secure_storage: true,
+    retention_days: 365,
+    mechanisms: [
+      {
+        evidence_type: 'user_actions',
+        description: 'Collect evidence of user actions'
+      },
+      {
+        evidence_type: 'system_events',
+        description: 'Collect evidence of system events'
+      },
+      {
+        evidence_type: 'authentication_events',
+        description: 'Collect evidence of authentication events'
+      },
+      {
+        evidence_type: 'authorization_decisions',
+        description: 'Collect evidence of authorization decisions'
+      }
+    ],
+    last_updated: new Date().toISOString()
+  },
+
+  // Chain of custody configuration
+  chain_of_custody: {
+    enabled: true,
+    verification_enabled: true,
+    tracking_mechanisms: [
+      {
+        type: 'hash_chain',
+        description: 'Use hash chain for tracking custody',
+        tamper_evident: true
+      },
+      {
+        type: 'digital_signatures',
+        description: 'Use digital signatures for tracking custody',
+        tamper_evident: true
+      },
+      {
+        type: 'blockchain',
+        description: 'Use blockchain for tracking custody',
+        tamper_evident: true
+      }
+    ],
+    last_updated: new Date().toISOString()
+  }
+};
+
+// AU-10: Non-repudiation - Digital Signature Configuration Endpoint
+app.get('/digital_signature_config', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current digital signature configuration
+    const digitalSignature = global.nonrepudiationConfig.digital_signature;
+
+    // Prepare input for OPA
+    const opaInput = {
+      nonrepudiation: {
+        digital_signature: digitalSignature
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_nonrepudiation',
+      decision: 'digital_signature_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_nonrepudiation', 'digital_signature_configured', opaInput);
+    }
+
+    // Log audit event for accessing digital signature configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'digital_signature_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'digital_signature_config'
+    });
+
+    // Return the digital signature configuration
+    return res.status(200).json(digitalSignature);
+  } catch (error) {
+    console.error('Error in digital_signature_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-10: Non-repudiation - Identity Binding Configuration Endpoint
+app.get('/identity_binding_config', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current identity binding configuration
+    const identityBinding = global.nonrepudiationConfig.identity_binding;
+
+    // Prepare input for OPA
+    const opaInput = {
+      nonrepudiation: {
+        identity_binding: identityBinding
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_nonrepudiation',
+      decision: 'identity_binding_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_nonrepudiation', 'identity_binding_configured', opaInput);
+    }
+
+    // Log audit event for accessing identity binding configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'identity_binding_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'identity_binding_config'
+    });
+
+    // Return the identity binding configuration
+    return res.status(200).json(identityBinding);
+  } catch (error) {
+    console.error('Error in identity_binding_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-10: Non-repudiation - Signature Validation Configuration Endpoint
+app.get('/signature_validation_config', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current signature validation configuration
+    const signatureValidation = global.nonrepudiationConfig.signature_validation;
+
+    // Prepare input for OPA
+    const opaInput = {
+      nonrepudiation: {
+        signature_validation: signatureValidation
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_nonrepudiation',
+      decision: 'signature_validation_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_nonrepudiation', 'signature_validation_configured', opaInput);
+    }
+
+    // Log audit event for accessing signature validation configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'signature_validation_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'signature_validation_config'
+    });
+
+    // Return the signature validation configuration
+    return res.status(200).json(signatureValidation);
+  } catch (error) {
+    console.error('Error in signature_validation_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-10: Non-repudiation - Timestamp Binding Configuration Endpoint
+app.get('/timestamp_binding_config', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current timestamp binding configuration
+    const timestampBinding = global.nonrepudiationConfig.timestamp_binding;
+
+    // Prepare input for OPA
+    const opaInput = {
+      nonrepudiation: {
+        timestamp_binding: timestampBinding
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_nonrepudiation',
+      decision: 'timestamp_binding_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_nonrepudiation', 'timestamp_binding_configured', opaInput);
+    }
+
+    // Log audit event for accessing timestamp binding configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'timestamp_binding_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'timestamp_binding_config'
+    });
+
+    // Return the timestamp binding configuration
+    return res.status(200).json(timestampBinding);
+  } catch (error) {
+    console.error('Error in timestamp_binding_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-10: Non-repudiation - Evidence Collection Configuration Endpoint
+app.get('/evidence_collection_config', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current evidence collection configuration
+    const evidenceCollection = global.nonrepudiationConfig.evidence_collection;
+
+    // Prepare input for OPA
+    const opaInput = {
+      nonrepudiation: {
+        evidence_collection: evidenceCollection
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_nonrepudiation',
+      decision: 'evidence_collection_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_nonrepudiation', 'evidence_collection_configured', opaInput);
+    }
+
+    // Log audit event for accessing evidence collection configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'evidence_collection_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'evidence_collection_config'
+    });
+
+    // Return the evidence collection configuration
+    return res.status(200).json(evidenceCollection);
+  } catch (error) {
+    console.error('Error in evidence_collection_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-10: Non-repudiation - Chain of Custody Configuration Endpoint
+app.get('/chain_of_custody_config', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current chain of custody configuration
+    const chainOfCustody = global.nonrepudiationConfig.chain_of_custody;
+
+    // Prepare input for OPA
+    const opaInput = {
+      nonrepudiation: {
+        chain_of_custody: chainOfCustody
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_nonrepudiation',
+      decision: 'chain_of_custody_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_nonrepudiation', 'chain_of_custody_configured', opaInput);
+    }
+
+    // Log audit event for accessing chain of custody configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'chain_of_custody_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'chain_of_custody_config'
+    });
+
+    // Return the chain of custody configuration
+    return res.status(200).json(chainOfCustody);
+  } catch (error) {
+    console.error('Error in chain_of_custody_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-10: Non-repudiation - Validate Signature Endpoint
+app.post('/validate_signature', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the signature from the request
+    const { signature } = req.body;
+
+    if (!signature) {
+      return res.status(400).json({
+        error: 'bad_request',
+        message: 'signature is required'
+      });
+    }
+
+    // Validate the signature
+    const isValidFormat = new RegExp(global.nonrepudiationConfig.signature_validation.valid_format).test(signature.value);
+    const isValidIssuer = global.nonrepudiationConfig.signature_validation.trusted_issuers.includes(signature.issuer);
+    const isNotExpired = new Date(signature.expiration) > new Date();
+
+    // Determine overall validity
+    const isValid = isValidFormat && isValidIssuer && isNotExpired;
+
+    // Prepare input for OPA
+    const opaInput = {
+      nonrepudiation: {
+        signature_validation: global.nonrepudiationConfig.signature_validation
+      },
+      signature: signature
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_nonrepudiation',
+      decision: 'signature_valid',
+      input: opaInput,
+      result: isValid
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_nonrepudiation', 'signature_valid', opaInput);
+    }
+
+    // Log audit event for signature validation
+    logAuditEvent({
+      user_id: username,
+      event_type: 'signature_validation',
+      resource: 'signature_validator',
+      outcome: isValid ? 'success' : 'failure',
+      ip_address: req.ip,
+      auth_method: 'token',
+      details: {
+        signature_value: signature.value.substring(0, 20) + '...',
+        issuer: signature.issuer,
+        format_valid: isValidFormat,
+        issuer_valid: isValidIssuer,
+        not_expired: isNotExpired
+      }
+    });
+
+    // Return the validation result
+    return res.status(200).json({
+      valid: isValid,
+      format_valid: isValidFormat,
+      issuer_valid: isValidIssuer,
+      not_expired: isNotExpired,
+      validation_time: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Error in validate_signature endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-10: Non-repudiation - Create Action with Non-repudiation Endpoint
+app.post('/create_action_with_nonrepudiation', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the action from the request
+    const { action } = req.body;
+
+    if (!action) {
+      return res.status(400).json({
+        error: 'bad_request',
+        message: 'action is required'
+      });
+    }
+
+    // Create a non-repudiation wrapper for the action
+    const actionWithNonrepudiation = {
+      ...action,
+      // Add digital signature
+      signature: 'MIGIAkIB6Jkz6f4hL6rjh0UptQwVuQG9KaWF2Tz/c+B9ULxR4mIEtxbn1hXJOAIm1WvMK2mcOIuqTwjQQODZ9CWRISsCQgCL9MRmF5x/YPRvJHMhRVFLZSZn0MkVVn6i3mIbRXLjXj+PQRIQQvhTYrXL+5CZnSU0WjNqRWb7h5FQgwwYCGCCsGAQUF',
+      // Add identity binding
+      identity: {
+        user_id: username,
+        roles: userRoles,
+        authentication_method: 'token',
+        authentication_time: new Date().toISOString()
+      },
+      // Add secure timestamp
+      secure_timestamp: {
+        time: new Date().toISOString(),
+        source: 'trusted_timeserver',
+        signature: 'MIGIAkIB6Jkz6f4hL6rjh0UptQwVuQG9KaWF2Tz/c+B9ULxR4mIEtxbn1hXJOAIm1WvMK2mcOIuqTwjQQODZ9CWRISsCQgCL9MRmF5x/YPRvJHMhRVFLZSZn0MkVVn6i3mIbRXLjXj+PQRIQQvhTYrXL+5CZnSU0WjNqRWb7h5FQgwwYCGCCsGAQUF'
+      },
+      // Mark as logged for evidence
+      logged: true,
+      // Add evidence collection information
+      evidence: {
+        collection_time: new Date().toISOString(),
+        storage_location: 'secure_evidence_store',
+        retention_period_days: 365
+      },
+      // Add chain of custody information
+      chain_of_custody: {
+        created_by: username,
+        created_at: new Date().toISOString(),
+        custody_hash: 'f58e93a3b6d8e3a452c6639e8b1eab818a0f91e2cdcd0734fe10efb830612b9a'
+      }
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      action: actionWithNonrepudiation
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_nonrepudiation',
+      decision: 'action_has_nonrepudiation',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_nonrepudiation', 'action_has_nonrepudiation', opaInput);
+    }
+
+    // Log audit event for action creation with non-repudiation
+    logAuditEvent({
+      user_id: username,
+      event_type: 'action_creation',
+      resource: action.resource || 'unknown_resource',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      details: {
+        action_type: action.type,
+        nonrepudiation_applied: true
+      }
+    });
+
+    // Return the action with non-repudiation
+    return res.status(200).json(actionWithNonrepudiation);
+  } catch (error) {
+    console.error('Error in create_action_with_nonrepudiation endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
 // Start server
 app.listen(port, () => {
   console.log(`Enhanced mock server listening at http://localhost:${port}`);
