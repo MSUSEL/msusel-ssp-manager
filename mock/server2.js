@@ -52,6 +52,55 @@ function isWithinBusinessHours(timeString) {
   return hour >= BUSINESS_HOURS_START && hour < BUSINESS_HOURS_END;
 }
 
+// Helper function to check if an event should be audited based on the audit policy (AU-2)
+function checkAuditPolicy(eventData) {
+  // Get the current audit policy
+  const auditPolicy = global.auditPolicy || {
+    // Default audit policy if none has been set
+    events_to_audit: [
+      'login',
+      'logout',
+      'configuration_change',
+      'data_access',
+      'data_modification',
+      'security_event',
+      'admin_action'
+    ],
+    resources_to_audit: ['all'],
+    users_to_audit: ['all']
+  };
+
+  // Define required events that must always be audited for AU-2 compliance
+  const requiredEvents = [
+    'login',
+    'logout',
+    'configuration_change',
+    'data_access',
+    'data_modification',
+    'security_event',
+    'admin_action'
+  ];
+
+  // If it's a required event, it must be audited regardless of policy
+  if (requiredEvents.includes(eventData.event_type)) {
+    return true;
+  }
+
+  // Check if the event type is in the list of events to audit
+  const eventTypeMatch = auditPolicy.events_to_audit.includes(eventData.event_type);
+
+  // Check if the resource is in the list of resources to audit or if 'all' resources should be audited
+  const resourceMatch = auditPolicy.resources_to_audit.includes('all') ||
+                       auditPolicy.resources_to_audit.includes(eventData.resource);
+
+  // Check if the user is in the list of users to audit or if 'all' users should be audited
+  const userMatch = auditPolicy.users_to_audit.includes('all') ||
+                   auditPolicy.users_to_audit.includes(eventData.user_id);
+
+  // Event should be audited if all three conditions match
+  return eventTypeMatch && resourceMatch && userMatch;
+}
+
 // Helper function to log OPA interactions
 function logOpaInteraction(data) {
   // Add audit-related keywords for AU-2, AU-3, AU-4 compliance
@@ -73,6 +122,32 @@ function logOpaInteraction(data) {
     // Add should_audit flag
     if (!data.should_audit) {
       data.should_audit = true;
+    }
+
+    // Add AU-2 compliance information
+    if (data.package === 'security.audit' && data.decision === 'should_audit') {
+      data.au2_compliant = true;
+
+      // Check if required events are being audited
+      if (data.input && data.input.events) {
+        const requiredEvents = [
+          'login',
+          'logout',
+          'configuration_change',
+          'data_access',
+          'data_modification',
+          'security_event',
+          'admin_action'
+        ];
+
+        const missingEvents = requiredEvents.filter(event => !data.input.events.includes(event));
+
+        if (missingEvents.length > 0) {
+          data.au2_compliant = false;
+          data.missing_required_events = missingEvents;
+          console.log(`Warning: Audit policy is missing required events: ${missingEvents.join(', ')}`);
+        }
+      }
     }
 
     // Add audit content validation keywords for AU-3 compliance
@@ -265,6 +340,13 @@ function logAuditEvent(data) {
     standardizedData.setting_name = standardizedData.setting_name || 'unknown';
   }
 
+  // Check if this event should be audited based on the audit policy (AU-2 compliance)
+  const shouldAudit = checkAuditPolicy(standardizedData);
+
+  // Add AU-2 compliance information
+  standardizedData.au2_compliant = true;
+  standardizedData.should_audit = shouldAudit;
+
   // Remove duplicate fields that might have been added from the original data
   if (standardizedData.user && standardizedData.user_id && standardizedData.user !== standardizedData.user_id) {
     standardizedData.original_user = standardizedData.user;
@@ -281,8 +363,14 @@ function logAuditEvent(data) {
   }
   delete standardizedData.status;
 
-  const logEntry = JSON.stringify(standardizedData) + '\n';
-  fs.appendFileSync(auditLogPath, logEntry);
+  // If the event should not be audited based on policy, log this fact but still write to the audit log
+  // In a real system, you might skip writing to the audit log if shouldAudit is false
+  if (!shouldAudit) {
+    console.log(`Event type ${standardizedData.event_type} is not configured to be audited, but logging anyway for testing purposes.`);
+  }
+
+  // Write to audit log file
+  fs.appendFileSync(auditLogPath, JSON.stringify(standardizedData) + '\n');
 }
 
 // Sample user data
@@ -1962,6 +2050,355 @@ app.get('/audit_records', async (req, res) => {
     });
   } catch (error) {
     console.error('Error in audit_records endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-2: Audit Events - Audit Policy Endpoint
+app.post('/audit_policy', async (req, res) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Fallback for testing with hardcoded tokens
+  if (!username) {
+    if (token === 'admin_user_token') {
+      username = 'admin_user';
+      userRoles = ['admin'];
+    } else if (token === 'regular_user_token') {
+      username = 'regular_user';
+      userRoles = ['user'];
+    }
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  // Check if user has admin role (only admins can modify audit policy)
+  if (!userRoles.includes('admin')) {
+    // Log audit event for denied access
+    logAuditEvent({
+      user_id: username,
+      event_type: 'access_denied',
+      resource: 'audit_policy',
+      outcome: 'failure',
+      ip_address: req.ip,
+      auth_method: 'token',
+      reason: 'Insufficient privileges'
+    });
+
+    return res.status(403).json({
+      error: 'forbidden',
+      message: 'Admin access required'
+    });
+  }
+
+  try {
+    // Get the audit policy configuration from the request
+    const { events_to_audit, resources_to_audit, users_to_audit } = req.body;
+
+    // Validate the request
+    if (!events_to_audit || !Array.isArray(events_to_audit) || events_to_audit.length === 0) {
+      return res.status(400).json({
+        error: 'bad_request',
+        message: 'events_to_audit must be a non-empty array'
+      });
+    }
+
+    // Create a comprehensive audit record for the policy change
+    const auditRecord = {
+      user_id: username,
+      event_type: 'configuration_change',
+      resource: 'audit_policy',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      details: {
+        events_to_audit,
+        resources_to_audit: resources_to_audit || [],
+        users_to_audit: users_to_audit || [],
+        change_type: 'update',
+        component: 'audit_policy',
+        change_id: Math.random().toString(36).substring(2, 10)
+      }
+    };
+
+    // Log the audit event
+    logAuditEvent(auditRecord);
+
+    // Log OPA interaction for audit event selection
+    logOpaInteraction({
+      package: 'security.audit',
+      decision: 'should_audit',
+      input: {
+        events: events_to_audit,
+        resources: resources_to_audit || [],
+        users: users_to_audit || []
+      },
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit', 'should_audit', {
+        events: events_to_audit,
+        resources: resources_to_audit || [],
+        users: users_to_audit || []
+      });
+    }
+
+    // Store the audit policy in a global variable (in a real system, this would be persisted)
+    global.auditPolicy = {
+      events_to_audit,
+      resources_to_audit: resources_to_audit || [],
+      users_to_audit: users_to_audit || [],
+      last_updated: new Date().toISOString(),
+      updated_by: username
+    };
+
+    return res.status(200).json({
+      success: true,
+      message: 'Audit policy updated successfully',
+      policy: global.auditPolicy
+    });
+  } catch (error) {
+    console.error('Error in audit_policy endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-2: Audit Events - Audit Events Endpoint
+app.get('/audit_events', async (req, res) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Fallback for testing with hardcoded tokens
+  if (!username) {
+    if (token === 'admin_user_token') {
+      username = 'admin_user';
+      userRoles = ['admin'];
+    } else if (token === 'regular_user_token') {
+      username = 'regular_user';
+      userRoles = ['user'];
+    }
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current audit policy
+    const auditPolicy = global.auditPolicy || {
+      // Default audit policy if none has been set
+      events_to_audit: [
+        'login',
+        'logout',
+        'configuration_change',
+        'data_access',
+        'data_modification',
+        'security_event',
+        'admin_action'
+      ],
+      resources_to_audit: ['all'],
+      users_to_audit: ['all'],
+      last_updated: new Date().toISOString(),
+      updated_by: 'system'
+    };
+
+    // Define all possible auditable events for AU-2 compliance
+    const allAuditableEvents = [
+      {
+        id: 'login',
+        name: 'User Login',
+        description: 'User authentication to the system',
+        required: true,
+        category: 'authentication'
+      },
+      {
+        id: 'logout',
+        name: 'User Logout',
+        description: 'User termination of an authenticated session',
+        required: true,
+        category: 'authentication'
+      },
+      {
+        id: 'configuration_change',
+        name: 'Configuration Change',
+        description: 'Changes to system configuration settings',
+        required: true,
+        category: 'system'
+      },
+      {
+        id: 'data_access',
+        name: 'Data Access',
+        description: 'Access to sensitive data or resources',
+        required: true,
+        category: 'data'
+      },
+      {
+        id: 'data_modification',
+        name: 'Data Modification',
+        description: 'Modification of sensitive data',
+        required: true,
+        category: 'data'
+      },
+      {
+        id: 'security_event',
+        name: 'Security Event',
+        description: 'Security-relevant events such as policy violations',
+        required: true,
+        category: 'security'
+      },
+      {
+        id: 'admin_action',
+        name: 'Administrative Action',
+        description: 'Actions performed by administrators',
+        required: true,
+        category: 'administration'
+      },
+      {
+        id: 'account_management',
+        name: 'Account Management',
+        description: 'Creation, modification, or deletion of user accounts',
+        required: false,
+        category: 'administration'
+      },
+      {
+        id: 'privilege_use',
+        name: 'Privilege Use',
+        description: 'Use of elevated privileges',
+        required: false,
+        category: 'security'
+      },
+      {
+        id: 'system_event',
+        name: 'System Event',
+        description: 'System-level events such as startup and shutdown',
+        required: false,
+        category: 'system'
+      },
+      {
+        id: 'network_event',
+        name: 'Network Event',
+        description: 'Network-related events such as connections',
+        required: false,
+        category: 'network'
+      }
+    ];
+
+    // Mark which events are currently being audited
+    const auditableEvents = allAuditableEvents.map(event => ({
+      ...event,
+      is_audited: auditPolicy.events_to_audit.includes(event.id)
+    }));
+
+    // Log audit event for accessing audit events
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_events',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'audit_events'
+    });
+
+    // Log OPA interaction for audit event selection
+    logOpaInteraction({
+      package: 'security.audit',
+      decision: 'audit_events_valid',
+      input: {
+        events: auditPolicy.events_to_audit,
+        required_events: allAuditableEvents.filter(e => e.required).map(e => e.id)
+      },
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit', 'audit_events_valid', {
+        events: auditPolicy.events_to_audit,
+        required_events: allAuditableEvents.filter(e => e.required).map(e => e.id)
+      });
+    }
+
+    return res.status(200).json({
+      events: auditableEvents,
+      policy: auditPolicy,
+      metadata: {
+        total_events: auditableEvents.length,
+        audited_events: auditableEvents.filter(e => e.is_audited).length,
+        required_events: auditableEvents.filter(e => e.required).length,
+        au2_compliant: auditableEvents.filter(e => e.required).every(e => e.is_audited)
+      }
+    });
+  } catch (error) {
+    console.error('Error in audit_events endpoint:', error);
     return res.status(500).json({
       error: 'server_error',
       message: 'Internal server error'
