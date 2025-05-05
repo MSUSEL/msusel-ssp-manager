@@ -105,6 +105,8 @@ def process_inspec_results(input_file, output_file):
                         control_id = 'au-5'
                     elif control_id == 'audit-review':
                         control_id = 'au-6'
+                    elif control_id == 'audit-timestamps':
+                        control_id = 'au-8'
                     elif control_id == 'access-control-policy':
                         control_id = 'ac-3'
                     elif control_id == 'account-management':
@@ -319,6 +321,15 @@ def create_default_results(output_file):
             'status': 'passed',
             'test_results': [{
                 'test_name': 'Audit Review, Analysis, and Reporting',
+                'status': 'passed'
+                # 'message' field removed
+            }]
+        },
+        {
+            'control_id': 'au-8',
+            'status': 'passed',
+            'test_results': [{
+                'test_name': 'Time Stamps',
                 'status': 'passed'
                 # 'message' field removed
             }]

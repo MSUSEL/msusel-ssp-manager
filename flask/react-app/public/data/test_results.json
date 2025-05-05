@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "timestamp": "2025-05-04T22:09:09.384087",
-    "generated_at": "2025-05-04 22:09:09"
+    "timestamp": "2025-05-04T22:26:42.595740",
+    "generated_at": "2025-05-04 22:26:42"
   },
   "results": [
     {
@@ -260,6 +260,108 @@
       ]
     },
     {
+      "control_id": "au-6",
+      "status": "passed",
+      "test_results": [
+        {
+          "test_name": "Audit review configuration should have review enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit review configuration should have appropriate review frequency",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit review configuration should have reviewers configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit review configuration should have automated review enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit review configuration should have automated tools configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit analysis configuration should have analysis enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit analysis configuration should have analysis methods configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit analysis configuration should have correlation enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit analysis configuration should have correlation methods configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit reporting configuration should have reporting enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit reporting configuration should have appropriate reporting frequency",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit reporting configuration should have report recipients configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Risk-based adjustment configuration should have risk-based adjustment enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Risk-based adjustment configuration should have risk levels configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "OPA policy validation for audit review should contain audit review validation in OPA logs",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit findings reporting should have findings available",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit findings reporting should include required information in findings",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit review process should complete the review process",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit review process should analyze audit records",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit review process should identify findings if applicable",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit review process should report findings to recipients",
+          "status": "passed"
+        },
+        {
+          "test_name": "Integration with risk assessment should adjust review frequency based on risk",
+          "status": "passed"
+        },
+        {
+          "test_name": "Integration with risk assessment should adjust analysis methods based on risk",
+          "status": "passed"
+        },
+        {
+          "test_name": "Integration with risk assessment should adjust reporting frequency based on risk",
+          "status": "passed"
+        }
+      ]
+    },
+    {
       "control_id": "au-4",
       "status": "passed",
       "test_results": [
@@ -408,103 +510,83 @@
       ]
     },
     {
-      "control_id": "au-6",
+      "control_id": "au-8",
       "status": "passed",
       "test_results": [
         {
-          "test_name": "Audit review configuration should have review enabled",
+          "test_name": "Time source configuration should have time source enabled",
           "status": "passed"
         },
         {
-          "test_name": "Audit review configuration should have appropriate review frequency",
+          "test_name": "Time source configuration should have a valid time source type",
           "status": "passed"
         },
         {
-          "test_name": "Audit review configuration should have reviewers configured",
+          "test_name": "Time source configuration should have NTP servers configured if using NTP",
           "status": "passed"
         },
         {
-          "test_name": "Audit review configuration should have automated review enabled",
+          "test_name": "Time format configuration should use ISO 8601 standard",
           "status": "passed"
         },
         {
-          "test_name": "Audit review configuration should have automated tools configured",
+          "test_name": "Time format configuration should have sufficient precision",
           "status": "passed"
         },
         {
-          "test_name": "Audit analysis configuration should have analysis enabled",
+          "test_name": "Time format configuration should use UTC/GMT or have UTC mapping",
           "status": "passed"
         },
         {
-          "test_name": "Audit analysis configuration should have analysis methods configured",
+          "test_name": "Time synchronization status should have time synchronization enabled",
           "status": "passed"
         },
         {
-          "test_name": "Audit analysis configuration should have correlation enabled",
+          "test_name": "Time synchronization status should have appropriate synchronization interval",
           "status": "passed"
         },
         {
-          "test_name": "Audit analysis configuration should have correlation methods configured",
+          "test_name": "Time synchronization status should have synchronization sources configured",
           "status": "passed"
         },
         {
-          "test_name": "Audit reporting configuration should have reporting enabled",
+          "test_name": "Time synchronization status should have acceptable drift tolerance",
           "status": "passed"
         },
         {
-          "test_name": "Audit reporting configuration should have appropriate reporting frequency",
+          "test_name": "Time synchronization status should have recent synchronization",
           "status": "passed"
         },
         {
-          "test_name": "Audit reporting configuration should have report recipients configured",
+          "test_name": "Timestamp validation should have timestamp validation enabled",
           "status": "passed"
         },
         {
-          "test_name": "Risk-based adjustment configuration should have risk-based adjustment enabled",
+          "test_name": "Timestamp validation should have validation methods configured",
           "status": "passed"
         },
         {
-          "test_name": "Risk-based adjustment configuration should have risk levels configured",
+          "test_name": "Audit record timestamps should have audit records with timestamps",
           "status": "passed"
         },
         {
-          "test_name": "OPA policy validation for audit review should contain audit review validation in OPA logs",
+          "test_name": "Audit record timestamps should have timestamps in ISO 8601 format",
           "status": "passed"
         },
         {
-          "test_name": "Audit findings reporting should have findings available",
+          "test_name": "Audit record timestamps should have timestamps with timezone information",
           "status": "passed"
         },
         {
-          "test_name": "Audit findings reporting should include required information in findings",
+          "test_name": "Timestamp validation endpoint should validate correct timestamps",
           "status": "passed"
         },
         {
-          "test_name": "Audit review process should complete the review process",
+          "test_name": "Timestamp validation endpoint should reject incorrect timestamps",
           "status": "passed"
         },
         {
-          "test_name": "Audit review process should analyze audit records",
-          "status": "passed"
-        },
-        {
-          "test_name": "Audit review process should identify findings if applicable",
-          "status": "passed"
-        },
-        {
-          "test_name": "Audit review process should report findings to recipients",
-          "status": "passed"
-        },
-        {
-          "test_name": "Integration with risk assessment should adjust review frequency based on risk",
-          "status": "passed"
-        },
-        {
-          "test_name": "Integration with risk assessment should adjust analysis methods based on risk",
-          "status": "passed"
-        },
-        {
-          "test_name": "Integration with risk assessment should adjust reporting frequency based on risk",
+          "test_name": "OPA policy validation for timestamps should contain timestamp validation in OPA logs",
           "status": "passed"
         }
       ]

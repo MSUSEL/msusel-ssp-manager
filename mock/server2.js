@@ -4879,6 +4879,541 @@ global.auditReviewConfig = {
   last_report: new Date().toISOString()
 };
 
+// Initialize global time source configuration for AU-8
+global.timeSourceConfig = {
+  // Time source configuration
+  enabled: true,
+  type: 'ntp', // Options: internal_clock, ntp, gps, atomic_clock
+  ntp_servers: [
+    'pool.ntp.org',
+    'time.nist.gov',
+    'time.google.com'
+  ],
+
+  // Time format configuration
+  format: {
+    standard: 'iso8601',
+    precision: 'millisecond', // Options: millisecond, microsecond, nanosecond
+    time_zone: 'UTC',
+    utc_mapping: true
+  },
+
+  // Time synchronization configuration
+  sync: {
+    enabled: true,
+    interval_minutes: 60, // Sync every hour
+    sources: [
+      'primary_ntp_server',
+      'secondary_ntp_server',
+      'fallback_ntp_server'
+    ],
+    max_drift_ms: 500, // Maximum allowed drift in milliseconds
+    last_sync_time: new Date().toISOString(),
+    next_sync_time: new Date(Date.now() + 60 * 60 * 1000).toISOString() // 1 hour from now
+  },
+
+  // Timestamp validation configuration
+  validation: {
+    enabled: true,
+    methods: [
+      'format_validation',
+      'range_validation',
+      'drift_validation'
+    ],
+    format_pattern: '^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$',
+    max_future_seconds: 60, // Maximum seconds in the future allowed
+    max_past_days: 30 // Maximum days in the past allowed
+  },
+
+  last_updated: new Date().toISOString(),
+  status: 'operational'
+};
+
+// AU-8: Time Stamps - Time Source Configuration Endpoint
+app.get('/time_source_config', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current time source configuration
+    const timeSource = {
+      enabled: global.timeSourceConfig.enabled,
+      type: global.timeSourceConfig.type,
+      ntp_servers: global.timeSourceConfig.ntp_servers,
+      last_updated: global.timeSourceConfig.last_updated
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      time_source: timeSource
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_timestamps',
+      decision: 'time_source_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_timestamps', 'time_source_configured', opaInput);
+    }
+
+    // Log audit event for accessing time source configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'time_source_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'time_source_config'
+    });
+
+    // Return the time source configuration
+    return res.status(200).json(timeSource);
+  } catch (error) {
+    console.error('Error in time_source_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-8: Time Stamps - Time Format Configuration Endpoint
+app.get('/time_format_config', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current time format configuration
+    const timeFormat = {
+      standard: global.timeSourceConfig.format.standard,
+      precision: global.timeSourceConfig.format.precision,
+      time_zone: global.timeSourceConfig.format.time_zone,
+      utc_mapping: global.timeSourceConfig.format.utc_mapping
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      time_format: timeFormat
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_timestamps',
+      decision: 'time_format_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_timestamps', 'time_format_configured', opaInput);
+    }
+
+    // Log audit event for accessing time format configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'time_format_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'time_format_config'
+    });
+
+    // Return the time format configuration
+    return res.status(200).json(timeFormat);
+  } catch (error) {
+    console.error('Error in time_format_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-8: Time Stamps - Time Synchronization Status Endpoint
+app.get('/time_sync_status', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current time synchronization status
+    const timeSync = {
+      enabled: global.timeSourceConfig.sync.enabled,
+      interval_minutes: global.timeSourceConfig.sync.interval_minutes,
+      sources: global.timeSourceConfig.sync.sources,
+      max_drift_ms: global.timeSourceConfig.sync.max_drift_ms,
+      last_sync_time: global.timeSourceConfig.sync.last_sync_time,
+      next_sync_time: global.timeSourceConfig.sync.next_sync_time,
+      current_drift_ms: Math.floor(Math.random() * 100) // Simulated drift
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      time_sync: timeSync
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_timestamps',
+      decision: 'time_sync_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_timestamps', 'time_sync_configured', opaInput);
+    }
+
+    // Log audit event for accessing time synchronization status
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'time_sync_status',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'time_sync_status'
+    });
+
+    // Return the time synchronization status
+    return res.status(200).json(timeSync);
+  } catch (error) {
+    console.error('Error in time_sync_status endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-8: Time Stamps - Timestamp Validation Configuration Endpoint
+app.get('/timestamp_validation_config', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current timestamp validation configuration
+    const validation = {
+      enabled: global.timeSourceConfig.validation.enabled,
+      methods: global.timeSourceConfig.validation.methods,
+      format_pattern: global.timeSourceConfig.validation.format_pattern,
+      max_future_seconds: global.timeSourceConfig.validation.max_future_seconds,
+      max_past_days: global.timeSourceConfig.validation.max_past_days
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      timestamp_validation: validation
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_timestamps',
+      decision: 'timestamp_validation_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_timestamps', 'timestamp_validation_configured', opaInput);
+    }
+
+    // Log audit event for accessing timestamp validation configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'timestamp_validation_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'timestamp_validation_config'
+    });
+
+    // Return the timestamp validation configuration
+    return res.status(200).json(validation);
+  } catch (error) {
+    console.error('Error in timestamp_validation_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-8: Time Stamps - Validate Timestamp Endpoint
+app.post('/validate_timestamp', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the timestamp from the request
+    const { timestamp } = req.body;
+
+    if (!timestamp) {
+      return res.status(400).json({
+        error: 'bad_request',
+        message: 'timestamp is required'
+      });
+    }
+
+    // Validate the timestamp format
+    const formatRegex = new RegExp(global.timeSourceConfig.validation.format_pattern);
+    const isFormatValid = formatRegex.test(timestamp);
+
+    // Validate timestamp range
+    let isRangeValid = true;
+    let timestampDate;
+
+    try {
+      timestampDate = new Date(timestamp);
+
+      // Check if timestamp is not too far in the future
+      const maxFutureTime = new Date(Date.now() + global.timeSourceConfig.validation.max_future_seconds * 1000);
+      if (timestampDate > maxFutureTime) {
+        isRangeValid = false;
+      }
+
+      // Check if timestamp is not too far in the past
+      const maxPastTime = new Date(Date.now() - global.timeSourceConfig.validation.max_past_days * 24 * 60 * 60 * 1000);
+      if (timestampDate < maxPastTime) {
+        isRangeValid = false;
+      }
+    } catch (error) {
+      isRangeValid = false;
+    }
+
+    // Determine overall validity
+    const isValid = isFormatValid && isRangeValid;
+
+    // Prepare input for OPA
+    const opaInput = {
+      timestamp: timestamp
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_timestamps',
+      decision: 'timestamp_format_valid',
+      input: opaInput,
+      result: isFormatValid
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_timestamps', 'timestamp_format_valid', opaInput);
+    }
+
+    // Log audit event for timestamp validation
+    logAuditEvent({
+      user_id: username,
+      event_type: 'timestamp_validation',
+      resource: 'timestamp_validator',
+      outcome: isValid ? 'success' : 'failure',
+      ip_address: req.ip,
+      auth_method: 'token',
+      details: {
+        timestamp: timestamp,
+        format_valid: isFormatValid,
+        range_valid: isRangeValid
+      }
+    });
+
+    // Return the validation result
+    return res.status(200).json({
+      timestamp: timestamp,
+      valid: isValid,
+      format_valid: isFormatValid,
+      range_valid: isRangeValid,
+      validation_time: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Error in validate_timestamp endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
 // Start server
 app.listen(port, () => {
   console.log(`Enhanced mock server listening at http://localhost:${port}`);
