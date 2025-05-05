@@ -12,7 +12,10 @@ control 'audit-storage' do
     # Get storage capacity information
     storage_info_response = http("#{app_url}/audit_storage_info",
                                 method: 'GET',
-                                headers: { 'Content-Type' => 'application/json' })
+                                headers: {
+                                  'Content-Type' => 'application/json',
+                                  'Authorization' => 'Bearer admin_user_token'
+                                })
 
     storage_info = JSON.parse(storage_info_response.body)
 
@@ -64,7 +67,10 @@ control 'audit-storage' do
     # Get retention policy information
     retention_info_response = http("#{app_url}/audit_retention_info",
                                   method: 'GET',
-                                  headers: { 'Content-Type' => 'application/json' })
+                                  headers: {
+                                    'Content-Type' => 'application/json',
+                                    'Authorization' => 'Bearer admin_user_token'
+                                  })
 
     retention_info = JSON.parse(retention_info_response.body)
 
@@ -92,7 +98,10 @@ control 'audit-storage' do
     # Get current storage usage
     usage_info_response = http("#{app_url}/audit_storage_usage",
                               method: 'GET',
-                              headers: { 'Content-Type' => 'application/json' })
+                              headers: {
+                                'Content-Type' => 'application/json',
+                                'Authorization' => 'Bearer admin_user_token'
+                              })
 
     usage_info = JSON.parse(usage_info_response.body)
     usage_percent = (usage_info['used_gb'].to_f / usage_info['capacity_gb'].to_f) * 100
@@ -129,7 +138,10 @@ control 'audit-storage' do
     # Get automatic actions configuration
     actions_info_response = http("#{app_url}/audit_automatic_actions",
                                 method: 'GET',
-                                headers: { 'Content-Type' => 'application/json' })
+                                headers: {
+                                  'Content-Type' => 'application/json',
+                                  'Authorization' => 'Bearer admin_user_token'
+                                })
 
     actions_info = JSON.parse(actions_info_response.body)
 
@@ -154,7 +166,7 @@ control 'audit-storage' do
     it 'should contain audit storage validation in OPA logs' do
       keywords = %w[audit_storage_compliant storage_capacity_sufficient storage_monitoring_configured storage_alerts_configured]
       missing_keywords = keywords.reject { |keyword| opa_log_content.include?(keyword) }
-      
+
       unless missing_keywords.empty?
         fail "OPA logs do not contain audit storage validation keywords: #{missing_keywords.join(', ')}"
       end
@@ -166,7 +178,10 @@ control 'audit-storage' do
     # Simulate approaching capacity
     simulate_response = http("#{app_url}/simulate_storage_usage",
                             method: 'POST',
-                            headers: { 'Content-Type' => 'application/json' },
+                            headers: {
+                              'Content-Type' => 'application/json',
+                              'Authorization' => 'Bearer admin_user_token'
+                            },
                             data: { usage_percent: 75 }.to_json)
 
     simulate_result = JSON.parse(simulate_response.body)
@@ -189,7 +204,10 @@ control 'audit-storage' do
     # Simulate critical capacity
     simulate_response = http("#{app_url}/simulate_storage_usage",
                             method: 'POST',
-                            headers: { 'Content-Type' => 'application/json' },
+                            headers: {
+                              'Content-Type' => 'application/json',
+                              'Authorization' => 'Bearer admin_user_token'
+                            },
                             data: { usage_percent: 95 }.to_json)
 
     simulate_result = JSON.parse(simulate_response.body)

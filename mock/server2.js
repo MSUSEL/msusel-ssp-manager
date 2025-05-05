@@ -2202,6 +2202,801 @@ app.post('/audit_policy', async (req, res) => {
   }
 });
 
+// AU-4: Audit Storage Capacity - Storage Config Endpoint
+app.post('/audit_storage_config', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Fallback for testing with hardcoded tokens
+  if (!username) {
+    if (token === 'admin_user_token') {
+      username = 'admin_user';
+      userRoles = ['admin'];
+    } else if (token === 'regular_user_token') {
+      username = 'regular_user';
+      userRoles = ['user'];
+    }
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  // Check if user has admin role (only admins can configure audit storage)
+  if (!userRoles.includes('admin')) {
+    // Log audit event for denied access
+    logAuditEvent({
+      user_id: username,
+      event_type: 'access_denied',
+      resource: 'audit_storage_config',
+      outcome: 'failure',
+      ip_address: req.ip,
+      auth_method: 'token',
+      reason: 'Insufficient privileges'
+    });
+
+    return res.status(403).json({
+      error: 'forbidden',
+      message: 'Admin access required'
+    });
+  }
+
+  try {
+    // Get the configuration changes from the request
+    const configChanges = req.body;
+
+    // Validate the request
+    if (!configChanges || Object.keys(configChanges).length === 0) {
+      return res.status(400).json({
+        error: 'bad_request',
+        message: 'No configuration changes provided'
+      });
+    }
+
+    // Get the current configuration
+    const currentConfig = { ...global.auditStorageConfig };
+
+    // Apply the changes
+    const newConfig = { ...currentConfig, ...configChanges, last_updated: new Date().toISOString() };
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_storage: newConfig,
+      user: {
+        id: username,
+        roles: userRoles
+      },
+      changes: configChanges
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_storage',
+      decision: 'audit_storage_compliant',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    let opaResult = true;
+    if (USE_REAL_OPA) {
+      const result = await queryOpa('security.audit_storage', 'audit_storage_compliant', opaInput);
+      if (result !== null) {
+        opaResult = result;
+      }
+    }
+
+    // If OPA says the configuration is not compliant, return an error
+    if (!opaResult) {
+      return res.status(403).json({
+        error: 'policy_violation',
+        message: 'Audit storage configuration violates security policy'
+      });
+    }
+
+    // Log audit event for configuration change
+    logAuditEvent({
+      user_id: username,
+      event_type: 'configuration_change',
+      resource: 'audit_storage',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      old_value: JSON.stringify(currentConfig),
+      new_value: JSON.stringify(newConfig),
+      setting_name: 'audit_storage_config',
+      details: {
+        changes: configChanges
+      }
+    });
+
+    // Update the global configuration
+    global.auditStorageConfig = newConfig;
+
+    return res.status(200).json({
+      success: true,
+      message: 'Audit storage configuration updated successfully',
+      config: newConfig
+    });
+  } catch (error) {
+    console.error('Error in audit_storage_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-4: Audit Storage Capacity - Storage Info Endpoint
+app.get('/audit_storage_info', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Fallback for testing with hardcoded tokens
+  if (!username) {
+    if (token === 'admin_user_token') {
+      username = 'admin_user';
+      userRoles = ['admin'];
+    } else if (token === 'regular_user_token') {
+      username = 'regular_user';
+      userRoles = ['user'];
+    }
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current audit storage configuration
+    const storageConfig = global.auditStorageConfig;
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_storage: storageConfig
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_storage',
+      decision: 'audit_storage_compliant',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    let opaResult = true;
+    if (USE_REAL_OPA) {
+      const result = await queryOpa('security.audit_storage', 'audit_storage_compliant', opaInput);
+      if (result !== null) {
+        opaResult = result;
+      }
+    }
+
+    // Log audit event for accessing storage info
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_storage',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'storage_info'
+    });
+
+    // Return the storage info
+    return res.status(200).json(storageConfig);
+  } catch (error) {
+    console.error('Error in audit_storage_info endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-4: Audit Storage Capacity - Storage Usage Endpoint
+app.get('/audit_storage_usage', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Fallback for testing with hardcoded tokens
+  if (!username) {
+    if (token === 'admin_user_token') {
+      username = 'admin_user';
+      userRoles = ['admin'];
+    } else if (token === 'regular_user_token') {
+      username = 'regular_user';
+      userRoles = ['user'];
+    }
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current audit storage configuration
+    const storageConfig = global.auditStorageConfig;
+
+    // Get the current usage from query params or use default
+    const usedGB = req.query.used_gb ? parseFloat(req.query.used_gb) : storageConfig.used_gb;
+    const capacityGB = storageConfig.capacity_gb;
+    const warningThreshold = storageConfig.warning_threshold_percent;
+    const criticalThreshold = storageConfig.critical_threshold_percent;
+
+    // Calculate usage percentage
+    const usagePercent = (usedGB / capacityGB) * 100;
+
+    // Determine status
+    let status = 'normal';
+    if (usagePercent >= criticalThreshold) {
+      status = 'critical';
+    } else if (usagePercent >= warningThreshold) {
+      status = 'warning';
+    }
+
+    // Prepare response
+    const usageInfo = {
+      used_gb: usedGB,
+      capacity_gb: capacityGB,
+      usage_percent: usagePercent,
+      warning_threshold_percent: warningThreshold,
+      critical_threshold_percent: criticalThreshold,
+      status: status,
+      timestamp: new Date().toISOString()
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_storage: {
+        ...storageConfig,
+        used_gb: usedGB
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_storage',
+      decision: 'storage_usage_acceptable',
+      input: opaInput,
+      result: status !== 'critical'
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_storage', 'storage_usage_acceptable', opaInput);
+    }
+
+    // Log additional OPA interactions based on status
+    if (status === 'warning') {
+      logOpaInteraction({
+        package: 'security.audit_storage',
+        decision: 'storage_approaching_capacity',
+        input: opaInput,
+        result: true
+      });
+
+      if (USE_REAL_OPA) {
+        await queryOpa('security.audit_storage', 'storage_approaching_capacity', opaInput);
+      }
+    } else if (status === 'critical') {
+      logOpaInteraction({
+        package: 'security.audit_storage',
+        decision: 'storage_at_critical_capacity',
+        input: opaInput,
+        result: true
+      });
+
+      if (USE_REAL_OPA) {
+        await queryOpa('security.audit_storage', 'storage_at_critical_capacity', opaInput);
+      }
+    }
+
+    // Log audit event for storage check
+    logAuditEvent({
+      user_id: username,
+      event_type: 'storage_check',
+      resource: 'audit_storage',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      details: {
+        capacity_gb: capacityGB,
+        used_gb: usedGB,
+        usage_percent: usagePercent.toFixed(2),
+        status: status
+      }
+    });
+
+    // Return the usage info
+    return res.status(200).json(usageInfo);
+  } catch (error) {
+    console.error('Error in audit_storage_usage endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-4: Audit Storage Capacity - Retention Info Endpoint
+app.get('/audit_retention_info', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Fallback for testing with hardcoded tokens
+  if (!username) {
+    if (token === 'admin_user_token') {
+      username = 'admin_user';
+      userRoles = ['admin'];
+    } else if (token === 'regular_user_token') {
+      username = 'regular_user';
+      userRoles = ['user'];
+    }
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current audit storage configuration
+    const storageConfig = global.auditStorageConfig;
+
+    // Extract retention-related information
+    const retentionInfo = {
+      retention_policy_enabled: storageConfig.retention_policy_enabled,
+      retention_period_days: storageConfig.retention_period_days,
+      archiving_enabled: storageConfig.archiving_enabled,
+      archive_location: storageConfig.archive_location,
+      archive_retention_days: storageConfig.archive_retention_days,
+      last_updated: storageConfig.last_updated
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_storage: retentionInfo
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_storage',
+      decision: 'retention_policy_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_storage', 'retention_policy_configured', opaInput);
+    }
+
+    // Log audit event for accessing retention info
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_retention',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'retention_info'
+    });
+
+    // Return the retention info
+    return res.status(200).json(retentionInfo);
+  } catch (error) {
+    console.error('Error in audit_retention_info endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-4: Audit Storage Capacity - Automatic Actions Endpoint
+app.get('/audit_automatic_actions', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Fallback for testing with hardcoded tokens
+  if (!username) {
+    if (token === 'admin_user_token') {
+      username = 'admin_user';
+      userRoles = ['admin'];
+    } else if (token === 'regular_user_token') {
+      username = 'regular_user';
+      userRoles = ['user'];
+    }
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current audit storage configuration
+    const storageConfig = global.auditStorageConfig;
+
+    // Extract automatic actions information
+    const actionsInfo = {
+      automatic_actions_enabled: storageConfig.automatic_actions_enabled,
+      automatic_actions: storageConfig.automatic_actions,
+      last_updated: storageConfig.last_updated
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_storage: actionsInfo
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_storage',
+      decision: 'automatic_actions_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_storage', 'automatic_actions_configured', opaInput);
+    }
+
+    // Log audit event for accessing automatic actions info
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_automatic_actions',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'automatic_actions_info'
+    });
+
+    // Return the automatic actions info
+    return res.status(200).json(actionsInfo);
+  } catch (error) {
+    console.error('Error in audit_automatic_actions endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-4: Audit Storage Capacity - Simulate Storage Usage Endpoint
+app.post('/simulate_storage_usage', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Fallback for testing with hardcoded tokens
+  if (!username) {
+    if (token === 'admin_user_token') {
+      username = 'admin_user';
+      userRoles = ['admin'];
+    } else if (token === 'regular_user_token') {
+      username = 'regular_user';
+      userRoles = ['user'];
+    }
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  // Check if user has admin role (only admins can simulate storage usage)
+  if (!userRoles.includes('admin')) {
+    // Log audit event for denied access
+    logAuditEvent({
+      user_id: username,
+      event_type: 'access_denied',
+      resource: 'simulate_storage_usage',
+      outcome: 'failure',
+      ip_address: req.ip,
+      auth_method: 'token',
+      reason: 'Insufficient privileges'
+    });
+
+    return res.status(403).json({
+      error: 'forbidden',
+      message: 'Admin access required'
+    });
+  }
+
+  try {
+    // Get the usage percentage from the request
+    const { usage_percent } = req.body;
+
+    // Validate the request
+    if (usage_percent === undefined || isNaN(usage_percent)) {
+      return res.status(400).json({
+        error: 'bad_request',
+        message: 'usage_percent must be a number'
+      });
+    }
+
+    // Get the current audit storage configuration
+    const storageConfig = global.auditStorageConfig;
+
+    // Calculate the used GB based on the usage percentage
+    const capacityGB = storageConfig.capacity_gb;
+    const usedGB = (usage_percent / 100) * capacityGB;
+
+    // Determine if storage is approaching capacity or at critical capacity
+    const warningThreshold = storageConfig.warning_threshold_percent;
+    const criticalThreshold = storageConfig.critical_threshold_percent;
+
+    const storageApproachingCapacity = usage_percent >= warningThreshold && usage_percent < criticalThreshold;
+    const storageAtCriticalCapacity = usage_percent >= criticalThreshold;
+
+    // Determine alert level
+    let alertLevel = null;
+    if (storageAtCriticalCapacity) {
+      alertLevel = 'critical';
+    } else if (storageApproachingCapacity) {
+      alertLevel = 'warning';
+    }
+
+    // Determine if automatic actions should be triggered
+    const automaticActionsTriggered = storageAtCriticalCapacity && storageConfig.automatic_actions_enabled;
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_storage: {
+        ...storageConfig,
+        used_gb: usedGB
+      }
+    };
+
+    // Log OPA interactions based on storage status
+    if (storageApproachingCapacity) {
+      logOpaInteraction({
+        package: 'security.audit_storage',
+        decision: 'storage_approaching_capacity',
+        input: opaInput,
+        result: true
+      });
+
+      if (USE_REAL_OPA) {
+        await queryOpa('security.audit_storage', 'storage_approaching_capacity', opaInput);
+      }
+    }
+
+    if (storageAtCriticalCapacity) {
+      logOpaInteraction({
+        package: 'security.audit_storage',
+        decision: 'storage_at_critical_capacity',
+        input: opaInput,
+        result: true
+      });
+
+      if (USE_REAL_OPA) {
+        await queryOpa('security.audit_storage', 'storage_at_critical_capacity', opaInput);
+      }
+    }
+
+    // Log audit event for simulation
+    logAuditEvent({
+      user_id: username,
+      event_type: 'storage_simulation',
+      resource: 'audit_storage',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      details: {
+        usage_percent: usage_percent,
+        capacity_gb: capacityGB,
+        used_gb: usedGB,
+        alert_level: alertLevel,
+        automatic_actions_triggered: automaticActionsTriggered
+      }
+    });
+
+    // Prepare response
+    const response = {
+      usage_percent: usage_percent,
+      capacity_gb: capacityGB,
+      used_gb: usedGB,
+      storage_approaching_capacity: storageApproachingCapacity,
+      storage_at_critical_capacity: storageAtCriticalCapacity,
+      alert_generated: alertLevel !== null,
+      alert_level: alertLevel,
+      automatic_actions_triggered: automaticActionsTriggered,
+      timestamp: new Date().toISOString()
+    };
+
+    // Return the simulation results
+    return res.status(200).json(response);
+  } catch (error) {
+    console.error('Error in simulate_storage_usage endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
 // AU-2: Audit Events - Audit Events Endpoint
 app.get('/audit_events', async (req, res) => {
   const authHeader = req.headers.authorization;
@@ -2405,6 +3200,48 @@ app.get('/audit_events', async (req, res) => {
     });
   }
 });
+
+// Initialize global audit storage configuration
+global.auditStorageConfig = {
+  capacity_gb: 2000,
+  required_capacity_gb: 1000,
+  used_gb: 800,
+  monitoring_enabled: true,
+  monitoring_interval_minutes: 30,
+  alerts_enabled: true,
+  warning_threshold_percent: 75,
+  critical_threshold_percent: 90,
+  alert_recipients: ['admin@example.com', 'security@example.com'],
+  retention_policy_enabled: true,
+  retention_period_days: 180,
+  archiving_enabled: true,
+  archive_location: 'encrypted_s3_bucket',
+  archive_retention_days: 365,
+  automatic_actions_enabled: true,
+  automatic_actions: [
+    {
+      name: 'archive_old_logs',
+      trigger: 'usage_above_75_percent',
+      description: 'Archive logs older than 90 days'
+    },
+    {
+      name: 'compress_logs',
+      trigger: 'usage_above_80_percent',
+      description: 'Compress all logs to reduce storage usage'
+    },
+    {
+      name: 'increase_storage',
+      trigger: 'usage_above_85_percent',
+      description: 'Automatically provision additional storage'
+    },
+    {
+      name: 'alert_admin',
+      trigger: 'usage_above_90_percent',
+      description: 'Send critical alert to administrators'
+    }
+  ],
+  last_updated: new Date().toISOString()
+};
 
 // Start server
 app.listen(port, () => {
