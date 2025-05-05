@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "timestamp": "2025-05-04T22:00:40.144463",
-    "generated_at": "2025-05-04 22:00:40"
+    "timestamp": "2025-05-04T22:09:09.384087",
+    "generated_at": "2025-05-04 22:09:09"
   },
   "results": [
     {
@@ -403,6 +403,108 @@
         },
         {
           "test_name": "OPA interaction log should include audit keywords should contain 'flag_for_review'",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "control_id": "au-6",
+      "status": "passed",
+      "test_results": [
+        {
+          "test_name": "Audit review configuration should have review enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit review configuration should have appropriate review frequency",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit review configuration should have reviewers configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit review configuration should have automated review enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit review configuration should have automated tools configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit analysis configuration should have analysis enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit analysis configuration should have analysis methods configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit analysis configuration should have correlation enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit analysis configuration should have correlation methods configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit reporting configuration should have reporting enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit reporting configuration should have appropriate reporting frequency",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit reporting configuration should have report recipients configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Risk-based adjustment configuration should have risk-based adjustment enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Risk-based adjustment configuration should have risk levels configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "OPA policy validation for audit review should contain audit review validation in OPA logs",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit findings reporting should have findings available",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit findings reporting should include required information in findings",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit review process should complete the review process",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit review process should analyze audit records",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit review process should identify findings if applicable",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit review process should report findings to recipients",
+          "status": "passed"
+        },
+        {
+          "test_name": "Integration with risk assessment should adjust review frequency based on risk",
+          "status": "passed"
+        },
+        {
+          "test_name": "Integration with risk assessment should adjust analysis methods based on risk",
+          "status": "passed"
+        },
+        {
+          "test_name": "Integration with risk assessment should adjust reporting frequency based on risk",
           "status": "passed"
         }
       ]

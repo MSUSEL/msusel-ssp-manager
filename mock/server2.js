@@ -3223,6 +3223,872 @@ app.get('/audit_monitoring_config', async (req, res) => {
   }
 });
 
+// AU-6: Audit Review, Analysis, and Reporting - Review Configuration Endpoint
+app.get('/audit_review_config', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Fallback for testing with hardcoded tokens
+  if (!username) {
+    if (token === 'admin_user_token') {
+      username = 'admin_user';
+      userRoles = ['admin'];
+    } else if (token === 'regular_user_token') {
+      username = 'regular_user';
+      userRoles = ['user'];
+    }
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current audit review configuration
+    const reviewConfig = global.auditReviewConfig;
+
+    // Extract review configuration
+    const config = {
+      review_enabled: reviewConfig.review_enabled,
+      review_frequency_hours: reviewConfig.review_frequency_hours,
+      reviewers: reviewConfig.reviewers,
+      automated_review_enabled: reviewConfig.automated_review_enabled,
+      automated_tools: reviewConfig.automated_tools,
+      last_updated: reviewConfig.last_updated,
+      last_review: reviewConfig.last_review
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_review: config
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_review',
+      decision: 'audit_review_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_review', 'audit_review_configured', opaInput);
+    }
+
+    // Log audit event for accessing review configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_review_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'review_config'
+    });
+
+    // Return the review configuration
+    return res.status(200).json(config);
+  } catch (error) {
+    console.error('Error in audit_review_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-6: Audit Review, Analysis, and Reporting - Analysis Configuration Endpoint
+app.get('/audit_analysis_config', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Fallback for testing with hardcoded tokens
+  if (!username) {
+    if (token === 'admin_user_token') {
+      username = 'admin_user';
+      userRoles = ['admin'];
+    } else if (token === 'regular_user_token') {
+      username = 'regular_user';
+      userRoles = ['user'];
+    }
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current audit review configuration
+    const reviewConfig = global.auditReviewConfig;
+
+    // Extract analysis configuration
+    const config = {
+      analysis_enabled: reviewConfig.analysis_enabled,
+      analysis_methods: reviewConfig.analysis_methods,
+      correlation_enabled: reviewConfig.correlation_enabled,
+      correlation_methods: reviewConfig.correlation_methods,
+      last_updated: reviewConfig.last_updated
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_review: config
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_review',
+      decision: 'audit_analysis_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_review', 'audit_analysis_configured', opaInput);
+    }
+
+    // Log OPA interaction for correlation
+    logOpaInteraction({
+      package: 'security.audit_review',
+      decision: 'correlation_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_review', 'correlation_configured', opaInput);
+    }
+
+    // Log audit event for accessing analysis configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_analysis_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'analysis_config'
+    });
+
+    // Return the analysis configuration
+    return res.status(200).json(config);
+  } catch (error) {
+    console.error('Error in audit_analysis_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-6: Audit Review, Analysis, and Reporting - Reporting Configuration Endpoint
+app.get('/audit_reporting_config', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Fallback for testing with hardcoded tokens
+  if (!username) {
+    if (token === 'admin_user_token') {
+      username = 'admin_user';
+      userRoles = ['admin'];
+    } else if (token === 'regular_user_token') {
+      username = 'regular_user';
+      userRoles = ['user'];
+    }
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current audit review configuration
+    const reviewConfig = global.auditReviewConfig;
+
+    // Extract reporting configuration
+    const config = {
+      reporting_enabled: reviewConfig.reporting_enabled,
+      reporting_frequency_hours: reviewConfig.reporting_frequency_hours,
+      report_recipients: reviewConfig.report_recipients,
+      report_formats: reviewConfig.report_formats,
+      last_updated: reviewConfig.last_updated,
+      last_report: reviewConfig.last_report
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_review: config
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_review',
+      decision: 'audit_reporting_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_review', 'audit_reporting_configured', opaInput);
+    }
+
+    // Log audit event for accessing reporting configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_reporting_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'reporting_config'
+    });
+
+    // Return the reporting configuration
+    return res.status(200).json(config);
+  } catch (error) {
+    console.error('Error in audit_reporting_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-6: Audit Review, Analysis, and Reporting - Risk Configuration Endpoint
+app.get('/audit_risk_config', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Fallback for testing with hardcoded tokens
+  if (!username) {
+    if (token === 'admin_user_token') {
+      username = 'admin_user';
+      userRoles = ['admin'];
+    } else if (token === 'regular_user_token') {
+      username = 'regular_user';
+      userRoles = ['user'];
+    }
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current audit review configuration
+    const reviewConfig = global.auditReviewConfig;
+
+    // Extract risk configuration
+    const config = {
+      risk_adjustment_enabled: reviewConfig.risk_adjustment_enabled,
+      risk_levels: reviewConfig.risk_levels,
+      current_risk_level: reviewConfig.current_risk_level,
+      last_updated: reviewConfig.last_updated
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_review: config
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_review',
+      decision: 'risk_adjustment_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_review', 'risk_adjustment_configured', opaInput);
+    }
+
+    // Log audit event for accessing risk configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_risk_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'risk_config'
+    });
+
+    // Return the risk configuration
+    return res.status(200).json(config);
+  } catch (error) {
+    console.error('Error in audit_risk_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-6: Audit Review, Analysis, and Reporting - Findings Endpoint
+app.get('/audit_findings', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Fallback for testing with hardcoded tokens
+  if (!username) {
+    if (token === 'admin_user_token') {
+      username = 'admin_user';
+      userRoles = ['admin'];
+    } else if (token === 'regular_user_token') {
+      username = 'regular_user';
+      userRoles = ['user'];
+    }
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current audit review configuration
+    const reviewConfig = global.auditReviewConfig;
+
+    // Extract findings
+    const findings = {
+      findings: reviewConfig.findings,
+      last_updated: reviewConfig.last_updated
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_review: {
+        findings: reviewConfig.findings
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_review',
+      decision: 'findings_reported',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_review', 'findings_reported', opaInput);
+    }
+
+    // Log audit event for accessing findings
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_findings',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'findings'
+    });
+
+    // Return the findings
+    return res.status(200).json(findings);
+  } catch (error) {
+    console.error('Error in audit_findings endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-6: Audit Review, Analysis, and Reporting - Simulate Audit Review Endpoint
+app.post('/simulate_audit_review', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Fallback for testing with hardcoded tokens
+  if (!username) {
+    if (token === 'admin_user_token') {
+      username = 'admin_user';
+      userRoles = ['admin'];
+    } else if (token === 'regular_user_token') {
+      username = 'regular_user';
+      userRoles = ['user'];
+    }
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  // Check if user has admin role (only admins can simulate audit review)
+  if (!userRoles.includes('admin')) {
+    // Log audit event for denied access
+    logAuditEvent({
+      user_id: username,
+      event_type: 'access_denied',
+      resource: 'simulate_audit_review',
+      outcome: 'failure',
+      ip_address: req.ip,
+      auth_method: 'token',
+      reason: 'Insufficient privileges'
+    });
+
+    return res.status(403).json({
+      error: 'forbidden',
+      message: 'Admin access required'
+    });
+  }
+
+  try {
+    // Get the review type from the request
+    const { review_type } = req.body;
+
+    // Validate the request
+    if (!review_type) {
+      return res.status(400).json({
+        error: 'bad_request',
+        message: 'review_type is required'
+      });
+    }
+
+    // Get the current audit review configuration
+    const reviewConfig = global.auditReviewConfig;
+
+    // Simulate review process
+    const recordsAnalyzed = Math.floor(Math.random() * 1000) + 500; // Random number between 500 and 1500
+    const findingsIdentified = Math.random() > 0.5; // 50% chance of finding something
+
+    // Create a new finding if one was identified
+    let newFinding = null;
+    if (findingsIdentified) {
+      newFinding = {
+        id: `finding-${Date.now()}`,
+        timestamp: new Date().toISOString(),
+        severity: ['low', 'medium', 'high'][Math.floor(Math.random() * 3)],
+        description: 'Suspicious activity detected during scheduled review',
+        affected_resources: ['authentication_service', 'file_service'],
+        status: 'open',
+        assigned_to: reviewConfig.reviewers[0],
+        reported: true,
+        report_timestamp: new Date().toISOString()
+      };
+
+      // Add the new finding to the configuration
+      reviewConfig.findings.push(newFinding);
+    }
+
+    // Update the last review timestamp
+    reviewConfig.last_review = new Date().toISOString();
+
+    // Prepare response
+    const response = {
+      review_completed: true,
+      review_type: review_type,
+      records_analyzed: recordsAnalyzed,
+      findings_identified: findingsIdentified,
+      findings_reported: findingsIdentified,
+      new_finding: newFinding,
+      timestamp: new Date().toISOString()
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_review: {
+        review_type: review_type,
+        records_analyzed: recordsAnalyzed,
+        findings_identified: findingsIdentified,
+        findings_reported: findingsIdentified
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_review',
+      decision: 'audit_review_compliant',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_review', 'audit_review_compliant', opaInput);
+    }
+
+    // Log audit event for review simulation
+    logAuditEvent({
+      user_id: username,
+      event_type: 'audit_review',
+      resource: 'audit_system',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      details: {
+        review_type: review_type,
+        records_analyzed: recordsAnalyzed,
+        findings_identified: findingsIdentified,
+        findings_reported: findingsIdentified
+      }
+    });
+
+    // Return the simulation results
+    return res.status(200).json(response);
+  } catch (error) {
+    console.error('Error in simulate_audit_review endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-6: Audit Review, Analysis, and Reporting - Simulate Risk Change Endpoint
+app.post('/simulate_risk_change', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Fallback for testing with hardcoded tokens
+  if (!username) {
+    if (token === 'admin_user_token') {
+      username = 'admin_user';
+      userRoles = ['admin'];
+    } else if (token === 'regular_user_token') {
+      username = 'regular_user';
+      userRoles = ['user'];
+    }
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  // Check if user has admin role (only admins can simulate risk change)
+  if (!userRoles.includes('admin')) {
+    // Log audit event for denied access
+    logAuditEvent({
+      user_id: username,
+      event_type: 'access_denied',
+      resource: 'simulate_risk_change',
+      outcome: 'failure',
+      ip_address: req.ip,
+      auth_method: 'token',
+      reason: 'Insufficient privileges'
+    });
+
+    return res.status(403).json({
+      error: 'forbidden',
+      message: 'Admin access required'
+    });
+  }
+
+  try {
+    // Get the risk level from the request
+    const { risk_level } = req.body;
+
+    // Validate the request
+    if (!risk_level || !['low', 'medium', 'high', 'critical'].includes(risk_level)) {
+      return res.status(400).json({
+        error: 'bad_request',
+        message: 'risk_level is required and must be one of: low, medium, high, critical'
+      });
+    }
+
+    // Get the current audit review configuration
+    const reviewConfig = global.auditReviewConfig;
+
+    // Store the old risk level
+    const oldRiskLevel = reviewConfig.current_risk_level;
+
+    // Update the current risk level
+    reviewConfig.current_risk_level = risk_level;
+
+    // Find the risk level configuration
+    const riskLevelConfig = reviewConfig.risk_levels.find(level => level.level === risk_level);
+
+    // Prepare response
+    const response = {
+      old_risk_level: oldRiskLevel,
+      new_risk_level: risk_level,
+      review_frequency_adjusted: true,
+      old_review_frequency_hours: reviewConfig.review_frequency_hours,
+      new_review_frequency_hours: riskLevelConfig.review_frequency_hours,
+      analysis_methods_adjusted: true,
+      reporting_frequency_adjusted: true,
+      old_reporting_frequency_hours: reviewConfig.reporting_frequency_hours,
+      new_reporting_frequency_hours: riskLevelConfig.reporting_frequency_hours,
+      timestamp: new Date().toISOString()
+    };
+
+    // Update the configuration
+    reviewConfig.review_frequency_hours = riskLevelConfig.review_frequency_hours;
+    reviewConfig.reporting_frequency_hours = riskLevelConfig.reporting_frequency_hours;
+    reviewConfig.last_updated = new Date().toISOString();
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_review: {
+        risk_adjustment_enabled: reviewConfig.risk_adjustment_enabled,
+        old_risk_level: oldRiskLevel,
+        new_risk_level: risk_level,
+        review_frequency_adjusted: true,
+        analysis_methods_adjusted: true,
+        reporting_frequency_adjusted: true
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_review',
+      decision: 'risk_adjustment_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_review', 'risk_adjustment_configured', opaInput);
+    }
+
+    // Log audit event for risk change
+    logAuditEvent({
+      user_id: username,
+      event_type: 'configuration_change',
+      resource: 'audit_risk_level',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      old_value: oldRiskLevel,
+      new_value: risk_level,
+      setting_name: 'current_risk_level',
+      details: {
+        review_frequency_adjusted: true,
+        analysis_methods_adjusted: true,
+        reporting_frequency_adjusted: true
+      }
+    });
+
+    // Return the simulation results
+    return res.status(200).json(response);
+  } catch (error) {
+    console.error('Error in simulate_risk_change endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
 // AU-5: Response to Audit Processing Failures - Simulate Audit Failure Endpoint
 app.post('/simulate_audit_failure', async (req, res) => {
   // Check authorization
@@ -3878,6 +4744,139 @@ global.auditResponseConfig = {
   notification_timeout_seconds: 300,
 
   last_updated: new Date().toISOString()
+};
+
+// Initialize global audit review configuration
+global.auditReviewConfig = {
+  // Review configuration
+  review_enabled: true,
+  review_frequency_hours: 24,
+  reviewers: ['admin@example.com', 'security@example.com', 'audit-team@example.com'],
+  automated_review_enabled: true,
+  automated_tools: [
+    {
+      name: 'pattern_matching',
+      description: 'Pattern matching for known attack signatures'
+    },
+    {
+      name: 'anomaly_detection',
+      description: 'Statistical anomaly detection'
+    },
+    {
+      name: 'behavior_analysis',
+      description: 'User behavior analysis'
+    }
+  ],
+
+  // Analysis configuration
+  analysis_enabled: true,
+  analysis_methods: [
+    {
+      name: 'statistical_analysis',
+      description: 'Statistical analysis of audit data'
+    },
+    {
+      name: 'trend_analysis',
+      description: 'Trend analysis over time'
+    },
+    {
+      name: 'threshold_analysis',
+      description: 'Threshold-based analysis'
+    }
+  ],
+  correlation_enabled: true,
+  correlation_methods: [
+    {
+      name: 'event_correlation',
+      description: 'Correlation of related events'
+    },
+    {
+      name: 'cross_system_correlation',
+      description: 'Correlation across different systems'
+    },
+    {
+      name: 'temporal_correlation',
+      description: 'Correlation based on time patterns'
+    }
+  ],
+
+  // Reporting configuration
+  reporting_enabled: true,
+  reporting_frequency_hours: 168, // Weekly
+  report_recipients: ['admin@example.com', 'security@example.com', 'management@example.com'],
+  report_formats: ['pdf', 'html', 'json'],
+
+  // Risk-based adjustment configuration
+  risk_adjustment_enabled: true,
+  risk_levels: [
+    {
+      level: 'low',
+      review_frequency_hours: 168, // Weekly
+      analysis_methods: ['statistical_analysis'],
+      reporting_frequency_hours: 336 // Bi-weekly
+    },
+    {
+      level: 'medium',
+      review_frequency_hours: 72, // Every 3 days
+      analysis_methods: ['statistical_analysis', 'trend_analysis'],
+      reporting_frequency_hours: 168 // Weekly
+    },
+    {
+      level: 'high',
+      review_frequency_hours: 24, // Daily
+      analysis_methods: ['statistical_analysis', 'trend_analysis', 'threshold_analysis'],
+      reporting_frequency_hours: 72 // Every 3 days
+    },
+    {
+      level: 'critical',
+      review_frequency_hours: 4, // Every 4 hours
+      analysis_methods: ['statistical_analysis', 'trend_analysis', 'threshold_analysis', 'real_time_analysis'],
+      reporting_frequency_hours: 24 // Daily
+    }
+  ],
+  current_risk_level: 'medium',
+
+  // Findings
+  findings: [
+    {
+      id: 'finding-001',
+      timestamp: new Date().toISOString(),
+      severity: 'medium',
+      description: 'Multiple failed login attempts detected from unusual IP address',
+      affected_resources: ['authentication_service'],
+      status: 'open',
+      assigned_to: 'security@example.com',
+      reported: true,
+      report_timestamp: new Date().toISOString()
+    },
+    {
+      id: 'finding-002',
+      timestamp: new Date().toISOString(),
+      severity: 'high',
+      description: 'Unusual pattern of privileged command execution detected',
+      affected_resources: ['admin_console', 'database_service'],
+      status: 'investigating',
+      assigned_to: 'admin@example.com',
+      reported: true,
+      report_timestamp: new Date().toISOString()
+    },
+    {
+      id: 'finding-003',
+      timestamp: new Date().toISOString(),
+      severity: 'low',
+      description: 'Unusual access time for user account',
+      affected_resources: ['file_service'],
+      status: 'resolved',
+      resolution: 'Confirmed legitimate activity by user',
+      assigned_to: 'security@example.com',
+      reported: true,
+      report_timestamp: new Date().toISOString()
+    }
+  ],
+
+  last_updated: new Date().toISOString(),
+  last_review: new Date().toISOString(),
+  last_report: new Date().toISOString()
 };
 
 // Start server
