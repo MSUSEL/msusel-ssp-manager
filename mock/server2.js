@@ -2815,6 +2815,577 @@ app.get('/audit_automatic_actions', async (req, res) => {
   }
 });
 
+// AU-5: Response to Audit Processing Failures - Alert Configuration Endpoint
+app.get('/audit_alert_config', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Fallback for testing with hardcoded tokens
+  if (!username) {
+    if (token === 'admin_user_token') {
+      username = 'admin_user';
+      userRoles = ['admin'];
+    } else if (token === 'regular_user_token') {
+      username = 'regular_user';
+      userRoles = ['user'];
+    }
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current audit response configuration
+    const responseConfig = global.auditResponseConfig;
+
+    // Extract alert configuration
+    const alertConfig = {
+      alerts_enabled: responseConfig.alerts_enabled,
+      alert_recipients: responseConfig.alert_recipients,
+      notification_methods: responseConfig.notification_methods,
+      notification_enabled: responseConfig.notification_enabled,
+      notification_timeout_seconds: responseConfig.notification_timeout_seconds,
+      last_updated: responseConfig.last_updated
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_response: alertConfig
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_response',
+      decision: 'audit_alerts_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_response', 'audit_alerts_configured', opaInput);
+    }
+
+    // Log audit event for accessing alert configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_alert_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'alert_config'
+    });
+
+    // Return the alert configuration
+    return res.status(200).json(alertConfig);
+  } catch (error) {
+    console.error('Error in audit_alert_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-5: Response to Audit Processing Failures - Actions Configuration Endpoint
+app.get('/audit_actions_config', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Fallback for testing with hardcoded tokens
+  if (!username) {
+    if (token === 'admin_user_token') {
+      username = 'admin_user';
+      userRoles = ['admin'];
+    } else if (token === 'regular_user_token') {
+      username = 'regular_user';
+      userRoles = ['user'];
+    }
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current audit response configuration
+    const responseConfig = global.auditResponseConfig;
+
+    // Extract actions configuration
+    const actionsConfig = {
+      actions_enabled: responseConfig.actions_enabled,
+      actions: responseConfig.actions,
+      last_updated: responseConfig.last_updated
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_response: actionsConfig
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_response',
+      decision: 'audit_actions_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_response', 'audit_actions_configured', opaInput);
+    }
+
+    // Log audit event for accessing actions configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_actions_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'actions_config'
+    });
+
+    // Return the actions configuration
+    return res.status(200).json(actionsConfig);
+  } catch (error) {
+    console.error('Error in audit_actions_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-5: Response to Audit Processing Failures - Capacity Protection Endpoint
+app.get('/audit_capacity_protection', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Fallback for testing with hardcoded tokens
+  if (!username) {
+    if (token === 'admin_user_token') {
+      username = 'admin_user';
+      userRoles = ['admin'];
+    } else if (token === 'regular_user_token') {
+      username = 'regular_user';
+      userRoles = ['user'];
+    }
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current audit response configuration
+    const responseConfig = global.auditResponseConfig;
+
+    // Extract capacity protection configuration
+    const capacityConfig = {
+      capacity_protection_enabled: responseConfig.capacity_protection_enabled,
+      capacity_threshold_percent: responseConfig.capacity_threshold_percent,
+      capacity_actions: responseConfig.capacity_actions,
+      last_updated: responseConfig.last_updated
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_response: capacityConfig
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_response',
+      decision: 'audit_capacity_protection_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_response', 'audit_capacity_protection_configured', opaInput);
+    }
+
+    // Log audit event for accessing capacity protection configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_capacity_protection',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'capacity_protection_config'
+    });
+
+    // Return the capacity protection configuration
+    return res.status(200).json(capacityConfig);
+  } catch (error) {
+    console.error('Error in audit_capacity_protection endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-5: Response to Audit Processing Failures - Monitoring Configuration Endpoint
+app.get('/audit_monitoring_config', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Fallback for testing with hardcoded tokens
+  if (!username) {
+    if (token === 'admin_user_token') {
+      username = 'admin_user';
+      userRoles = ['admin'];
+    } else if (token === 'regular_user_token') {
+      username = 'regular_user';
+      userRoles = ['user'];
+    }
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  try {
+    // Get the current audit response configuration
+    const responseConfig = global.auditResponseConfig;
+
+    // Extract monitoring configuration
+    const monitoringConfig = {
+      real_time_monitoring_enabled: responseConfig.real_time_monitoring_enabled,
+      monitoring_interval_seconds: responseConfig.monitoring_interval_seconds,
+      last_updated: responseConfig.last_updated
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_response: monitoringConfig
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_response',
+      decision: 'real_time_monitoring_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_response', 'real_time_monitoring_configured', opaInput);
+    }
+
+    // Log audit event for accessing monitoring configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_monitoring_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'monitoring_config'
+    });
+
+    // Return the monitoring configuration
+    return res.status(200).json(monitoringConfig);
+  } catch (error) {
+    console.error('Error in audit_monitoring_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-5: Response to Audit Processing Failures - Simulate Audit Failure Endpoint
+app.post('/simulate_audit_failure', async (req, res) => {
+  // Check authorization
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Missing or invalid authorization header'
+    });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  // Determine user from token
+  let username, userRoles;
+
+  // Try to decode the JWT token
+  try {
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+        userRoles = payload.roles || [];
+      }
+    }
+  } catch (error) {
+    console.error('Error decoding token:', error);
+  }
+
+  // Fallback for testing with hardcoded tokens
+  if (!username) {
+    if (token === 'admin_user_token') {
+      username = 'admin_user';
+      userRoles = ['admin'];
+    } else if (token === 'regular_user_token') {
+      username = 'regular_user';
+      userRoles = ['user'];
+    }
+  }
+
+  // Check if we have a valid user
+  if (!username || !userRoles) {
+    return res.status(401).json({
+      error: 'unauthorized',
+      message: 'Invalid token'
+    });
+  }
+
+  // Check if user has admin role (only admins can simulate audit failures)
+  if (!userRoles.includes('admin')) {
+    // Log audit event for denied access
+    logAuditEvent({
+      user_id: username,
+      event_type: 'access_denied',
+      resource: 'simulate_audit_failure',
+      outcome: 'failure',
+      ip_address: req.ip,
+      auth_method: 'token',
+      reason: 'Insufficient privileges'
+    });
+
+    return res.status(403).json({
+      error: 'forbidden',
+      message: 'Admin access required'
+    });
+  }
+
+  try {
+    // Get the failure type from the request
+    const { failure_type } = req.body;
+
+    // Validate the request
+    if (!failure_type) {
+      return res.status(400).json({
+        error: 'bad_request',
+        message: 'failure_type is required'
+      });
+    }
+
+    // Get the current audit response configuration
+    const responseConfig = global.auditResponseConfig;
+
+    // Determine failure severity
+    let failureSeverity = 'warning';
+    if (failure_type === 'critical_failure') {
+      failureSeverity = 'critical';
+    }
+
+    // Determine alert level
+    let alertLevel = failureSeverity;
+
+    // Determine actions to take based on failure type
+    const actionsTaken = responseConfig.actions.filter(action => action.trigger === failure_type).map(action => ({
+      type: action.type,
+      description: action.description,
+      timestamp: new Date().toISOString()
+    }));
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_response: responseConfig,
+      failure: {
+        type: failure_type,
+        severity: failureSeverity,
+        timestamp: new Date().toISOString()
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_response',
+      decision: 'audit_failure_handled',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_response', 'audit_failure_handled', opaInput);
+    }
+
+    // Log audit event for simulation
+    logAuditEvent({
+      user_id: username,
+      event_type: 'audit_failure_simulation',
+      resource: 'audit_system',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      details: {
+        failure_type: failure_type,
+        failure_severity: failureSeverity,
+        alert_level: alertLevel,
+        actions_taken: actionsTaken
+      }
+    });
+
+    // Prepare response
+    const response = {
+      failure_detected: true,
+      failure_type: failure_type,
+      failure_severity: failureSeverity,
+      alert_generated: true,
+      alert_level: alertLevel,
+      alert_recipients: responseConfig.alert_recipients,
+      notification_methods: responseConfig.notification_methods,
+      actions_taken: actionsTaken,
+      timestamp: new Date().toISOString()
+    };
+
+    // Return the simulation results
+    return res.status(200).json(response);
+  } catch (error) {
+    console.error('Error in simulate_audit_failure endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
 // AU-4: Audit Storage Capacity - Simulate Storage Usage Endpoint
 app.post('/simulate_storage_usage', async (req, res) => {
   // Check authorization
@@ -3240,6 +3811,72 @@ global.auditStorageConfig = {
       description: 'Send critical alert to administrators'
     }
   ],
+  last_updated: new Date().toISOString()
+};
+
+// Initialize global audit response configuration
+global.auditResponseConfig = {
+  // Alert configuration
+  alerts_enabled: true,
+  alert_recipients: ['admin@example.com', 'security@example.com', 'audit-team@example.com'],
+  notification_methods: ['email', 'sms', 'dashboard'],
+
+  // Actions configuration
+  actions_enabled: true,
+  actions: [
+    {
+      type: 'log_rotation',
+      trigger: 'storage_error',
+      description: 'Rotate audit logs to free up space'
+    },
+    {
+      type: 'backup',
+      trigger: 'processing_error',
+      description: 'Backup audit logs to secondary storage'
+    },
+    {
+      type: 'restart_service',
+      trigger: 'service_error',
+      description: 'Restart audit service'
+    },
+    {
+      type: 'shutdown',
+      trigger: 'critical_failure',
+      description: 'Shutdown system to protect audit capability'
+    },
+    {
+      type: 'override',
+      trigger: 'critical_failure',
+      description: 'Override normal operation to protect audit capability'
+    }
+  ],
+
+  // Capacity protection configuration
+  capacity_protection_enabled: true,
+  capacity_threshold_percent: 85,
+  capacity_actions: [
+    {
+      type: 'compress',
+      description: 'Compress audit logs'
+    },
+    {
+      type: 'archive',
+      description: 'Archive old audit logs'
+    },
+    {
+      type: 'alert',
+      description: 'Alert administrators'
+    }
+  ],
+
+  // Real-time monitoring configuration
+  real_time_monitoring_enabled: true,
+  monitoring_interval_seconds: 120,
+
+  // Notification configuration
+  notification_enabled: true,
+  notification_timeout_seconds: 300,
+
   last_updated: new Date().toISOString()
 };
 

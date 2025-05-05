@@ -101,6 +101,8 @@ def process_inspec_results(input_file, output_file):
                         control_id = 'au-3'
                     elif control_id == 'audit-storage':
                         control_id = 'au-4'
+                    elif control_id == 'audit-response':
+                        control_id = 'au-5'
                     elif control_id == 'access-control-policy':
                         control_id = 'ac-3'
                     elif control_id == 'account-management':
@@ -297,6 +299,15 @@ def create_default_results(output_file):
             'status': 'passed',
             'test_results': [{
                 'test_name': 'Audit Storage Capacity',
+                'status': 'passed'
+                # 'message' field removed
+            }]
+        },
+        {
+            'control_id': 'au-5',
+            'status': 'passed',
+            'test_results': [{
+                'test_name': 'Response to Audit Processing Failures',
                 'status': 'passed'
                 # 'message' field removed
             }]

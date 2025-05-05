@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "timestamp": "2025-05-04T21:47:06.811186",
-    "generated_at": "2025-05-04 21:47:06"
+    "timestamp": "2025-05-04T22:00:40.144463",
+    "generated_at": "2025-05-04 22:00:40"
   },
   "results": [
     {
@@ -177,6 +177,84 @@
         },
         {
           "test_name": "OPA validation of audit content should contain audit content validation in OPA logs",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "control_id": "au-5",
+      "status": "passed",
+      "test_results": [
+        {
+          "test_name": "Audit failure alert configuration should have alerts enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit failure alert configuration should have alert recipients configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit failure alert configuration should have appropriate notification methods",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit failure actions configuration should have actions enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit failure actions configuration should have appropriate actions configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit failure actions configuration should include system shutdown for critical failures",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit capacity protection should have capacity protection enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit capacity protection should have appropriate capacity threshold",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit capacity protection should have appropriate actions for capacity threshold breaches",
+          "status": "passed"
+        },
+        {
+          "test_name": "Real-time audit monitoring should have real-time monitoring enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Real-time audit monitoring should have appropriate monitoring interval",
+          "status": "passed"
+        },
+        {
+          "test_name": "OPA policy validation for audit response should contain audit response validation in OPA logs",
+          "status": "passed"
+        },
+        {
+          "test_name": "System response to audit failure should detect audit failure",
+          "status": "passed"
+        },
+        {
+          "test_name": "System response to audit failure should generate alert for audit failure",
+          "status": "passed"
+        },
+        {
+          "test_name": "System response to audit failure should take appropriate actions for audit failure",
+          "status": "passed"
+        },
+        {
+          "test_name": "System response to critical audit failure should detect critical audit failure",
+          "status": "passed"
+        },
+        {
+          "test_name": "System response to critical audit failure should generate critical alert",
+          "status": "passed"
+        },
+        {
+          "test_name": "System response to critical audit failure should initiate system shutdown or override",
           "status": "passed"
         }
       ]
