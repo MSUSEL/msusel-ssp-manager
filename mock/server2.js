@@ -5414,6 +5414,84 @@ app.post('/validate_timestamp', async (req, res) => {
   }
 });
 
+// Initialize global audit retention configuration for AU-11
+global.auditRetentionConfig = {
+  // Retention policy configuration
+  retention_policy: {
+    enabled: true,
+    retention_period_days: 180, // 6 months
+    required_minimum_days: 90,  // 3 months minimum
+    extended_retention_period_days: 365, // 1 year for critical events
+    last_updated: new Date().toISOString()
+  },
+
+  // Archival configuration
+  archival: {
+    enabled: true,
+    method: 'offline_storage',
+    schedule: {
+      frequency: 'weekly',
+      day_of_week: 'Sunday',
+      time: '01:00:00'
+    },
+    location: '/archive/audit_logs',
+    format: 'compressed_json',
+    last_updated: new Date().toISOString()
+  },
+
+  // Retrieval configuration
+  retrieval: {
+    enabled: true,
+    methods: [
+      {
+        type: 'web_interface',
+        description: 'Web-based interface for searching and retrieving audit logs'
+      },
+      {
+        type: 'api',
+        description: 'API for programmatic access to archived audit logs'
+      },
+      {
+        type: 'file_system',
+        description: 'Direct file system access for administrators'
+      }
+    ],
+    authorized_roles: ['admin', 'security', 'auditor'],
+    process_documented: true,
+    last_updated: new Date().toISOString()
+  },
+
+  // Compliance configuration
+  compliance: {
+    organizational_policy_compliant: true,
+    regulatory_requirements_compliant: true,
+    last_review_date: new Date().toISOString(),
+    review_cutoff_date: new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).toISOString(), // 1 year ago
+    next_review_date: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString(), // 90 days from now
+    last_updated: new Date().toISOString()
+  },
+
+  // Secure storage configuration
+  secure_storage: {
+    enabled: true,
+    encryption_enabled: true,
+    encryption_algorithm: 'AES-256',
+    access_controls: [
+      {
+        type: 'role_based_access',
+        description: 'Restrict access based on user roles'
+      },
+      {
+        type: 'multi_factor_authentication',
+        description: 'Require MFA for accessing archived logs'
+      }
+    ],
+    integrity_verification_enabled: true,
+    integrity_verification_method: 'cryptographic_hash',
+    last_updated: new Date().toISOString()
+  }
+};
+
 // Initialize global audit protection configuration for AU-9
 global.auditProtectionConfig = {
   // Access control configuration
@@ -7091,6 +7169,573 @@ app.post('/create_action_with_nonrepudiation', async (req, res) => {
     return res.status(200).json(actionWithNonrepudiation);
   } catch (error) {
     console.error('Error in create_action_with_nonrepudiation endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-11: Audit Record Retention endpoints
+// Get audit retention policy
+app.get('/audit_retention_policy', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !requestingUser.roles.some(role => ['admin', 'security', 'auditor'].includes(role))) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only authorized users can access audit retention policy'
+      });
+    }
+
+    // Get the current retention policy configuration
+    const retentionPolicy = global.auditRetentionConfig.retention_policy;
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_retention: {
+        retention_policy: retentionPolicy
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_retention',
+      decision: 'retention_period_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_retention', 'retention_period_configured', opaInput);
+    }
+
+    // Log audit event for accessing retention policy configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_retention_policy',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'audit_retention_policy'
+    });
+
+    // Return the retention policy configuration
+    return res.status(200).json(retentionPolicy);
+  } catch (error) {
+    console.error('Error in audit_retention_policy endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get audit archival configuration
+app.get('/audit_archival_config', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !requestingUser.roles.some(role => ['admin', 'security', 'auditor'].includes(role))) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only authorized users can access audit archival configuration'
+      });
+    }
+
+    // Get the current archival configuration
+    const archival = global.auditRetentionConfig.archival;
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_retention: {
+        archival: archival
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_retention',
+      decision: 'archival_mechanisms_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_retention', 'archival_mechanisms_configured', opaInput);
+    }
+
+    // Log audit event for accessing archival configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_archival_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'audit_archival_config'
+    });
+
+    // Return the archival configuration
+    return res.status(200).json(archival);
+  } catch (error) {
+    console.error('Error in audit_archival_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get audit retrieval configuration
+app.get('/audit_retrieval_config', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !requestingUser.roles.some(role => ['admin', 'security', 'auditor'].includes(role))) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only authorized users can access audit retrieval configuration'
+      });
+    }
+
+    // Get the current retrieval configuration
+    const retrieval = global.auditRetentionConfig.retrieval;
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_retention: {
+        retrieval: retrieval
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_retention',
+      decision: 'retrieval_capabilities_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_retention', 'retrieval_capabilities_configured', opaInput);
+    }
+
+    // Log audit event for accessing retrieval configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_retrieval_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'audit_retrieval_config'
+    });
+
+    // Return the retrieval configuration
+    return res.status(200).json(retrieval);
+  } catch (error) {
+    console.error('Error in audit_retrieval_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get audit retention compliance information
+app.get('/audit_retention_compliance', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !requestingUser.roles.some(role => ['admin', 'security', 'auditor'].includes(role))) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only authorized users can access audit retention compliance information'
+      });
+    }
+
+    // Get the current compliance configuration
+    const compliance = global.auditRetentionConfig.compliance;
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_retention: {
+        compliance: compliance
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_retention',
+      decision: 'retention_policy_compliant',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_retention', 'retention_policy_compliant', opaInput);
+    }
+
+    // Log audit event for accessing compliance information
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_retention_compliance',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'audit_retention_compliance'
+    });
+
+    // Return the compliance information
+    return res.status(200).json(compliance);
+  } catch (error) {
+    console.error('Error in audit_retention_compliance endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get audit secure storage configuration
+app.get('/audit_secure_storage_config', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !requestingUser.roles.some(role => ['admin', 'security', 'auditor'].includes(role))) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only authorized users can access audit secure storage configuration'
+      });
+    }
+
+    // Get the current secure storage configuration
+    const secureStorage = global.auditRetentionConfig.secure_storage;
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_retention: {
+        secure_storage: secureStorage
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_retention',
+      decision: 'secure_archive_storage_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_retention', 'secure_archive_storage_configured', opaInput);
+    }
+
+    // Log audit event for accessing secure storage configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_secure_storage_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'audit_secure_storage_config'
+    });
+
+    // Return the secure storage configuration
+    return res.status(200).json(secureStorage);
+  } catch (error) {
+    console.error('Error in audit_secure_storage_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Test audit archival functionality
+app.post('/test_audit_archival', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+  const { record_id, content, timestamp } = req.body;
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !requestingUser.roles.some(role => ['admin', 'security', 'auditor'].includes(role))) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only authorized users can test audit archival'
+      });
+    }
+
+    // Check if required fields are provided
+    if (!record_id || !content) {
+      return res.status(400).json({
+        error: 'missing_required_fields',
+        message: 'Record ID and content are required'
+      });
+    }
+
+    // Simulate archiving the record
+    // In a real system, this would actually archive the record
+    const archivedRecord = {
+      record_id,
+      content,
+      timestamp: timestamp || new Date().toISOString(),
+      archived_by: username,
+      archived_at: new Date().toISOString()
+    };
+
+    // Store the archived record in a global variable (in a real system, this would be persisted)
+    if (!global.archivedAuditRecords) {
+      global.archivedAuditRecords = {};
+    }
+    global.archivedAuditRecords[record_id] = archivedRecord;
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_retention: {
+        archival: global.auditRetentionConfig.archival,
+        record: archivedRecord
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_retention',
+      decision: 'archival_mechanisms_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_retention', 'archival_mechanisms_configured', opaInput);
+    }
+
+    // Log audit event for archiving a record
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_modification',
+      resource: 'audit_records',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: record_id,
+      action: 'archive'
+    });
+
+    // Return success response
+    return res.status(200).json({
+      success: true,
+      message: 'Audit record archived successfully',
+      record_id
+    });
+  } catch (error) {
+    console.error('Error in test_audit_archival endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Test audit retrieval functionality
+app.post('/test_audit_retrieval', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+  const { record_id } = req.body;
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !requestingUser.roles.some(role => ['admin', 'security', 'auditor'].includes(role))) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only authorized users can test audit retrieval'
+      });
+    }
+
+    // Check if required fields are provided
+    if (!record_id) {
+      return res.status(400).json({
+        error: 'missing_required_fields',
+        message: 'Record ID is required'
+      });
+    }
+
+    // Check if the record exists
+    if (!global.archivedAuditRecords || !global.archivedAuditRecords[record_id]) {
+      return res.status(404).json({
+        error: 'record_not_found',
+        message: 'Archived record not found'
+      });
+    }
+
+    // Get the archived record
+    const archivedRecord = global.archivedAuditRecords[record_id];
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_retention: {
+        retrieval: global.auditRetentionConfig.retrieval,
+        record: archivedRecord,
+        user: {
+          id: username,
+          roles: requestingUser.roles
+        }
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_retention',
+      decision: 'retrieval_capabilities_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_retention', 'retrieval_capabilities_configured', opaInput);
+    }
+
+    // Log audit event for retrieving a record
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_records',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: record_id,
+      action: 'retrieve'
+    });
+
+    // Return success response with the retrieved record
+    return res.status(200).json({
+      success: true,
+      message: 'Audit record retrieved successfully',
+      record: archivedRecord
+    });
+  } catch (error) {
+    console.error('Error in test_audit_retrieval endpoint:', error);
     return res.status(500).json({
       error: 'server_error',
       message: 'Internal server error'

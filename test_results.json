@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "timestamp": "2025-05-03T20:51:32.546842",
-    "generated_at": "2025-05-03 20:51:32"
+    "timestamp": "2025-05-04T23:05:39.643816",
+    "generated_at": "2025-05-04 23:05:39"
   },
   "results": [
     {
@@ -90,6 +90,116 @@
         },
         {
           "test_name": "System response to critical capacity should trigger automatic actions",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "control_id": "au-11",
+      "status": "passed",
+      "test_results": [
+        {
+          "test_name": "Retention period configuration should have retention policy enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Retention period configuration should have a retention period configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Retention period configuration should meet minimum retention requirements",
+          "status": "passed"
+        },
+        {
+          "test_name": "Retention period configuration should have OPA validation for retention period configuration",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit record archival mechanisms should have archival enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit record archival mechanisms should have a valid archival method",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit record archival mechanisms should have an archival schedule configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit record archival mechanisms should have an archival location specified",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit record archival mechanisms should have OPA validation for archival mechanisms",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit record retrieval capabilities should have retrieval enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit record retrieval capabilities should have retrieval methods configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit record retrieval capabilities should have authorized roles for retrieval",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit record retrieval capabilities should have documented retrieval process",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit record retrieval capabilities should have OPA validation for retrieval capabilities",
+          "status": "passed"
+        },
+        {
+          "test_name": "Compliance with retention policies should be compliant with organizational policy",
+          "status": "passed"
+        },
+        {
+          "test_name": "Compliance with retention policies should be compliant with regulatory requirements",
+          "status": "passed"
+        },
+        {
+          "test_name": "Compliance with retention policies should have recent compliance review",
+          "status": "passed"
+        },
+        {
+          "test_name": "Compliance with retention policies should have OPA validation for policy compliance",
+          "status": "passed"
+        },
+        {
+          "test_name": "Secure storage of archived audit records should have secure storage enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Secure storage of archived audit records should have encryption enabled for archived records",
+          "status": "passed"
+        },
+        {
+          "test_name": "Secure storage of archived audit records should have access controls for archived records",
+          "status": "passed"
+        },
+        {
+          "test_name": "Secure storage of archived audit records should have integrity verification enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Secure storage of archived audit records should have OPA validation for secure storage",
+          "status": "passed"
+        },
+        {
+          "test_name": "Archive and retrieval functionality should successfully archive test record",
+          "status": "passed"
+        },
+        {
+          "test_name": "Archive and retrieval functionality should successfully retrieve archived record",
+          "status": "passed"
+        },
+        {
+          "test_name": "Archive and retrieval functionality should retrieve the correct record content",
           "status": "passed"
         }
       ]

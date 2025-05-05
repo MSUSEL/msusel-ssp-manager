@@ -111,6 +111,8 @@ def process_inspec_results(input_file, output_file):
                         control_id = 'au-9'
                     elif control_id == 'audit-nonrepudiation':
                         control_id = 'au-10'
+                    elif control_id == 'audit-retention':
+                        control_id = 'au-11'
                     elif control_id == 'access-control-policy':
                         control_id = 'ac-3'
                     elif control_id == 'account-management':
@@ -352,6 +354,15 @@ def create_default_results(output_file):
             'status': 'passed',
             'test_results': [{
                 'test_name': 'Non-repudiation',
+                'status': 'passed'
+                # 'message' field removed
+            }]
+        },
+        {
+            'control_id': 'au-11',
+            'status': 'passed',
+            'test_results': [{
+                'test_name': 'Audit Record Retention',
                 'status': 'passed'
                 # 'message' field removed
             }]
