@@ -3682,3 +3682,515 @@ Successfully wrote 2 controls to /home/ernesto/Documents/msusel-ssp-manager/flas
 [2025-05-03 21:17:05] Processing InSpec results with Python
 [2025-05-03 21:17:05] Successfully processed InSpec results
 [2025-05-03 21:17:05] InSpec tests completed
+[2025-05-04 20:00:23] Starting InSpec test watcher
+[2025-05-04 20:00:23] ===========================
+[2025-05-04 20:00:23] Configuration:
+[2025-05-04 20:00:23]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-05-04 20:00:23]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-05-04 20:00:23]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-05-04 20:00:23]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-05-04 20:00:23]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-04 20:00:23]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-05-04 20:00:23]   Python processor: /home/ernesto/Documents/msusel-ssp-manager/process_inspec_results.py
+[2025-05-04 20:00:23] ===========================
+[2025-05-04 20:00:30] InSpec is installed: 6.8.11
+[2025-05-04 20:00:30] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-05-04 20:00:48] Trigger file found with timestamp: 2025-05-05T02:00:48.661186
+[2025-05-04 20:00:48] Trigger detected. Running InSpec tests...
+[2025-05-04 20:00:48] Running InSpec profile from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-04 20:00:54] InSpec command output:
+[2025-05-04 20:00:54] [2025-05-04T20:00:53-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-04T20:00:54-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-04T20:00:54-06:00] DEBUG: Option backend_cache is enabled
+[2025-05-04T20:00:54-06:00] DEBUG: Resolve /home/ernesto/Documents/msusel-ssp-manager/inspec into cache /home/ernesto/.inspec/cache
+[2025-05-04T20:00:54-06:00] DEBUG: Dependency does not exist in the cache /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-04T20:00:54-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-04T20:00:54-06:00] DEBUG: TUI Engine initialized.
+[2025-05-04T20:00:54-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-04T20:00:54-06:00] DEBUG: TUI Engine initialized.
+[2025-05-04T20:00:54-06:00] DEBUG: Trying to connect to https://services.chef.io/licensing
+[2025-05-04T20:00:54-06:00] DEBUG: HTTP Cache: [GET /licensing/v1/client?entitlementId=3ff52c37-e41f-4f6c-ad4d-365192205968&licenseId=free-8388a8eb-3fb6-4854-8f74-41bb9bbc5eb8-6529] fresh
+[2025-05-04T20:00:54-06:00] DEBUG: Connection succeeded to https://services.chef.io/licensing
+[2025-05-04T20:00:54-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-04T20:00:54-06:00] DEBUG: Starting run with targets: ["Inspec::Profile<ugov-services-security-controls>"]
+[2025-05-04T20:00:54-06:00] DEBUG: Fetching license context for telemetry check
+[2025-05-04T20:00:54-06:00] DEBUG: Determined HTTP instance for telemetry
+[2025-05-04T20:00:54-06:00] DEBUG: Initiating telemetry for InSpec
+[2025-05-04T20:00:54-06:00] DEBUG: Using existing lockfile /home/ernesto/Documents/msusel-ssp-manager/inspec/inspec.lock
+[2025-05-04T20:00:54-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-04T20:00:54-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/access_control_test.rb into #<Inspec::ProfileContext:0x00007d89b4531a90>
+[2025-05-04T20:00:54-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/account_management_test.rb into #<Inspec::ProfileContext:0x00007d89b4531a90>
+[2025-05-04T20:00:54-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_content_test.rb into #<Inspec::ProfileContext:0x00007d89b4531a90>
+[2025-05-04T20:00:54-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_storage_test.rb into #<Inspec::ProfileContext:0x00007d89b4531a90>
+[2025-05-04T20:00:54-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_test.rb into #<Inspec::ProfileContext:0x00007d89b4531a90>
+[2025-05-04T20:00:54-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/authentication_test.rb into #<Inspec::ProfileContext:0x00007d89b4531a90>
+[2025-05-04T20:00:54-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/boundary_protection_test.rb into #<Inspec::ProfileContext:0x00007d89b4531a90>
+[2025-05-04T20:00:54-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/configuration_management_test.rb into #<Inspec::ProfileContext:0x00007d89b4531a90>
+[2025-05-04T20:00:54-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/data_protection_test.rb into #<Inspec::ProfileContext:0x00007d89b4531a90>
+[2025-05-04T20:00:54-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/input_validation_test.rb into #<Inspec::ProfileContext:0x00007d89b4531a90>
+[2025-05-04T20:00:54-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/malicious_code_protection_test.rb into #<Inspec::ProfileContext:0x00007d89b4531a90>
+[2025-05-04T20:00:54-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/session_crypto_test.rb into #<Inspec::ProfileContext:0x00007d89b4531a90>
+[2025-05-04T20:00:54-06:00] DEBUG: Registering rule access-control-policy
+/opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/json-2.7.6/lib/json/common.rb:220:in `parse': unexpected token at '<!DOCTYPE html> (JSON::ParserError)
+<html lang="en">'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/json-2.7.6/lib/json/common.rb:220:in `parse'
+	from /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/access_control_test.rb:17:in `block (2 levels) in load_with_context'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/rule.rb:456:in `instance_exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/rule.rb:456:in `block in with_dsl'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:398:in `module_exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:398:in `subclass'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:271:in `block in define_example_group_method'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner_rspec.rb:28:in `example_group'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:396:in `add_resource'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:360:in `get_check_example'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:368:in `block in register_rule'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `each'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `flat_map'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `register_rule'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:146:in `block in load'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:144:in `each'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:144:in `load'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:193:in `run'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/cli.rb:410:in `block in exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/feature/runner.rb:24:in `with_feature'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/feature.rb:6:in `with_feature'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/cli.rb:395:in `exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/command.rb:27:in `run'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/invocation.rb:127:in `invoke_command'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor.rb:392:in `dispatch'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/base.rb:485:in `start'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/base_cli.rb:40:in `start'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-bin-6.8.11/bin/inspec:11:in `<top (required)>'
+	from /usr/bin/inspec:290:in `load'
+	from /usr/bin/inspec:290:in `<main>'
+[2025-05-04 20:00:54] ERROR: Tests failed with exit code 1
+[2025-05-04 20:00:54] Creating default test results
+[2025-05-04 20:00:54] InSpec tests completed
+[2025-05-04 20:09:59] Trigger file found with timestamp: 2025-05-05T02:09:58.808866
+[2025-05-04 20:09:59] Trigger detected. Running InSpec tests...
+[2025-05-04 20:09:59] Running InSpec profile from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-04 20:10:09] InSpec command output:
+[2025-05-04 20:10:09] [2025-05-04T20:10:03-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-04T20:10:04-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-04T20:10:04-06:00] DEBUG: Option backend_cache is enabled
+[2025-05-04T20:10:04-06:00] DEBUG: Resolve /home/ernesto/Documents/msusel-ssp-manager/inspec into cache /home/ernesto/.inspec/cache
+[2025-05-04T20:10:04-06:00] DEBUG: Dependency does not exist in the cache /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-04T20:10:04-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-04T20:10:04-06:00] DEBUG: TUI Engine initialized.
+[2025-05-04T20:10:04-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-04T20:10:04-06:00] DEBUG: TUI Engine initialized.
+[2025-05-04T20:10:04-06:00] DEBUG: Trying to connect to https://services.chef.io/licensing
+[2025-05-04T20:10:04-06:00] DEBUG: HTTP Cache: [GET /licensing/v1/client?entitlementId=3ff52c37-e41f-4f6c-ad4d-365192205968&licenseId=free-8388a8eb-3fb6-4854-8f74-41bb9bbc5eb8-6529] fresh
+[2025-05-04T20:10:04-06:00] DEBUG: Connection succeeded to https://services.chef.io/licensing
+[2025-05-04T20:10:04-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-04T20:10:04-06:00] DEBUG: Starting run with targets: ["Inspec::Profile<ugov-services-security-controls>"]
+[2025-05-04T20:10:04-06:00] DEBUG: Fetching license context for telemetry check
+[2025-05-04T20:10:04-06:00] DEBUG: Determined HTTP instance for telemetry
+[2025-05-04T20:10:04-06:00] DEBUG: Initiating telemetry for InSpec
+[2025-05-04T20:10:04-06:00] DEBUG: Using existing lockfile /home/ernesto/Documents/msusel-ssp-manager/inspec/inspec.lock
+[2025-05-04T20:10:04-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-04T20:10:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/access_control_test.rb into #<Inspec::ProfileContext:0x00007b0617b7f500>
+[2025-05-04T20:10:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/account_management_test.rb into #<Inspec::ProfileContext:0x00007b0617b7f500>
+[2025-05-04T20:10:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_content_test.rb into #<Inspec::ProfileContext:0x00007b0617b7f500>
+[2025-05-04T20:10:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_storage_test.rb into #<Inspec::ProfileContext:0x00007b0617b7f500>
+[2025-05-04T20:10:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_test.rb into #<Inspec::ProfileContext:0x00007b0617b7f500>
+[2025-05-04T20:10:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/authentication_test.rb into #<Inspec::ProfileContext:0x00007b0617b7f500>
+[2025-05-04T20:10:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/boundary_protection_test.rb into #<Inspec::ProfileContext:0x00007b0617b7f500>
+[2025-05-04T20:10:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/configuration_management_test.rb into #<Inspec::ProfileContext:0x00007b0617b7f500>
+[2025-05-04T20:10:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/data_protection_test.rb into #<Inspec::ProfileContext:0x00007b0617b7f500>
+[2025-05-04T20:10:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/input_validation_test.rb into #<Inspec::ProfileContext:0x00007b0617b7f500>
+[2025-05-04T20:10:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/malicious_code_protection_test.rb into #<Inspec::ProfileContext:0x00007b0617b7f500>
+[2025-05-04T20:10:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/session_crypto_test.rb into #<Inspec::ProfileContext:0x00007b0617b7f500>
+[2025-05-04T20:10:04-06:00] DEBUG: Registering rule access-control-policy
+[2025-05-04T20:10:05-06:00] DEBUG: Registering rule ac-2
+[2025-05-04T20:10:08-06:00] DEBUG: Registering rule audit-content
+[2025-05-04T20:10:09-06:00] DEBUG: Registering rule audit-storage
+/opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/json-2.7.6/lib/json/common.rb:220:in `parse': unexpected token at '<!DOCTYPE html> (JSON::ParserError)
+<html lang="en">'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/json-2.7.6/lib/json/common.rb:220:in `parse'
+	from /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_storage_test.rb:17:in `block (2 levels) in load_with_context'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/rule.rb:456:in `instance_exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/rule.rb:456:in `block in with_dsl'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:398:in `module_exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:398:in `subclass'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:271:in `block in define_example_group_method'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner_rspec.rb:28:in `example_group'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:396:in `add_resource'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:360:in `get_check_example'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:368:in `block in register_rule'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `each'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `flat_map'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `register_rule'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:146:in `block in load'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:144:in `each'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:144:in `load'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:193:in `run'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/cli.rb:410:in `block in exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/feature/runner.rb:24:in `with_feature'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/feature.rb:6:in `with_feature'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/cli.rb:395:in `exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/command.rb:27:in `run'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/invocation.rb:127:in `invoke_command'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor.rb:392:in `dispatch'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/base.rb:485:in `start'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/base_cli.rb:40:in `start'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-bin-6.8.11/bin/inspec:11:in `<top (required)>'
+	from /usr/bin/inspec:290:in `load'
+	from /usr/bin/inspec:290:in `<main>'
+[2025-05-04 20:10:09] ERROR: Tests failed with exit code 1
+[2025-05-04 20:10:09] Creating default test results
+[2025-05-04 20:10:09] InSpec tests completed
+[2025-05-04 20:15:04] Trigger file found with timestamp: 1746411304
+[2025-05-04 20:15:05] Trigger detected. Running InSpec tests...
+[2025-05-04 20:15:05] Running InSpec profile from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-04 20:15:14] InSpec command output:
+[2025-05-04 20:15:14] [2025-05-04T20:15:10-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-04T20:15:10-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-04T20:15:11-06:00] DEBUG: Option backend_cache is enabled
+[2025-05-04T20:15:11-06:00] DEBUG: Resolve /home/ernesto/Documents/msusel-ssp-manager/inspec into cache /home/ernesto/.inspec/cache
+[2025-05-04T20:15:11-06:00] DEBUG: Dependency does not exist in the cache /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-04T20:15:11-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-04T20:15:11-06:00] DEBUG: TUI Engine initialized.
+[2025-05-04T20:15:11-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-04T20:15:11-06:00] DEBUG: TUI Engine initialized.
+[2025-05-04T20:15:11-06:00] DEBUG: Trying to connect to https://services.chef.io/licensing
+[2025-05-04T20:15:11-06:00] DEBUG: HTTP Cache: [GET /licensing/v1/client?entitlementId=3ff52c37-e41f-4f6c-ad4d-365192205968&licenseId=free-8388a8eb-3fb6-4854-8f74-41bb9bbc5eb8-6529] fresh
+[2025-05-04T20:15:11-06:00] DEBUG: Connection succeeded to https://services.chef.io/licensing
+[2025-05-04T20:15:11-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-04T20:15:11-06:00] DEBUG: Starting run with targets: ["Inspec::Profile<ugov-services-security-controls>"]
+[2025-05-04T20:15:11-06:00] DEBUG: Fetching license context for telemetry check
+[2025-05-04T20:15:11-06:00] DEBUG: Determined HTTP instance for telemetry
+[2025-05-04T20:15:11-06:00] DEBUG: Initiating telemetry for InSpec
+[2025-05-04T20:15:11-06:00] DEBUG: Using existing lockfile /home/ernesto/Documents/msusel-ssp-manager/inspec/inspec.lock
+[2025-05-04T20:15:11-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-04T20:15:11-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/access_control_test.rb into #<Inspec::ProfileContext:0x0000749b72488500>
+[2025-05-04T20:15:11-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/account_management_test.rb into #<Inspec::ProfileContext:0x0000749b72488500>
+[2025-05-04T20:15:11-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_content_test.rb into #<Inspec::ProfileContext:0x0000749b72488500>
+[2025-05-04T20:15:11-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_storage_test.rb into #<Inspec::ProfileContext:0x0000749b72488500>
+[2025-05-04T20:15:11-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_test.rb into #<Inspec::ProfileContext:0x0000749b72488500>
+[2025-05-04T20:15:11-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/authentication_test.rb into #<Inspec::ProfileContext:0x0000749b72488500>
+[2025-05-04T20:15:11-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/boundary_protection_test.rb into #<Inspec::ProfileContext:0x0000749b72488500>
+[2025-05-04T20:15:11-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/configuration_management_test.rb into #<Inspec::ProfileContext:0x0000749b72488500>
+[2025-05-04T20:15:11-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/data_protection_test.rb into #<Inspec::ProfileContext:0x0000749b72488500>
+[2025-05-04T20:15:11-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/input_validation_test.rb into #<Inspec::ProfileContext:0x0000749b72488500>
+[2025-05-04T20:15:11-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/malicious_code_protection_test.rb into #<Inspec::ProfileContext:0x0000749b72488500>
+[2025-05-04T20:15:11-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/session_crypto_test.rb into #<Inspec::ProfileContext:0x0000749b72488500>
+[2025-05-04T20:15:11-06:00] DEBUG: Registering rule access-control-policy
+[2025-05-04T20:15:11-06:00] DEBUG: Registering rule ac-2
+[2025-05-04T20:15:13-06:00] DEBUG: Registering rule audit-content
+[2025-05-04T20:15:13-06:00] DEBUG: Registering rule audit-storage
+/opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/json-2.7.6/lib/json/common.rb:220:in `parse': unexpected token at '<!DOCTYPE html> (JSON::ParserError)
+<html lang="en">'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/json-2.7.6/lib/json/common.rb:220:in `parse'
+	from /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_storage_test.rb:17:in `block (2 levels) in load_with_context'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/rule.rb:456:in `instance_exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/rule.rb:456:in `block in with_dsl'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:398:in `module_exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:398:in `subclass'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:271:in `block in define_example_group_method'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner_rspec.rb:28:in `example_group'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:396:in `add_resource'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:360:in `get_check_example'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:368:in `block in register_rule'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `each'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `flat_map'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `register_rule'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:146:in `block in load'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:144:in `each'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:144:in `load'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:193:in `run'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/cli.rb:410:in `block in exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/feature/runner.rb:24:in `with_feature'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/feature.rb:6:in `with_feature'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/cli.rb:395:in `exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/command.rb:27:in `run'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/invocation.rb:127:in `invoke_command'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor.rb:392:in `dispatch'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/base.rb:485:in `start'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/base_cli.rb:40:in `start'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-bin-6.8.11/bin/inspec:11:in `<top (required)>'
+	from /usr/bin/inspec:290:in `load'
+	from /usr/bin/inspec:290:in `<main>'
+[2025-05-04 20:15:14] ERROR: Tests failed with exit code 1
+[2025-05-04 20:15:14] Creating default test results
+[2025-05-04 20:15:14] InSpec tests completed
+[2025-05-04 20:19:24] Trigger file found with timestamp: 2025-05-05T02:19:23.955058
+[2025-05-04 20:19:24] Trigger detected. Running InSpec tests...
+[2025-05-04 20:19:24] Running InSpec profile from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-04 20:19:35] InSpec command output:
+[2025-05-04 20:19:35] [2025-05-04T20:19:29-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-04T20:19:30-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-04T20:19:30-06:00] DEBUG: Option backend_cache is enabled
+[2025-05-04T20:19:30-06:00] DEBUG: Resolve /home/ernesto/Documents/msusel-ssp-manager/inspec into cache /home/ernesto/.inspec/cache
+[2025-05-04T20:19:30-06:00] DEBUG: Dependency does not exist in the cache /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-04T20:19:30-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-04T20:19:30-06:00] DEBUG: TUI Engine initialized.
+[2025-05-04T20:19:30-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-04T20:19:30-06:00] DEBUG: TUI Engine initialized.
+[2025-05-04T20:19:30-06:00] DEBUG: Trying to connect to https://services.chef.io/licensing
+[2025-05-04T20:19:30-06:00] DEBUG: HTTP Cache: [GET /licensing/v1/client?entitlementId=3ff52c37-e41f-4f6c-ad4d-365192205968&licenseId=free-8388a8eb-3fb6-4854-8f74-41bb9bbc5eb8-6529] fresh
+[2025-05-04T20:19:30-06:00] DEBUG: Connection succeeded to https://services.chef.io/licensing
+[2025-05-04T20:19:30-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-04T20:19:30-06:00] DEBUG: Starting run with targets: ["Inspec::Profile<ugov-services-security-controls>"]
+[2025-05-04T20:19:30-06:00] DEBUG: Fetching license context for telemetry check
+[2025-05-04T20:19:30-06:00] DEBUG: Determined HTTP instance for telemetry
+[2025-05-04T20:19:30-06:00] DEBUG: Initiating telemetry for InSpec
+[2025-05-04T20:19:30-06:00] DEBUG: Using existing lockfile /home/ernesto/Documents/msusel-ssp-manager/inspec/inspec.lock
+[2025-05-04T20:19:30-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-04T20:19:30-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/access_control_test.rb into #<Inspec::ProfileContext:0x0000712ce6ea3ab0>
+[2025-05-04T20:19:30-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/account_management_test.rb into #<Inspec::ProfileContext:0x0000712ce6ea3ab0>
+[2025-05-04T20:19:30-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_content_test.rb into #<Inspec::ProfileContext:0x0000712ce6ea3ab0>
+[2025-05-04T20:19:30-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_storage_test.rb into #<Inspec::ProfileContext:0x0000712ce6ea3ab0>
+[2025-05-04T20:19:30-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_test.rb into #<Inspec::ProfileContext:0x0000712ce6ea3ab0>
+[2025-05-04T20:19:30-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/authentication_test.rb into #<Inspec::ProfileContext:0x0000712ce6ea3ab0>
+[2025-05-04T20:19:30-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/boundary_protection_test.rb into #<Inspec::ProfileContext:0x0000712ce6ea3ab0>
+[2025-05-04T20:19:30-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/configuration_management_test.rb into #<Inspec::ProfileContext:0x0000712ce6ea3ab0>
+[2025-05-04T20:19:30-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/data_protection_test.rb into #<Inspec::ProfileContext:0x0000712ce6ea3ab0>
+[2025-05-04T20:19:30-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/input_validation_test.rb into #<Inspec::ProfileContext:0x0000712ce6ea3ab0>
+[2025-05-04T20:19:30-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/malicious_code_protection_test.rb into #<Inspec::ProfileContext:0x0000712ce6ea3ab0>
+[2025-05-04T20:19:30-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/session_crypto_test.rb into #<Inspec::ProfileContext:0x0000712ce6ea3ab0>
+[2025-05-04T20:19:30-06:00] DEBUG: Registering rule access-control-policy
+[2025-05-04T20:19:31-06:00] DEBUG: Registering rule ac-2
+[2025-05-04T20:19:34-06:00] DEBUG: Registering rule audit-content
+[2025-05-04T20:19:35-06:00] DEBUG: Registering rule audit-storage
+/opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/json-2.7.6/lib/json/common.rb:220:in `parse': unexpected token at '<!DOCTYPE html> (JSON::ParserError)
+<html lang="en">'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/json-2.7.6/lib/json/common.rb:220:in `parse'
+	from /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_storage_test.rb:17:in `block (2 levels) in load_with_context'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/rule.rb:456:in `instance_exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/rule.rb:456:in `block in with_dsl'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:398:in `module_exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:398:in `subclass'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:271:in `block in define_example_group_method'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner_rspec.rb:28:in `example_group'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:396:in `add_resource'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:360:in `get_check_example'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:368:in `block in register_rule'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `each'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `flat_map'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `register_rule'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:146:in `block in load'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:144:in `each'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:144:in `load'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:193:in `run'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/cli.rb:410:in `block in exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/feature/runner.rb:24:in `with_feature'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/feature.rb:6:in `with_feature'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/cli.rb:395:in `exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/command.rb:27:in `run'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/invocation.rb:127:in `invoke_command'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor.rb:392:in `dispatch'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/base.rb:485:in `start'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/base_cli.rb:40:in `start'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-bin-6.8.11/bin/inspec:11:in `<top (required)>'
+	from /usr/bin/inspec:290:in `load'
+	from /usr/bin/inspec:290:in `<main>'
+[2025-05-04 20:19:35] ERROR: Tests failed with exit code 1
+[2025-05-04 20:19:35] Creating default test results
+[2025-05-04 20:19:35] InSpec tests completed
+[2025-05-04 20:43:39] Starting InSpec test watcher
+[2025-05-04 20:43:39] ===========================
+[2025-05-04 20:43:39] Configuration:
+[2025-05-04 20:43:39]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-05-04 20:43:39]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-05-04 20:43:39]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-05-04 20:43:39]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-05-04 20:43:39]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-04 20:43:40]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-05-04 20:43:40]   Python processor: /home/ernesto/Documents/msusel-ssp-manager/process_inspec_results.py
+[2025-05-04 20:43:40] ===========================
+[2025-05-04 20:43:43] InSpec is installed: 6.8.11
+[2025-05-04 20:43:43] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-05-04 20:44:14] Trigger file found with timestamp: 2025-05-05T02:44:13.865256
+[2025-05-04 20:44:14] Trigger detected. Running InSpec tests...
+[2025-05-04 20:44:14] Running InSpec profile from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-04 20:44:24] InSpec command output:
+[2025-05-04 20:44:24] [2025-05-04T20:44:19-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-04T20:44:19-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-04T20:44:20-06:00] DEBUG: Option backend_cache is enabled
+[2025-05-04T20:44:20-06:00] DEBUG: Resolve /home/ernesto/Documents/msusel-ssp-manager/inspec into cache /home/ernesto/.inspec/cache
+[2025-05-04T20:44:20-06:00] DEBUG: Dependency does not exist in the cache /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-04T20:44:20-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-04T20:44:20-06:00] DEBUG: TUI Engine initialized.
+[2025-05-04T20:44:20-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-04T20:44:20-06:00] DEBUG: TUI Engine initialized.
+[2025-05-04T20:44:20-06:00] DEBUG: Trying to connect to https://services.chef.io/licensing
+[2025-05-04T20:44:20-06:00] DEBUG: HTTP Cache: [GET /licensing/v1/client?entitlementId=3ff52c37-e41f-4f6c-ad4d-365192205968&licenseId=free-8388a8eb-3fb6-4854-8f74-41bb9bbc5eb8-6529] fresh
+[2025-05-04T20:44:20-06:00] DEBUG: Connection succeeded to https://services.chef.io/licensing
+[2025-05-04T20:44:20-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-04T20:44:20-06:00] DEBUG: Starting run with targets: ["Inspec::Profile<ugov-services-security-controls>"]
+[2025-05-04T20:44:20-06:00] DEBUG: Fetching license context for telemetry check
+[2025-05-04T20:44:20-06:00] DEBUG: Determined HTTP instance for telemetry
+[2025-05-04T20:44:20-06:00] DEBUG: Initiating telemetry for InSpec
+[2025-05-04T20:44:20-06:00] DEBUG: Using existing lockfile /home/ernesto/Documents/msusel-ssp-manager/inspec/inspec.lock
+[2025-05-04T20:44:20-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-04T20:44:20-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/access_control_test.rb into #<Inspec::ProfileContext:0x000073ac08652480>
+[2025-05-04T20:44:20-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/account_management_test.rb into #<Inspec::ProfileContext:0x000073ac08652480>
+[2025-05-04T20:44:20-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_content_test.rb into #<Inspec::ProfileContext:0x000073ac08652480>
+[2025-05-04T20:44:20-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_storage_test.rb into #<Inspec::ProfileContext:0x000073ac08652480>
+[2025-05-04T20:44:20-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_test.rb into #<Inspec::ProfileContext:0x000073ac08652480>
+[2025-05-04T20:44:20-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/authentication_test.rb into #<Inspec::ProfileContext:0x000073ac08652480>
+[2025-05-04T20:44:20-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/boundary_protection_test.rb into #<Inspec::ProfileContext:0x000073ac08652480>
+[2025-05-04T20:44:20-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/configuration_management_test.rb into #<Inspec::ProfileContext:0x000073ac08652480>
+[2025-05-04T20:44:20-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/data_protection_test.rb into #<Inspec::ProfileContext:0x000073ac08652480>
+[2025-05-04T20:44:20-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/input_validation_test.rb into #<Inspec::ProfileContext:0x000073ac08652480>
+[2025-05-04T20:44:20-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/malicious_code_protection_test.rb into #<Inspec::ProfileContext:0x000073ac08652480>
+[2025-05-04T20:44:20-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/session_crypto_test.rb into #<Inspec::ProfileContext:0x000073ac08652480>
+[2025-05-04T20:44:20-06:00] DEBUG: Registering rule access-control-policy
+[2025-05-04T20:44:21-06:00] DEBUG: Registering rule ac-2
+[2025-05-04T20:44:24-06:00] DEBUG: Registering rule audit-content
+[2025-05-04T20:44:24-06:00] DEBUG: Registering rule audit-storage
+/opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/json-2.7.6/lib/json/common.rb:220:in `parse': unexpected token at '<!DOCTYPE html> (JSON::ParserError)
+<html lang="en">'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/json-2.7.6/lib/json/common.rb:220:in `parse'
+	from /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_storage_test.rb:17:in `block (2 levels) in load_with_context'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/rule.rb:456:in `instance_exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/rule.rb:456:in `block in with_dsl'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:398:in `module_exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:398:in `subclass'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:271:in `block in define_example_group_method'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner_rspec.rb:28:in `example_group'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:396:in `add_resource'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:360:in `get_check_example'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:368:in `block in register_rule'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `each'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `flat_map'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `register_rule'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:146:in `block in load'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:144:in `each'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:144:in `load'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:193:in `run'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/cli.rb:410:in `block in exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/feature/runner.rb:24:in `with_feature'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/feature.rb:6:in `with_feature'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/cli.rb:395:in `exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/command.rb:27:in `run'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/invocation.rb:127:in `invoke_command'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor.rb:392:in `dispatch'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/base.rb:485:in `start'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/base_cli.rb:40:in `start'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-bin-6.8.11/bin/inspec:11:in `<top (required)>'
+	from /usr/bin/inspec:290:in `load'
+	from /usr/bin/inspec:290:in `<main>'
+[2025-05-04 20:44:24] ERROR: Tests failed with exit code 1
+[2025-05-04 20:44:24] InSpec tests completed
+[2025-05-04 20:51:10] Trigger file found with timestamp: 2025-05-05T02:51:10.160099
+[2025-05-04 20:51:10] Trigger detected. Running InSpec tests...
+[2025-05-04 20:51:10] Running InSpec profile from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-04 20:51:20] InSpec command output:
+[2025-05-04 20:51:20] [2025-05-04T20:51:14-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-04T20:51:15-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-04T20:51:15-06:00] DEBUG: Option backend_cache is enabled
+[2025-05-04T20:51:15-06:00] DEBUG: Resolve /home/ernesto/Documents/msusel-ssp-manager/inspec into cache /home/ernesto/.inspec/cache
+[2025-05-04T20:51:15-06:00] DEBUG: Dependency does not exist in the cache /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-04T20:51:15-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-04T20:51:15-06:00] DEBUG: TUI Engine initialized.
+[2025-05-04T20:51:15-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-04T20:51:15-06:00] DEBUG: TUI Engine initialized.
+[2025-05-04T20:51:15-06:00] DEBUG: Trying to connect to https://services.chef.io/licensing
+[2025-05-04T20:51:15-06:00] DEBUG: HTTP Cache: [GET /licensing/v1/client?entitlementId=3ff52c37-e41f-4f6c-ad4d-365192205968&licenseId=free-8388a8eb-3fb6-4854-8f74-41bb9bbc5eb8-6529] fresh
+[2025-05-04T20:51:15-06:00] DEBUG: Connection succeeded to https://services.chef.io/licensing
+[2025-05-04T20:51:15-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-04T20:51:15-06:00] DEBUG: Starting run with targets: ["Inspec::Profile<ugov-services-security-controls>"]
+[2025-05-04T20:51:15-06:00] DEBUG: Fetching license context for telemetry check
+[2025-05-04T20:51:15-06:00] DEBUG: Determined HTTP instance for telemetry
+[2025-05-04T20:51:15-06:00] DEBUG: Initiating telemetry for InSpec
+[2025-05-04T20:51:15-06:00] DEBUG: Using existing lockfile /home/ernesto/Documents/msusel-ssp-manager/inspec/inspec.lock
+[2025-05-04T20:51:15-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-04T20:51:15-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/account_management_test.rb into #<Inspec::ProfileContext:0x00007788b8d175f0>
+[2025-05-04T20:51:15-06:00] DEBUG: Registering rule ac-2
+[2025-05-04T20:51:19-06:00] DEBUG: Prepping to run feature 'inspec-reporter-json'
+[2025-05-04T20:51:19-06:00] DEBUG: Initialising wrapper for telemetry
+[2025-05-04T20:51:19-06:00] DEBUG: Fetching license IDs for telemetry
+[2025-05-04T20:51:19-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-04T20:51:19-06:00] DEBUG: TUI Engine initialized.
+[2025-05-04T20:51:19-06:00] DEBUG: Final data for telemetry upload -> {:version=>2.0, :createdTimeUTC=>"2025-05-05T02:51:19Z", :environment=>"cli", :licenseIds=>["free-8388a8eb-3fb6-4854-8f74-41bb9bbc5eb8-6529"], :source=>"inspec:6.8.11", :type=>"job", :platform=>"ubuntu", :jobs=>[{:type=>"InSpec", :environment=>{:host=>"unknown", :os=>"ubuntu", :version=>"24.04", :architecture=>"x86_64", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :runtime=>"6.8.11", :content=>[{:name=>"4e2100d54dfb2ac04b26a21d3e77a4c68dc7e91c9004629afc1c0ec775c41846", :version=>"0.1.0", :sha256=>"c5449f7dc011adc8de55ee549e79c5d1ec087eb3ca40988f0c6f203b418c02f7", :maintainer=>"Security Team", :type=>"profile"}], :steps=>[{:id=>"acc2f4c6f126edf31ac85a36e5d1c758514e9e7a1c9e684950a9463ece4d9f4e", :name=>"inspec-control", :description=>"Ensure that account management controls are properly enforced (AC-2)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}]}]}
+[2025-05-04T20:51:19-06:00] DEBUG: Finishing telemetry for InSpec
+[2025-05-04T20:51:20-06:00] DEBUG: HTTP connection with Telemetry Client successful.
+[2025-05-04T20:51:20-06:00] DEBUG: HTTP response from Telemetry Client -> {:status=>200, :body=>{"data"=>{"msg"=>"Jobs payload processed successfully"}, "error"=>"", "status"=>200}, :response_headers=>{"connection"=>"keep-alive", "content-length"=>"78", "content-type"=>"application/json", "x-request-id"=>"89599fe8-cc84-4fc1-9928-7704b91fc5a2", "accept-ranges"=>"bytes", "date"=>"Mon, 05 May 2025 02:51:20 GMT", "via"=>"1.1 varnish", "x-served-by"=>"cache-sjc10064-SJC", "x-cache"=>"MISS", "x-cache-hits"=>"0", "x-timer"=>"S1746413480.583530,VS0,VE460"}}
+[2025-05-04 20:51:20] Tests completed with exit code 0
+[2025-05-04 20:51:20] Processing InSpec results with Python
+[2025-05-04 20:51:20] Successfully processed InSpec results
+[2025-05-04 20:51:20] InSpec tests completed
+[2025-05-04 21:06:50] Trigger file found with timestamp: 2025-05-05T03:06:50.047123
+[2025-05-04 21:06:50] Trigger detected. Running InSpec tests...
+[2025-05-04 21:06:50] Running InSpec profile from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-04 21:07:01] InSpec command output:
+[2025-05-04 21:07:01] [2025-05-04T21:06:55-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-04T21:06:55-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-04T21:06:55-06:00] DEBUG: Option backend_cache is enabled
+[2025-05-04T21:06:55-06:00] DEBUG: Resolve /home/ernesto/Documents/msusel-ssp-manager/inspec into cache /home/ernesto/.inspec/cache
+[2025-05-04T21:06:55-06:00] DEBUG: Dependency does not exist in the cache /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-04T21:06:55-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-04T21:06:55-06:00] DEBUG: TUI Engine initialized.
+[2025-05-04T21:06:55-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-04T21:06:55-06:00] DEBUG: TUI Engine initialized.
+[2025-05-04T21:06:55-06:00] DEBUG: Trying to connect to https://services.chef.io/licensing
+[2025-05-04T21:06:55-06:00] DEBUG: HTTP Cache: [GET /licensing/v1/client?entitlementId=3ff52c37-e41f-4f6c-ad4d-365192205968&licenseId=free-8388a8eb-3fb6-4854-8f74-41bb9bbc5eb8-6529] fresh
+[2025-05-04T21:06:55-06:00] DEBUG: Connection succeeded to https://services.chef.io/licensing
+[2025-05-04T21:06:55-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-04T21:06:55-06:00] DEBUG: Starting run with targets: ["Inspec::Profile<ugov-services-security-controls>"]
+[2025-05-04T21:06:55-06:00] DEBUG: Fetching license context for telemetry check
+[2025-05-04T21:06:55-06:00] DEBUG: Determined HTTP instance for telemetry
+[2025-05-04T21:06:55-06:00] DEBUG: Initiating telemetry for InSpec
+[2025-05-04T21:06:55-06:00] DEBUG: Using existing lockfile /home/ernesto/Documents/msusel-ssp-manager/inspec/inspec.lock
+[2025-05-04T21:06:55-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-04T21:06:55-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/access_control_test.rb into #<Inspec::ProfileContext:0x00007ad8bb0a8cf0>
+[2025-05-04T21:06:55-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/account_management_test.rb into #<Inspec::ProfileContext:0x00007ad8bb0a8cf0>
+[2025-05-04T21:06:55-06:00] DEBUG: Registering rule access-control-policy
+[2025-05-04T21:06:56-06:00] DEBUG: Registering rule ac-2
+[2025-05-04T21:07:01-06:00] DEBUG: Prepping to run feature 'inspec-reporter-json'
+[2025-05-04T21:07:01-06:00] DEBUG: Initialising wrapper for telemetry
+[2025-05-04T21:07:01-06:00] DEBUG: Fetching license IDs for telemetry
+[2025-05-04T21:07:01-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-04T21:07:01-06:00] DEBUG: TUI Engine initialized.
+[2025-05-04T21:07:01-06:00] DEBUG: Final data for telemetry upload -> {:version=>2.0, :createdTimeUTC=>"2025-05-05T03:07:01Z", :environment=>"cli", :licenseIds=>["free-8388a8eb-3fb6-4854-8f74-41bb9bbc5eb8-6529"], :source=>"inspec:6.8.11", :type=>"job", :platform=>"ubuntu", :jobs=>[{:type=>"InSpec", :environment=>{:host=>"unknown", :os=>"ubuntu", :version=>"24.04", :architecture=>"x86_64", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :runtime=>"6.8.11", :content=>[{:name=>"4e2100d54dfb2ac04b26a21d3e77a4c68dc7e91c9004629afc1c0ec775c41846", :version=>"0.1.0", :sha256=>"12ce3a1302850d90a1a4bd8e9098584bb5f819fe41e1ced955168d863ed5926d", :maintainer=>"Security Team", :type=>"profile"}], :steps=>[{:id=>"b1e6a1cddd8053e3fedcc89f7deb2fe961a3980bf4da546f12565cb0ae8c5876", :name=>"inspec-control", :description=>"Ensure that role-based access control is properly enforced (AC-2, AC-3)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"file", :id=>"99796a67f345abcfff8a21727e1a16f9ba96a3c01649bba47825e747b78b547d"}, {:type=>"inspec-resource", :name=>"file", :id=>"99796a67f345abcfff8a21727e1a16f9ba96a3c01649bba47825e747b78b547d"}, {:type=>"inspec-resource", :name=>"file", :id=>"99796a67f345abcfff8a21727e1a16f9ba96a3c01649bba47825e747b78b547d"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"acc2f4c6f126edf31ac85a36e5d1c758514e9e7a1c9e684950a9463ece4d9f4e", :name=>"inspec-control", :description=>"Ensure that account management controls are properly enforced (AC-2)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}]}]}
+[2025-05-04T21:07:01-06:00] DEBUG: Finishing telemetry for InSpec
+[2025-05-04T21:07:01-06:00] DEBUG: HTTP connection with Telemetry Client successful.
+[2025-05-04T21:07:01-06:00] DEBUG: HTTP response from Telemetry Client -> {:status=>200, :body=>{"data"=>{"msg"=>"Jobs payload processed successfully"}, "error"=>"", "status"=>200}, :response_headers=>{"connection"=>"keep-alive", "content-length"=>"78", "content-type"=>"application/json", "x-request-id"=>"dc599fe8-cc84-4fc1-9928-7704b91fc5a2", "accept-ranges"=>"bytes", "date"=>"Mon, 05 May 2025 03:07:01 GMT", "via"=>"1.1 varnish", "x-served-by"=>"cache-sjc10053-SJC", "x-cache"=>"MISS", "x-cache-hits"=>"0", "x-timer"=>"S1746414421.252296,VS0,VE451"}}
+[2025-05-04 21:07:01] Tests completed with exit code 0
+[2025-05-04 21:07:01] Processing InSpec results with Python
+[2025-05-04 21:07:01] Successfully processed InSpec results
+[2025-05-04 21:07:02] InSpec tests completed
+[2025-05-04 21:18:19] Trigger file found with timestamp: 2025-05-05T03:18:19.213801
+[2025-05-04 21:18:19] Trigger detected. Running InSpec tests...
+[2025-05-04 21:18:19] Running InSpec profile from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-04 21:18:31] InSpec command output:
+[2025-05-04 21:18:31] [2025-05-04T21:18:24-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-04T21:18:24-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-04T21:18:24-06:00] DEBUG: Option backend_cache is enabled
+[2025-05-04T21:18:24-06:00] DEBUG: Resolve /home/ernesto/Documents/msusel-ssp-manager/inspec into cache /home/ernesto/.inspec/cache
+[2025-05-04T21:18:24-06:00] DEBUG: Dependency does not exist in the cache /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-04T21:18:24-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-04T21:18:24-06:00] DEBUG: TUI Engine initialized.
+[2025-05-04T21:18:24-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-04T21:18:24-06:00] DEBUG: TUI Engine initialized.
+[2025-05-04T21:18:24-06:00] DEBUG: Trying to connect to https://services.chef.io/licensing
+[2025-05-04T21:18:24-06:00] DEBUG: HTTP Cache: [GET /licensing/v1/client?entitlementId=3ff52c37-e41f-4f6c-ad4d-365192205968&licenseId=free-8388a8eb-3fb6-4854-8f74-41bb9bbc5eb8-6529] fresh
+[2025-05-04T21:18:24-06:00] DEBUG: Connection succeeded to https://services.chef.io/licensing
+[2025-05-04T21:18:24-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-04T21:18:24-06:00] DEBUG: Starting run with targets: ["Inspec::Profile<ugov-services-security-controls>"]
+[2025-05-04T21:18:24-06:00] DEBUG: Fetching license context for telemetry check
+[2025-05-04T21:18:24-06:00] DEBUG: Determined HTTP instance for telemetry
+[2025-05-04T21:18:24-06:00] DEBUG: Initiating telemetry for InSpec
+[2025-05-04T21:18:24-06:00] DEBUG: Using existing lockfile /home/ernesto/Documents/msusel-ssp-manager/inspec/inspec.lock
+[2025-05-04T21:18:24-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-04T21:18:24-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/access_control_test.rb into #<Inspec::ProfileContext:0x00007f9ebe6901e0>
+[2025-05-04T21:18:24-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/account_management_test.rb into #<Inspec::ProfileContext:0x00007f9ebe6901e0>
+[2025-05-04T21:18:24-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_content_test.rb into #<Inspec::ProfileContext:0x00007f9ebe6901e0>
+[2025-05-04T21:18:24-06:00] DEBUG: Registering rule access-control-policy
+[2025-05-04T21:18:25-06:00] DEBUG: Registering rule ac-2
+[2025-05-04T21:18:28-06:00] DEBUG: Registering rule audit-content
+[2025-05-04T21:18:30-06:00] DEBUG: Prepping to run feature 'inspec-reporter-json'
+[2025-05-04T21:18:30-06:00] DEBUG: Initialising wrapper for telemetry
+[2025-05-04T21:18:30-06:00] DEBUG: Fetching license IDs for telemetry
+[2025-05-04T21:18:30-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-04T21:18:30-06:00] DEBUG: TUI Engine initialized.
+[2025-05-04T21:18:30-06:00] DEBUG: Final data for telemetry upload -> {:version=>2.0, :createdTimeUTC=>"2025-05-05T03:18:30Z", :environment=>"cli", :licenseIds=>["free-8388a8eb-3fb6-4854-8f74-41bb9bbc5eb8-6529"], :source=>"inspec:6.8.11", :type=>"job", :platform=>"ubuntu", :jobs=>[{:type=>"InSpec", :environment=>{:host=>"unknown", :os=>"ubuntu", :version=>"24.04", :architecture=>"x86_64", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :runtime=>"6.8.11", :content=>[{:name=>"4e2100d54dfb2ac04b26a21d3e77a4c68dc7e91c9004629afc1c0ec775c41846", :version=>"0.1.0", :sha256=>"3e316419560eaa645a9985d4f706bdc3f3fd1aec27f0daf0c9f3f7fb2282058d", :maintainer=>"Security Team", :type=>"profile"}], :steps=>[{:id=>"b1e6a1cddd8053e3fedcc89f7deb2fe961a3980bf4da546f12565cb0ae8c5876", :name=>"inspec-control", :description=>"Ensure that role-based access control is properly enforced (AC-2, AC-3)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"file", :id=>"99796a67f345abcfff8a21727e1a16f9ba96a3c01649bba47825e747b78b547d"}, {:type=>"inspec-resource", :name=>"file", :id=>"99796a67f345abcfff8a21727e1a16f9ba96a3c01649bba47825e747b78b547d"}, {:type=>"inspec-resource", :name=>"file", :id=>"99796a67f345abcfff8a21727e1a16f9ba96a3c01649bba47825e747b78b547d"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"acc2f4c6f126edf31ac85a36e5d1c758514e9e7a1c9e684950a9463ece4d9f4e", :name=>"inspec-control", :description=>"Ensure that account management controls are properly enforced (AC-2)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"df9996789ab10e32aefb18394e7c3ee7a31e98dee0400833a7a7a0e5bd07f42e", :name=>"inspec-control", :description=>"Ensure that audit records include sufficient information to establish what events occurred, the sources of the events, and the outcomes of the events (AU-3)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}]}]}
+[2025-05-04T21:18:30-06:00] DEBUG: Finishing telemetry for InSpec
+[2025-05-04T21:18:31-06:00] DEBUG: HTTP connection with Telemetry Client successful.
+[2025-05-04T21:18:31-06:00] DEBUG: HTTP response from Telemetry Client -> {:status=>200, :body=>{"data"=>{"msg"=>"Jobs payload processed successfully"}, "error"=>"", "status"=>200}, :response_headers=>{"connection"=>"keep-alive", "content-length"=>"78", "content-type"=>"application/json", "x-request-id"=>"175a9fe8-cc84-4fc1-9928-7704b91fc5a2", "accept-ranges"=>"bytes", "date"=>"Mon, 05 May 2025 03:18:31 GMT", "via"=>"1.1 varnish", "x-served-by"=>"cache-sjc1000136-SJC", "x-cache"=>"MISS", "x-cache-hits"=>"0", "x-timer"=>"S1746415111.872357,VS0,VE424"}}
+[2025-05-04 21:18:31] Tests completed with exit code 0
+[2025-05-04 21:18:31] Processing InSpec results with Python
+[2025-05-04 21:18:31] Successfully processed InSpec results
+[2025-05-04 21:18:31] InSpec tests completed

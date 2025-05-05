@@ -4,7 +4,7 @@ control 'access-control-policy' do
   desc 'Ensure that role-based access control is properly enforced (AC-2, AC-3)'
 
   app_url = 'http://localhost:8000'
-  log_file_path = './logs/opa_interactions.log'
+  log_file_path = '/home/ernesto/Documents/msusel-ssp-manager/logs/opa_interactions.log'
 
   # Test case 1: Regular user accessing allowed resource
   describe 'Regular user accessing user profile' do
