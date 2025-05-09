@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "timestamp": "2025-05-08T21:53:02.601963",
-    "generated_at": "2025-05-08 21:53:02"
+    "timestamp": "2025-05-08T22:05:54.931591",
+    "generated_at": "2025-05-08 22:05:54"
   },
   "results": [
     {
@@ -115,6 +115,92 @@
         },
         {
           "test_name": "File /home/ernesto/Documents/msusel-ssp-manager/logs/opa_interactions.log content is expected to include \"deny_access\"",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "control_id": "cm-5",
+      "status": "passed",
+      "test_results": [
+        {
+          "test_name": "User authorization for changes should have authorized roles defined",
+          "status": "passed"
+        },
+        {
+          "test_name": "User authorization for changes should include admin role in authorized roles",
+          "status": "passed"
+        },
+        {
+          "test_name": "User authorization for changes should include config_admin role in authorized roles",
+          "status": "passed"
+        },
+        {
+          "test_name": "Change documentation requirements should require ticket ID",
+          "status": "passed"
+        },
+        {
+          "test_name": "Change documentation requirements should require description",
+          "status": "passed"
+        },
+        {
+          "test_name": "Change documentation requirements should require approver",
+          "status": "passed"
+        },
+        {
+          "test_name": "Change workflow should require testing",
+          "status": "passed"
+        },
+        {
+          "test_name": "Change workflow should require review",
+          "status": "passed"
+        },
+        {
+          "test_name": "Change workflow should require approval",
+          "status": "passed"
+        },
+        {
+          "test_name": "Change logging should have logging enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Change logging should have protected logs",
+          "status": "passed"
+        },
+        {
+          "test_name": "Change logging should include required fields in logs",
+          "status": "passed"
+        },
+        {
+          "test_name": "Physical access restrictions should have physical access restrictions enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Physical access restrictions should require authentication for physical access",
+          "status": "passed"
+        },
+        {
+          "test_name": "Physical access restrictions should log physical access",
+          "status": "passed"
+        },
+        {
+          "test_name": "Emergency change process should have emergency change process defined",
+          "status": "passed"
+        },
+        {
+          "test_name": "Emergency change process should require post-change review for emergency changes",
+          "status": "passed"
+        },
+        {
+          "test_name": "Emergency change process should require executive approval for emergency changes",
+          "status": "passed"
+        },
+        {
+          "test_name": "Change authorization should authorize valid normal changes",
+          "status": "passed"
+        },
+        {
+          "test_name": "Change authorization should authorize valid emergency changes",
           "status": "passed"
         }
       ]

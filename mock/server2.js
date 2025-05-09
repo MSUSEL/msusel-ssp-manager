@@ -9758,6 +9758,668 @@ app.get('/baseline_change_detection', async (req, res) => {
   }
 });
 
+// CM-5: Access Restrictions for Change endpoints
+
+// Initialize access restrictions for change data
+if (!global.accessRestrictionsForChange) {
+  global.accessRestrictionsForChange = {
+    authorized_roles: ['admin', 'config_admin', 'system_admin', 'security_admin'],
+    required_fields: ['ticket_id', 'description', 'component', 'approved_by'],
+    workflow: {
+      required_steps: ['testing', 'review', 'approval'],
+      approval_levels: ['technical', 'security', 'business']
+    },
+    logging: {
+      enabled: true,
+      protected: true,
+      log_fields: [
+        'timestamp',
+        'user_id',
+        'change_type',
+        'component',
+        'description',
+        'ticket_id',
+        'approved_by',
+        'outcome'
+      ],
+      retention_period_days: 365
+    },
+    physical_access: {
+      enabled: true,
+      requires_authentication: true,
+      logged: true,
+      requires_two_person: true,
+      access_methods: ['badge', 'biometric']
+    },
+    emergency_change: {
+      process_defined: true,
+      requires_post_review: true,
+      requires_executive_approval: true,
+      max_duration_hours: 24
+    },
+    change_logs: []
+  };
+}
+
+// Get authorized roles for changes
+app.get('/change_authorization_roles', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Authentication required'
+      });
+    }
+
+    // Prepare response data
+    const responseData = {
+      authorized_roles: global.accessRestrictionsForChange.authorized_roles
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      user: {
+        id: username,
+        roles: requestingUser.roles
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.access_restrictions_for_change',
+      decision: 'user_authorized_for_changes',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.access_restrictions_for_change', 'user_authorized_for_changes', opaInput);
+    }
+
+    // Log audit event for accessing change authorization roles
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'change_authorization_roles',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'change_authorization_roles'
+    });
+
+    // Return the authorized roles
+    return res.status(200).json(responseData);
+  } catch (error) {
+    console.error('Error in change_authorization_roles endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get change documentation requirements
+app.get('/change_documentation_requirements', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Authentication required'
+      });
+    }
+
+    // Prepare response data
+    const responseData = {
+      required_fields: global.accessRestrictionsForChange.required_fields
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      user: {
+        id: username,
+        roles: requestingUser.roles
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.access_restrictions_for_change',
+      decision: 'change_properly_documented',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.access_restrictions_for_change', 'change_properly_documented', opaInput);
+    }
+
+    // Log audit event for accessing change documentation requirements
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'change_documentation_requirements',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'change_documentation_requirements'
+    });
+
+    // Return the change documentation requirements
+    return res.status(200).json(responseData);
+  } catch (error) {
+    console.error('Error in change_documentation_requirements endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get change workflow information
+app.get('/change_workflow', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Authentication required'
+      });
+    }
+
+    // Prepare response data
+    const responseData = {
+      required_steps: global.accessRestrictionsForChange.workflow.required_steps,
+      approval_levels: global.accessRestrictionsForChange.workflow.approval_levels
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      user: {
+        id: username,
+        roles: requestingUser.roles
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.access_restrictions_for_change',
+      decision: 'change_follows_workflow',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.access_restrictions_for_change', 'change_follows_workflow', opaInput);
+    }
+
+    // Log audit event for accessing change workflow information
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'change_workflow',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'change_workflow'
+    });
+
+    // Return the change workflow information
+    return res.status(200).json(responseData);
+  } catch (error) {
+    console.error('Error in change_workflow endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get change logging configuration
+app.get('/change_logging_config', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Authentication required'
+      });
+    }
+
+    // Prepare response data
+    const responseData = {
+      enabled: global.accessRestrictionsForChange.logging.enabled,
+      protected: global.accessRestrictionsForChange.logging.protected,
+      log_fields: global.accessRestrictionsForChange.logging.log_fields,
+      retention_period_days: global.accessRestrictionsForChange.logging.retention_period_days
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      user: {
+        id: username,
+        roles: requestingUser.roles
+      },
+      change_logging: {
+        enabled: global.accessRestrictionsForChange.logging.enabled,
+        protected: global.accessRestrictionsForChange.logging.protected
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.access_restrictions_for_change',
+      decision: 'change_logging_enabled',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.access_restrictions_for_change', 'change_logging_enabled', opaInput);
+    }
+
+    // Log audit event for accessing change logging configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'change_logging_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'change_logging_config'
+    });
+
+    // Return the change logging configuration
+    return res.status(200).json(responseData);
+  } catch (error) {
+    console.error('Error in change_logging_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get physical access restrictions
+app.get('/physical_access_restrictions', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Authentication required'
+      });
+    }
+
+    // Prepare response data
+    const responseData = {
+      enabled: global.accessRestrictionsForChange.physical_access.enabled,
+      requires_authentication: global.accessRestrictionsForChange.physical_access.requires_authentication,
+      logged: global.accessRestrictionsForChange.physical_access.logged,
+      requires_two_person: global.accessRestrictionsForChange.physical_access.requires_two_person,
+      access_methods: global.accessRestrictionsForChange.physical_access.access_methods
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      user: {
+        id: username,
+        roles: requestingUser.roles
+      },
+      physical_access: {
+        enabled: global.accessRestrictionsForChange.physical_access.enabled,
+        requires_authentication: global.accessRestrictionsForChange.physical_access.requires_authentication,
+        logged: global.accessRestrictionsForChange.physical_access.logged
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.access_restrictions_for_change',
+      decision: 'physical_access_restrictions_enabled',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.access_restrictions_for_change', 'physical_access_restrictions_enabled', opaInput);
+    }
+
+    // Log audit event for accessing physical access restrictions
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'physical_access_restrictions',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'physical_access_restrictions'
+    });
+
+    // Return the physical access restrictions
+    return res.status(200).json(responseData);
+  } catch (error) {
+    console.error('Error in physical_access_restrictions endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get emergency change process
+app.get('/emergency_change_process', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Authentication required'
+      });
+    }
+
+    // Prepare response data
+    const responseData = {
+      process_defined: global.accessRestrictionsForChange.emergency_change.process_defined,
+      requires_post_review: global.accessRestrictionsForChange.emergency_change.requires_post_review,
+      requires_executive_approval: global.accessRestrictionsForChange.emergency_change.requires_executive_approval,
+      max_duration_hours: global.accessRestrictionsForChange.emergency_change.max_duration_hours
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      user: {
+        id: username,
+        roles: requestingUser.roles
+      },
+      emergency_change: {
+        process_defined: global.accessRestrictionsForChange.emergency_change.process_defined,
+        requires_post_review: global.accessRestrictionsForChange.emergency_change.requires_post_review
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.access_restrictions_for_change',
+      decision: 'emergency_change_process_defined',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.access_restrictions_for_change', 'emergency_change_process_defined', opaInput);
+    }
+
+    // Log audit event for accessing emergency change process
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'emergency_change_process',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'emergency_change_process'
+    });
+
+    // Return the emergency change process
+    return res.status(200).json(responseData);
+  } catch (error) {
+    console.error('Error in emergency_change_process endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Authorize a change
+app.post('/authorize_change', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+  const { change } = req.body;
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !global.accessRestrictionsForChange.authorized_roles.some(role => requestingUser.roles.includes(role))) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only authorized users can authorize changes'
+      });
+    }
+
+    // Check if required fields are provided
+    const requiredFields = global.accessRestrictionsForChange.required_fields;
+    const missingFields = requiredFields.filter(field => !change || !change[field]);
+
+    if (missingFields.length > 0) {
+      return res.status(400).json({
+        error: 'missing_required_fields',
+        message: `Missing required fields: ${missingFields.join(', ')}`
+      });
+    }
+
+    // Prepare input for OPA
+    const opaInput = {
+      user: {
+        id: username,
+        roles: requestingUser.roles
+      },
+      change: {
+        ...change,
+        documented: true,
+        follows_process: change.emergency ? true : (change.tested && change.reviewed && change.approved)
+      },
+      change_logging: {
+        enabled: global.accessRestrictionsForChange.logging.enabled,
+        protected: global.accessRestrictionsForChange.logging.protected
+      },
+      emergency_change: {
+        process_defined: global.accessRestrictionsForChange.emergency_change.process_defined,
+        requires_post_review: global.accessRestrictionsForChange.emergency_change.requires_post_review
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.access_restrictions_for_change',
+      decision: 'change_authorized',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    let opaResult = true;
+    if (USE_REAL_OPA) {
+      const result = await queryOpa('security.access_restrictions_for_change', 'change_authorized', opaInput);
+      if (result !== null) {
+        opaResult = result;
+      }
+    }
+
+    // If OPA says the change is not authorized, return an error
+    if (!opaResult) {
+      return res.status(403).json({
+        error: 'policy_violation',
+        message: 'Change authorization violates security policy',
+        authorized: false
+      });
+    }
+
+    // Log the change
+    const changeLog = {
+      id: `CHG-LOG-${Date.now()}`,
+      timestamp: new Date().toISOString(),
+      user_id: username,
+      change_type: change.type,
+      component: change.component,
+      description: change.description,
+      ticket_id: change.ticket_id,
+      approved_by: change.approved_by,
+      emergency: change.emergency || false,
+      emergency_approved_by: change.emergency_approved_by || null,
+      outcome: 'authorized'
+    };
+
+    // Add the change log to the global change logs
+    if (!global.accessRestrictionsForChange.change_logs) {
+      global.accessRestrictionsForChange.change_logs = [];
+    }
+    global.accessRestrictionsForChange.change_logs.push(changeLog);
+
+    // Log audit event for authorizing a change
+    logAuditEvent({
+      user_id: username,
+      event_type: 'configuration_change',
+      resource: 'change_authorization',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: change.ticket_id,
+      change_type: change.type,
+      component: change.component,
+      description: change.description,
+      approved_by: change.approved_by,
+      emergency: change.emergency || false
+    });
+
+    // Return success response
+    return res.status(200).json({
+      authorized: true,
+      message: 'Change authorized successfully',
+      change_id: changeLog.id
+    });
+  } catch (error) {
+    console.error('Error in authorize_change endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
 // Start server
 app.listen(port, () => {
   console.log(`Enhanced mock server listening at http://localhost:${port}`);
