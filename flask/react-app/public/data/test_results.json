@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "timestamp": "2025-05-04T23:06:43.326679",
-    "generated_at": "2025-05-04 23:06:43"
+    "timestamp": "2025-05-08T21:19:11.997765",
+    "generated_at": "2025-05-08 21:19:11"
   },
   "results": [
     {
@@ -177,6 +177,92 @@
         },
         {
           "test_name": "OPA validation of audit content should contain audit content validation in OPA logs",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "control_id": "au-12",
+      "status": "passed",
+      "test_results": [
+        {
+          "test_name": "System-level audit generation should have system-level audit enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "System-level audit generation should have system-level audit components configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "System-level audit generation should have OPA validation for system-level audit",
+          "status": "passed"
+        },
+        {
+          "test_name": "Component-level audit generation should have component-level audit enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Component-level audit generation should have component-level audit components configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Component-level audit generation should have OPA validation for component-level audit",
+          "status": "passed"
+        },
+        {
+          "test_name": "Required events configuration should have all required events configured for auditing",
+          "status": "passed"
+        },
+        {
+          "test_name": "Required events configuration should have OPA validation for required events",
+          "status": "passed"
+        },
+        {
+          "test_name": "Event selection capability should have event selection enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Event selection capability should have authorized roles for event selection",
+          "status": "passed"
+        },
+        {
+          "test_name": "Event selection capability should have OPA validation for event selection",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit content compliance should include all required fields in audit records",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit content compliance should have OPA validation for audit content",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit testing configuration should have audit testing enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit testing configuration should have audit testing frequency configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit testing configuration should have last test date recorded",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit testing configuration should have last test result recorded",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit testing configuration should have OPA validation for audit testing",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit generation functionality should generate audit records for login events",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit generation functionality should include all required fields in generated audit records",
           "status": "passed"
         }
       ]

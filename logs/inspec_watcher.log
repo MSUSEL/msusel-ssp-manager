@@ -4615,3 +4615,310 @@ Successfully wrote 2 controls to /home/ernesto/Documents/msusel-ssp-manager/flas
 [2025-05-04 23:06:43] Processing InSpec results with Python
 [2025-05-04 23:06:43] Successfully processed InSpec results
 [2025-05-04 23:06:43] InSpec tests completed
+[2025-05-06 12:48:46] Starting InSpec test watcher
+[2025-05-06 12:48:46] ===========================
+[2025-05-06 12:48:46] Configuration:
+[2025-05-06 12:48:46]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-05-06 12:48:46]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-05-06 12:48:46]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-05-06 12:48:46]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-05-06 12:48:46]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-06 12:48:46]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-05-06 12:48:46]   Python processor: /home/ernesto/Documents/msusel-ssp-manager/process_inspec_results.py
+[2025-05-06 12:48:46] ===========================
+[2025-05-06 12:48:53] InSpec is installed: 6.8.11
+[2025-05-06 12:48:53] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-05-07 20:02:55] Starting InSpec test watcher
+[2025-05-07 20:02:55] ===========================
+[2025-05-07 20:02:55] Configuration:
+[2025-05-07 20:02:55]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-05-07 20:02:55]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-05-07 20:02:55]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-05-07 20:02:55]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-05-07 20:02:55]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-07 20:02:55]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-05-07 20:02:55]   Python processor: /home/ernesto/Documents/msusel-ssp-manager/process_inspec_results.py
+[2025-05-07 20:02:55] ===========================
+[2025-05-07 20:03:02] InSpec is installed: 6.8.11
+[2025-05-07 20:03:02] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-05-08 11:37:40] Starting InSpec test watcher
+[2025-05-08 11:37:40] ===========================
+[2025-05-08 11:37:40] Configuration:
+[2025-05-08 11:37:40]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-05-08 11:37:40]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-05-08 11:37:40]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-05-08 11:37:40]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-05-08 11:37:40]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-08 11:37:40]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-05-08 11:37:40]   Python processor: /home/ernesto/Documents/msusel-ssp-manager/process_inspec_results.py
+[2025-05-08 11:37:40] ===========================
+[2025-05-08 11:38:00] InSpec is installed: 6.8.11
+[2025-05-08 11:38:00] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-05-08 20:19:37] Starting InSpec test watcher
+[2025-05-08 20:19:37] ===========================
+[2025-05-08 20:19:37] Configuration:
+[2025-05-08 20:19:37]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-05-08 20:19:37]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-05-08 20:19:37]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-05-08 20:19:37]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-05-08 20:19:37]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-08 20:19:37]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-05-08 20:19:37]   Python processor: /home/ernesto/Documents/msusel-ssp-manager/process_inspec_results.py
+[2025-05-08 20:19:37] ===========================
+[2025-05-08 20:19:44] InSpec is installed: 6.8.11
+[2025-05-08 20:19:44] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-05-08 21:17:59] Trigger file found with timestamp: 2025-05-09T03:17:59.246251
+[2025-05-08 21:17:59] Trigger detected. Running InSpec tests...
+[2025-05-08 21:17:59] Running InSpec profile from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-08 21:18:04] InSpec command output:
+[2025-05-08 21:18:04] [2025-05-08T21:18:04-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-08T21:18:04-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-08T21:18:04-06:00] DEBUG: Option backend_cache is enabled
+[2025-05-08T21:18:04-06:00] DEBUG: Resolve /home/ernesto/Documents/msusel-ssp-manager/inspec into cache /home/ernesto/.inspec/cache
+[2025-05-08T21:18:04-06:00] DEBUG: Dependency does not exist in the cache /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-08T21:18:04-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-08T21:18:04-06:00] DEBUG: TUI Engine initialized.
+[2025-05-08T21:18:04-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-08T21:18:04-06:00] DEBUG: TUI Engine initialized.
+[2025-05-08T21:18:04-06:00] DEBUG: Trying to connect to https://services.chef.io/licensing
+[2025-05-08T21:18:04-06:00] DEBUG: HTTP Cache: [GET /licensing/v1/client?entitlementId=3ff52c37-e41f-4f6c-ad4d-365192205968&licenseId=free-8388a8eb-3fb6-4854-8f74-41bb9bbc5eb8-6529] fresh
+[2025-05-08T21:18:04-06:00] DEBUG: Connection succeeded to https://services.chef.io/licensing
+[2025-05-08T21:18:04-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-08T21:18:04-06:00] DEBUG: Starting run with targets: ["Inspec::Profile<ugov-services-security-controls>"]
+[2025-05-08T21:18:04-06:00] DEBUG: Fetching license context for telemetry check
+[2025-05-08T21:18:04-06:00] DEBUG: Determined HTTP instance for telemetry
+[2025-05-08T21:18:04-06:00] DEBUG: Initiating telemetry for InSpec
+[2025-05-08T21:18:04-06:00] DEBUG: Using existing lockfile /home/ernesto/Documents/msusel-ssp-manager/inspec/inspec.lock
+[2025-05-08T21:18:04-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-08T21:18:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/access_control_test.rb into #<Inspec::ProfileContext:0x00007a878cdf16a8>
+[2025-05-08T21:18:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/account_management_test.rb into #<Inspec::ProfileContext:0x00007a878cdf16a8>
+[2025-05-08T21:18:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_content_test.rb into #<Inspec::ProfileContext:0x00007a878cdf16a8>
+[2025-05-08T21:18:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_generation_test.rb into #<Inspec::ProfileContext:0x00007a878cdf16a8>
+[2025-05-08T21:18:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_nonrepudiation_test.rb into #<Inspec::ProfileContext:0x00007a878cdf16a8>
+[2025-05-08T21:18:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_protection_test.rb into #<Inspec::ProfileContext:0x00007a878cdf16a8>
+[2025-05-08T21:18:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_response_test.rb into #<Inspec::ProfileContext:0x00007a878cdf16a8>
+[2025-05-08T21:18:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_retention_test.rb into #<Inspec::ProfileContext:0x00007a878cdf16a8>
+[2025-05-08T21:18:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_review_test.rb into #<Inspec::ProfileContext:0x00007a878cdf16a8>
+[2025-05-08T21:18:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_storage_test.rb into #<Inspec::ProfileContext:0x00007a878cdf16a8>
+[2025-05-08T21:18:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_test.rb into #<Inspec::ProfileContext:0x00007a878cdf16a8>
+[2025-05-08T21:18:04-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_timestamps_test.rb into #<Inspec::ProfileContext:0x00007a878cdf16a8>
+[2025-05-08T21:18:04-06:00] DEBUG: Registering rule access-control-policy
+/opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:1214:in `__connect_nonblock': Failed to open TCP connection to localhost:8000 (Connection refused - connect(2) for 127.0.0.1:8000) (Faraday::ConnectionFailed)
+	from /opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:1214:in `connect_nonblock'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:56:in `connect_internal'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:137:in `connect'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:642:in `block in tcp'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:227:in `each'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:227:in `foreach'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:632:in `tcp'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/net/http.rb:998:in `connect'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/net/http.rb:976:in `do_start'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/net/http.rb:965:in `start'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-net_http-1.0.2/lib/faraday/adapter/net_http.rb:145:in `request_via_request_method'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-net_http-1.0.2/lib/faraday/adapter/net_http.rb:130:in `request_with_wrapped_block'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-net_http-1.0.2/lib/faraday/adapter/net_http.rb:121:in `perform_request'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-net_http-1.0.2/lib/faraday/adapter/net_http.rb:65:in `block in call'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-1.10.4/lib/faraday/adapter.rb:50:in `connection'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-net_http-1.0.2/lib/faraday/adapter/net_http.rb:63:in `call'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-1.10.4/lib/faraday/request/url_encoded.rb:25:in `call'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-1.10.4/lib/faraday/rack_builder.rb:154:in `build_response'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-1.10.4/lib/faraday/connection.rb:516:in `run_request'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/resources/http.rb:171:in `response'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/resources/http.rb:140:in `body'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/resources/http.rb:60:in `body'
+	from /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/access_control_test.rb:17:in `block (2 levels) in load_with_context'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/rule.rb:456:in `instance_exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/rule.rb:456:in `block in with_dsl'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:398:in `module_exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:398:in `subclass'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:271:in `block in define_example_group_method'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner_rspec.rb:28:in `example_group'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:396:in `add_resource'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:360:in `get_check_example'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:368:in `block in register_rule'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `each'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `flat_map'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `register_rule'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:146:in `block in load'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:144:in `each'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:144:in `load'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:193:in `run'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/cli.rb:410:in `block in exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/feature/runner.rb:24:in `with_feature'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/feature.rb:6:in `with_feature'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/cli.rb:395:in `exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/command.rb:27:in `run'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/invocation.rb:127:in `invoke_command'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor.rb:392:in `dispatch'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/base.rb:485:in `start'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/base_cli.rb:40:in `start'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-bin-6.8.11/bin/inspec:11:in `<top (required)>'
+	from /usr/bin/inspec:290:in `load'
+	from /usr/bin/inspec:290:in `<main>'
+/opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:1214:in `__connect_nonblock': Failed to open TCP connection to localhost:8000 (Connection refused - connect(2) for 127.0.0.1:8000) (Errno::ECONNREFUSED)
+	from /opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:1214:in `connect_nonblock'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:56:in `connect_internal'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:137:in `connect'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:642:in `block in tcp'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:227:in `each'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:227:in `foreach'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:632:in `tcp'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/net/http.rb:998:in `connect'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/net/http.rb:976:in `do_start'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/net/http.rb:965:in `start'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-net_http-1.0.2/lib/faraday/adapter/net_http.rb:145:in `request_via_request_method'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-net_http-1.0.2/lib/faraday/adapter/net_http.rb:130:in `request_with_wrapped_block'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-net_http-1.0.2/lib/faraday/adapter/net_http.rb:121:in `perform_request'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-net_http-1.0.2/lib/faraday/adapter/net_http.rb:65:in `block in call'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-1.10.4/lib/faraday/adapter.rb:50:in `connection'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-net_http-1.0.2/lib/faraday/adapter/net_http.rb:63:in `call'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-1.10.4/lib/faraday/request/url_encoded.rb:25:in `call'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-1.10.4/lib/faraday/rack_builder.rb:154:in `build_response'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-1.10.4/lib/faraday/connection.rb:516:in `run_request'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/resources/http.rb:171:in `response'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/resources/http.rb:140:in `body'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/resources/http.rb:60:in `body'
+	from /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/access_control_test.rb:17:in `block (2 levels) in load_with_context'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/rule.rb:456:in `instance_exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/rule.rb:456:in `block in with_dsl'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:398:in `module_exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:398:in `subclass'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:271:in `block in define_example_group_method'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner_rspec.rb:28:in `example_group'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:396:in `add_resource'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:360:in `get_check_example'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:368:in `block in register_rule'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `each'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `flat_map'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `register_rule'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:146:in `block in load'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:144:in `each'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:144:in `load'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:193:in `run'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/cli.rb:410:in `block in exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/feature/runner.rb:24:in `with_feature'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/feature.rb:6:in `with_feature'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/cli.rb:395:in `exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/command.rb:27:in `run'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/invocation.rb:127:in `invoke_command'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor.rb:392:in `dispatch'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/base.rb:485:in `start'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/base_cli.rb:40:in `start'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-bin-6.8.11/bin/inspec:11:in `<top (required)>'
+	from /usr/bin/inspec:290:in `load'
+	from /usr/bin/inspec:290:in `<main>'
+/opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:1214:in `__connect_nonblock': Connection refused - connect(2) for 127.0.0.1:8000 (Errno::ECONNREFUSED)
+	from /opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:1214:in `connect_nonblock'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:56:in `connect_internal'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:137:in `connect'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:642:in `block in tcp'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:227:in `each'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:227:in `foreach'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/socket.rb:632:in `tcp'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/net/http.rb:998:in `connect'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/net/http.rb:976:in `do_start'
+	from /opt/inspec/embedded/lib/ruby/3.1.0/net/http.rb:965:in `start'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-net_http-1.0.2/lib/faraday/adapter/net_http.rb:145:in `request_via_request_method'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-net_http-1.0.2/lib/faraday/adapter/net_http.rb:130:in `request_with_wrapped_block'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-net_http-1.0.2/lib/faraday/adapter/net_http.rb:121:in `perform_request'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-net_http-1.0.2/lib/faraday/adapter/net_http.rb:65:in `block in call'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-1.10.4/lib/faraday/adapter.rb:50:in `connection'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-net_http-1.0.2/lib/faraday/adapter/net_http.rb:63:in `call'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-1.10.4/lib/faraday/request/url_encoded.rb:25:in `call'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-1.10.4/lib/faraday/rack_builder.rb:154:in `build_response'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/faraday-1.10.4/lib/faraday/connection.rb:516:in `run_request'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/resources/http.rb:171:in `response'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/resources/http.rb:140:in `body'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/resources/http.rb:60:in `body'
+	from /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/access_control_test.rb:17:in `block (2 levels) in load_with_context'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/rule.rb:456:in `instance_exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/rule.rb:456:in `block in with_dsl'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:398:in `module_exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:398:in `subclass'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/rspec-core-3.13.2/lib/rspec/core/example_group.rb:271:in `block in define_example_group_method'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner_rspec.rb:28:in `example_group'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:396:in `add_resource'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:360:in `get_check_example'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:368:in `block in register_rule'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `each'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `flat_map'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:367:in `register_rule'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:146:in `block in load'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:144:in `each'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:144:in `load'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/runner.rb:193:in `run'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/cli.rb:410:in `block in exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/feature/runner.rb:24:in `with_feature'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/feature.rb:6:in `with_feature'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/cli.rb:395:in `exec'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/command.rb:27:in `run'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/invocation.rb:127:in `invoke_command'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor.rb:392:in `dispatch'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/base.rb:485:in `start'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-6.8.11/lib/inspec/base_cli.rb:40:in `start'
+	from /opt/inspec/embedded/lib/ruby/gems/3.1.0/gems/inspec-bin-6.8.11/bin/inspec:11:in `<top (required)>'
+	from /usr/bin/inspec:290:in `load'
+	from /usr/bin/inspec:290:in `<main>'
+[2025-05-08 21:18:04] ERROR: Tests failed with exit code 1
+[2025-05-08 21:18:04] Creating default test results
+[2025-05-08 21:18:04] InSpec tests completed
+[2025-05-08 21:18:52] Trigger file found with timestamp: 2025-05-09T03:18:52.026463
+[2025-05-08 21:18:52] Trigger detected. Running InSpec tests...
+[2025-05-08 21:18:52] Running InSpec profile from /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-08 21:19:11] InSpec command output:
+[2025-05-08 21:19:11] [2025-05-08T21:18:56-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-08T21:18:57-06:00] DEBUG: Prepping to run feature 'inspec-audit-logging'
+[2025-05-08T21:18:57-06:00] DEBUG: Option backend_cache is enabled
+[2025-05-08T21:18:57-06:00] DEBUG: Resolve /home/ernesto/Documents/msusel-ssp-manager/inspec into cache /home/ernesto/.inspec/cache
+[2025-05-08T21:18:57-06:00] DEBUG: Dependency does not exist in the cache /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-08T21:18:57-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-08T21:18:57-06:00] DEBUG: TUI Engine initialized.
+[2025-05-08T21:18:57-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-08T21:18:57-06:00] DEBUG: TUI Engine initialized.
+[2025-05-08T21:18:57-06:00] DEBUG: Trying to connect to https://services.chef.io/licensing
+[2025-05-08T21:18:57-06:00] DEBUG: HTTP Cache: [GET /licensing/v1/client?entitlementId=3ff52c37-e41f-4f6c-ad4d-365192205968&licenseId=free-8388a8eb-3fb6-4854-8f74-41bb9bbc5eb8-6529] fresh
+[2025-05-08T21:18:57-06:00] DEBUG: Connection succeeded to https://services.chef.io/licensing
+[2025-05-08T21:18:57-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-08T21:18:57-06:00] DEBUG: Starting run with targets: ["Inspec::Profile<ugov-services-security-controls>"]
+[2025-05-08T21:18:57-06:00] DEBUG: Fetching license context for telemetry check
+[2025-05-08T21:18:57-06:00] DEBUG: Determined HTTP instance for telemetry
+[2025-05-08T21:18:57-06:00] DEBUG: Initiating telemetry for InSpec
+[2025-05-08T21:18:57-06:00] DEBUG: Using existing lockfile /home/ernesto/Documents/msusel-ssp-manager/inspec/inspec.lock
+[2025-05-08T21:18:57-06:00] DEBUG: Prepping to run feature 'inspec-mandatory-profile-signing'
+[2025-05-08T21:18:57-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/access_control_test.rb into #<Inspec::ProfileContext:0x0000790ac9ea7cf0>
+[2025-05-08T21:18:57-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/account_management_test.rb into #<Inspec::ProfileContext:0x0000790ac9ea7cf0>
+[2025-05-08T21:18:57-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_content_test.rb into #<Inspec::ProfileContext:0x0000790ac9ea7cf0>
+[2025-05-08T21:18:57-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_generation_test.rb into #<Inspec::ProfileContext:0x0000790ac9ea7cf0>
+[2025-05-08T21:18:57-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_nonrepudiation_test.rb into #<Inspec::ProfileContext:0x0000790ac9ea7cf0>
+[2025-05-08T21:18:57-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_protection_test.rb into #<Inspec::ProfileContext:0x0000790ac9ea7cf0>
+[2025-05-08T21:18:57-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_response_test.rb into #<Inspec::ProfileContext:0x0000790ac9ea7cf0>
+[2025-05-08T21:18:57-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_retention_test.rb into #<Inspec::ProfileContext:0x0000790ac9ea7cf0>
+[2025-05-08T21:18:57-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_review_test.rb into #<Inspec::ProfileContext:0x0000790ac9ea7cf0>
+[2025-05-08T21:18:57-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_storage_test.rb into #<Inspec::ProfileContext:0x0000790ac9ea7cf0>
+[2025-05-08T21:18:57-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_test.rb into #<Inspec::ProfileContext:0x0000790ac9ea7cf0>
+[2025-05-08T21:18:57-06:00] DEBUG: Loading /home/ernesto/Documents/msusel-ssp-manager/inspec/controls/audit_timestamps_test.rb into #<Inspec::ProfileContext:0x0000790ac9ea7cf0>
+[2025-05-08T21:18:57-06:00] DEBUG: Registering rule access-control-policy
+[2025-05-08T21:18:58-06:00] DEBUG: Registering rule ac-2
+[2025-05-08T21:19:00-06:00] DEBUG: Registering rule audit-content
+[2025-05-08T21:19:01-06:00] DEBUG: Registering rule audit-generation
+[2025-05-08T21:19:02-06:00] DEBUG: Registering rule audit-nonrepudiation
+[2025-05-08T21:19:03-06:00] DEBUG: Registering rule audit-protection
+[2025-05-08T21:19:04-06:00] DEBUG: Registering rule audit-response
+[2025-05-08T21:19:05-06:00] DEBUG: Registering rule audit-retention
+[2025-05-08T21:19:06-06:00] DEBUG: Registering rule audit-review
+[2025-05-08T21:19:06-06:00] DEBUG: Registering rule audit-storage
+[2025-05-08T21:19:07-06:00] DEBUG: Registering rule audit-policy
+[2025-05-08T21:19:08-06:00] DEBUG: Registering rule audit-timestamps
+[2025-05-08T21:19:11-06:00] DEBUG: Prepping to run feature 'inspec-reporter-json'
+[2025-05-08T21:19:11-06:00] DEBUG: Initialising wrapper for telemetry
+[2025-05-08T21:19:11-06:00] DEBUG: Fetching license IDs for telemetry
+[2025-05-08T21:19:11-06:00] DEBUG: License Key fetcher - fetching license keys depending upon the context (either API or file)
+[2025-05-08T21:19:11-06:00] DEBUG: TUI Engine initialized.
+[2025-05-08T21:19:11-06:00] DEBUG: Final data for telemetry upload -> {:version=>2.0, :createdTimeUTC=>"2025-05-09T03:19:11Z", :environment=>"cli", :licenseIds=>["free-8388a8eb-3fb6-4854-8f74-41bb9bbc5eb8-6529"], :source=>"inspec:6.8.11", :type=>"job", :platform=>"ubuntu", :jobs=>[{:type=>"InSpec", :environment=>{:host=>"unknown", :os=>"ubuntu", :version=>"24.04", :architecture=>"x86_64", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :runtime=>"6.8.11", :content=>[{:name=>"4e2100d54dfb2ac04b26a21d3e77a4c68dc7e91c9004629afc1c0ec775c41846", :version=>"0.1.0", :sha256=>"742a1afbaa84e8ccd04ad6a84962620f70021eced652a8bb210b9da5b3192df7", :maintainer=>"Security Team", :type=>"profile"}], :steps=>[{:id=>"b1e6a1cddd8053e3fedcc89f7deb2fe961a3980bf4da546f12565cb0ae8c5876", :name=>"inspec-control", :description=>"Ensure that role-based access control is properly enforced (AC-2, AC-3)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"file", :id=>"99796a67f345abcfff8a21727e1a16f9ba96a3c01649bba47825e747b78b547d"}, {:type=>"inspec-resource", :name=>"file", :id=>"99796a67f345abcfff8a21727e1a16f9ba96a3c01649bba47825e747b78b547d"}, {:type=>"inspec-resource", :name=>"file", :id=>"99796a67f345abcfff8a21727e1a16f9ba96a3c01649bba47825e747b78b547d"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"acc2f4c6f126edf31ac85a36e5d1c758514e9e7a1c9e684950a9463ece4d9f4e", :name=>"inspec-control", :description=>"Ensure that account management controls are properly enforced (AC-2)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}, {:type=>"inspec-resource", :name=>"file", :id=>"ba16564afb8adccd05c66da8676f14be5f8c979331b2d84b699a152c03a15ade"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"df9996789ab10e32aefb18394e7c3ee7a31e98dee0400833a7a7a0e5bd07f42e", :name=>"inspec-control", :description=>"Ensure that audit records include sufficient information to establish what events occurred, the sources of the events, and the outcomes of the events (AU-3)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"f15bb3ba9637ac20f360abac3fc69b943f7a89f69d40b3c6a553f6d1e8ef414a", :name=>"inspec-control", :description=>"Ensure that the system provides audit record generation capability for the events defined in AU-2, allows designated personnel to select which events are to be audited, and generates audit records with the content defined in AU-3 (AU-12)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"bb0aa3337a84472cbb6beb2b46dcb4d20a8cda7c2d83bac70e9be54c60b73f32", :name=>"inspec-control", :description=>"Ensure that the system protects against an individual falsely denying having performed a particular action and provides evidence of individual actions (AU-10)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"f3f96ec0acdd02b6ba772114cc64e6ba7a85a24ab8da1e7a7feeb4ab578e44a6", :name=>"inspec-control", :description=>"Ensure that audit information and audit tools are protected from unauthorized access, modification, and deletion (AU-9)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"3365d75e1c721ffd4338fdcff1e843ea1ea643663ac59a5b8780ce3854ff4d11", :name=>"inspec-control", :description=>"Ensure that the system responds appropriately to audit processing failures (AU-5)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"92bab05525e8fbe8107f2aa360ddcbd82b157e0655e9f380fd5d044458bc87de", :name=>"inspec-control", :description=>"Ensure that the system retains audit records for a specified time period to provide support for after-the-fact investigations of security incidents and ensures that the retention period is consistent with records retention policies (AU-11)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"451b4ff8062ffdb836d7b94c81384de0e7cc67e881e32a8a44ef84ad67b0e598", :name=>"inspec-control", :description=>"Ensure that the system reviews, analyzes, and reports audit records appropriately (AU-6)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"cbe2ff38f0a57297c14f987e040d438c6d55c19bfa5cd1b8a39a98253f065433", :name=>"inspec-control", :description=>"Ensure that sufficient audit record storage capacity is allocated and configured to prevent capacity being exceeded (AU-4)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"71f880c30d300e280c8f9cb284b41bf31c8c79dcb16526d2c390d58bf33e922d", :name=>"inspec-control", :description=>"Ensure that audit events are properly captured and formatted (AU-2, AU-3, AU-6)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}, {:id=>"dc5ae9d9f3bc4e12dd4d59e8448876c39d3edcfc8d02e54410af2ab2817a4e13", :name=>"inspec-control", :description=>"Ensure that the system uses internal system clocks to generate time stamps for audit records and records time stamps that can be mapped to UTC or GMT (AU-8)", :target=>{:mode=>"local", :id=>"d2111083-60e2-528a-8a75-14e2e2460ed3"}, :resources=>[{:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}, {:type=>"inspec-resource", :name=>"Object", :id=>"unknown"}], :features=>["inspec-cli-exec", "inspec-audit-logging", "inspec-mandatory-profile-signing", "inspec-reporter-json"], :tags=>[]}]}]}
+[2025-05-08T21:19:11-06:00] DEBUG: Finishing telemetry for InSpec
+[2025-05-08T21:19:11-06:00] DEBUG: HTTP connection with Telemetry Client successful.
+[2025-05-08T21:19:11-06:00] DEBUG: HTTP response from Telemetry Client -> {:status=>200, :body=>{"data"=>{"msg"=>"Jobs payload processed successfully"}, "error"=>"", "status"=>200}, :response_headers=>{"connection"=>"keep-alive", "content-length"=>"78", "content-type"=>"application/json", "x-request-id"=>"c71f240a-300e-440b-b1a6-911cde601f9c", "accept-ranges"=>"bytes", "date"=>"Fri, 09 May 2025 03:19:11 GMT", "via"=>"1.1 varnish", "x-served-by"=>"cache-sjc10036-SJC", "x-cache"=>"MISS", "x-cache-hits"=>"0", "x-timer"=>"S1746760751.314049,VS0,VE481"}}
+[2025-05-08 21:19:11] Tests completed with exit code 0
+[2025-05-08 21:19:11] Processing InSpec results with Python
+[2025-05-08 21:19:12] Successfully processed InSpec results
+[2025-05-08 21:19:12] InSpec tests completed

@@ -5414,6 +5414,127 @@ app.post('/validate_timestamp', async (req, res) => {
   }
 });
 
+// Initialize global audit generation configuration for AU-12
+global.auditGenerationConfig = {
+  // System-level audit configuration
+  system_level: {
+    enabled: true,
+    components: [
+      {
+        id: 'sys-audit-1',
+        name: 'System Audit Service',
+        description: 'Central system audit service',
+        status: 'operational'
+      },
+      {
+        id: 'sys-audit-2',
+        name: 'Kernel Audit',
+        description: 'Kernel-level audit service',
+        status: 'operational'
+      },
+      {
+        id: 'sys-audit-3',
+        name: 'Network Audit',
+        description: 'Network traffic audit service',
+        status: 'operational'
+      }
+    ],
+    last_updated: new Date().toISOString()
+  },
+
+  // Component-level audit configuration
+  component_level: {
+    enabled: true,
+    components: [
+      {
+        id: 'comp-audit-1',
+        name: 'Database Audit',
+        description: 'Database transaction audit',
+        status: 'operational'
+      },
+      {
+        id: 'comp-audit-2',
+        name: 'Application Audit',
+        description: 'Application-level audit',
+        status: 'operational'
+      },
+      {
+        id: 'comp-audit-3',
+        name: 'Authentication Audit',
+        description: 'Authentication service audit',
+        status: 'operational'
+      },
+      {
+        id: 'comp-audit-4',
+        name: 'File System Audit',
+        description: 'File system access audit',
+        status: 'operational'
+      }
+    ],
+    last_updated: new Date().toISOString()
+  },
+
+  // Auditable events configuration
+  events: [
+    'login',
+    'logout',
+    'configuration_change',
+    'data_access',
+    'data_modification',
+    'security_event',
+    'admin_action',
+    'privilege_escalation',
+    'account_creation',
+    'account_modification',
+    'account_deletion',
+    'policy_change',
+    'resource_access',
+    'system_startup',
+    'system_shutdown'
+  ],
+
+  // Event selection configuration
+  event_selection: {
+    enabled: true,
+    authorized_roles: ['admin', 'security', 'auditor'],
+    interface: {
+      web_console: true,
+      api: true,
+      command_line: true
+    },
+    last_updated: new Date().toISOString()
+  },
+
+  // Audit record fields configuration
+  record_fields: [
+    'timestamp',
+    'user_id',
+    'event_type',
+    'resource',
+    'outcome',
+    'system_component',
+    'ip_address',
+    'auth_method',
+    'data_id',
+    'action',
+    'details'
+  ],
+
+  // Audit testing configuration
+  testing: {
+    enabled: true,
+    frequency_days: 30,
+    last_test_date: new Date().toISOString(),
+    last_test_result: 'pass',
+    test_coverage: {
+      system_level: true,
+      component_level: true,
+      all_event_types: true
+    },
+    last_updated: new Date().toISOString()
+  }
+};
+
 // Initialize global audit retention configuration for AU-11
 global.auditRetentionConfig = {
   // Retention policy configuration
@@ -7169,6 +7290,609 @@ app.post('/create_action_with_nonrepudiation', async (req, res) => {
     return res.status(200).json(actionWithNonrepudiation);
   } catch (error) {
     console.error('Error in create_action_with_nonrepudiation endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-12: Audit Generation endpoints
+// Get system-level audit configuration
+app.get('/system_audit_config', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !requestingUser.roles.some(role => ['admin', 'security', 'auditor'].includes(role))) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only authorized users can access system audit configuration'
+      });
+    }
+
+    // Get the current system-level audit configuration
+    const systemAudit = global.auditGenerationConfig.system_level;
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_generation: {
+        system_level: systemAudit
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_generation',
+      decision: 'system_audit_enabled',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_generation', 'system_audit_enabled', opaInput);
+    }
+
+    // Log audit event for accessing system audit configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'system_audit_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'system_audit_config'
+    });
+
+    // Return the system-level audit configuration
+    return res.status(200).json(systemAudit);
+  } catch (error) {
+    console.error('Error in system_audit_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get component-level audit configuration
+app.get('/component_audit_config', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !requestingUser.roles.some(role => ['admin', 'security', 'auditor'].includes(role))) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only authorized users can access component audit configuration'
+      });
+    }
+
+    // Get the current component-level audit configuration
+    const componentAudit = global.auditGenerationConfig.component_level;
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_generation: {
+        component_level: componentAudit
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_generation',
+      decision: 'component_audit_enabled',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_generation', 'component_audit_enabled', opaInput);
+    }
+
+    // Log audit event for accessing component audit configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'component_audit_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'component_audit_config'
+    });
+
+    // Return the component-level audit configuration
+    return res.status(200).json(componentAudit);
+  } catch (error) {
+    console.error('Error in component_audit_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get audit events configuration
+app.get('/audit_events_config', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !requestingUser.roles.some(role => ['admin', 'security', 'auditor'].includes(role))) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only authorized users can access audit events configuration'
+      });
+    }
+
+    // Get the current audit events configuration
+    const events = {
+      events: global.auditGenerationConfig.events
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_generation: {
+        events: events.events
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_generation',
+      decision: 'required_events_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_generation', 'required_events_configured', opaInput);
+    }
+
+    // Log audit event for accessing audit events configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_events_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'audit_events_config'
+    });
+
+    // Return the audit events configuration
+    return res.status(200).json(events);
+  } catch (error) {
+    console.error('Error in audit_events_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get event selection configuration
+app.get('/event_selection_config', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !requestingUser.roles.some(role => ['admin', 'security', 'auditor'].includes(role))) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only authorized users can access event selection configuration'
+      });
+    }
+
+    // Get the current event selection configuration
+    const eventSelection = global.auditGenerationConfig.event_selection;
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_generation: {
+        event_selection: eventSelection
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_generation',
+      decision: 'event_selection_enabled',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_generation', 'event_selection_enabled', opaInput);
+    }
+
+    // Log audit event for accessing event selection configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'event_selection_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'event_selection_config'
+    });
+
+    // Return the event selection configuration
+    return res.status(200).json(eventSelection);
+  } catch (error) {
+    console.error('Error in event_selection_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get audit content configuration
+app.get('/audit_content_config', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !requestingUser.roles.some(role => ['admin', 'security', 'auditor'].includes(role))) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only authorized users can access audit content configuration'
+      });
+    }
+
+    // Get the current audit content configuration
+    const auditContent = {
+      record_fields: global.auditGenerationConfig.record_fields
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_generation: {
+        record_fields: auditContent.record_fields
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_generation',
+      decision: 'audit_content_compliant',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_generation', 'audit_content_compliant', opaInput);
+    }
+
+    // Log audit event for accessing audit content configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_content_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'audit_content_config'
+    });
+
+    // Return the audit content configuration
+    return res.status(200).json(auditContent);
+  } catch (error) {
+    console.error('Error in audit_content_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get audit testing configuration
+app.get('/audit_testing_config', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !requestingUser.roles.some(role => ['admin', 'security', 'auditor'].includes(role))) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only authorized users can access audit testing configuration'
+      });
+    }
+
+    // Get the current audit testing configuration
+    const auditTesting = global.auditGenerationConfig.testing;
+
+    // Prepare input for OPA
+    const opaInput = {
+      audit_generation: {
+        testing: auditTesting
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.audit_generation',
+      decision: 'audit_testing_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.audit_generation', 'audit_testing_configured', opaInput);
+    }
+
+    // Log audit event for accessing audit testing configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_testing_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'audit_testing_config'
+    });
+
+    // Return the audit testing configuration
+    return res.status(200).json(auditTesting);
+  } catch (error) {
+    console.error('Error in audit_testing_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get audit records
+app.get('/audit_records', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !requestingUser.roles.some(role => ['admin', 'security', 'auditor'].includes(role))) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only authorized users can access audit records'
+      });
+    }
+
+    // Get the audit records from the global audit log
+    const auditRecords = {
+      records: global.auditLog || []
+    };
+
+    // Log audit event for accessing audit records
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_records',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'audit_records'
+    });
+
+    // Return the audit records
+    return res.status(200).json(auditRecords);
+  } catch (error) {
+    console.error('Error in audit_records endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Test login endpoint to generate audit events
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    // Check if username and password are provided
+    if (!username || !password) {
+      // Log failed login attempt
+      logAuditEvent({
+        user_id: username || 'unknown',
+        event_type: 'login',
+        resource: 'authentication',
+        outcome: 'failure',
+        ip_address: req.ip,
+        auth_method: 'password',
+        details: 'Missing username or password'
+      });
+
+      return res.status(400).json({
+        error: 'missing_credentials',
+        message: 'Username and password are required'
+      });
+    }
+
+    // Check if user exists (in a real system, this would validate against a database)
+    const user = users[username];
+    if (!user) {
+      // Log failed login attempt
+      logAuditEvent({
+        user_id: username,
+        event_type: 'login',
+        resource: 'authentication',
+        outcome: 'failure',
+        ip_address: req.ip,
+        auth_method: 'password',
+        details: 'User not found'
+      });
+
+      return res.status(401).json({
+        error: 'invalid_credentials',
+        message: 'Invalid username or password'
+      });
+    }
+
+    // In a real system, this would validate the password
+    // For this mock, we'll just check if the password is not empty
+    if (password.length < 8) {
+      // Log failed login attempt
+      logAuditEvent({
+        user_id: username,
+        event_type: 'login',
+        resource: 'authentication',
+        outcome: 'failure',
+        ip_address: req.ip,
+        auth_method: 'password',
+        details: 'Invalid password'
+      });
+
+      return res.status(401).json({
+        error: 'invalid_credentials',
+        message: 'Invalid username or password'
+      });
+    }
+
+    // Generate a token (in a real system, this would be a proper JWT)
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0X3VzZXIiLCJyb2xlcyI6WyJ1c2VyIl0sImlhdCI6MTUxNjIzOTAyMn0.aS5DwODZTOGQUEMAqakFtI_xuOHDL9K5cI1qlkJ2aSo';
+
+    // Log successful login
+    logAuditEvent({
+      user_id: username,
+      event_type: 'login',
+      resource: 'authentication',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'password',
+      details: 'Successful login'
+    });
+
+    // Return success response with token
+    return res.status(200).json({
+      success: true,
+      message: 'Login successful',
+      token
+    });
+  } catch (error) {
+    console.error('Error in login endpoint:', error);
+
+    // Log error
+    logAuditEvent({
+      user_id: username || 'unknown',
+      event_type: 'login',
+      resource: 'authentication',
+      outcome: 'error',
+      ip_address: req.ip,
+      auth_method: 'password',
+      details: 'Internal server error'
+    });
+
     return res.status(500).json({
       error: 'server_error',
       message: 'Internal server error'
