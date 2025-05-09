@@ -9176,6 +9176,588 @@ app.post('/test_audit_retrieval', async (req, res) => {
   }
 });
 
+// CM-2: Baseline Configuration endpoints
+
+// Initialize baseline configuration data
+if (!global.baselineConfiguration) {
+  global.baselineConfiguration = {
+    exists: true,
+    documented: true,
+    last_updated: new Date().toISOString(),
+    last_review: new Date(Date.now() - (30 * 24 * 60 * 60 * 1000)).toISOString(), // 30 days ago
+    matches_current_state: true,
+    components: [
+      {
+        id: 'web_server',
+        type: 'web_server',
+        version: '1.2.3',
+        settings: [
+          { name: 'max_connections', value: 1000 },
+          { name: 'timeout', value: 60 },
+          { name: 'ssl_enabled', value: true },
+          { name: 'min_tls_version', value: 'TLS 1.2' },
+          { name: 'default_charset', value: 'UTF-8' }
+        ]
+      },
+      {
+        id: 'database',
+        type: 'database',
+        version: '4.5.6',
+        settings: [
+          { name: 'max_connections', value: 100 },
+          { name: 'query_timeout', value: 30 },
+          { name: 'encryption_enabled', value: true },
+          { name: 'backup_enabled', value: true }
+        ]
+      },
+      {
+        id: 'api_server',
+        type: 'api_server',
+        version: '2.1.0',
+        settings: [
+          { name: 'rate_limit', value: 100 },
+          { name: 'timeout', value: 30 },
+          { name: 'ssl_enabled', value: true },
+          { name: 'logging_level', value: 'info' }
+        ]
+      }
+    ],
+    review_process: {
+      documented: true,
+      steps: [
+        'Review current configuration against baseline',
+        'Identify deviations and assess risk',
+        'Document findings and recommendations',
+        'Update baseline if necessary',
+        'Obtain approval for changes'
+      ]
+    },
+    configuration_control: {
+      enabled: true,
+      change_management: {
+        documented: true,
+        requires_approval: true,
+        changes_tracked: true
+      }
+    },
+    monitoring: {
+      enabled: true,
+      automated: true,
+      alerts_configured: true
+    }
+  };
+}
+
+// Get baseline configuration documentation
+app.get('/baseline_configuration_doc', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Authentication required'
+      });
+    }
+
+    // Prepare response data
+    const responseData = {
+      documented: global.baselineConfiguration.documented,
+      components: global.baselineConfiguration.components.map(component => ({
+        id: component.id,
+        type: component.type,
+        version: component.version,
+        settings: component.settings
+      }))
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      baseline_configuration: global.baselineConfiguration,
+      user: {
+        id: username,
+        roles: requestingUser.roles
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.baseline_configuration',
+      decision: 'baseline_documented',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.baseline_configuration', 'baseline_documented', opaInput);
+    }
+
+    // Log audit event for accessing baseline configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'baseline_configuration',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'baseline_configuration_doc'
+    });
+
+    // Return the baseline configuration documentation
+    return res.status(200).json(responseData);
+  } catch (error) {
+    console.error('Error in baseline_configuration_doc endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get baseline configuration currency information
+app.get('/baseline_configuration_currency', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Authentication required'
+      });
+    }
+
+    // Prepare response data
+    const responseData = {
+      last_updated: global.baselineConfiguration.last_updated,
+      matches_current_state: global.baselineConfiguration.matches_current_state
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      baseline_configuration: global.baselineConfiguration,
+      user: {
+        id: username,
+        roles: requestingUser.roles
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.baseline_configuration',
+      decision: 'baseline_current',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.baseline_configuration', 'baseline_current', opaInput);
+    }
+
+    // Log audit event for accessing baseline configuration currency
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'baseline_configuration',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'baseline_configuration_currency'
+    });
+
+    // Return the baseline configuration currency information
+    return res.status(200).json(responseData);
+  } catch (error) {
+    console.error('Error in baseline_configuration_currency endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get baseline configuration review information
+app.get('/baseline_configuration_review', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Authentication required'
+      });
+    }
+
+    // Prepare response data
+    const responseData = {
+      last_review: global.baselineConfiguration.last_review,
+      review_process: global.baselineConfiguration.review_process
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      baseline_configuration: global.baselineConfiguration,
+      user: {
+        id: username,
+        roles: requestingUser.roles
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.baseline_configuration',
+      decision: 'baseline_reviewed',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.baseline_configuration', 'baseline_reviewed', opaInput);
+    }
+
+    // Log audit event for accessing baseline configuration review
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'baseline_configuration',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'baseline_configuration_review'
+    });
+
+    // Return the baseline configuration review information
+    return res.status(200).json(responseData);
+  } catch (error) {
+    console.error('Error in baseline_configuration_review endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get configuration control information
+app.get('/baseline_configuration_control', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Authentication required'
+      });
+    }
+
+    // Prepare response data
+    const responseData = {
+      enabled: global.baselineConfiguration.configuration_control.enabled,
+      change_management: global.baselineConfiguration.configuration_control.change_management
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      baseline_configuration: global.baselineConfiguration,
+      user: {
+        id: username,
+        roles: requestingUser.roles
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.baseline_configuration',
+      decision: 'baseline_controlled',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.baseline_configuration', 'baseline_controlled', opaInput);
+    }
+
+    // Log audit event for accessing configuration control
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'baseline_configuration',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'baseline_configuration_control'
+    });
+
+    // Return the configuration control information
+    return res.status(200).json(responseData);
+  } catch (error) {
+    console.error('Error in baseline_configuration_control endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Test baseline change authorization
+app.post('/baseline_change_authorization', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+  const { change } = req.body;
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !requestingUser.roles.includes('admin')) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only administrators can authorize configuration changes'
+      });
+    }
+
+    // Check if required fields are provided
+    if (!change || !change.component || !change.setting || !change.ticket_id || !change.approved_by) {
+      return res.status(400).json({
+        error: 'missing_required_fields',
+        message: 'Component, setting, ticket ID, and approver are required'
+      });
+    }
+
+    // Prepare input for OPA
+    const opaInput = {
+      user: {
+        id: username,
+        roles: requestingUser.roles
+      },
+      change: {
+        documented: true,
+        approved: true,
+        follows_process: true,
+        ticket_id: change.ticket_id,
+        component: change.component,
+        setting: change.setting,
+        old_value: change.old_value,
+        new_value: change.new_value
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.baseline_configuration',
+      decision: 'baseline_change_authorized',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    let opaResult = true;
+    if (USE_REAL_OPA) {
+      const result = await queryOpa('security.baseline_configuration', 'baseline_change_authorized', opaInput);
+      if (result !== null) {
+        opaResult = result;
+      }
+    }
+
+    // If OPA says the change is not authorized, return an error
+    if (!opaResult) {
+      return res.status(403).json({
+        error: 'policy_violation',
+        message: 'Change authorization violates security policy',
+        authorized: false
+      });
+    }
+
+    // Log audit event for authorizing a configuration change
+    logAuditEvent({
+      user_id: username,
+      event_type: 'configuration_change',
+      resource: 'baseline_configuration',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: change.component,
+      setting_name: change.setting,
+      old_value: change.old_value,
+      new_value: change.new_value,
+      ticket_id: change.ticket_id,
+      approved_by: change.approved_by
+    });
+
+    // Return success response
+    return res.status(200).json({
+      authorized: true,
+      message: 'Configuration change authorized successfully',
+      change_id: `CHG-${Date.now()}`
+    });
+  } catch (error) {
+    console.error('Error in baseline_change_authorization endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get unauthorized change detection information
+app.get('/baseline_change_detection', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Authentication required'
+      });
+    }
+
+    // Prepare response data
+    const responseData = {
+      monitoring_enabled: global.baselineConfiguration.monitoring.enabled,
+      automated_monitoring: global.baselineConfiguration.monitoring.automated,
+      alerts_configured: global.baselineConfiguration.monitoring.alerts_configured,
+      last_scan: new Date().toISOString(),
+      unauthorized_changes_detected: 0
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      baseline_configuration: global.baselineConfiguration,
+      user: {
+        id: username,
+        roles: requestingUser.roles
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.baseline_configuration',
+      decision: 'baseline_monitored',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.baseline_configuration', 'baseline_monitored', opaInput);
+    }
+
+    // Log audit event for accessing change detection information
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'baseline_configuration',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'baseline_change_detection'
+    });
+
+    // Return the change detection information
+    return res.status(200).json(responseData);
+  } catch (error) {
+    console.error('Error in baseline_change_detection endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
 // Start server
 app.listen(port, () => {
   console.log(`Enhanced mock server listening at http://localhost:${port}`);

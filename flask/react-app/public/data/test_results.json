@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "timestamp": "2025-05-08T21:34:15.242984",
-    "generated_at": "2025-05-08 21:34:15"
+    "timestamp": "2025-05-08T21:53:02.601963",
+    "generated_at": "2025-05-08 21:53:02"
   },
   "results": [
     {
@@ -12,6 +12,76 @@
           "test_name": "Identification and Authentication - Multi-factor Authentication",
           "status": "failed",
           "message": "Sample test that always fails"
+        }
+      ]
+    },
+    {
+      "control_id": "baseline-configuration",
+      "status": "passed",
+      "test_results": [
+        {
+          "test_name": "Baseline configuration documentation should have baseline configuration documented",
+          "status": "passed"
+        },
+        {
+          "test_name": "Baseline configuration documentation should include all required components",
+          "status": "passed"
+        },
+        {
+          "test_name": "Baseline configuration documentation should have complete settings for each component",
+          "status": "passed"
+        },
+        {
+          "test_name": "Baseline configuration currency should have a recently updated baseline configuration",
+          "status": "passed"
+        },
+        {
+          "test_name": "Baseline configuration currency should match current system state",
+          "status": "passed"
+        },
+        {
+          "test_name": "Baseline configuration review process should have a recently reviewed baseline configuration",
+          "status": "passed"
+        },
+        {
+          "test_name": "Baseline configuration review process should have a documented review process",
+          "status": "passed"
+        },
+        {
+          "test_name": "Baseline configuration review process should include all required review steps",
+          "status": "passed"
+        },
+        {
+          "test_name": "Configuration control should have configuration control enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Configuration control should have a documented change management process",
+          "status": "passed"
+        },
+        {
+          "test_name": "Configuration control should require approvals for changes",
+          "status": "passed"
+        },
+        {
+          "test_name": "Configuration control should track changes",
+          "status": "passed"
+        },
+        {
+          "test_name": "Change authorization should authorize valid changes",
+          "status": "passed"
+        },
+        {
+          "test_name": "Unauthorized change detection should have monitoring enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Unauthorized change detection should have automated monitoring",
+          "status": "passed"
+        },
+        {
+          "test_name": "Unauthorized change detection should have alerts configured",
+          "status": "passed"
         }
       ]
     },
@@ -1051,6 +1121,76 @@
         },
         {
           "test_name": "OPA policy validation for timestamps should contain timestamp validation in OPA logs",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "control_id": "cm-2",
+      "status": "passed",
+      "test_results": [
+        {
+          "test_name": "Baseline configuration documentation should have baseline configuration documented",
+          "status": "passed"
+        },
+        {
+          "test_name": "Baseline configuration documentation should include all required components",
+          "status": "passed"
+        },
+        {
+          "test_name": "Baseline configuration documentation should have complete settings for each component",
+          "status": "passed"
+        },
+        {
+          "test_name": "Baseline configuration currency should have a recently updated baseline configuration",
+          "status": "passed"
+        },
+        {
+          "test_name": "Baseline configuration currency should match current system state",
+          "status": "passed"
+        },
+        {
+          "test_name": "Baseline configuration review process should have a recently reviewed baseline configuration",
+          "status": "passed"
+        },
+        {
+          "test_name": "Baseline configuration review process should have a documented review process",
+          "status": "passed"
+        },
+        {
+          "test_name": "Baseline configuration review process should include all required review steps",
+          "status": "passed"
+        },
+        {
+          "test_name": "Configuration control should have configuration control enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Configuration control should have a documented change management process",
+          "status": "passed"
+        },
+        {
+          "test_name": "Configuration control should require approvals for changes",
+          "status": "passed"
+        },
+        {
+          "test_name": "Configuration control should track changes",
+          "status": "passed"
+        },
+        {
+          "test_name": "Change authorization should authorize valid changes",
+          "status": "passed"
+        },
+        {
+          "test_name": "Unauthorized change detection should have monitoring enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Unauthorized change detection should have automated monitoring",
+          "status": "passed"
+        },
+        {
+          "test_name": "Unauthorized change detection should have alerts configured",
           "status": "passed"
         }
       ]

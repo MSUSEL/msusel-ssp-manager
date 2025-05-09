@@ -121,7 +121,7 @@ def process_inspec_results(input_file, output_file):
                         control_id = 'ac-3'
                     elif control_id == 'account-management':
                         control_id = 'ac-2'
-                    elif control_id == 'configuration-management-policy':
+                    elif control_id == 'configuration-management-policy' or control_id == 'baseline-configuration':
                         control_id = 'cm-2'
                     elif control_id == 'input-validation-policy':
                         control_id = 'si-10'
