@@ -10420,6 +10420,793 @@ app.post('/authorize_change', async (req, res) => {
   }
 });
 
+// CM-8: Information System Component Inventory endpoints
+
+// Initialize system component inventory data
+if (!global.systemComponentInventory) {
+  global.systemComponentInventory = {
+    exists: true,
+    documented: true,
+    matches_actual_state: true,
+    last_verified: new Date().toISOString(),
+    last_updated: new Date().toISOString(),
+    granularity_appropriate: true,
+    components: [
+      {
+        id: 'hw-001',
+        type: 'hardware',
+        name: 'Web Server',
+        description: 'Primary web server',
+        owner: 'IT Department',
+        location: 'Server Room A',
+        status: 'operational',
+        acquisition_date: '2022-01-15',
+        version: '2.0',
+        vendor: 'Dell',
+        model: 'PowerEdge R740',
+        serial_number: 'SN12345678'
+      },
+      {
+        id: 'hw-002',
+        type: 'hardware',
+        name: 'Database Server',
+        description: 'Primary database server',
+        owner: 'IT Department',
+        location: 'Server Room A',
+        status: 'operational',
+        acquisition_date: '2022-01-15',
+        version: '2.0',
+        vendor: 'HP',
+        model: 'ProLiant DL380',
+        serial_number: 'SN87654321'
+      },
+      {
+        id: 'sw-001',
+        type: 'software',
+        name: 'Web Application',
+        description: 'Main web application',
+        owner: 'Development Team',
+        location: 'Web Server',
+        status: 'operational',
+        acquisition_date: '2022-02-10',
+        version: '1.5.2',
+        vendor: 'Internal',
+        license: 'N/A'
+      },
+      {
+        id: 'sw-002',
+        type: 'software',
+        name: 'Database Management System',
+        description: 'DBMS for application data',
+        owner: 'Database Team',
+        location: 'Database Server',
+        status: 'operational',
+        acquisition_date: '2022-02-10',
+        version: '12.1',
+        vendor: 'Oracle',
+        license: 'Enterprise'
+      },
+      {
+        id: 'fw-001',
+        type: 'firmware',
+        name: 'Web Server BIOS',
+        description: 'BIOS for web server',
+        owner: 'IT Department',
+        location: 'Web Server',
+        status: 'operational',
+        acquisition_date: '2022-01-15',
+        version: '3.1.4',
+        vendor: 'Dell'
+      }
+    ],
+    update_process: {
+      documented: true,
+      steps: [
+        'Identify new components',
+        'Verify component information',
+        'Update inventory database',
+        'Review and approve changes',
+        'Notify stakeholders'
+      ]
+    },
+    maintenance_process: {
+      documented: true,
+      includes_regular_reviews: true,
+      includes_verification: true,
+      review_frequency_days: 30
+    },
+    access_controls: {
+      enabled: true,
+      changes_logged: true,
+      authorized_roles: ['admin', 'inventory_manager']
+    },
+    has_backup: true
+  };
+}
+
+// Get inventory information
+app.get('/inventory_information', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Authentication required'
+      });
+    }
+
+    // Prepare response data
+    const responseData = {
+      documented: global.systemComponentInventory.documented,
+      components: global.systemComponentInventory.components.map(component => ({
+        id: component.id,
+        type: component.type,
+        name: component.name,
+        owner: component.owner,
+        location: component.location,
+        status: component.status
+      }))
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      inventory: global.systemComponentInventory,
+      user: {
+        id: username,
+        roles: requestingUser.roles
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.system_component_inventory',
+      decision: 'inventory_complete',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.system_component_inventory', 'inventory_complete', opaInput);
+    }
+
+    // Log audit event for accessing inventory information
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'system_component_inventory',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'inventory_information'
+    });
+
+    // Return the inventory information
+    return res.status(200).json(responseData);
+  } catch (error) {
+    console.error('Error in inventory_information endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get inventory accuracy information
+app.get('/inventory_accuracy', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Authentication required'
+      });
+    }
+
+    // Prepare response data
+    const responseData = {
+      matches_actual_state: global.systemComponentInventory.matches_actual_state,
+      last_verified: global.systemComponentInventory.last_verified
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      inventory: global.systemComponentInventory,
+      user: {
+        id: username,
+        roles: requestingUser.roles
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.system_component_inventory',
+      decision: 'inventory_accurate',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.system_component_inventory', 'inventory_accurate', opaInput);
+    }
+
+    // Log audit event for accessing inventory accuracy information
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'system_component_inventory',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'inventory_accuracy'
+    });
+
+    // Return the inventory accuracy information
+    return res.status(200).json(responseData);
+  } catch (error) {
+    console.error('Error in inventory_accuracy endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get inventory duplicates information
+app.get('/inventory_duplicates', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Authentication required'
+      });
+    }
+
+    // Check for duplicates
+    const componentIds = global.systemComponentInventory.components.map(component => component.id);
+    const uniqueIds = new Set(componentIds);
+    const hasDuplicates = componentIds.length !== uniqueIds.size;
+
+    // Find duplicate IDs if any
+    const duplicateIds = [];
+    if (hasDuplicates) {
+      const idCounts = {};
+      componentIds.forEach(id => {
+        idCounts[id] = (idCounts[id] || 0) + 1;
+      });
+
+      Object.keys(idCounts).forEach(id => {
+        if (idCounts[id] > 1) {
+          duplicateIds.push(id);
+        }
+      });
+    }
+
+    // Prepare response data
+    const responseData = {
+      has_duplicates: hasDuplicates,
+      duplicate_ids: duplicateIds,
+      has_components_from_other_systems: false,
+      other_system_components: []
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      inventory: global.systemComponentInventory,
+      user: {
+        id: username,
+        roles: requestingUser.roles
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.system_component_inventory',
+      decision: 'inventory_no_duplicates',
+      input: opaInput,
+      result: !hasDuplicates
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.system_component_inventory', 'inventory_no_duplicates', opaInput);
+    }
+
+    // Log audit event for accessing inventory duplicates information
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'system_component_inventory',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'inventory_duplicates'
+    });
+
+    // Return the inventory duplicates information
+    return res.status(200).json(responseData);
+  } catch (error) {
+    console.error('Error in inventory_duplicates endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get inventory granularity information
+app.get('/inventory_granularity', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Authentication required'
+      });
+    }
+
+    // Check for component types
+    const hasHardwareComponents = global.systemComponentInventory.components.some(component => component.type === 'hardware');
+    const hasSoftwareComponents = global.systemComponentInventory.components.some(component => component.type === 'software');
+    const hasFirmwareComponents = global.systemComponentInventory.components.some(component => component.type === 'firmware');
+
+    // Prepare response data
+    const responseData = {
+      granularity_appropriate: global.systemComponentInventory.granularity_appropriate,
+      has_hardware_components: hasHardwareComponents,
+      has_software_components: hasSoftwareComponents,
+      has_firmware_components: hasFirmwareComponents
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      inventory: global.systemComponentInventory,
+      user: {
+        id: username,
+        roles: requestingUser.roles
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.system_component_inventory',
+      decision: 'inventory_appropriate_granularity',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.system_component_inventory', 'inventory_appropriate_granularity', opaInput);
+    }
+
+    // Log audit event for accessing inventory granularity information
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'system_component_inventory',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'inventory_granularity'
+    });
+
+    // Return the inventory granularity information
+    return res.status(200).json(responseData);
+  } catch (error) {
+    console.error('Error in inventory_granularity endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get inventory required information
+app.get('/inventory_required_info', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Authentication required'
+      });
+    }
+
+    // Check for required fields
+    const requiredFields = ['id', 'type', 'owner', 'location', 'status', 'acquisition_date'];
+    const missingFields = [];
+
+    global.systemComponentInventory.components.forEach(component => {
+      requiredFields.forEach(field => {
+        if (!component[field] && !missingFields.includes(field)) {
+          missingFields.push(field);
+        }
+      });
+    });
+
+    const includesAllRequiredFields = missingFields.length === 0;
+    const includesAcquisitionDates = global.systemComponentInventory.components.every(component => component.acquisition_date);
+    const includesComponentOwners = global.systemComponentInventory.components.every(component => component.owner);
+
+    // Prepare response data
+    const responseData = {
+      includes_all_required_fields: includesAllRequiredFields,
+      missing_fields: missingFields,
+      includes_acquisition_dates: includesAcquisitionDates,
+      includes_component_owners: includesComponentOwners
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      inventory: global.systemComponentInventory,
+      user: {
+        id: username,
+        roles: requestingUser.roles
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.system_component_inventory',
+      decision: 'inventory_includes_required_info',
+      input: opaInput,
+      result: includesAllRequiredFields
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.system_component_inventory', 'inventory_includes_required_info', opaInput);
+    }
+
+    // Log audit event for accessing inventory required information
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'system_component_inventory',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'inventory_required_info'
+    });
+
+    // Return the inventory required information
+    return res.status(200).json(responseData);
+  } catch (error) {
+    console.error('Error in inventory_required_info endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get inventory updates information
+app.get('/inventory_updates', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Authentication required'
+      });
+    }
+
+    // Prepare response data
+    const responseData = {
+      last_updated: global.systemComponentInventory.last_updated,
+      update_process_documented: global.systemComponentInventory.update_process.documented,
+      update_process_steps: global.systemComponentInventory.update_process.steps
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      inventory: global.systemComponentInventory,
+      user: {
+        id: username,
+        roles: requestingUser.roles
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.system_component_inventory',
+      decision: 'inventory_regularly_updated',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.system_component_inventory', 'inventory_regularly_updated', opaInput);
+    }
+
+    // Log audit event for accessing inventory updates information
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'system_component_inventory',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'inventory_updates'
+    });
+
+    // Return the inventory updates information
+    return res.status(200).json(responseData);
+  } catch (error) {
+    console.error('Error in inventory_updates endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get inventory maintenance information
+app.get('/inventory_maintenance', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Authentication required'
+      });
+    }
+
+    // Prepare response data
+    const responseData = {
+      maintenance_process_documented: global.systemComponentInventory.maintenance_process.documented,
+      includes_regular_reviews: global.systemComponentInventory.maintenance_process.includes_regular_reviews,
+      includes_verification: global.systemComponentInventory.maintenance_process.includes_verification,
+      review_frequency_days: global.systemComponentInventory.maintenance_process.review_frequency_days
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      inventory: global.systemComponentInventory,
+      user: {
+        id: username,
+        roles: requestingUser.roles
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.system_component_inventory',
+      decision: 'inventory_properly_maintained',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.system_component_inventory', 'inventory_properly_maintained', opaInput);
+    }
+
+    // Log audit event for accessing inventory maintenance information
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'system_component_inventory',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'inventory_maintenance'
+    });
+
+    // Return the inventory maintenance information
+    return res.status(200).json(responseData);
+  } catch (error) {
+    console.error('Error in inventory_maintenance endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get inventory protection information
+app.get('/inventory_protection', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Authentication required'
+      });
+    }
+
+    // Prepare response data
+    const responseData = {
+      access_controls_enabled: global.systemComponentInventory.access_controls.enabled,
+      changes_logged: global.systemComponentInventory.access_controls.changes_logged,
+      has_backup: global.systemComponentInventory.has_backup,
+      authorized_roles: global.systemComponentInventory.access_controls.authorized_roles
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      inventory: global.systemComponentInventory,
+      user: {
+        id: username,
+        roles: requestingUser.roles
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.system_component_inventory',
+      decision: 'inventory_properly_protected',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.system_component_inventory', 'inventory_properly_protected', opaInput);
+    }
+
+    // Log audit event for accessing inventory protection information
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'system_component_inventory',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'inventory_protection'
+    });
+
+    // Return the inventory protection information
+    return res.status(200).json(responseData);
+  } catch (error) {
+    console.error('Error in inventory_protection endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
 // Start server
 app.listen(port, () => {
   console.log(`Enhanced mock server listening at http://localhost:${port}`);

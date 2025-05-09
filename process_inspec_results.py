@@ -125,6 +125,8 @@ def process_inspec_results(input_file, output_file):
                         control_id = 'cm-2'
                     elif control_id == 'access-restrictions-for-change':
                         control_id = 'cm-5'
+                    elif control_id == 'system-component-inventory':
+                        control_id = 'cm-8'
                     elif control_id == 'input-validation-policy':
                         control_id = 'si-10'
                     elif control_id == 'session-crypto-policy':

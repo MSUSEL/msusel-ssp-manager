@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "timestamp": "2025-05-08T22:05:54.931591",
-    "generated_at": "2025-05-08 22:05:54"
+    "timestamp": "2025-05-08T22:17:29.474091",
+    "generated_at": "2025-05-08 22:17:29"
   },
   "results": [
     {
@@ -1379,6 +1379,104 @@
         },
         {
           "test_name": "Cross-organizational audit sharing functionality should use secure transmission for sharing",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "control_id": "cm-8",
+      "status": "passed",
+      "test_results": [
+        {
+          "test_name": "Inventory completeness should have inventory documented",
+          "status": "passed"
+        },
+        {
+          "test_name": "Inventory completeness should include all required components",
+          "status": "passed"
+        },
+        {
+          "test_name": "Inventory completeness should have complete information for each component",
+          "status": "passed"
+        },
+        {
+          "test_name": "Inventory accuracy should match actual system state",
+          "status": "passed"
+        },
+        {
+          "test_name": "Inventory accuracy should have been recently verified",
+          "status": "passed"
+        },
+        {
+          "test_name": "No duplicate components should not have duplicate components",
+          "status": "passed"
+        },
+        {
+          "test_name": "No duplicate components should not include components assigned to other systems",
+          "status": "passed"
+        },
+        {
+          "test_name": "Appropriate granularity should have appropriate granularity",
+          "status": "passed"
+        },
+        {
+          "test_name": "Appropriate granularity should include hardware components",
+          "status": "passed"
+        },
+        {
+          "test_name": "Appropriate granularity should include software components",
+          "status": "passed"
+        },
+        {
+          "test_name": "Appropriate granularity should include firmware components",
+          "status": "passed"
+        },
+        {
+          "test_name": "Required information should include all required information fields",
+          "status": "passed"
+        },
+        {
+          "test_name": "Required information should include acquisition dates",
+          "status": "passed"
+        },
+        {
+          "test_name": "Required information should include component owners",
+          "status": "passed"
+        },
+        {
+          "test_name": "Regular updates should have been recently updated",
+          "status": "passed"
+        },
+        {
+          "test_name": "Regular updates should have a documented update process",
+          "status": "passed"
+        },
+        {
+          "test_name": "Regular updates should include all required update steps",
+          "status": "passed"
+        },
+        {
+          "test_name": "Inventory maintenance should have a documented maintenance process",
+          "status": "passed"
+        },
+        {
+          "test_name": "Inventory maintenance should include regular reviews",
+          "status": "passed"
+        },
+        {
+          "test_name": "Inventory maintenance should include verification",
+          "status": "passed"
+        },
+        {
+          "test_name": "Inventory protection should have access controls enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Inventory protection should log inventory changes",
+          "status": "passed"
+        },
+        {
+          "test_name": "Inventory protection should have backup",
           "status": "passed"
         }
       ]
