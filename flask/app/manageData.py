@@ -9,7 +9,7 @@ import networkx as nx
 import traceback
 
 logging.basicConfig(level=logging.INFO)
-debugging = True
+debugging = False
 
 class ManageData:
     def __init__(self, cur_dir: str, db_query_service: DatabaseQueryService):
@@ -87,7 +87,8 @@ class ManageData:
 
         
         self.user_priority_BRONtacticID = None
-        logging.info("Initialized user_priority_BROBtacticID attribute.")
+        if debugging == True:
+            logging.info("Initialized user_priority_BROBtacticID attribute.")
 
         self.addNodesAndEdgesBetweenTacticsAndTechniques(self.cursor_tactic_to_technique)
 
@@ -140,7 +141,7 @@ class ManageData:
         if debugging == True:
             logging.info(f"List of tactic original IDs: {self.orderedTacticsPathOriginalIDs}")
             pass
-        logging.info(f"List of tactic original IDs: {self.orderedTacticsPathOriginalIDs}")
+        #logging.info(f"List of tactic original IDs: {self.orderedTacticsPathOriginalIDs}")
 
 
     # Method returns three lists of dictionaries.
@@ -289,10 +290,11 @@ class ManageData:
                 for techniqueControlEdge in self.db_query_service.db_connection.techniqueControlCollection: # {'_from': 'technique/T1040', '_to': 'control/CM-07'}, ...
                     if techniqueControlEdge['_from'] == techniqueMappedToFinding:
                         controlsToMitigateTechniques.append(techniqueControlEdge['_to'])
-                        logging.info(f"To mitigate technique {techniqueMappedToFinding}, added control to controlsToMitigateTechniques: {techniqueControlEdge['_to']}. Will soon check if this control is implemented.")
+                        if debugging == True:
+                            logging.info(f"To mitigate technique {techniqueMappedToFinding}, added control to controlsToMitigateTechniques: {techniqueControlEdge['_to']}. Will soon check if this control is implemented.")
                 
-                
-                logging.info(f"Controls to mitigate techniques: {controlsToMitigateTechniques}")
+                if debugging == True:
+                    logging.info(f"Controls to mitigate techniques: {controlsToMitigateTechniques}")
                 
                 self.attackTechniquesUsableAgainstSecurityFindings.append(techniqueMappedToFinding)
                 self.attackTechniqueIDsAndListOfMatchedFindings.append(techniquesAndFindingsList)
@@ -426,8 +428,8 @@ class ManageData:
                         logging.info(f"Successfully added edge to tacticsOnlyGraph: {edge['_from']} -> {edge['_to']}")
                 except Exception as e:
                     logging.info(f"Error adding edge to tacticsOnlyGraph: {e}")
-        logging.info(f"Nodes in the tactics only graph:  {self.tacticsOnlyGraph.nodes}")
-        if debugging == True:        
+        if debugging == True:
+            logging.info(f"Nodes in the tactics only graph:  {self.tacticsOnlyGraph.nodes}")      
             logging.info(f"Edges in the tacticsAndTechniquesGraph: {self.tacticsAndTechniquesGraph.edges}")
             logging.info(f"Neighbors in the tacticsAndTechniquesGraph: {self.tacticsAndTechniquesGraph.neighbors}")
 
