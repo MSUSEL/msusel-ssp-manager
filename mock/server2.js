@@ -5414,6 +5414,144 @@ app.post('/validate_timestamp', async (req, res) => {
   }
 });
 
+// Initialize global cross-organizational auditing configuration for AU-16
+global.crossOrgAuditingConfig = {
+  // General configuration
+  enabled: true,
+  last_updated: new Date().toISOString(),
+
+  // External organizations configuration
+  external_organizations: [
+    {
+      id: 'org-123',
+      name: 'Partner Organization A',
+      description: 'Primary partner for cross-organizational auditing',
+      status: 'active',
+      last_sync: new Date().toISOString()
+    },
+    {
+      id: 'org-456',
+      name: 'Partner Organization B',
+      description: 'Secondary partner for cross-organizational auditing',
+      status: 'active',
+      last_sync: new Date().toISOString()
+    },
+    {
+      id: 'org-789',
+      name: 'Partner Organization C',
+      description: 'Tertiary partner for cross-organizational auditing',
+      status: 'inactive',
+      last_sync: new Date().toISOString()
+    }
+  ],
+
+  // Coordination methods configuration
+  coordination_methods: [
+    {
+      id: 'method-1',
+      name: 'Standardized Format Exchange',
+      description: 'Exchange audit information using standardized formats (e.g., JSON, XML)',
+      enabled: true,
+      format: 'JSON'
+    },
+    {
+      id: 'method-2',
+      name: 'Secure API Integration',
+      description: 'Exchange audit information using secure API endpoints',
+      enabled: true,
+      protocol: 'HTTPS'
+    },
+    {
+      id: 'method-3',
+      name: 'Federated Identity Management',
+      description: 'Use federated identity management for cross-organizational audit trails',
+      enabled: false,
+      protocol: 'SAML'
+    }
+  ],
+
+  // Audit sharing configuration
+  audit_sharing: {
+    enabled: true,
+    protocols: [
+      {
+        name: 'HTTPS',
+        port: 443,
+        encryption: 'TLS 1.3'
+      },
+      {
+        name: 'SFTP',
+        port: 22,
+        encryption: 'SSH'
+      }
+    ],
+    frequency: 'daily',
+    schedule: {
+      time: '02:00:00',
+      timezone: 'UTC'
+    },
+    record_types_to_share: [
+      'security_event',
+      'admin_action',
+      'configuration_change',
+      'authentication_event'
+    ],
+    last_shared: new Date().toISOString()
+  },
+
+  // Identity preservation configuration
+  identity_preservation: {
+    enabled: true,
+    method: 'pseudonymization',
+    verification_enabled: true,
+    verification_method: 'digital_signature',
+    identity_mapping: {
+      enabled: true,
+      mapping_storage: 'encrypted_database'
+    }
+  },
+
+  // Secure transmission configuration
+  secure_transmission: {
+    enabled: true,
+    encryption_enabled: true,
+    encryption_protocol: 'TLS 1.3',
+    certificate_validation: true,
+    integrity_verification: true,
+    integrity_method: 'digital_signature'
+  },
+
+  // Agreements with external organizations
+  agreements: [
+    {
+      organization_id: 'org-123',
+      agreement_type: 'MOU',
+      agreement_id: 'agreement-123',
+      effective_date: '2023-01-01',
+      expiration_date: '2025-12-31',
+      status: 'active',
+      terms: {
+        data_handling: 'confidential',
+        retention_period: '1 year',
+        sharing_restrictions: 'limited to security incidents'
+      }
+    },
+    {
+      organization_id: 'org-456',
+      agreement_type: 'SLA',
+      agreement_id: 'agreement-456',
+      effective_date: '2023-03-15',
+      expiration_date: '2024-03-14',
+      status: 'active',
+      terms: {
+        data_handling: 'confidential',
+        retention_period: '6 months',
+        sharing_restrictions: 'limited to security incidents'
+      }
+    }
+  ]
+};
+
 // Initialize global audit generation configuration for AU-12
 global.auditGenerationConfig = {
   // System-level audit configuration
@@ -7290,6 +7428,577 @@ app.post('/create_action_with_nonrepudiation', async (req, res) => {
     return res.status(200).json(actionWithNonrepudiation);
   } catch (error) {
     console.error('Error in create_action_with_nonrepudiation endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// AU-16: Cross-Organizational Auditing endpoints
+// Get cross-organizational auditing configuration
+app.get('/cross_org_auditing_config', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !requestingUser.roles.some(role => ['admin', 'security', 'auditor'].includes(role))) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only authorized users can access cross-organizational auditing configuration'
+      });
+    }
+
+    // Get the current cross-organizational auditing configuration
+    const crossOrgConfig = {
+      enabled: global.crossOrgAuditingConfig.enabled,
+      external_organizations: global.crossOrgAuditingConfig.external_organizations,
+      last_updated: global.crossOrgAuditingConfig.last_updated
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      cross_org_auditing: crossOrgConfig
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.cross_organizational_auditing',
+      decision: 'cross_org_auditing_enabled',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.cross_organizational_auditing', 'cross_org_auditing_enabled', opaInput);
+    }
+
+    // Log audit event for accessing cross-organizational auditing configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'cross_org_auditing_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'cross_org_auditing_config'
+    });
+
+    // Return the cross-organizational auditing configuration
+    return res.status(200).json(crossOrgConfig);
+  } catch (error) {
+    console.error('Error in cross_org_auditing_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get coordination methods configuration
+app.get('/coordination_methods_config', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !requestingUser.roles.some(role => ['admin', 'security', 'auditor'].includes(role))) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only authorized users can access coordination methods configuration'
+      });
+    }
+
+    // Get the current coordination methods configuration
+    const coordinationMethods = {
+      coordination_methods: global.crossOrgAuditingConfig.coordination_methods
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      cross_org_auditing: {
+        coordination_methods: coordinationMethods.coordination_methods
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.cross_organizational_auditing',
+      decision: 'coordination_methods_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.cross_organizational_auditing', 'coordination_methods_configured', opaInput);
+    }
+
+    // Log audit event for accessing coordination methods configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'coordination_methods_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'coordination_methods_config'
+    });
+
+    // Return the coordination methods configuration
+    return res.status(200).json(coordinationMethods);
+  } catch (error) {
+    console.error('Error in coordination_methods_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get audit sharing configuration
+app.get('/audit_sharing_config', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !requestingUser.roles.some(role => ['admin', 'security', 'auditor'].includes(role))) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only authorized users can access audit sharing configuration'
+      });
+    }
+
+    // Get the current audit sharing configuration
+    const auditSharing = global.crossOrgAuditingConfig.audit_sharing;
+
+    // Prepare input for OPA
+    const opaInput = {
+      cross_org_auditing: {
+        audit_sharing: auditSharing
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.cross_organizational_auditing',
+      decision: 'audit_sharing_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.cross_organizational_auditing', 'audit_sharing_configured', opaInput);
+    }
+
+    // Log audit event for accessing audit sharing configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'audit_sharing_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'audit_sharing_config'
+    });
+
+    // Return the audit sharing configuration
+    return res.status(200).json(auditSharing);
+  } catch (error) {
+    console.error('Error in audit_sharing_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get identity preservation configuration
+app.get('/identity_preservation_config', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !requestingUser.roles.some(role => ['admin', 'security', 'auditor'].includes(role))) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only authorized users can access identity preservation configuration'
+      });
+    }
+
+    // Get the current identity preservation configuration
+    const identityPreservation = global.crossOrgAuditingConfig.identity_preservation;
+
+    // Prepare input for OPA
+    const opaInput = {
+      cross_org_auditing: {
+        identity_preservation: identityPreservation
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.cross_organizational_auditing',
+      decision: 'identity_preservation_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.cross_organizational_auditing', 'identity_preservation_configured', opaInput);
+    }
+
+    // Log audit event for accessing identity preservation configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'identity_preservation_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'identity_preservation_config'
+    });
+
+    // Return the identity preservation configuration
+    return res.status(200).json(identityPreservation);
+  } catch (error) {
+    console.error('Error in identity_preservation_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get secure transmission configuration
+app.get('/secure_transmission_config', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !requestingUser.roles.some(role => ['admin', 'security', 'auditor'].includes(role))) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only authorized users can access secure transmission configuration'
+      });
+    }
+
+    // Get the current secure transmission configuration
+    const secureTransmission = global.crossOrgAuditingConfig.secure_transmission;
+
+    // Prepare input for OPA
+    const opaInput = {
+      cross_org_auditing: {
+        secure_transmission: secureTransmission
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.cross_organizational_auditing',
+      decision: 'secure_transmission_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.cross_organizational_auditing', 'secure_transmission_configured', opaInput);
+    }
+
+    // Log audit event for accessing secure transmission configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'secure_transmission_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'secure_transmission_config'
+    });
+
+    // Return the secure transmission configuration
+    return res.status(200).json(secureTransmission);
+  } catch (error) {
+    console.error('Error in secure_transmission_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Get agreements configuration
+app.get('/agreements_config', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !requestingUser.roles.some(role => ['admin', 'security', 'auditor'].includes(role))) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only authorized users can access agreements configuration'
+      });
+    }
+
+    // Get the current agreements configuration
+    const agreements = {
+      agreements: global.crossOrgAuditingConfig.agreements
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      cross_org_auditing: {
+        agreements: agreements.agreements
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.cross_organizational_auditing',
+      decision: 'agreements_configured',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.cross_organizational_auditing', 'agreements_configured', opaInput);
+    }
+
+    // Log audit event for accessing agreements configuration
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_access',
+      resource: 'agreements_config',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: 'agreements_config'
+    });
+
+    // Return the agreements configuration
+    return res.status(200).json(agreements);
+  } catch (error) {
+    console.error('Error in agreements_config endpoint:', error);
+    return res.status(500).json({
+      error: 'server_error',
+      message: 'Internal server error'
+    });
+  }
+});
+
+// Test audit sharing functionality
+app.post('/test_audit_sharing', async (req, res) => {
+  // Check if request has valid token
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.split(' ')[1];
+  const { organization_id, record_type, test_mode } = req.body;
+
+  try {
+    // Verify token and extract username
+    let username = '';
+    if (token) {
+      const tokenParts = token.split('.');
+      if (tokenParts.length === 3) {
+        const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+        username = payload.sub;
+      }
+    }
+
+    // Get user from the users object
+    const requestingUser = users[username];
+
+    // Check if user is authorized
+    if (!requestingUser || !requestingUser.roles.some(role => ['admin', 'security', 'auditor'].includes(role))) {
+      return res.status(401).json({
+        error: 'unauthorized',
+        message: 'Only authorized users can test audit sharing'
+      });
+    }
+
+    // Check if required fields are provided
+    if (!organization_id || !record_type) {
+      return res.status(400).json({
+        error: 'missing_required_fields',
+        message: 'Organization ID and record type are required'
+      });
+    }
+
+    // Check if the organization exists
+    const organization = global.crossOrgAuditingConfig.external_organizations.find(org => org.id === organization_id);
+    if (!organization) {
+      return res.status(404).json({
+        error: 'organization_not_found',
+        message: 'External organization not found'
+      });
+    }
+
+    // Check if the organization is active
+    if (organization.status !== 'active') {
+      return res.status(400).json({
+        error: 'organization_inactive',
+        message: 'External organization is not active'
+      });
+    }
+
+    // Check if the record type is configured for sharing
+    if (!global.crossOrgAuditingConfig.audit_sharing.record_types_to_share.includes(record_type)) {
+      return res.status(400).json({
+        error: 'record_type_not_shared',
+        message: 'Record type is not configured for sharing'
+      });
+    }
+
+    // Simulate sharing the audit record
+    // In a real system, this would actually share the record with the external organization
+    const sharedRecord = {
+      id: `shared-record-${Date.now()}`,
+      organization_id,
+      record_type,
+      timestamp: new Date().toISOString(),
+      shared_by: username,
+      test_mode: test_mode || false
+    };
+
+    // Prepare input for OPA
+    const opaInput = {
+      cross_org_auditing: global.crossOrgAuditingConfig,
+      organization: {
+        id: organization_id
+      },
+      audit_record: {
+        type: record_type
+      }
+    };
+
+    // Log OPA interaction
+    logOpaInteraction({
+      package: 'security.cross_organizational_auditing',
+      decision: 'audit_record_should_be_shared',
+      input: opaInput,
+      result: true
+    });
+
+    // Query OPA for real decision if enabled
+    if (USE_REAL_OPA) {
+      await queryOpa('security.cross_organizational_auditing', 'audit_record_should_be_shared', opaInput);
+    }
+
+    // Log audit event for sharing audit record
+    logAuditEvent({
+      user_id: username,
+      event_type: 'data_sharing',
+      resource: 'audit_records',
+      outcome: 'success',
+      ip_address: req.ip,
+      auth_method: 'token',
+      data_id: sharedRecord.id,
+      details: `Shared ${record_type} record with organization ${organization_id}`
+    });
+
+    // Return success response
+    return res.status(200).json({
+      success: true,
+      message: 'Audit record shared successfully',
+      record_id: sharedRecord.id,
+      identity_preserved: true,
+      secure_transmission_used: true
+    });
+  } catch (error) {
+    console.error('Error in test_audit_sharing endpoint:', error);
     return res.status(500).json({
       error: 'server_error',
       message: 'Internal server error'

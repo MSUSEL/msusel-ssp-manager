@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "timestamp": "2025-05-08T21:19:11.997765",
-    "generated_at": "2025-05-08 21:19:11"
+    "timestamp": "2025-05-08T21:34:15.242984",
+    "generated_at": "2025-05-08 21:34:15"
   },
   "results": [
     {
@@ -1051,6 +1051,108 @@
         },
         {
           "test_name": "OPA policy validation for timestamps should contain timestamp validation in OPA logs",
+          "status": "passed"
+        }
+      ]
+    },
+    {
+      "control_id": "au-16",
+      "status": "passed",
+      "test_results": [
+        {
+          "test_name": "Cross-organizational auditing configuration should have cross-organizational auditing enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Cross-organizational auditing configuration should have external organizations configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Cross-organizational auditing configuration should have OPA validation for cross-organizational auditing",
+          "status": "passed"
+        },
+        {
+          "test_name": "Coordination methods configuration should have coordination methods configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Coordination methods configuration should have at least one enabled coordination method",
+          "status": "passed"
+        },
+        {
+          "test_name": "Coordination methods configuration should have OPA validation for coordination methods",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit information sharing configuration should have audit sharing enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit information sharing configuration should have sharing protocols configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit information sharing configuration should have sharing frequency configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Audit information sharing configuration should have OPA validation for audit sharing",
+          "status": "passed"
+        },
+        {
+          "test_name": "Identity preservation configuration should have identity preservation enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Identity preservation configuration should have identity preservation method configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Identity preservation configuration should have identity verification enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Identity preservation configuration should have OPA validation for identity preservation",
+          "status": "passed"
+        },
+        {
+          "test_name": "Secure transmission configuration should have secure transmission enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Secure transmission configuration should have encryption enabled",
+          "status": "passed"
+        },
+        {
+          "test_name": "Secure transmission configuration should have encryption protocol configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Secure transmission configuration should have OPA validation for secure transmission",
+          "status": "passed"
+        },
+        {
+          "test_name": "Agreements with external organizations should have agreements configured",
+          "status": "passed"
+        },
+        {
+          "test_name": "Agreements with external organizations should have active agreements",
+          "status": "passed"
+        },
+        {
+          "test_name": "Agreements with external organizations should have OPA validation for agreements",
+          "status": "passed"
+        },
+        {
+          "test_name": "Cross-organizational audit sharing functionality should successfully share audit records",
+          "status": "passed"
+        },
+        {
+          "test_name": "Cross-organizational audit sharing functionality should preserve identity in shared records",
+          "status": "passed"
+        },
+        {
+          "test_name": "Cross-organizational audit sharing functionality should use secure transmission for sharing",
           "status": "passed"
         }
       ]
