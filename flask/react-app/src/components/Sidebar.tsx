@@ -6,16 +6,16 @@ import './Sidebar.css';
 const Sidebar: React.FC = () => {
   return (
     <Box as="nav" className="sidebar">
-      <h2>OSCAL</h2>
+      <h2>Security Controls</h2>
       <ul>
         <li><Link to="/security-controls">Catalog</Link></li>
-        <li><Link to="/control-mappings">Control Mappings</Link></li>
         <li><Link to="/generate-template">Generate Template</Link></li>
         <li><Link to="/validate">Process OSCAL Document</Link></li>
         <li><Link to="/current-status">Current Status</Link></li>
       </ul>
-      <h2>Vulnerability Effectiveness</h2>
+      <h2>Control Prioritization</h2>
       <ul>
+        <li><Link to="/control-mappings">Control Mappings</Link></li>
         <li><Link to="/test-dependencies">Test Dependencies</Link></li>
         <li><Link to="/priority-stage">Priority Stage</Link></li>
         <li><Link to="/attack-paths">Attack Paths</Link></li>
@@ -37,13 +37,20 @@ const Sidebar: React.FC = () => {
       </ul>
       <h2>External Links</h2>
       <ul>
-      <li>
-      <a href="https://attack.mitre.org/" target="_blank" rel="noopener noreferrer">
-          MITRE ATT&CK<br />
-      </a>
-      <a href="https://pages.nist.gov/OSCAL/" target="_blank" rel="noopener noreferrer">
-          OSCAL Documentation
-      </a>
+        <li>
+          <a href="https://attack.mitre.org/" target="_blank" rel="noopener noreferrer">
+            MITRE ATT&CK Framework
+          </a>
+        </li>
+        <li>
+          <a href="https://center-for-threat-informed-defense.github.io/mappings-explorer/external/nist/" target="_blank" rel="noopener noreferrer">
+            MITRE Mappings Explorer
+          </a>
+        </li>
+        <li>
+          <a href="https://pages.nist.gov/OSCAL/" target="_blank" rel="noopener noreferrer">
+            OSCAL Documentation
+          </a>
         </li>
       </ul>
     </Box>
