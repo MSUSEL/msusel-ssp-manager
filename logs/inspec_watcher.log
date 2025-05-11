@@ -5283,3 +5283,16 @@ Successfully wrote 2 controls to /home/ernesto/Documents/msusel-ssp-manager/flas
 [2025-05-10 10:20:43] ===========================
 [2025-05-10 10:20:50] InSpec is installed: 6.8.11
 [2025-05-10 10:20:50] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-05-10 13:30:32] Starting InSpec test watcher
+[2025-05-10 13:30:32] ===========================
+[2025-05-10 13:30:32] Configuration:
+[2025-05-10 13:30:32]   Script directory: /home/ernesto/Documents/msusel-ssp-manager
+[2025-05-10 13:30:32]   Watch directory: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data
+[2025-05-10 13:30:32]   Trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt
+[2025-05-10 13:30:32]   Results file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/test_results.json
+[2025-05-10 13:30:32]   InSpec directory: /home/ernesto/Documents/msusel-ssp-manager/inspec
+[2025-05-10 13:30:32]   Log file: /home/ernesto/Documents/msusel-ssp-manager/logs/inspec_watcher.log
+[2025-05-10 13:30:32]   Python processor: /home/ernesto/Documents/msusel-ssp-manager/process_inspec_results.py
+[2025-05-10 13:30:32] ===========================
+[2025-05-10 13:30:37] InSpec is installed: 6.8.11
+[2025-05-10 13:30:37] Starting to watch for trigger file: /home/ernesto/Documents/msusel-ssp-manager/flask/react-app/public/data/run_tests_trigger.txt

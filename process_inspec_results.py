@@ -161,8 +161,16 @@ def process_inspec_results(input_file, output_file):
                     # Collect test results
                     test_results = []
                     for result in control_results:
+                        # Clean up test name by removing redundant phrases
+                        test_name = result.get('code_desc', 'Unknown test')
+                        
+                        # Remove redundant phrases like "should allow access to user profile"
+                        # but preserve phrases that are essential like "is expected to include"
+                        if " should " in test_name and not " is expected to " in test_name:
+                            test_name = test_name.split(" should ")[0]
+                        
                         test_results.append({
-                            'test_name': result.get('code_desc', 'Unknown test'),
+                            'test_name': test_name,
                             'status': result.get('status', 'unknown')
                             # 'message' field removed
                         })
