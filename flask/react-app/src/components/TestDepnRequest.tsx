@@ -68,57 +68,65 @@ const TestDepnRequest: React.FC<TestDepnRequestProps> = ({ apiEndpoint }) => {
   };
 
   return (
-    <div>
-      <button
-        onClick={handleClick}
-        style={{ 
-          backgroundColor: '#007bff', 
-          color: 'white', 
-          padding: '10px 20px', 
-          border: 'none', 
-          borderRadius: '4px', 
-          cursor: 'pointer',
-          marginRight: '10px'
-        }}
-      >
-        Implemented Controls
-      </button>
-      <input
-        type="file"
-        ref={fileInputRef}
-        style={{ display: 'none' }}
-        onChange={handleFileChange}
-      />
-      {selectedFile && (
-        <>
-          <p>File selected: {selectedFile.name}</p>
-          <button
-            onClick={handleUpload}
-            disabled={uploading}
-            style={{
-              backgroundColor: uploading ? '#6c757d' : '#007bff',
-              color: 'white',
-              padding: '10px 20px',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: uploading ? 'not-allowed' : 'pointer'
-            }}
-          >
-            {uploading ? 'Uploading...' : 'Upload File'}
-          </button>
-        </>
-      )}
-      {uploadStatus && <p>{uploadStatus}</p>}
-        {vulnerabilityEffectivenessResults && (
-        <div style={{ marginTop: '20px', padding: '10px', border: '1px solid #ccc', borderRadius: '5px' }}>
-          <h3>Vulnerability Effectiveness Results:</h3>
-          <h4>Output:</h4>
-          <ul style={{ listStyleType: 'disc', marginLeft: '20px', marginBottom: '10px' }}>
-            {vulnerabilityEffectivenessResults.message}
-          </ul>
+    <div className="test-dependencies-container">
+      <div className="dependencies-card">
+        <div className="dependencies-header">
+          <h3>Test Dependencies</h3>
+          <p></p>
         </div>
-      )}
+
+        <div className="dependencies-features">
+          <div className="feature-item">
+            <div className="feature-text">
+              <h4>Reachability Analysis</h4>
+              <p>Find reachable security weaknesses in your dependencies</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="file-selection-container">
+          <button
+            onClick={handleClick}
+            className="control-button"
+          >
+            <span>📄</span> Select Implemented Controls
+          </button>
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: 'none' }}
+            onChange={handleFileChange}
+          />
+
+          {selectedFile && (
+            <div className="selected-file-info">
+              <span className="file-icon">📄</span> {selectedFile.name}
+              <button
+                onClick={handleUpload}
+                disabled={uploading}
+                className={`upload-button ${uploading ? 'disabled' : ''}`}
+              >
+                {uploading ? 'Uploading...' : 'Analyze Controls'}
+              </button>
+            </div>
+          )}
+        </div>
+
+        {uploadStatus && <div className="status-message">{uploadStatus}</div>}
+
+        {vulnerabilityEffectivenessResults && (
+          <div className="results-container">
+            <h3>Vulnerability Analysis Results</h3>
+            <div className="results-content">
+              <h4>Findings:</h4>
+              <div className="results-message">
+                {vulnerabilityEffectivenessResults.message}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
+    </div>
   );
 };
 
