@@ -1,2 +1,2 @@
-Validating 'file:/shared/generated_profile.yaml' as YAML.
-The file 'file:/shared/generated_profile.yaml' is valid.
+Validating 'file:/shared/generated_ssp.yaml' as YAML.
+The file 'file:/shared/generated_ssp.yaml' is valid.
