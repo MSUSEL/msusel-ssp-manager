@@ -1,0 +1,104 @@
+/* GenerateTemplate.css */
+.template-heading {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  color: #2c5282;
+}
+
+.heading-icon {
+  margin-right: 0.75rem;
+  width: 24px;
+  height: 24px;
+}
+
+.template-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.template-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.template-description {
+  background-color: #f8fafc;
+  padding: 1rem;
+  border-radius: 6px;
+  border-left: 4px solid #3182ce;
+}
+
+.process-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background-color: #f7fafc;
+  border-radius: 8px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.step-arrow {
+  color: #718096;
+  font-size: 1.25rem;
+  margin: 0 0.5rem;
+}
+
+.uploader-container {
+  position: relative;
+  padding: 1.5rem;
+  background-color: #f0f9ff;
+  border-radius: 8px;
+  border: 1px dashed #90cdf4;
+}
+
+.lightning-icon {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  background: #3182ce;
+  color: white;
+  padding: 6px;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Animation for the upload button */
+.upload-button {
+  transition: all 0.2s ease;
+}
+
+.upload-button:hover {
+  transform: scale(1.05);
+}
+
+/* Enhance the file selection display */
+.selected-file {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
