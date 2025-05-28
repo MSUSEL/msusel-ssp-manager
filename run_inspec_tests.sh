@@ -21,37 +21,6 @@ log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"
 }
 
-# Function to create default test results
-create_default_results() {
-    log "Creating default test results"
-    cat > "$RESULTS_FILE" << EOF
-[
-  {
-    "control_id": "ac-2",
-    "status": "passed",
-    "test_results": [
-      {
-        "test_name": "Account Management - Role-based access control",
-        "status": "passed",
-        "message": "Sample test that always passes"
-      }
-    ]
-  },
-  {
-    "control_id": "ia-2",
-    "status": "failed",
-    "test_results": [
-      {
-        "test_name": "Identification and Authentication - Multi-factor Authentication",
-        "status": "failed",
-        "message": "Sample test that always fails"
-      }
-    ]
-  }
-]
-EOF
-}
-
 # Function to process InSpec results
 process_results() {
     local output_file="$1"
@@ -59,15 +28,13 @@ process_results() {
     # Check if output file exists and has content
     if [ ! -f "$output_file" ] || [ ! -s "$output_file" ]; then
         log "WARNING: InSpec output file is empty or not found"
-        create_default_results
-        return
+        return 1
     fi
     
     # Check if output is valid JSON
     if ! jq empty "$output_file" 2>/dev/null; then
         log "WARNING: InSpec output is not valid JSON"
-        create_default_results
-        return
+        return 1
     fi
     
     # Process the results with Python script
@@ -77,13 +44,14 @@ process_results() {
         python3 "$PYTHON_PROCESSOR" "$output_file" "$RESULTS_FILE"
         if [ $? -ne 0 ]; then
             log "ERROR: Failed to process results with Python"
-            create_default_results
+            return 1
         else
             log "Successfully processed InSpec results"
+            return 0
         fi
     else
         log "ERROR: Python processor script not found at $PYTHON_PROCESSOR"
-        create_default_results
+        return 1
     fi
 }
 
@@ -94,15 +62,13 @@ run_tests() {
     # Check if InSpec is installed
     if ! command -v inspec &> /dev/null; then
         log "ERROR: InSpec is not installed or not in PATH"
-        create_default_results
-        return 1
+        exit 1
     fi
     
     # Check if InSpec directory exists and has the proper structure
     if [ ! -d "$INSPEC_DIR" ] || [ ! -f "$INSPEC_DIR/inspec.yml" ]; then
         log "WARNING: InSpec directory is not a valid profile"
-        create_default_results
-        return 1
+        exit 1
     fi
     
     # Create output file
@@ -120,10 +86,13 @@ run_tests() {
     # Check exit code (0 = success, 100 = test failures but command succeeded)
     if [ $EXIT_CODE -eq 0 ] || [ $EXIT_CODE -eq 100 ]; then
         log "Tests completed with exit code $EXIT_CODE"
-        process_results "$OUTPUT_FILE"
+        if ! process_results "$OUTPUT_FILE"; then
+            log "Failed to process test results"
+            exit 1
+        fi
     else
         log "ERROR: Tests failed with exit code $EXIT_CODE"
-        create_default_results
+        exit 1
     fi
     
     # For debugging, keep the temp directory

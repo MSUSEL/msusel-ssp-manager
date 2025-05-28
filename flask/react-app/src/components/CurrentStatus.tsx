@@ -50,6 +50,8 @@ const CurrentStatus: React.FC = () => {
   const [lastTestRun, setLastTestRun] = useState<string | null>(null);
   const [profileLastModified, setProfileLastModified] = useState<string | null>(null);
   const [sspLastModified, setSspLastModified] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Add a function to check file modification times
   const checkFileModifications = async () => {
@@ -280,46 +282,60 @@ const CurrentStatus: React.FC = () => {
 
   // Run InSpec tests
   const runTests = async () => {
-    setIsRunningTests(true);
-
+    setIsLoading(true);
+    setIsRunningTests(true); // This was missing
+    setError(null);
+    
     try {
-      // Call the backend API to run tests
-      const response = await axios.post('/api/run-tests');
-      console.log('API response:', response.data);
-
-      if (response.status === 200) {
-        // Reload test results
-        const testResultsResponse = await fetch('/data/test_results.json');
+      const response = await fetch('/api/run-tests', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      const data = await response.json();
+      
+      if (!data.success) {
+        setError(data.message || 'Failed to run tests');
+        setIsLoading(false);
+        setIsRunningTests(false); // This was missing
+        return;
+      }
+      
+      // Try to load test results
+      try {
+        const testResultsResponse = await fetch('/data/test_results.json', {
+          cache: 'no-store' // Ensure we get fresh results
+        });
+        
+        if (!testResultsResponse.ok) {
+          throw new Error(`Failed to load test results: ${testResultsResponse.statusText}`);
+        }
+        
         const testResultsData = await testResultsResponse.json();
-        console.log('Fetched test results:', testResultsData); // Debug log
-
+        
         // Check if the new format with metadata is used
         if (testResultsData.metadata && testResultsData.results) {
-          console.log('Using new format with metadata');
           setTestResults(testResultsData.results);
           setLastTestRun(new Date(testResultsData.metadata.generated_at).toLocaleString());
-        } else {
-          // Legacy format or unexpected format
-          console.log('Using legacy format or unexpected format');
-          if (Array.isArray(testResultsData)) {
-            setTestResults(testResultsData);
-          } else {
-            console.warn('Unexpected test results format:', typeof testResultsData);
-          }
-          // Update last test run time from current time
+        } else if (Array.isArray(testResultsData)) {
+          // Legacy format
+          setTestResults(testResultsData);
           setLastTestRun(new Date().toLocaleString());
+        } else {
+          throw new Error('Invalid test results format');
         }
+      } catch (error) {
+        console.error("Error loading test results:", error);
+        setError(`Error loading test results: ${error.message}`);
       }
     } catch (error) {
-      console.error('Error running tests:', error);
-      // Show more specific error message based on the error type
-      if (axios.isAxiosError(error) && error.response) {
-        alert(`Test execution failed: ${error.response.data?.message || error.message}`);
-      } else {
-        alert('Error running tests. Please check the console for details and verify the test runner is properly configured.');
-      }
+      console.error("Error running tests:", error);
+      setError(`Error running tests: ${error.message}`);
     } finally {
-      setIsRunningTests(false);
+      setIsLoading(false);
+      setIsRunningTests(false); // This was missing
     }
   };
 

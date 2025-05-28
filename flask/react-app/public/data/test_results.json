@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "timestamp": "2025-05-08T22:17:29.474091",
-    "generated_at": "2025-05-08 22:17:29"
+    "timestamp": "2025-05-27T19:36:22.097074",
+    "generated_at": "2025-05-27 19:36:22"
   },
   "results": [
     {
@@ -16,93 +16,23 @@
       ]
     },
     {
-      "control_id": "baseline-configuration",
-      "status": "passed",
-      "test_results": [
-        {
-          "test_name": "Baseline configuration documentation should have baseline configuration documented",
-          "status": "passed"
-        },
-        {
-          "test_name": "Baseline configuration documentation should include all required components",
-          "status": "passed"
-        },
-        {
-          "test_name": "Baseline configuration documentation should have complete settings for each component",
-          "status": "passed"
-        },
-        {
-          "test_name": "Baseline configuration currency should have a recently updated baseline configuration",
-          "status": "passed"
-        },
-        {
-          "test_name": "Baseline configuration currency should match current system state",
-          "status": "passed"
-        },
-        {
-          "test_name": "Baseline configuration review process should have a recently reviewed baseline configuration",
-          "status": "passed"
-        },
-        {
-          "test_name": "Baseline configuration review process should have a documented review process",
-          "status": "passed"
-        },
-        {
-          "test_name": "Baseline configuration review process should include all required review steps",
-          "status": "passed"
-        },
-        {
-          "test_name": "Configuration control should have configuration control enabled",
-          "status": "passed"
-        },
-        {
-          "test_name": "Configuration control should have a documented change management process",
-          "status": "passed"
-        },
-        {
-          "test_name": "Configuration control should require approvals for changes",
-          "status": "passed"
-        },
-        {
-          "test_name": "Configuration control should track changes",
-          "status": "passed"
-        },
-        {
-          "test_name": "Change authorization should authorize valid changes",
-          "status": "passed"
-        },
-        {
-          "test_name": "Unauthorized change detection should have monitoring enabled",
-          "status": "passed"
-        },
-        {
-          "test_name": "Unauthorized change detection should have automated monitoring",
-          "status": "passed"
-        },
-        {
-          "test_name": "Unauthorized change detection should have alerts configured",
-          "status": "passed"
-        }
-      ]
-    },
-    {
       "control_id": "ac-3",
       "status": "passed",
       "test_results": [
         {
-          "test_name": "Regular user accessing user profile should allow access to user profile",
+          "test_name": "Regular user accessing user profile",
           "status": "passed"
         },
         {
-          "test_name": "Regular user accessing admin panel should deny access to admin panel",
+          "test_name": "Regular user accessing admin panel",
           "status": "passed"
         },
         {
-          "test_name": "Admin user accessing admin panel should allow admin access to admin panel",
+          "test_name": "Admin user accessing admin panel",
           "status": "passed"
         },
         {
-          "test_name": "Regular user accessing resources outside business hours should deny access outside business hours for regular users",
+          "test_name": "Regular user accessing resources outside business hours",
           "status": "passed"
         },
         {
@@ -124,83 +54,83 @@
       "status": "passed",
       "test_results": [
         {
-          "test_name": "User authorization for changes should have authorized roles defined",
+          "test_name": "User authorization for changes",
           "status": "passed"
         },
         {
-          "test_name": "User authorization for changes should include admin role in authorized roles",
+          "test_name": "User authorization for changes",
           "status": "passed"
         },
         {
-          "test_name": "User authorization for changes should include config_admin role in authorized roles",
+          "test_name": "User authorization for changes",
           "status": "passed"
         },
         {
-          "test_name": "Change documentation requirements should require ticket ID",
+          "test_name": "Change documentation requirements",
           "status": "passed"
         },
         {
-          "test_name": "Change documentation requirements should require description",
+          "test_name": "Change documentation requirements",
           "status": "passed"
         },
         {
-          "test_name": "Change documentation requirements should require approver",
+          "test_name": "Change documentation requirements",
           "status": "passed"
         },
         {
-          "test_name": "Change workflow should require testing",
+          "test_name": "Change workflow",
           "status": "passed"
         },
         {
-          "test_name": "Change workflow should require review",
+          "test_name": "Change workflow",
           "status": "passed"
         },
         {
-          "test_name": "Change workflow should require approval",
+          "test_name": "Change workflow",
           "status": "passed"
         },
         {
-          "test_name": "Change logging should have logging enabled",
+          "test_name": "Change logging",
           "status": "passed"
         },
         {
-          "test_name": "Change logging should have protected logs",
+          "test_name": "Change logging",
           "status": "passed"
         },
         {
-          "test_name": "Change logging should include required fields in logs",
+          "test_name": "Change logging",
           "status": "passed"
         },
         {
-          "test_name": "Physical access restrictions should have physical access restrictions enabled",
+          "test_name": "Physical access restrictions",
           "status": "passed"
         },
         {
-          "test_name": "Physical access restrictions should require authentication for physical access",
+          "test_name": "Physical access restrictions",
           "status": "passed"
         },
         {
-          "test_name": "Physical access restrictions should log physical access",
+          "test_name": "Physical access restrictions",
           "status": "passed"
         },
         {
-          "test_name": "Emergency change process should have emergency change process defined",
+          "test_name": "Emergency change process",
           "status": "passed"
         },
         {
-          "test_name": "Emergency change process should require post-change review for emergency changes",
+          "test_name": "Emergency change process",
           "status": "passed"
         },
         {
-          "test_name": "Emergency change process should require executive approval for emergency changes",
+          "test_name": "Emergency change process",
           "status": "passed"
         },
         {
-          "test_name": "Change authorization should authorize valid normal changes",
+          "test_name": "Change authorization",
           "status": "passed"
         },
         {
-          "test_name": "Change authorization should authorize valid emergency changes",
+          "test_name": "Change authorization",
           "status": "passed"
         }
       ]
@@ -210,51 +140,51 @@
       "status": "passed",
       "test_results": [
         {
-          "test_name": "Account creation with proper approval should allow account creation with proper approval",
+          "test_name": "Account creation with proper approval",
           "status": "passed"
         },
         {
-          "test_name": "Account creation without proper approval should deny account creation without proper approval",
+          "test_name": "Account creation without proper approval",
           "status": "passed"
         },
         {
-          "test_name": "Account creation by non-admin should deny account creation by non-admin",
+          "test_name": "Account creation by non-admin",
           "status": "passed"
         },
         {
-          "test_name": "Account modification with proper authorization should allow account modification with proper authorization",
+          "test_name": "Account modification with proper authorization",
           "status": "passed"
         },
         {
-          "test_name": "Account modification without proper authorization should deny account modification without proper authorization",
+          "test_name": "Account modification without proper authorization",
           "status": "passed"
         },
         {
-          "test_name": "Self-modification of non-privileged information should allow self-modification of non-privileged information",
+          "test_name": "Self-modification of non-privileged information",
           "status": "passed"
         },
         {
-          "test_name": "Account disabling with proper authorization should allow account disabling with proper authorization",
+          "test_name": "Account disabling with proper authorization",
           "status": "passed"
         },
         {
-          "test_name": "Account disabling without proper authorization should deny account disabling without proper authorization",
+          "test_name": "Account disabling without proper authorization",
           "status": "passed"
         },
         {
-          "test_name": "Account removal with proper authorization should allow account removal with proper authorization",
+          "test_name": "Account removal with proper authorization",
           "status": "passed"
         },
         {
-          "test_name": "Account removal without proper authorization should deny account removal without proper authorization",
+          "test_name": "Account removal without proper authorization",
           "status": "passed"
         },
         {
-          "test_name": "Account expiration enforcement should enforce account expiration",
+          "test_name": "Account expiration enforcement",
           "status": "passed"
         },
         {
-          "test_name": "Account review should provide account review information",
+          "test_name": "Account review",
           "status": "passed"
         },
         {
@@ -284,55 +214,55 @@
       "status": "passed",
       "test_results": [
         {
-          "test_name": "Basic audit record content should include all basic required fields",
+          "test_name": "Basic audit record content",
           "status": "passed"
         },
         {
-          "test_name": "Basic audit record content should have timestamp in ISO 8601 format",
+          "test_name": "Basic audit record content",
           "status": "passed"
         },
         {
-          "test_name": "Basic audit record content should have a valid event type",
+          "test_name": "Basic audit record content",
           "status": "passed"
         },
         {
-          "test_name": "Basic audit record content should have a valid outcome",
+          "test_name": "Basic audit record content",
           "status": "passed"
         },
         {
-          "test_name": "Login event content should have a login entry in the audit log",
+          "test_name": "Login event content",
           "status": "passed"
         },
         {
-          "test_name": "Login event content should include login-specific fields",
+          "test_name": "Login event content",
           "status": "passed"
         },
         {
-          "test_name": "Data access event content should have a data access entry in the audit log",
+          "test_name": "Data access event content",
           "status": "passed"
         },
         {
-          "test_name": "Data access event content should include data access-specific fields",
+          "test_name": "Data access event content",
           "status": "passed"
         },
         {
-          "test_name": "Configuration change event content should have a configuration change entry in the audit log",
+          "test_name": "Configuration change event content",
           "status": "passed"
         },
         {
-          "test_name": "Configuration change event content should include configuration change-specific fields",
+          "test_name": "Configuration change event content",
           "status": "passed"
         },
         {
-          "test_name": "Failed login event content should have a failed login entry in the audit log",
+          "test_name": "Failed login event content",
           "status": "passed"
         },
         {
-          "test_name": "Failed login event content should include reason for failure",
+          "test_name": "Failed login event content",
           "status": "passed"
         },
         {
-          "test_name": "OPA validation of audit content should contain audit content validation in OPA logs",
+          "test_name": "OPA validation of audit content",
           "status": "passed"
         }
       ]
@@ -342,83 +272,83 @@
       "status": "passed",
       "test_results": [
         {
-          "test_name": "System-level audit generation should have system-level audit enabled",
+          "test_name": "System-level audit generation",
           "status": "passed"
         },
         {
-          "test_name": "System-level audit generation should have system-level audit components configured",
+          "test_name": "System-level audit generation",
           "status": "passed"
         },
         {
-          "test_name": "System-level audit generation should have OPA validation for system-level audit",
+          "test_name": "System-level audit generation",
           "status": "passed"
         },
         {
-          "test_name": "Component-level audit generation should have component-level audit enabled",
+          "test_name": "Component-level audit generation",
           "status": "passed"
         },
         {
-          "test_name": "Component-level audit generation should have component-level audit components configured",
+          "test_name": "Component-level audit generation",
           "status": "passed"
         },
         {
-          "test_name": "Component-level audit generation should have OPA validation for component-level audit",
+          "test_name": "Component-level audit generation",
           "status": "passed"
         },
         {
-          "test_name": "Required events configuration should have all required events configured for auditing",
+          "test_name": "Required events configuration",
           "status": "passed"
         },
         {
-          "test_name": "Required events configuration should have OPA validation for required events",
+          "test_name": "Required events configuration",
           "status": "passed"
         },
         {
-          "test_name": "Event selection capability should have event selection enabled",
+          "test_name": "Event selection capability",
           "status": "passed"
         },
         {
-          "test_name": "Event selection capability should have authorized roles for event selection",
+          "test_name": "Event selection capability",
           "status": "passed"
         },
         {
-          "test_name": "Event selection capability should have OPA validation for event selection",
+          "test_name": "Event selection capability",
           "status": "passed"
         },
         {
-          "test_name": "Audit content compliance should include all required fields in audit records",
+          "test_name": "Audit content compliance",
           "status": "passed"
         },
         {
-          "test_name": "Audit content compliance should have OPA validation for audit content",
+          "test_name": "Audit content compliance",
           "status": "passed"
         },
         {
-          "test_name": "Audit testing configuration should have audit testing enabled",
+          "test_name": "Audit testing configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit testing configuration should have audit testing frequency configured",
+          "test_name": "Audit testing configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit testing configuration should have last test date recorded",
+          "test_name": "Audit testing configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit testing configuration should have last test result recorded",
+          "test_name": "Audit testing configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit testing configuration should have OPA validation for audit testing",
+          "test_name": "Audit testing configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit generation functionality should generate audit records for login events",
+          "test_name": "Audit generation functionality",
           "status": "passed"
         },
         {
-          "test_name": "Audit generation functionality should include all required fields in generated audit records",
+          "test_name": "Audit generation functionality",
           "status": "passed"
         }
       ]
@@ -428,127 +358,127 @@
       "status": "passed",
       "test_results": [
         {
-          "test_name": "Digital signature configuration should have digital signatures enabled",
+          "test_name": "Digital signature configuration",
           "status": "passed"
         },
         {
-          "test_name": "Digital signature configuration should use strong signature algorithm",
+          "test_name": "Digital signature configuration",
           "status": "passed"
         },
         {
-          "test_name": "Digital signature configuration should have key management enabled",
+          "test_name": "Digital signature configuration",
           "status": "passed"
         },
         {
-          "test_name": "Digital signature configuration should have appropriate key protection",
+          "test_name": "Digital signature configuration",
           "status": "passed"
         },
         {
-          "test_name": "Identity binding configuration should have identity binding enabled",
+          "test_name": "Identity binding configuration",
           "status": "passed"
         },
         {
-          "test_name": "Identity binding configuration should have binding mechanisms configured",
+          "test_name": "Identity binding configuration",
           "status": "passed"
         },
         {
-          "test_name": "Identity binding configuration should require identity verification",
+          "test_name": "Identity binding configuration",
           "status": "passed"
         },
         {
-          "test_name": "Identity binding configuration should use strong authentication for identity binding",
+          "test_name": "Identity binding configuration",
           "status": "passed"
         },
         {
-          "test_name": "Signature validation configuration should have signature validation enabled",
+          "test_name": "Signature validation configuration",
           "status": "passed"
         },
         {
-          "test_name": "Signature validation configuration should have validation mechanisms configured",
+          "test_name": "Signature validation configuration",
           "status": "passed"
         },
         {
-          "test_name": "Signature validation configuration should enforce validation",
+          "test_name": "Signature validation configuration",
           "status": "passed"
         },
         {
-          "test_name": "Signature validation configuration should check certificate revocation",
+          "test_name": "Signature validation configuration",
           "status": "passed"
         },
         {
-          "test_name": "Timestamp binding configuration should have timestamp binding enabled",
+          "test_name": "Timestamp binding configuration",
           "status": "passed"
         },
         {
-          "test_name": "Timestamp binding configuration should use trusted timestamp source",
+          "test_name": "Timestamp binding configuration",
           "status": "passed"
         },
         {
-          "test_name": "Timestamp binding configuration should use cryptographic binding",
+          "test_name": "Timestamp binding configuration",
           "status": "passed"
         },
         {
-          "test_name": "Timestamp binding configuration should have timestamp source verification",
+          "test_name": "Timestamp binding configuration",
           "status": "passed"
         },
         {
-          "test_name": "Evidence collection configuration should have evidence collection enabled",
+          "test_name": "Evidence collection configuration",
           "status": "passed"
         },
         {
-          "test_name": "Evidence collection configuration should have collection mechanisms configured",
+          "test_name": "Evidence collection configuration",
           "status": "passed"
         },
         {
-          "test_name": "Evidence collection configuration should have secure storage for evidence",
+          "test_name": "Evidence collection configuration",
           "status": "passed"
         },
         {
-          "test_name": "Evidence collection configuration should collect comprehensive evidence",
+          "test_name": "Evidence collection configuration",
           "status": "passed"
         },
         {
-          "test_name": "Chain of custody configuration should have chain of custody enabled",
+          "test_name": "Chain of custody configuration",
           "status": "passed"
         },
         {
-          "test_name": "Chain of custody configuration should have tracking mechanisms configured",
+          "test_name": "Chain of custody configuration",
           "status": "passed"
         },
         {
-          "test_name": "Chain of custody configuration should have custody verification enabled",
+          "test_name": "Chain of custody configuration",
           "status": "passed"
         },
         {
-          "test_name": "Chain of custody configuration should use tamper-evident mechanisms",
+          "test_name": "Chain of custody configuration",
           "status": "passed"
         },
         {
-          "test_name": "Signature validation endpoint should validate correct signatures",
+          "test_name": "Signature validation endpoint",
           "status": "passed"
         },
         {
-          "test_name": "Signature validation endpoint should reject incorrect signatures",
+          "test_name": "Signature validation endpoint",
           "status": "passed"
         },
         {
-          "test_name": "Action non-repudiation should create actions with digital signatures",
+          "test_name": "Action non-repudiation",
           "status": "passed"
         },
         {
-          "test_name": "Action non-repudiation should create actions with identity binding",
+          "test_name": "Action non-repudiation",
           "status": "passed"
         },
         {
-          "test_name": "Action non-repudiation should create actions with secure timestamps",
+          "test_name": "Action non-repudiation",
           "status": "passed"
         },
         {
-          "test_name": "Action non-repudiation should log actions for evidence",
+          "test_name": "Action non-repudiation",
           "status": "passed"
         },
         {
-          "test_name": "OPA policy validation for non-repudiation should contain non-repudiation validation in OPA logs",
+          "test_name": "OPA policy validation for non-repudiation",
           "status": "passed"
         }
       ]
@@ -558,135 +488,135 @@
       "status": "passed",
       "test_results": [
         {
-          "test_name": "Audit access control configuration should have access controls enabled",
+          "test_name": "Audit access control configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit access control configuration should have authorized roles configured",
+          "test_name": "Audit access control configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit access control configuration should have appropriate access control mechanisms",
+          "test_name": "Audit access control configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit access control configuration should restrict access to authorized personnel only",
+          "test_name": "Audit access control configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit encryption configuration should have encryption enabled",
+          "test_name": "Audit encryption configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit encryption configuration should use strong encryption algorithm",
+          "test_name": "Audit encryption configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit encryption configuration should have key management enabled",
+          "test_name": "Audit encryption configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit encryption configuration should have appropriate key rotation policy",
+          "test_name": "Audit encryption configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit integrity configuration should have integrity verification enabled",
+          "test_name": "Audit integrity configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit integrity configuration should have appropriate integrity mechanisms",
+          "test_name": "Audit integrity configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit integrity configuration should have appropriate verification frequency",
+          "test_name": "Audit integrity configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit integrity configuration should use cryptographic mechanisms for integrity",
+          "test_name": "Audit integrity configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit backup configuration should have backup enabled",
+          "test_name": "Audit backup configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit backup configuration should have appropriate backup frequency",
+          "test_name": "Audit backup configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit backup configuration should have backup storage location configured",
+          "test_name": "Audit backup configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit backup configuration should have appropriate backup retention period",
+          "test_name": "Audit backup configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit backup configuration should have backup verification process",
+          "test_name": "Audit backup configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit tools protection should have tools protection enabled",
+          "test_name": "Audit tools protection",
           "status": "passed"
         },
         {
-          "test_name": "Audit tools protection should have appropriate protection mechanisms",
+          "test_name": "Audit tools protection",
           "status": "passed"
         },
         {
-          "test_name": "Audit tools protection should restrict tools access to authorized personnel only",
+          "test_name": "Audit tools protection",
           "status": "passed"
         },
         {
-          "test_name": "Audit tools protection should have integrity verification for audit tools",
+          "test_name": "Audit tools protection",
           "status": "passed"
         },
         {
-          "test_name": "Deletion protection should have deletion protection enabled",
+          "test_name": "Deletion protection",
           "status": "passed"
         },
         {
-          "test_name": "Deletion protection should have appropriate protection mechanisms",
+          "test_name": "Deletion protection",
           "status": "passed"
         },
         {
-          "test_name": "Deletion protection should require approval for deletion",
+          "test_name": "Deletion protection",
           "status": "passed"
         },
         {
-          "test_name": "Deletion protection should log all deletion attempts",
+          "test_name": "Deletion protection",
           "status": "passed"
         },
         {
-          "test_name": "Modification protection should have modification protection enabled",
+          "test_name": "Modification protection",
           "status": "passed"
         },
         {
-          "test_name": "Modification protection should have appropriate protection mechanisms",
+          "test_name": "Modification protection",
           "status": "passed"
         },
         {
-          "test_name": "Modification protection should log all modification attempts",
+          "test_name": "Modification protection",
           "status": "passed"
         },
         {
-          "test_name": "Modification protection should use write-once or immutable storage",
+          "test_name": "Modification protection",
           "status": "passed"
         },
         {
-          "test_name": "OPA policy validation for audit protection should contain audit protection validation in OPA logs",
+          "test_name": "OPA policy validation for audit protection",
           "status": "passed"
         },
         {
-          "test_name": "Audit log file permissions should have restricted file permissions",
+          "test_name": "Audit log file permissions",
           "status": "passed"
         },
         {
-          "test_name": "Audit log file permissions should have appropriate owner and group",
+          "test_name": "Audit log file permissions",
           "status": "passed"
         },
         {
-          "test_name": "Audit log file permissions should have appropriate permission mode",
+          "test_name": "Audit log file permissions",
           "status": "passed"
         }
       ]
@@ -696,75 +626,75 @@
       "status": "passed",
       "test_results": [
         {
-          "test_name": "Audit failure alert configuration should have alerts enabled",
+          "test_name": "Audit failure alert configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit failure alert configuration should have alert recipients configured",
+          "test_name": "Audit failure alert configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit failure alert configuration should have appropriate notification methods",
+          "test_name": "Audit failure alert configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit failure actions configuration should have actions enabled",
+          "test_name": "Audit failure actions configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit failure actions configuration should have appropriate actions configured",
+          "test_name": "Audit failure actions configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit failure actions configuration should include system shutdown for critical failures",
+          "test_name": "Audit failure actions configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit capacity protection should have capacity protection enabled",
+          "test_name": "Audit capacity protection",
           "status": "passed"
         },
         {
-          "test_name": "Audit capacity protection should have appropriate capacity threshold",
+          "test_name": "Audit capacity protection",
           "status": "passed"
         },
         {
-          "test_name": "Audit capacity protection should have appropriate actions for capacity threshold breaches",
+          "test_name": "Audit capacity protection",
           "status": "passed"
         },
         {
-          "test_name": "Real-time audit monitoring should have real-time monitoring enabled",
+          "test_name": "Real-time audit monitoring",
           "status": "passed"
         },
         {
-          "test_name": "Real-time audit monitoring should have appropriate monitoring interval",
+          "test_name": "Real-time audit monitoring",
           "status": "passed"
         },
         {
-          "test_name": "OPA policy validation for audit response should contain audit response validation in OPA logs",
+          "test_name": "OPA policy validation for audit response",
           "status": "passed"
         },
         {
-          "test_name": "System response to audit failure should detect audit failure",
+          "test_name": "System response to audit failure",
           "status": "passed"
         },
         {
-          "test_name": "System response to audit failure should generate alert for audit failure",
+          "test_name": "System response to audit failure",
           "status": "passed"
         },
         {
-          "test_name": "System response to audit failure should take appropriate actions for audit failure",
+          "test_name": "System response to audit failure",
           "status": "passed"
         },
         {
-          "test_name": "System response to critical audit failure should detect critical audit failure",
+          "test_name": "System response to critical audit failure",
           "status": "passed"
         },
         {
-          "test_name": "System response to critical audit failure should generate critical alert",
+          "test_name": "System response to critical audit failure",
           "status": "passed"
         },
         {
-          "test_name": "System response to critical audit failure should initiate system shutdown or override",
+          "test_name": "System response to critical audit failure",
           "status": "passed"
         }
       ]
@@ -774,107 +704,107 @@
       "status": "passed",
       "test_results": [
         {
-          "test_name": "Retention period configuration should have retention policy enabled",
+          "test_name": "Retention period configuration",
           "status": "passed"
         },
         {
-          "test_name": "Retention period configuration should have a retention period configured",
+          "test_name": "Retention period configuration",
           "status": "passed"
         },
         {
-          "test_name": "Retention period configuration should meet minimum retention requirements",
+          "test_name": "Retention period configuration",
           "status": "passed"
         },
         {
-          "test_name": "Retention period configuration should have OPA validation for retention period configuration",
+          "test_name": "Retention period configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit record archival mechanisms should have archival enabled",
+          "test_name": "Audit record archival mechanisms",
           "status": "passed"
         },
         {
-          "test_name": "Audit record archival mechanisms should have a valid archival method",
+          "test_name": "Audit record archival mechanisms",
           "status": "passed"
         },
         {
-          "test_name": "Audit record archival mechanisms should have an archival schedule configured",
+          "test_name": "Audit record archival mechanisms",
           "status": "passed"
         },
         {
-          "test_name": "Audit record archival mechanisms should have an archival location specified",
+          "test_name": "Audit record archival mechanisms",
           "status": "passed"
         },
         {
-          "test_name": "Audit record archival mechanisms should have OPA validation for archival mechanisms",
+          "test_name": "Audit record archival mechanisms",
           "status": "passed"
         },
         {
-          "test_name": "Audit record retrieval capabilities should have retrieval enabled",
+          "test_name": "Audit record retrieval capabilities",
           "status": "passed"
         },
         {
-          "test_name": "Audit record retrieval capabilities should have retrieval methods configured",
+          "test_name": "Audit record retrieval capabilities",
           "status": "passed"
         },
         {
-          "test_name": "Audit record retrieval capabilities should have authorized roles for retrieval",
+          "test_name": "Audit record retrieval capabilities",
           "status": "passed"
         },
         {
-          "test_name": "Audit record retrieval capabilities should have documented retrieval process",
+          "test_name": "Audit record retrieval capabilities",
           "status": "passed"
         },
         {
-          "test_name": "Audit record retrieval capabilities should have OPA validation for retrieval capabilities",
+          "test_name": "Audit record retrieval capabilities",
           "status": "passed"
         },
         {
-          "test_name": "Compliance with retention policies should be compliant with organizational policy",
+          "test_name": "Compliance with retention policies",
           "status": "passed"
         },
         {
-          "test_name": "Compliance with retention policies should be compliant with regulatory requirements",
+          "test_name": "Compliance with retention policies",
           "status": "passed"
         },
         {
-          "test_name": "Compliance with retention policies should have recent compliance review",
+          "test_name": "Compliance with retention policies",
           "status": "passed"
         },
         {
-          "test_name": "Compliance with retention policies should have OPA validation for policy compliance",
+          "test_name": "Compliance with retention policies",
           "status": "passed"
         },
         {
-          "test_name": "Secure storage of archived audit records should have secure storage enabled",
+          "test_name": "Secure storage of archived audit records",
           "status": "passed"
         },
         {
-          "test_name": "Secure storage of archived audit records should have encryption enabled for archived records",
+          "test_name": "Secure storage of archived audit records",
           "status": "passed"
         },
         {
-          "test_name": "Secure storage of archived audit records should have access controls for archived records",
+          "test_name": "Secure storage of archived audit records",
           "status": "passed"
         },
         {
-          "test_name": "Secure storage of archived audit records should have integrity verification enabled",
+          "test_name": "Secure storage of archived audit records",
           "status": "passed"
         },
         {
-          "test_name": "Secure storage of archived audit records should have OPA validation for secure storage",
+          "test_name": "Secure storage of archived audit records",
           "status": "passed"
         },
         {
-          "test_name": "Archive and retrieval functionality should successfully archive test record",
+          "test_name": "Archive and retrieval functionality",
           "status": "passed"
         },
         {
-          "test_name": "Archive and retrieval functionality should successfully retrieve archived record",
+          "test_name": "Archive and retrieval functionality",
           "status": "passed"
         },
         {
-          "test_name": "Archive and retrieval functionality should retrieve the correct record content",
+          "test_name": "Archive and retrieval functionality",
           "status": "passed"
         }
       ]
@@ -884,99 +814,99 @@
       "status": "passed",
       "test_results": [
         {
-          "test_name": "Audit review configuration should have review enabled",
+          "test_name": "Audit review configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit review configuration should have appropriate review frequency",
+          "test_name": "Audit review configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit review configuration should have reviewers configured",
+          "test_name": "Audit review configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit review configuration should have automated review enabled",
+          "test_name": "Audit review configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit review configuration should have automated tools configured",
+          "test_name": "Audit review configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit analysis configuration should have analysis enabled",
+          "test_name": "Audit analysis configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit analysis configuration should have analysis methods configured",
+          "test_name": "Audit analysis configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit analysis configuration should have correlation enabled",
+          "test_name": "Audit analysis configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit analysis configuration should have correlation methods configured",
+          "test_name": "Audit analysis configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit reporting configuration should have reporting enabled",
+          "test_name": "Audit reporting configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit reporting configuration should have appropriate reporting frequency",
+          "test_name": "Audit reporting configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit reporting configuration should have report recipients configured",
+          "test_name": "Audit reporting configuration",
           "status": "passed"
         },
         {
-          "test_name": "Risk-based adjustment configuration should have risk-based adjustment enabled",
+          "test_name": "Risk-based adjustment configuration",
           "status": "passed"
         },
         {
-          "test_name": "Risk-based adjustment configuration should have risk levels configured",
+          "test_name": "Risk-based adjustment configuration",
           "status": "passed"
         },
         {
-          "test_name": "OPA policy validation for audit review should contain audit review validation in OPA logs",
+          "test_name": "OPA policy validation for audit review",
           "status": "passed"
         },
         {
-          "test_name": "Audit findings reporting should have findings available",
+          "test_name": "Audit findings reporting",
           "status": "passed"
         },
         {
-          "test_name": "Audit findings reporting should include required information in findings",
+          "test_name": "Audit findings reporting",
           "status": "passed"
         },
         {
-          "test_name": "Audit review process should complete the review process",
+          "test_name": "Audit review process",
           "status": "passed"
         },
         {
-          "test_name": "Audit review process should analyze audit records",
+          "test_name": "Audit review process",
           "status": "passed"
         },
         {
-          "test_name": "Audit review process should identify findings if applicable",
+          "test_name": "Audit review process",
           "status": "passed"
         },
         {
-          "test_name": "Audit review process should report findings to recipients",
+          "test_name": "Audit review process",
           "status": "passed"
         },
         {
-          "test_name": "Integration with risk assessment should adjust review frequency based on risk",
+          "test_name": "Integration with risk assessment",
           "status": "passed"
         },
         {
-          "test_name": "Integration with risk assessment should adjust analysis methods based on risk",
+          "test_name": "Integration with risk assessment",
           "status": "passed"
         },
         {
-          "test_name": "Integration with risk assessment should adjust reporting frequency based on risk",
+          "test_name": "Integration with risk assessment",
           "status": "passed"
         }
       ]
@@ -986,87 +916,87 @@
       "status": "passed",
       "test_results": [
         {
-          "test_name": "Audit storage capacity configuration should have sufficient storage capacity",
+          "test_name": "Audit storage capacity configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit storage capacity configuration should have monitoring enabled",
+          "test_name": "Audit storage capacity configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit storage capacity configuration should have appropriate monitoring interval",
+          "test_name": "Audit storage capacity configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit storage capacity configuration should have alerts configured",
+          "test_name": "Audit storage capacity configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit storage capacity configuration should have appropriate warning threshold",
+          "test_name": "Audit storage capacity configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit storage capacity configuration should have appropriate critical threshold",
+          "test_name": "Audit storage capacity configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit storage capacity configuration should have alert recipients configured",
+          "test_name": "Audit storage capacity configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit retention policy configuration should have retention policy enabled",
+          "test_name": "Audit retention policy configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit retention policy configuration should have appropriate retention period",
+          "test_name": "Audit retention policy configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit retention policy configuration should have archiving enabled",
+          "test_name": "Audit retention policy configuration",
           "status": "passed"
         },
         {
-          "test_name": "Current storage usage should be within acceptable limits",
+          "test_name": "Current storage usage",
           "status": "passed"
         },
         {
-          "test_name": "Current storage usage should generate appropriate alerts when approaching capacity",
+          "test_name": "Current storage usage",
           "status": "passed"
         },
         {
-          "test_name": "Current storage usage should generate appropriate alerts when at critical capacity",
+          "test_name": "Current storage usage",
           "status": "passed"
         },
         {
-          "test_name": "Automatic actions for capacity management should have automatic actions enabled",
+          "test_name": "Automatic actions for capacity management",
           "status": "passed"
         },
         {
-          "test_name": "Automatic actions for capacity management should have at least one action configured",
+          "test_name": "Automatic actions for capacity management",
           "status": "passed"
         },
         {
-          "test_name": "OPA policy validation for audit storage should contain audit storage validation in OPA logs",
+          "test_name": "OPA policy validation for audit storage",
           "status": "passed"
         },
         {
-          "test_name": "System response to approaching capacity should detect approaching capacity",
+          "test_name": "System response to approaching capacity",
           "status": "passed"
         },
         {
-          "test_name": "System response to approaching capacity should generate warning alert",
+          "test_name": "System response to approaching capacity",
           "status": "passed"
         },
         {
-          "test_name": "System response to critical capacity should detect critical capacity",
+          "test_name": "System response to critical capacity",
           "status": "passed"
         },
         {
-          "test_name": "System response to critical capacity should generate critical alert",
+          "test_name": "System response to critical capacity",
           "status": "passed"
         },
         {
-          "test_name": "System response to critical capacity should trigger automatic actions",
+          "test_name": "System response to critical capacity",
           "status": "passed"
         }
       ]
@@ -1076,55 +1006,55 @@
       "status": "passed",
       "test_results": [
         {
-          "test_name": "Login event auditing should include \"login\" and \"test_user\" in the audit log",
+          "test_name": "Login event auditing",
           "status": "passed"
         },
         {
-          "test_name": "Login event auditing should include required audit fields",
+          "test_name": "Login event auditing",
           "status": "passed"
         },
         {
-          "test_name": "Resource access auditing should log data access in the audit log",
+          "test_name": "Resource access auditing",
           "status": "passed"
         },
         {
-          "test_name": "Resource access auditing should include required fields",
+          "test_name": "Resource access auditing",
           "status": "passed"
         },
         {
-          "test_name": "Configuration change auditing should log configuration change in the audit log",
+          "test_name": "Configuration change auditing",
           "status": "passed"
         },
         {
-          "test_name": "Configuration change auditing should include all change tracking fields",
+          "test_name": "Configuration change auditing",
           "status": "passed"
         },
         {
-          "test_name": "Failed login auditing should record failed login in the audit log",
+          "test_name": "Failed login auditing",
           "status": "passed"
         },
         {
-          "test_name": "Failed login auditing should include outcome: failure in audit entry",
+          "test_name": "Failed login auditing",
           "status": "passed"
         },
         {
-          "test_name": "Failed login auditing should include required fields for failed login",
+          "test_name": "Failed login auditing",
           "status": "passed"
         },
         {
-          "test_name": "OPA interaction log should include audit keywords should contain 'audit'",
+          "test_name": "OPA interaction log",
           "status": "passed"
         },
         {
-          "test_name": "OPA interaction log should include audit keywords should contain 'should_audit'",
+          "test_name": "OPA interaction log",
           "status": "passed"
         },
         {
-          "test_name": "OPA interaction log should include audit keywords should contain 'audit_record_valid'",
+          "test_name": "OPA interaction log",
           "status": "passed"
         },
         {
-          "test_name": "OPA interaction log should include audit keywords should contain 'flag_for_review'",
+          "test_name": "OPA interaction log",
           "status": "passed"
         }
       ]
@@ -1134,79 +1064,79 @@
       "status": "passed",
       "test_results": [
         {
-          "test_name": "Time source configuration should have time source enabled",
+          "test_name": "Time source configuration",
           "status": "passed"
         },
         {
-          "test_name": "Time source configuration should have a valid time source type",
+          "test_name": "Time source configuration",
           "status": "passed"
         },
         {
-          "test_name": "Time source configuration should have NTP servers configured if using NTP",
+          "test_name": "Time source configuration",
           "status": "passed"
         },
         {
-          "test_name": "Time format configuration should use ISO 8601 standard",
+          "test_name": "Time format configuration",
           "status": "passed"
         },
         {
-          "test_name": "Time format configuration should have sufficient precision",
+          "test_name": "Time format configuration",
           "status": "passed"
         },
         {
-          "test_name": "Time format configuration should use UTC/GMT or have UTC mapping",
+          "test_name": "Time format configuration",
           "status": "passed"
         },
         {
-          "test_name": "Time synchronization status should have time synchronization enabled",
+          "test_name": "Time synchronization status",
           "status": "passed"
         },
         {
-          "test_name": "Time synchronization status should have appropriate synchronization interval",
+          "test_name": "Time synchronization status",
           "status": "passed"
         },
         {
-          "test_name": "Time synchronization status should have synchronization sources configured",
+          "test_name": "Time synchronization status",
           "status": "passed"
         },
         {
-          "test_name": "Time synchronization status should have acceptable drift tolerance",
+          "test_name": "Time synchronization status",
           "status": "passed"
         },
         {
-          "test_name": "Time synchronization status should have recent synchronization",
+          "test_name": "Time synchronization status",
           "status": "passed"
         },
         {
-          "test_name": "Timestamp validation should have timestamp validation enabled",
+          "test_name": "Timestamp validation",
           "status": "passed"
         },
         {
-          "test_name": "Timestamp validation should have validation methods configured",
+          "test_name": "Timestamp validation",
           "status": "passed"
         },
         {
-          "test_name": "Audit record timestamps should have audit records with timestamps",
+          "test_name": "Audit record timestamps",
           "status": "passed"
         },
         {
-          "test_name": "Audit record timestamps should have timestamps in ISO 8601 format",
+          "test_name": "Audit record timestamps",
           "status": "passed"
         },
         {
-          "test_name": "Audit record timestamps should have timestamps with timezone information",
+          "test_name": "Audit record timestamps",
           "status": "passed"
         },
         {
-          "test_name": "Timestamp validation endpoint should validate correct timestamps",
+          "test_name": "Timestamp validation endpoint",
           "status": "passed"
         },
         {
-          "test_name": "Timestamp validation endpoint should reject incorrect timestamps",
+          "test_name": "Timestamp validation endpoint",
           "status": "passed"
         },
         {
-          "test_name": "OPA policy validation for timestamps should contain timestamp validation in OPA logs",
+          "test_name": "OPA policy validation for timestamps",
           "status": "passed"
         }
       ]
@@ -1216,67 +1146,67 @@
       "status": "passed",
       "test_results": [
         {
-          "test_name": "Baseline configuration documentation should have baseline configuration documented",
+          "test_name": "Baseline configuration documentation",
           "status": "passed"
         },
         {
-          "test_name": "Baseline configuration documentation should include all required components",
+          "test_name": "Baseline configuration documentation",
           "status": "passed"
         },
         {
-          "test_name": "Baseline configuration documentation should have complete settings for each component",
+          "test_name": "Baseline configuration documentation",
           "status": "passed"
         },
         {
-          "test_name": "Baseline configuration currency should have a recently updated baseline configuration",
+          "test_name": "Baseline configuration currency",
           "status": "passed"
         },
         {
-          "test_name": "Baseline configuration currency should match current system state",
+          "test_name": "Baseline configuration currency",
           "status": "passed"
         },
         {
-          "test_name": "Baseline configuration review process should have a recently reviewed baseline configuration",
+          "test_name": "Baseline configuration review process",
           "status": "passed"
         },
         {
-          "test_name": "Baseline configuration review process should have a documented review process",
+          "test_name": "Baseline configuration review process",
           "status": "passed"
         },
         {
-          "test_name": "Baseline configuration review process should include all required review steps",
+          "test_name": "Baseline configuration review process",
           "status": "passed"
         },
         {
-          "test_name": "Configuration control should have configuration control enabled",
+          "test_name": "Configuration control",
           "status": "passed"
         },
         {
-          "test_name": "Configuration control should have a documented change management process",
+          "test_name": "Configuration control",
           "status": "passed"
         },
         {
-          "test_name": "Configuration control should require approvals for changes",
+          "test_name": "Configuration control",
           "status": "passed"
         },
         {
-          "test_name": "Configuration control should track changes",
+          "test_name": "Configuration control",
           "status": "passed"
         },
         {
-          "test_name": "Change authorization should authorize valid changes",
+          "test_name": "Change authorization",
           "status": "passed"
         },
         {
-          "test_name": "Unauthorized change detection should have monitoring enabled",
+          "test_name": "Unauthorized change detection",
           "status": "passed"
         },
         {
-          "test_name": "Unauthorized change detection should have automated monitoring",
+          "test_name": "Unauthorized change detection",
           "status": "passed"
         },
         {
-          "test_name": "Unauthorized change detection should have alerts configured",
+          "test_name": "Unauthorized change detection",
           "status": "passed"
         }
       ]
@@ -1286,99 +1216,99 @@
       "status": "passed",
       "test_results": [
         {
-          "test_name": "Cross-organizational auditing configuration should have cross-organizational auditing enabled",
+          "test_name": "Cross-organizational auditing configuration",
           "status": "passed"
         },
         {
-          "test_name": "Cross-organizational auditing configuration should have external organizations configured",
+          "test_name": "Cross-organizational auditing configuration",
           "status": "passed"
         },
         {
-          "test_name": "Cross-organizational auditing configuration should have OPA validation for cross-organizational auditing",
+          "test_name": "Cross-organizational auditing configuration",
           "status": "passed"
         },
         {
-          "test_name": "Coordination methods configuration should have coordination methods configured",
+          "test_name": "Coordination methods configuration",
           "status": "passed"
         },
         {
-          "test_name": "Coordination methods configuration should have at least one enabled coordination method",
+          "test_name": "Coordination methods configuration",
           "status": "passed"
         },
         {
-          "test_name": "Coordination methods configuration should have OPA validation for coordination methods",
+          "test_name": "Coordination methods configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit information sharing configuration should have audit sharing enabled",
+          "test_name": "Audit information sharing configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit information sharing configuration should have sharing protocols configured",
+          "test_name": "Audit information sharing configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit information sharing configuration should have sharing frequency configured",
+          "test_name": "Audit information sharing configuration",
           "status": "passed"
         },
         {
-          "test_name": "Audit information sharing configuration should have OPA validation for audit sharing",
+          "test_name": "Audit information sharing configuration",
           "status": "passed"
         },
         {
-          "test_name": "Identity preservation configuration should have identity preservation enabled",
+          "test_name": "Identity preservation configuration",
           "status": "passed"
         },
         {
-          "test_name": "Identity preservation configuration should have identity preservation method configured",
+          "test_name": "Identity preservation configuration",
           "status": "passed"
         },
         {
-          "test_name": "Identity preservation configuration should have identity verification enabled",
+          "test_name": "Identity preservation configuration",
           "status": "passed"
         },
         {
-          "test_name": "Identity preservation configuration should have OPA validation for identity preservation",
+          "test_name": "Identity preservation configuration",
           "status": "passed"
         },
         {
-          "test_name": "Secure transmission configuration should have secure transmission enabled",
+          "test_name": "Secure transmission configuration",
           "status": "passed"
         },
         {
-          "test_name": "Secure transmission configuration should have encryption enabled",
+          "test_name": "Secure transmission configuration",
           "status": "passed"
         },
         {
-          "test_name": "Secure transmission configuration should have encryption protocol configured",
+          "test_name": "Secure transmission configuration",
           "status": "passed"
         },
         {
-          "test_name": "Secure transmission configuration should have OPA validation for secure transmission",
+          "test_name": "Secure transmission configuration",
           "status": "passed"
         },
         {
-          "test_name": "Agreements with external organizations should have agreements configured",
+          "test_name": "Agreements with external organizations",
           "status": "passed"
         },
         {
-          "test_name": "Agreements with external organizations should have active agreements",
+          "test_name": "Agreements with external organizations",
           "status": "passed"
         },
         {
-          "test_name": "Agreements with external organizations should have OPA validation for agreements",
+          "test_name": "Agreements with external organizations",
           "status": "passed"
         },
         {
-          "test_name": "Cross-organizational audit sharing functionality should successfully share audit records",
+          "test_name": "Cross-organizational audit sharing functionality",
           "status": "passed"
         },
         {
-          "test_name": "Cross-organizational audit sharing functionality should preserve identity in shared records",
+          "test_name": "Cross-organizational audit sharing functionality",
           "status": "passed"
         },
         {
-          "test_name": "Cross-organizational audit sharing functionality should use secure transmission for sharing",
+          "test_name": "Cross-organizational audit sharing functionality",
           "status": "passed"
         }
       ]
@@ -1388,95 +1318,95 @@
       "status": "passed",
       "test_results": [
         {
-          "test_name": "Inventory completeness should have inventory documented",
+          "test_name": "Inventory completeness",
           "status": "passed"
         },
         {
-          "test_name": "Inventory completeness should include all required components",
+          "test_name": "Inventory completeness",
           "status": "passed"
         },
         {
-          "test_name": "Inventory completeness should have complete information for each component",
+          "test_name": "Inventory completeness",
           "status": "passed"
         },
         {
-          "test_name": "Inventory accuracy should match actual system state",
+          "test_name": "Inventory accuracy",
           "status": "passed"
         },
         {
-          "test_name": "Inventory accuracy should have been recently verified",
+          "test_name": "Inventory accuracy",
           "status": "passed"
         },
         {
-          "test_name": "No duplicate components should not have duplicate components",
+          "test_name": "No duplicate components",
           "status": "passed"
         },
         {
-          "test_name": "No duplicate components should not include components assigned to other systems",
+          "test_name": "No duplicate components",
           "status": "passed"
         },
         {
-          "test_name": "Appropriate granularity should have appropriate granularity",
+          "test_name": "Appropriate granularity",
           "status": "passed"
         },
         {
-          "test_name": "Appropriate granularity should include hardware components",
+          "test_name": "Appropriate granularity",
           "status": "passed"
         },
         {
-          "test_name": "Appropriate granularity should include software components",
+          "test_name": "Appropriate granularity",
           "status": "passed"
         },
         {
-          "test_name": "Appropriate granularity should include firmware components",
+          "test_name": "Appropriate granularity",
           "status": "passed"
         },
         {
-          "test_name": "Required information should include all required information fields",
+          "test_name": "Required information",
           "status": "passed"
         },
         {
-          "test_name": "Required information should include acquisition dates",
+          "test_name": "Required information",
           "status": "passed"
         },
         {
-          "test_name": "Required information should include component owners",
+          "test_name": "Required information",
           "status": "passed"
         },
         {
-          "test_name": "Regular updates should have been recently updated",
+          "test_name": "Regular updates",
           "status": "passed"
         },
         {
-          "test_name": "Regular updates should have a documented update process",
+          "test_name": "Regular updates",
           "status": "passed"
         },
         {
-          "test_name": "Regular updates should include all required update steps",
+          "test_name": "Regular updates",
           "status": "passed"
         },
         {
-          "test_name": "Inventory maintenance should have a documented maintenance process",
+          "test_name": "Inventory maintenance",
           "status": "passed"
         },
         {
-          "test_name": "Inventory maintenance should include regular reviews",
+          "test_name": "Inventory maintenance",
           "status": "passed"
         },
         {
-          "test_name": "Inventory maintenance should include verification",
+          "test_name": "Inventory maintenance",
           "status": "passed"
         },
         {
-          "test_name": "Inventory protection should have access controls enabled",
+          "test_name": "Inventory protection",
           "status": "passed"
         },
         {
-          "test_name": "Inventory protection should log inventory changes",
+          "test_name": "Inventory protection",
           "status": "passed"
         },
         {
-          "test_name": "Inventory protection should have backup",
+          "test_name": "Inventory protection",
           "status": "passed"
         }
       ]
