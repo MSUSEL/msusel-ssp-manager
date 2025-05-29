@@ -139,6 +139,60 @@ docker-compose down
 ```
 
 
+### Install Continuous Compliance Tools
+InSpec is a tool for testing and auditing systems. It is used in this project to testsecurity controls implemented in a mock application. The tests make requests to the application using different user roles, credential, timestamps, and so on, and then verify that the responses are as expected. The application in turn make requests to an Open Policy Agent server running as a container to get policy decisions. This InSpec-mock-OPA setup can be used as a template for testing security controls implemented in a real application. InSpec can be installed with: <br />
+```
+sudo apt update
+sudo apt install ruby-full
+curl https://omnitruck.chef.io/install.sh | sudo bash -s -- -P inspec
+```
+
+## InSpec License Activation
+
+When you first install InSpec, you'll need to activate your license. The SSP Manager includes a helper script to make this process easier.
+
+### Activating Your InSpec License
+
+1. After installing InSpec, run the license activation helper script:
+
+   ```bash
+   # Make the script executable
+   chmod +x activate_inspec_license.sh
+   
+   # Run the script
+   ./activate_inspec_license.sh
+   ```
+
+2. The script will run a simple InSpec test that will trigger the license activation prompt.
+
+3. When prompted, you'll need to:
+   - Register at [Chef's website](https://www.chef.io/license-generation-free-trial) to get a license
+   - Enter the license key you received
+
+4. After activation, you won't need to do this again.
+
+
+
+
+To run the mock application: <br />
+```
+cd mock
+sudo apt install npm
+npm run start:opa
+
+```
+
+The Open Policy Agent is aleady running as a container. <br />
+
+Start the monitoring script: <br />
+```
+cd ..
+./run_inspec_tests.sh
+```
+
+
+
+
 ### Set Schemas in VS Code
 Open the project on VS Code and press Ctrl+Shift+P on the keyboard. On the search bar, type "Workspace json settings". Open the file and copy this content to it and save the changes:<br />
 ```
