@@ -147,8 +147,6 @@ sudo apt install ruby-full
 curl https://omnitruck.chef.io/install.sh | sudo bash -s -- -P inspec
 ```
 
-## InSpec License Activation
-
 When you first install InSpec, you'll need to activate your license. The SSP Manager includes a helper script to make this process easier.
 
 ### Activating Your InSpec License
