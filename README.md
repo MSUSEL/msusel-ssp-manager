@@ -228,37 +228,8 @@ Open the project on VS Code and press Ctrl+Shift+P on the keyboard. On the searc
 
 The application is now ready. <br /><br />
 
-In the /scripts directory, there are scripts that will move your files to their working directories. For now, these need to be started manually. The rely on the inotify package:
-```
-sudo apt-get install inotify-tools
-```
-Make sure the scripts have permissions to execute:
-```
-cd ./scripts/
-chmod +x ./watch_catalog.sh
-chmod +x ./watch_profile.sh
-chmod +x ./watch_ssp.sh
-chmod +x ./watch_generatedFiles.sh
-chmod +x ./watch_component.sh
-chmod +x ./watch_ap.sh
-chmod +x ./finish.sh
- ```
-And you can start them with:
-```
-nohup ./watch_catalog.sh > ./logs/watch_catalog.log 2>&1 &
-nohup ./watch_profile.sh > ./logs/watch_profile.log 2>&1 &
-nohup ./watch_ssp.sh > ./logs/watch_ssp.log 2>&1 &
-nohup ./watch_component.sh > ./logs/watch_component.log 2>&1 &
-nohup ./watch_ap.sh > ./logs/watch_ap.log 2>&1 &
-``` 
 
-Once you finish your work, you can stop your scripts and REMOVE your flask and react containers by running the finish.sh script:
-```
-./finish.sh
-```
-
-
-I you keep your flask and react containers, going forward, to restart the application, you only need to restart the aragodb container:  <br />
+If you keep your flask and react containers, going forward, to restart the application, you only need to restart the aragodb container:  <br />
 ```
 docker start arangocontainerID
 ```
