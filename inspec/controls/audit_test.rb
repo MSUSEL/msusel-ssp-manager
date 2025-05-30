@@ -18,6 +18,10 @@ control 'audit-policy' do
                           }.to_json)
 
     audit_log_content = file(audit_log_path).content
+    # Handle case where file content might be nil or empty
+    if audit_log_content.nil? || audit_log_content.empty?
+      fail "Audit log file is empty or not found at #{audit_log_path}"
+    end
     audit_entries = audit_log_content.split("\n").map { |line| JSON.parse(line) rescue nil }.compact
     latest_entry = audit_entries.last
 
@@ -50,6 +54,10 @@ control 'audit-policy' do
          headers: { 'Authorization' => "Bearer #{token}" })
 
     audit_log_content = file(audit_log_path).content
+    # Handle case where file content might be nil or empty
+    if audit_log_content.nil? || audit_log_content.empty?
+      fail "Audit log file is empty or not found at #{audit_log_path}"
+    end
     audit_entries = audit_log_content.split("\n").map { |line| JSON.parse(line) rescue nil }.compact
     latest_entry = audit_entries.last
 

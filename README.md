@@ -17,7 +17,7 @@ docker-compose --version
 ```
 If you don't have Git, it can be installed with: <br />
 ```
-sudo apt install git 
+sudo apt install git
 ```
 
 Docker can be installed with: <br />
@@ -27,7 +27,7 @@ sudo apt install docker.io
 
 Docker-compose can be installed with: <br />
 ```
-sudo apt install docker-compose 
+sudo apt install docker-compose
 ```
 Alternatively, you can install the newer Go-based version of docker-compose with
 ```
@@ -48,7 +48,7 @@ Note: with the newer version run commands with "docker compose ", without the hy
 
 Add yourself to the docker group: <br />
 ```
-sudo usermod -aG docker yourUserName 
+sudo usermod -aG docker yourUserName
 ```
 
 (Restart your machine) <br />
@@ -59,12 +59,12 @@ To install VS Code in Ubuntu:
 sudo snap install code --classic
 ```
 
-This project uses the BRON database developed by Hemberg et al. at MIT. The original research for the database can be found as: <br /> 
+This project uses the BRON database developed by Hemberg et al. at MIT. The original research for the database can be found as: <br />
 Hemberg, Erik, Jonathan Kelly, Michal Shlapentokh-Rothman, Bryn Reinstadler, Katherine Xu, Nick Rutar, and Una-May O'Reilly. "Linking threat tactics, techniques, and patterns with defensive weaknesses, vulnerabilities and affected platform configurations for cyber hunting." arXiv preprint arXiv:2010.00533 (2020). <br />
 
 To clone this repository, including a version of the BRON database use: <br />
 ```
-git clone https://github.com/MSUSEL/msusel-ssp-manager.git 
+git clone https://github.com/MSUSEL/msusel-ssp-manager.git
 ```
 Note: The BRON version copied here is from commit 8a18686cab1f024fcadcac74fb13f1240f491b86 of the [BRON project.](https://github.com/ALFA-group/BRON)
 
@@ -72,12 +72,12 @@ Since we will need to have the access to the database container from other conta
 ```
 docker network create ssp_network
 ```
-Note: ssp_network is the docker network that is referenced in the docker-compose and Dockerfiles files that will create the project containers. 
+Note: ssp_network is the docker network that is referenced in the docker-compose and Dockerfiles files that will create the project containers.
 
 To create the graph database containing the different collections of cybersecurity data: <br />
 ```
-cd BRON 
-docker-compose up 
+cd BRON
+docker-compose up
 ```
 This command will create two containers. One is an arangodb container that will host our database. The second is a bootstrap container that will populate the database with the data from different cybersecurity collections. (The bootstrap process can take up to 45 mins) <br />
 
@@ -95,8 +95,8 @@ docker network inspect ssp_network
 
 Go back to the msusel-ssp-manager directory and go into the oscal-processing directory: <br />
 ```
-cd .. 
-cd oscal-processing 
+cd ..
+cd oscal-processing
 docker build -t oscalprocessing .
 ```
 
@@ -156,7 +156,7 @@ When you first install InSpec, you'll need to activate your license. The SSP Man
    ```bash
    # Make the script executable
    chmod +x activate_inspec_license.sh
-   
+
    # Run the script
    ./activate_inspec_license.sh
    ```
@@ -185,7 +185,7 @@ The Open Policy Agent is aleady running as a container. <br />
 Start the monitoring script: <br />
 ```
 cd ..
-./run_inspec_tests.sh
+./scripts/run_inspec_tests.sh
 ```
 
 
@@ -196,8 +196,8 @@ Open the project on VS Code and press Ctrl+Shift+P on the keyboard. On the searc
 ```
 {
     "json.schemas": [
-        
-        { "fileMatch": ["/flask/oscal_schemas/assessment-plans/*"], 
+
+        { "fileMatch": ["/flask/oscal_schemas/assessment-plans/*"],
         "url": "./flask/oscal_schemas/oscal_assessment-plan_schema.json" },
         { "fileMatch": ["/flask/oscal_schemas/assessment-results/*"],
         "url": "./flask/oscal_schemas/oscal_assessment-results_schema.json" },

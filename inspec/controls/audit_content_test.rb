@@ -19,6 +19,10 @@ control 'audit-content' do
                           }.to_json)
 
     audit_log_content = file(audit_log_path).content
+    # Handle case where file content might be nil or empty
+    if audit_log_content.nil? || audit_log_content.empty?
+      fail "Audit log file is empty or not found at #{audit_log_path}"
+    end
     audit_entries = audit_log_content.split("\n").map { |line| JSON.parse(line) rescue nil }.compact
     latest_entry = audit_entries.last
 
@@ -62,8 +66,12 @@ control 'audit-content' do
                           }.to_json)
 
     audit_log_content = file(audit_log_path).content
+    # Handle case where file content might be nil or empty
+    if audit_log_content.nil? || audit_log_content.empty?
+      fail "Audit log file is empty or not found at #{audit_log_path}"
+    end
     audit_entries = audit_log_content.split("\n").map { |line| JSON.parse(line) rescue nil }.compact
-    
+
     # Find the login entry
     login_entry = audit_entries.find { |entry| entry['event_type'] == 'login' && entry['outcome'] == 'success' }
 
@@ -97,8 +105,12 @@ control 'audit-content' do
          headers: { 'Authorization' => "Bearer #{token}" })
 
     audit_log_content = file(audit_log_path).content
+    # Handle case where file content might be nil or empty
+    if audit_log_content.nil? || audit_log_content.empty?
+      fail "Audit log file is empty or not found at #{audit_log_path}"
+    end
     audit_entries = audit_log_content.split("\n").map { |line| JSON.parse(line) rescue nil }.compact
-    
+
     # Find the data access entry
     data_access_entry = audit_entries.find { |entry| entry['event_type'] == 'data_access' }
 
@@ -140,8 +152,12 @@ control 'audit-content' do
          }.to_json)
 
     audit_log_content = file(audit_log_path).content
+    # Handle case where file content might be nil or empty
+    if audit_log_content.nil? || audit_log_content.empty?
+      fail "Audit log file is empty or not found at #{audit_log_path}"
+    end
     audit_entries = audit_log_content.split("\n").map { |line| JSON.parse(line) rescue nil }.compact
-    
+
     # Find the configuration change entry
     config_change_entry = audit_entries.find { |entry| entry['event_type'] == 'configuration_change' }
 
@@ -168,8 +184,12 @@ control 'audit-content' do
          }.to_json)
 
     audit_log_content = file(audit_log_path).content
+    # Handle case where file content might be nil or empty
+    if audit_log_content.nil? || audit_log_content.empty?
+      fail "Audit log file is empty or not found at #{audit_log_path}"
+    end
     audit_entries = audit_log_content.split("\n").map { |line| JSON.parse(line) rescue nil }.compact
-    
+
     # Find the failed login entry
     failed_login_entry = audit_entries.find { |entry| entry['event_type'] == 'login' && entry['outcome'] == 'failure' }
 
@@ -188,9 +208,14 @@ control 'audit-content' do
     opa_log_content = file(log_file_path).content
 
     it 'should contain audit content validation in OPA logs' do
+      # Handle case where file content might be nil or empty
+      if opa_log_content.nil? || opa_log_content.empty?
+        fail "OPA log file is empty or not found at #{log_file_path}"
+      end
+
       keywords = %w[audit_content_valid basic_content_valid timestamp_valid event_type_valid outcome_valid]
       missing_keywords = keywords.reject { |keyword| opa_log_content.include?(keyword) }
-      
+
       unless missing_keywords.empty?
         fail "OPA logs do not contain audit content validation keywords: #{missing_keywords.join(', ')}"
       end
