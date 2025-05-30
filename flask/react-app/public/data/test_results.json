@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "timestamp": "2025-05-29T20:07:10.679043",
-    "generated_at": "2025-05-29 20:07:10"
+    "timestamp": "2025-05-29T20:46:23.701754",
+    "generated_at": "2025-05-29 20:46:23"
   },
   "results": [
     {
@@ -17,7 +17,7 @@
     },
     {
       "control_id": "ac-3",
-      "status": "passed",
+      "status": "failed",
       "test_results": [
         {
           "test_name": "Regular user accessing user profile",
@@ -37,15 +37,15 @@
         },
         {
           "test_name": "File /home/ernesto/Documents/msusel-ssp-manager/logs/opa_interactions.log content is expected to include \"access_control\"",
-          "status": "passed"
+          "status": "failed"
         },
         {
           "test_name": "File /home/ernesto/Documents/msusel-ssp-manager/logs/opa_interactions.log content is expected to include \"allow_access\"",
-          "status": "passed"
+          "status": "failed"
         },
         {
           "test_name": "File /home/ernesto/Documents/msusel-ssp-manager/logs/opa_interactions.log content is expected to include \"deny_access\"",
-          "status": "passed"
+          "status": "failed"
         }
       ]
     },
@@ -211,7 +211,7 @@
     },
     {
       "control_id": "au-3",
-      "status": "passed",
+      "status": "failed",
       "test_results": [
         {
           "test_name": "Basic audit record content",
@@ -255,11 +255,11 @@
         },
         {
           "test_name": "Failed login event content",
-          "status": "passed"
+          "status": "failed"
         },
         {
           "test_name": "Failed login event content",
-          "status": "passed"
+          "status": "failed"
         },
         {
           "test_name": "OPA validation of audit content",
@@ -1003,11 +1003,11 @@
     },
     {
       "control_id": "au-2",
-      "status": "passed",
+      "status": "failed",
       "test_results": [
         {
           "test_name": "Login event auditing",
-          "status": "passed"
+          "status": "failed"
         },
         {
           "test_name": "Login event auditing",
@@ -1031,15 +1031,15 @@
         },
         {
           "test_name": "Failed login auditing",
-          "status": "passed"
+          "status": "failed"
         },
         {
           "test_name": "Failed login auditing",
-          "status": "passed"
+          "status": "failed"
         },
         {
           "test_name": "Failed login auditing",
-          "status": "passed"
+          "status": "failed"
         },
         {
           "test_name": "OPA interaction log",

@@ -60,11 +60,7 @@ process_results() {
 run_tests() {
     log "Trigger detected. Running InSpec tests..."
 
-    # Check if InSpec is installed
-    if ! command -v inspec &> /dev/null; then
-        log "ERROR: InSpec is not installed or not in PATH"
-        exit 1
-    fi
+    # Using Docker for InSpec execution, no local installation needed
 
     # Check if InSpec directory exists and has the proper structure
     if [ ! -d "$INSPEC_DIR" ] || [ ! -f "$INSPEC_DIR/inspec.yml" ]; then
@@ -72,14 +68,30 @@ run_tests() {
         exit 1
     fi
 
+    # Use /tmp for temporary files and mount it separately to Docker
+    TEMP_DIR="/tmp/inspec_$(date +%s)"
+    mkdir -p "$TEMP_DIR"
+
     # Create output file
     OUTPUT_FILE="$TEMP_DIR/inspec_output.json"
 
-    # Run InSpec with verbose output and save the command output for debugging
-    # Change to project root directory so relative paths in tests work correctly
-    log "Running InSpec profile from $INSPEC_DIR (working directory: $PROJECT_ROOT)"
-    cd "$PROJECT_ROOT"
-    INSPEC_OUTPUT=$(inspec exec "$INSPEC_DIR" --reporter json:"$OUTPUT_FILE" --log-level debug 2>&1)
+    # Run InSpec in Docker container with verbose output and save the command output for debugging
+    # Mount the project root so the container can access InSpec tests and generate output
+    log "Running InSpec profile from $INSPEC_DIR using Docker container"
+    log "Project root: $PROJECT_ROOT"
+    log "Output file: $OUTPUT_FILE"
+
+    # Run InSpec in Docker container
+    # Mount project root to /share and temp directory to /tmp in container
+    CONTAINER_OUTPUT_FILE="/tmp/$(basename "$TEMP_DIR")/inspec_output.json"
+    INSPEC_OUTPUT=$(docker run --rm \
+        -v "$PROJECT_ROOT":/share \
+        -v "$TEMP_DIR":/tmp/$(basename "$TEMP_DIR") \
+        --network host \
+        chef/inspec exec /share/inspec \
+        --reporter json:"$CONTAINER_OUTPUT_FILE" \
+        --log-level debug \
+        --chef-license accept 2>&1)
     EXIT_CODE=$?
 
     # Log the full InSpec output for debugging
@@ -153,12 +165,24 @@ main() {
     # Make Python processor executable
     chmod +x "$PYTHON_PROCESSOR"
 
-    # Check InSpec installation
-    if command -v inspec &> /dev/null; then
-        INSPEC_VERSION=$(inspec --version | head -n 1)
-        log "InSpec is installed: $INSPEC_VERSION"
+    # Check Docker installation and InSpec image availability
+    if command -v docker &> /dev/null; then
+        DOCKER_VERSION=$(docker --version)
+        log "Docker is installed: $DOCKER_VERSION"
+
+        # Check if InSpec Docker image is available
+        log "Checking InSpec Docker image availability..."
+        INSPEC_IMAGE_CHECK=$(docker run --rm chef/inspec --version 2>&1)
+        if [ $? -eq 0 ]; then
+            log "InSpec Docker image is available: $(echo "$INSPEC_IMAGE_CHECK" | head -n 1)"
+        else
+            log "WARNING: Failed to run InSpec Docker image"
+            log "Error: $INSPEC_IMAGE_CHECK"
+        fi
     else
-        log "WARNING: InSpec is not installed or not in PATH"
+        log "ERROR: Docker is not installed or not in PATH"
+        log "Docker is required to run InSpec tests"
+        exit 1
     fi
 
     # Start watching for trigger file
