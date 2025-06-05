@@ -49,4 +49,8 @@ def create_app():
     from .test_runner import test_runner_bp
     app.register_blueprint(test_runner_bp)
 
+    # Register InSpec runner blueprint
+    from .inspec_runner import inspec_runner_bp
+    app.register_blueprint(inspec_runner_bp)
+
     return app

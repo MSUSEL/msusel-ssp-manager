@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "timestamp": "2025-05-29T20:46:23.701754",
-    "generated_at": "2025-05-29 20:46:23"
+    "timestamp": "2025-06-05T03:46:09.029443",
+    "generated_at": "2025-06-05 03:46:09"
   },
   "results": [
     {
@@ -36,15 +36,15 @@
           "status": "passed"
         },
         {
-          "test_name": "File /home/ernesto/Documents/msusel-ssp-manager/logs/opa_interactions.log content is expected to include \"access_control\"",
+          "test_name": "File /shared/logs/opa_interactions.log content is expected to include \"access_control\"",
           "status": "failed"
         },
         {
-          "test_name": "File /home/ernesto/Documents/msusel-ssp-manager/logs/opa_interactions.log content is expected to include \"allow_access\"",
+          "test_name": "File /shared/logs/opa_interactions.log content is expected to include \"allow_access\"",
           "status": "failed"
         },
         {
-          "test_name": "File /home/ernesto/Documents/msusel-ssp-manager/logs/opa_interactions.log content is expected to include \"deny_access\"",
+          "test_name": "File /shared/logs/opa_interactions.log content is expected to include \"deny_access\"",
           "status": "failed"
         }
       ]
@@ -137,7 +137,7 @@
     },
     {
       "control_id": "ac-2",
-      "status": "passed",
+      "status": "failed",
       "test_results": [
         {
           "test_name": "Account creation with proper approval",
@@ -189,29 +189,29 @@
         },
         {
           "test_name": "File ./logs/opa_interactions.log content is expected to include \"account_management\"",
-          "status": "passed"
+          "status": "failed"
         },
         {
           "test_name": "File ./logs/opa_interactions.log content is expected to include \"account_creation_valid\"",
-          "status": "passed"
+          "status": "failed"
         },
         {
           "test_name": "File ./logs/opa_interactions.log content is expected to include \"account_modification_valid\"",
-          "status": "passed"
+          "status": "failed"
         },
         {
           "test_name": "File ./logs/opa_interactions.log content is expected to include \"account_disabling_valid\"",
-          "status": "passed"
+          "status": "failed"
         },
         {
           "test_name": "File ./logs/opa_interactions.log content is expected to include \"account_removal_valid\"",
-          "status": "passed"
+          "status": "failed"
         }
       ]
     },
     {
       "control_id": "au-3",
-      "status": "failed",
+      "status": "passed",
       "test_results": [
         {
           "test_name": "Basic audit record content",
@@ -255,11 +255,11 @@
         },
         {
           "test_name": "Failed login event content",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Failed login event content",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "OPA validation of audit content",
@@ -355,7 +355,7 @@
     },
     {
       "control_id": "au-10",
-      "status": "passed",
+      "status": "failed",
       "test_results": [
         {
           "test_name": "Digital signature configuration",
@@ -479,13 +479,13 @@
         },
         {
           "test_name": "OPA policy validation for non-repudiation",
-          "status": "passed"
+          "status": "failed"
         }
       ]
     },
     {
       "control_id": "au-9",
-      "status": "passed",
+      "status": "failed",
       "test_results": [
         {
           "test_name": "Audit access control configuration",
@@ -605,7 +605,7 @@
         },
         {
           "test_name": "OPA policy validation for audit protection",
-          "status": "passed"
+          "status": "failed"
         },
         {
           "test_name": "Audit log file permissions",
@@ -623,7 +623,7 @@
     },
     {
       "control_id": "au-5",
-      "status": "passed",
+      "status": "failed",
       "test_results": [
         {
           "test_name": "Audit failure alert configuration",
@@ -671,7 +671,7 @@
         },
         {
           "test_name": "OPA policy validation for audit response",
-          "status": "passed"
+          "status": "failed"
         },
         {
           "test_name": "System response to audit failure",
@@ -811,7 +811,7 @@
     },
     {
       "control_id": "au-6",
-      "status": "passed",
+      "status": "failed",
       "test_results": [
         {
           "test_name": "Audit review configuration",
@@ -871,7 +871,7 @@
         },
         {
           "test_name": "OPA policy validation for audit review",
-          "status": "passed"
+          "status": "failed"
         },
         {
           "test_name": "Audit findings reporting",
@@ -913,7 +913,7 @@
     },
     {
       "control_id": "au-4",
-      "status": "passed",
+      "status": "failed",
       "test_results": [
         {
           "test_name": "Audit storage capacity configuration",
@@ -977,7 +977,7 @@
         },
         {
           "test_name": "OPA policy validation for audit storage",
-          "status": "passed"
+          "status": "failed"
         },
         {
           "test_name": "System response to approaching capacity",
@@ -1003,11 +1003,11 @@
     },
     {
       "control_id": "au-2",
-      "status": "failed",
+      "status": "passed",
       "test_results": [
         {
           "test_name": "Login event auditing",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Login event auditing",
@@ -1031,15 +1031,15 @@
         },
         {
           "test_name": "Failed login auditing",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Failed login auditing",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Failed login auditing",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "OPA interaction log",
@@ -1061,7 +1061,7 @@
     },
     {
       "control_id": "au-8",
-      "status": "passed",
+      "status": "failed",
       "test_results": [
         {
           "test_name": "Time source configuration",
@@ -1137,7 +1137,7 @@
         },
         {
           "test_name": "OPA policy validation for timestamps",
-          "status": "passed"
+          "status": "failed"
         }
       ]
     },

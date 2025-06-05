@@ -303,36 +303,42 @@ const CurrentStatus: React.FC = () => {
         return;
       }
       
-      // Try to load test results
-      try {
-        const testResultsResponse = await fetch('/data/test_results.json', {
-          cache: 'no-store' // Ensure we get fresh results
-        });
-        
-        if (!testResultsResponse.ok) {
-          throw new Error(`Failed to load test results: ${testResultsResponse.statusText}`);
+      // Use results directly from API response if available, otherwise fetch from file
+      if (data.results && Array.isArray(data.results)) {
+        setTestResults(data.results);
+        setLastTestRun(data.timestamp ? new Date(data.timestamp).toLocaleString() : new Date().toLocaleString());
+      } else {
+        // Fallback to loading from file (for backward compatibility)
+        try {
+          const testResultsResponse = await fetch('/data/test_results.json', {
+            cache: 'no-store' // Ensure we get fresh results
+          });
+
+          if (!testResultsResponse.ok) {
+            throw new Error(`Failed to load test results: ${testResultsResponse.statusText}`);
+          }
+
+          const testResultsData = await testResultsResponse.json();
+
+          // Check if the new format with metadata is used
+          if (testResultsData.metadata && testResultsData.results) {
+            setTestResults(testResultsData.results);
+            setLastTestRun(new Date(testResultsData.metadata.generated_at).toLocaleString());
+          } else if (Array.isArray(testResultsData)) {
+            // Legacy format
+            setTestResults(testResultsData);
+            setLastTestRun(new Date().toLocaleString());
+          } else {
+            throw new Error('Invalid test results format');
+          }
+        } catch (error) {
+          console.error("Error loading test results:", error);
+          setError(`Error loading test results: ${error instanceof Error ? error.message : String(error)}`);
         }
-        
-        const testResultsData = await testResultsResponse.json();
-        
-        // Check if the new format with metadata is used
-        if (testResultsData.metadata && testResultsData.results) {
-          setTestResults(testResultsData.results);
-          setLastTestRun(new Date(testResultsData.metadata.generated_at).toLocaleString());
-        } else if (Array.isArray(testResultsData)) {
-          // Legacy format
-          setTestResults(testResultsData);
-          setLastTestRun(new Date().toLocaleString());
-        } else {
-          throw new Error('Invalid test results format');
-        }
-      } catch (error) {
-        console.error("Error loading test results:", error);
-        setError(`Error loading test results: ${error.message}`);
       }
     } catch (error) {
       console.error("Error running tests:", error);
-      setError(`Error running tests: ${error.message}`);
+      setError(`Error running tests: ${error instanceof Error ? error.message : String(error)}`);
     } finally {
       setIsLoading(false);
       setIsRunningTests(false); // This was missing

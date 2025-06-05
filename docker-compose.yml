@@ -46,6 +46,22 @@ services:
       - "3000:3000"
     networks:
       - ssp_network
+  mock-server:
+    container_name: mock-server
+    build:
+      context: ./mock
+      dockerfile: Dockerfile
+    environment:
+      - OPA_SERVER_URL=http://opa:8181
+      - USE_REAL_OPA=true
+    volumes:
+      - "${HOST_VOLUME_PATH}/logs:/logs"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - opa
+    networks:
+      - ssp_network
   opa:
     image: openpolicyagent/opa:latest
     ports:

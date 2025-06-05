@@ -1,0 +1,13 @@
+name: ugov-services-security-controls
+title: UGov Services Security Controls
+maintainer: Security Team
+copyright: Security Team
+copyright_email: security@example.com
+license: Apache-2.0
+summary: InSpec tests for UGov Services security controls
+version: 0.1.0
+supports:
+  - platform: linux
+  - platform: windows
+# No external dependencies required
+depends: []

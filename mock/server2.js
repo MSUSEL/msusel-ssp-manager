@@ -17,8 +17,19 @@ const BUSINESS_HOURS_END = 17;
 // Middleware
 app.use(bodyParser.json());
 
+// Health check endpoint for Docker
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    opa_url: OPA_SERVER_URL,
+    using_real_opa: USE_REAL_OPA
+  });
+});
+
 // Create logs directory if it doesn't exist
-const logsDir = path.join(__dirname, '..', 'logs');
+// In container, logs will be mounted at /logs, otherwise use ../logs
+const logsDir = fs.existsSync('/logs') ? '/logs' : path.join(__dirname, '..', 'logs');
 if (!fs.existsSync(logsDir)) {
   fs.mkdirSync(logsDir, { recursive: true });
 }
