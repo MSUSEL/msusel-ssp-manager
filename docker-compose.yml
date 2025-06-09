@@ -23,6 +23,8 @@ services:
       - ARANGO_DB_NAME=BRON
       - ARANGO_DB_USERNAME=root
       - ARANGO_DB_PASSWORD=changeme
+      - HOST_UID=${HOST_UID}
+      - HOST_GID=${HOST_GID}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - "${HOST_VOLUME_PATH}/flask/shared:/shared"
@@ -51,6 +53,9 @@ services:
     build:
       context: ./mock
       dockerfile: Dockerfile
+      args:
+        - HOST_UID=${HOST_UID}
+        - HOST_GID=${HOST_GID}
     environment:
       - OPA_SERVER_URL=http://opa:8181
       - USE_REAL_OPA=true

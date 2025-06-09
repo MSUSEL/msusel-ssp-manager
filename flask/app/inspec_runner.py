@@ -13,6 +13,10 @@ def run_inspec_container(output_file):
     Run InSpec tests in a Docker container and process the results.
     Following the working patterns from validate.py for container-in-container execution.
 
+    Uses HOST_UID:HOST_GID to ensure proper file ownership (avoiding root-owned files).
+    This follows the same pattern as validate.py but uses UID:GID format since
+    chef/inspec image may not have an 'appuser' account.
+
     Args:
         output_file (str): Path where processed results should be written
 
@@ -66,20 +70,38 @@ def run_inspec_container(output_file):
         logging.info(f"Running InSpec container with command: {' '.join(command)}")
         logging.info(f"Volumes: {volumes}")
 
-        # Debug: Check if directories exist
+        # Debug: Check if directories exist and log user configuration
         logging.info(f"Flask dir exists: {os.path.exists(flask_dir)}")
         logging.info(f"Temp output dir exists: {os.path.exists(temp_output_dir)}")
         logging.info(f"InSpec profile exists: {os.path.exists(inspec_dir)}")
+        logging.info(f"HOST_UID from config: {current_app.config.get('HOST_UID')}")
+        logging.info(f"HOST_GID from config: {current_app.config.get('HOST_GID')}")
 
         # Run the container following validate.py pattern
         try:
-            # Use the same pattern as validate.py for container execution
+            # Use the same user ownership pattern as validate.py for container execution
+            # Get HOST_UID and HOST_GID from Flask config (set by docker-compose.yml)
+            # This ensures files created by the container have correct ownership
+            host_uid = current_app.config.get('HOST_UID')
+            host_gid = current_app.config.get('HOST_GID')
+
+            if host_uid and host_gid:
+                # Use UID:GID format for chef/inspec container (more portable than username)
+                user_spec = f"{host_uid}:{host_gid}"
+                logging.info(f"Running InSpec container as user {user_spec}")
+            else:
+                # Fallback to appuser if HOST_UID/HOST_GID not available
+                user_spec = 'appuser'
+                logging.warning("HOST_UID/HOST_GID not available, falling back to appuser")
+
             # Connect to ssp_network so InSpec can reach mock-server
+            # Run with proper user ownership to avoid root-owned files
             container = client.containers.run(
                 'chef/inspec',
                 command,
                 volumes=volumes,
                 network='ssp_network',  # Use ssp_network to reach mock-server
+                user=user_spec,  # Run as HOST_UID:HOST_GID for proper file ownership
                 remove=False,  # Keep container for debugging initially
                 detach=False,  # Wait for completion
                 stdout=True,

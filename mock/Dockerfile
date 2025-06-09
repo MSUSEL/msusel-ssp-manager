@@ -1,6 +1,10 @@
 # Use Node.js 18 Alpine for a lightweight container
 FROM node:18-alpine
 
+# Accept build arguments for user ownership (following Flask container pattern)
+ARG HOST_UID
+ARG HOST_GID
+
 # Set working directory
 WORKDIR /app
 
@@ -17,18 +21,27 @@ RUN npm ci --only=production
 COPY server2.js ./
 COPY README.md ./
 
-# Create a non-root user for security
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S mockserver -u 1001
+# Create a non-root user for security using HOST_UID/HOST_GID (following Flask container pattern)
+# Use HOST_UID and HOST_GID if provided, otherwise fallback to 1001 for compatibility
+# For UID 1000, use existing 'node' user; for others, create new user
+RUN if [ "${HOST_UID:-1001}" = "1000" ]; then \
+        echo "Using existing node user with UID 1000"; \
+        MOCKSERVER_USER=node; \
+    else \
+        adduser -S mockserver -u ${HOST_UID:-1001}; \
+        MOCKSERVER_USER=mockserver; \
+    fi && \
+    echo "MOCKSERVER_USER=$MOCKSERVER_USER" > /app/user.env
 
-# Change ownership of the app directory and logs
-RUN chown -R mockserver:nodejs /app /logs
+# Change ownership of the app directory and logs using the determined user
+RUN . /app/user.env && chown -R ${HOST_UID:-1001}:${HOST_GID:-1001} /app /logs
 
-# Create a startup script to handle log directory permissions
+# Create a startup script to handle log directory permissions with proper ownership
 RUN echo '#!/bin/sh' > /app/start.sh && \
+    echo '. /app/user.env' >> /app/start.sh && \
     echo 'mkdir -p /logs' >> /app/start.sh && \
-    echo 'chown -R mockserver:nodejs /logs' >> /app/start.sh && \
-    echo 'exec su-exec mockserver "$@"' >> /app/start.sh && \
+    echo "chown -R ${HOST_UID:-1001}:${HOST_GID:-1001} /logs" >> /app/start.sh && \
+    echo 'exec su-exec $MOCKSERVER_USER "$@"' >> /app/start.sh && \
     chmod +x /app/start.sh
 
 # Install su-exec for proper user switching
