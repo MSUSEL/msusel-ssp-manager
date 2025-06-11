@@ -94,6 +94,9 @@ def run_inspec_container(output_file):
                 user_spec = 'appuser'
                 logging.warning("HOST_UID/HOST_GID not available, falling back to appuser")
 
+            logging.info("Starting InSpec container execution...")
+            start_time = datetime.now()
+
             # Connect to ssp_network so InSpec can reach mock-server
             # Run with proper user ownership to avoid root-owned files
             container = client.containers.run(
@@ -108,11 +111,15 @@ def run_inspec_container(output_file):
                 stderr=True
             )
 
+            end_time = datetime.now()
+            execution_time = (end_time - start_time).total_seconds()
+            logging.info(f"InSpec container completed in {execution_time:.2f} seconds")
+
             # Container output is returned as bytes, decode it
             output = container.decode('utf-8') if isinstance(container, bytes) else str(container)
             logging.info(f"InSpec container output: {output}")
 
-            # Since we used remove=True and detach=False, the container has completed
+            # Since we used remove=False and detach=False, the container has completed
             exit_code = 0  # If we get here, the container ran successfully
 
         except docker.errors.ContainerError as e:

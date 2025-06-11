@@ -53,6 +53,9 @@ const CurrentStatus: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Add a ref to track if polling is active to prevent overlapping polls
+  const pollingActiveRef = React.useRef(false);
+
   // Add a function to check file modification times
   const checkFileModifications = async () => {
     try {
@@ -280,69 +283,184 @@ const CurrentStatus: React.FC = () => {
     }
   };
 
-  // Run InSpec tests
+  // Run InSpec tests using proper async approach
   const runTests = async () => {
+    // Prevent multiple simultaneous test runs
+    if (isRunningTests) {
+      console.log('Tests are already running, ignoring request');
+      return;
+    }
+
     setIsLoading(true);
-    setIsRunningTests(true); // This was missing
+    setIsRunningTests(true);
     setError(null);
-    
+
+    console.log('Starting InSpec tests...');
+
     try {
+      // Start the tests and wait for the initial response
+      console.log('Triggering test execution...');
       const response = await fetch('/api/run-tests', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         }
       });
-      
-      const data = await response.json();
-      
-      if (!data.success) {
-        setError(data.message || 'Failed to run tests');
-        setIsLoading(false);
-        setIsRunningTests(false); // This was missing
-        return;
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `HTTP ${response.status}: ${response.statusText}`);
       }
-      
-      // Use results directly from API response if available, otherwise fetch from file
-      if (data.results && Array.isArray(data.results)) {
-        setTestResults(data.results);
-        setLastTestRun(data.timestamp ? new Date(data.timestamp).toLocaleString() : new Date().toLocaleString());
-      } else {
-        // Fallback to loading from file (for backward compatibility)
-        try {
-          const testResultsResponse = await fetch('/data/test_results.json', {
-            cache: 'no-store' // Ensure we get fresh results
-          });
 
-          if (!testResultsResponse.ok) {
-            throw new Error(`Failed to load test results: ${testResultsResponse.statusText}`);
-          }
+      const responseData = await response.json();
+      console.log('Test execution started successfully:', responseData);
 
-          const testResultsData = await testResultsResponse.json();
+      if (!responseData.success) {
+        throw new Error(responseData.message || 'Failed to start tests');
+      }
 
-          // Check if the new format with metadata is used
-          if (testResultsData.metadata && testResultsData.results) {
-            setTestResults(testResultsData.results);
-            setLastTestRun(new Date(testResultsData.metadata.generated_at).toLocaleString());
-          } else if (Array.isArray(testResultsData)) {
-            // Legacy format
-            setTestResults(testResultsData);
-            setLastTestRun(new Date().toLocaleString());
-          } else {
-            throw new Error('Invalid test results format');
-          }
-        } catch (error) {
-          console.error("Error loading test results:", error);
-          setError(`Error loading test results: ${error instanceof Error ? error.message : String(error)}`);
+      // Start polling for results after successful test initiation
+      console.log('Starting to poll for test results...');
+      try {
+        await pollForTestResults();
+        console.log('Polling completed successfully');
+      } catch (pollError) {
+        console.error('Polling failed:', pollError);
+        throw pollError;
+      }
+
+    } catch (error) {
+      console.error('Error running tests:', error);
+      setError(`Error running tests: ${error instanceof Error ? error.message : String(error)}`);
+      setIsLoading(false);
+      setIsRunningTests(false);
+    }
+  };
+
+  // Polling function that waits for test completion
+  const pollForTestResults = async (): Promise<void> => {
+    const pollInterval = 5000; // Poll every 5 seconds
+    const maxPollingTime = 600000; // Maximum 10 minutes of polling
+    let pollCount = 0;
+    const maxPolls = maxPollingTime / pollInterval;
+
+    // Get the current file modification time before starting tests
+    let initialFileTime: number | null = null;
+    try {
+      const initialResponse = await fetch('/data/test_results.json', {
+        method: 'HEAD',
+        cache: 'no-store'
+      });
+      if (initialResponse.ok) {
+        const lastModified = initialResponse.headers.get('last-modified');
+        if (lastModified) {
+          initialFileTime = new Date(lastModified).getTime();
         }
       }
     } catch (error) {
-      console.error("Error running tests:", error);
-      setError(`Error running tests: ${error instanceof Error ? error.message : String(error)}`);
-    } finally {
-      setIsLoading(false);
-      setIsRunningTests(false); // This was missing
+      console.log('Could not get initial file time:', error);
     }
+
+    console.log('Starting to poll for test completion...', {
+      maxPolls,
+      pollInterval,
+      maxPollingTime: maxPollingTime / 1000 + ' seconds',
+      initialFileTime: initialFileTime ? new Date(initialFileTime).toISOString() : 'unknown'
+    });
+
+    return new Promise<void>((resolve, reject) => {
+      const poll = async (): Promise<void> => {
+        pollCount++;
+        const elapsedTime = pollCount * pollInterval;
+
+        console.log(`Polling for results... attempt ${pollCount}/${maxPolls} (${Math.round(elapsedTime/1000)}s elapsed)`);
+
+        try {
+          const response = await fetch('/data/test_results.json', {
+            cache: 'no-store',
+            headers: {
+              'Cache-Control': 'no-cache',
+              'Pragma': 'no-cache'
+            }
+          });
+
+          if (response.ok) {
+            const testResultsData = await response.json();
+
+            // Check if the file has been modified since we started
+            let fileModified = false;
+            const lastModified = response.headers.get('last-modified');
+
+            if (lastModified && initialFileTime) {
+              const currentFileTime = new Date(lastModified).getTime();
+              fileModified = currentFileTime > initialFileTime;
+
+              console.log('File modification check:', {
+                initialFileTime: new Date(initialFileTime).toISOString(),
+                currentFileTime: new Date(currentFileTime).toISOString(),
+                fileModified,
+                timeDiff: currentFileTime - initialFileTime
+              });
+            } else if (!initialFileTime) {
+              // If we couldn't get initial time, accept results after a reasonable wait (30 seconds)
+              fileModified = pollCount >= 6;
+              console.log('No initial file time, using poll count fallback:', { pollCount, fileModified });
+            }
+
+            console.log('Found test results:', {
+              hasMetadata: !!testResultsData.metadata,
+              hasResults: !!testResultsData.results,
+              isArray: Array.isArray(testResultsData),
+              resultCount: testResultsData.results?.length || (Array.isArray(testResultsData) ? testResultsData.length : 0),
+              fileModified
+            });
+
+            // Accept results if the file has been modified since we started
+            if (fileModified) {
+              console.log('New test results detected! File was modified since test started.');
+
+              // Process the results
+              if (testResultsData.metadata && testResultsData.results) {
+                setTestResults(testResultsData.results);
+                setLastTestRun(new Date(testResultsData.metadata.generated_at || testResultsData.metadata.timestamp).toLocaleString());
+              } else if (Array.isArray(testResultsData)) {
+                setTestResults(testResultsData);
+                setLastTestRun(new Date().toLocaleString());
+              }
+
+              console.log('Test results updated successfully');
+
+              // Clean up state and resolve
+              setIsLoading(false);
+              setIsRunningTests(false);
+              resolve();
+              return;
+            } else {
+              console.log('Found test results but file has not been modified since test started');
+            }
+          } else {
+            console.log(`No test results file found yet (HTTP ${response.status})`);
+          }
+        } catch (pollError) {
+          console.log(`Polling attempt ${pollCount} failed:`, pollError);
+        }
+
+        // Continue polling if we haven't exceeded limits
+        if (pollCount < maxPolls) {
+          setTimeout(poll, pollInterval);
+        } else {
+          console.log('Polling timeout reached after 10 minutes');
+          setError('Tests are taking longer than expected (>10 minutes). Please check the server logs or try again.');
+          setIsLoading(false);
+          setIsRunningTests(false);
+          reject(new Error('Polling timeout after 10 minutes'));
+        }
+      };
+
+      // Start polling immediately
+      poll();
+    });
   };
 
   // Get status badge color
@@ -492,6 +610,23 @@ const CurrentStatus: React.FC = () => {
             </div>
           )}
         </div>
+
+        {/* Show loading indicator when tests are running */}
+        {isRunningTests && (
+          <div className="test-running-indicator">
+            <div className="loading-spinner"></div>
+            <span>
+              Running InSpec tests... This may take a few minutes.
+            </span>
+          </div>
+        )}
+
+        {/* Show error message if tests failed */}
+        {error && (
+          <div className="error-message">
+            <strong>Error:</strong> {error}
+          </div>
+        )}
 
         <div className="search-filter-container">
           <input

@@ -2,21 +2,46 @@ import os
 import json
 import logging
 import time
+import threading
 from flask import Blueprint, jsonify, current_app
 from datetime import datetime
 
 test_runner_bp = Blueprint('test_runner', __name__)
 
-@test_runner_bp.route('/api/run-tests', methods=['POST'])
-def run_tests():
+def run_tests_async(app, output_file):
     """
-    Legacy endpoint that redirects to the new InSpec runner.
-    This maintains backward compatibility with the existing UI.
+    Run InSpec tests asynchronously in a background thread.
+    This allows the API endpoint to return immediately while tests run in the background.
+
+    Args:
+        app: Flask application instance for context
+        output_file: Path where processed results should be written
     """
     try:
         # Import here to avoid circular imports
         from .inspec_runner import run_inspec_container
 
+        # Set up application context for the background thread
+        with app.app_context():
+            logging.info("Starting asynchronous InSpec test execution")
+            success, message, exit_code = run_inspec_container(output_file)
+
+            if success:
+                logging.info(f"InSpec tests completed successfully: {message}")
+            else:
+                logging.error(f"InSpec tests failed: {message}")
+
+    except Exception as e:
+        logging.exception(f"Error in async test execution: {e}")
+
+@test_runner_bp.route('/api/run-tests', methods=['POST'])
+def run_tests():
+    """
+    Asynchronous endpoint for running InSpec tests.
+    Returns immediately and runs tests in background thread.
+    Frontend should poll for results using the polling mechanism.
+    """
+    try:
         # Determine project root - same logic as in inspec_runner
         possible_roots = [
             '/share',  # If mounted as /share
@@ -79,40 +104,27 @@ def run_tests():
 
         output_file = os.path.join(output_dir, 'test_results.json')
 
-        # Run InSpec tests using the new simplified function
-        logging.info("Running InSpec tests directly via container")
-        success, message, exit_code = run_inspec_container(output_file)
+        # Start tests in background thread
+        logging.info("Starting InSpec tests in background thread")
+        test_thread = threading.Thread(
+            target=run_tests_async,
+            args=(current_app._get_current_object(), output_file),
+            daemon=True
+        )
+        test_thread.start()
 
-        if success:
-            # Read the results to include in response
-            try:
-                with open(output_file, 'r') as f:
-                    results_data = json.load(f)
-
-                return jsonify({
-                    'success': True,
-                    'message': message,
-                    'results_file': output_file,
-                    'results': results_data.get('results', []) if isinstance(results_data, dict) else results_data,
-                    'timestamp': datetime.now().isoformat()
-                })
-            except Exception as e:
-                logging.warning(f"Could not read results file: {e}")
-                return jsonify({
-                    'success': True,
-                    'message': f"{message} (Warning: Could not read results file)",
-                    'results_file': output_file,
-                    'timestamp': datetime.now().isoformat()
-                })
-        else:
-            return jsonify({
-                'success': False,
-                'message': message
-            }), 500
+        # Return immediately - frontend will poll for results
+        return jsonify({
+            'success': True,
+            'message': 'InSpec tests started successfully. Results will be available shortly.',
+            'results_file': output_file,
+            'timestamp': datetime.now().isoformat(),
+            'status': 'running'
+        })
 
     except Exception as e:
-        logging.exception(f"Error running tests: {e}")
+        logging.exception(f"Error starting tests: {e}")
         return jsonify({
             'success': False,
-            'message': f"Error running tests: {str(e)}"
+            'message': f"Error starting tests: {str(e)}"
         }), 500
