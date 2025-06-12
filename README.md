@@ -26,17 +26,12 @@ sudo apt install docker.io
 ```
 
 Docker-compose can be installed with: <br />
-```
-sudo apt install docker-compose
-```
-Alternatively, you can install the newer Go-based version of docker-compose with
-```
+``
 sudo apt update
 sudo apt install -y ca-certificates curl gnupg
 sudo install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
-
 echo \
 "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
 mantic stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
@@ -44,7 +39,6 @@ mantic stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt update
 sudo apt install docker-compose-plugin
 ```
-Note: with the newer version run commands with "docker compose ", without the hyphen.
 
 Add yourself to the docker group: <br />
 ```
@@ -52,12 +46,6 @@ sudo usermod -aG docker yourUserName
 ```
 
 (Restart your machine) <br />
-
-For autocompletion while editing OSCAL documents and highlighting of key or value errors, use VS Code. The project has the json schemas for the OSCAL documents, and we set VS Code to find them.<br />
-To install VS Code in Ubuntu:
-```
-sudo snap install code --classic
-```
 
 This project uses the BRON database developed by Hemberg et al. at MIT. The original research for the database can be found as: <br />
 Hemberg, Erik, Jonathan Kelly, Michal Shlapentokh-Rothman, Bryn Reinstadler, Katherine Xu, Nick Rutar, and Una-May O'Reilly. "Linking threat tactics, techniques, and patterns with defensive weaknesses, vulnerabilities and affected platform configurations for cyber hunting." arXiv preprint arXiv:2010.00533 (2020). <br />
@@ -77,7 +65,7 @@ Note: ssp_network is the docker network that is referenced in the docker-compose
 To create the graph database containing the different collections of cybersecurity data: <br />
 ```
 cd BRON
-docker-compose up
+docker compose up
 ```
 This command will create two containers. One is an arangodb container that will host our database. The second is a bootstrap container that will populate the database with the data from different cybersecurity collections. (The bootstrap process can take up to 45 mins) <br />
 
@@ -116,7 +104,7 @@ cd ..
 Now we'll add some additional secutity collections to the database and start the tool's frontend and backend contianers. The new collections contain mappings from MITRE ATT&CK Techniques to NIST SP 800-53 security controls. These mappings where done by MITRE Engenuity Center for Threat-Informed Defense (see:https://github.com/center-for-threat-informed-defense/mappings-explorer/). The container will take some time to complete (up to 30 minutes). When it finishes, the new collections will have been added to the database. Again, you can see them at localhost:8529 The container will be removed when finished. The other two containers that are created are a Python Flask backend and a React frontend. The React contianer is the user interface for the tool. The Flask backend receives requests from the frontend and provides all of the tool's functionalities. <br />
 In your terminal, in the msusel-ssp-manager directory: <br />
 ```
-docker-compose up
+docker compose up
 ```
 The application UI can be found at localhost:3000 <br />
 Note: for now, after running docker compose once, you have to comment out the driver service in the docker-compose file, as you don't need to run it again. In the future we will just run it independently.
@@ -135,63 +123,19 @@ Note: for now, after running docker compose once, you have to comment out the dr
 
 To stop your containers:
 ```
-docker-compose down
+docker compose down
 ```
 
-
-### Install Continuous Compliance Tools
-InSpec is a tool for testing and auditing systems. It is used in this project to testsecurity controls implemented in a mock application. The tests make requests to the application using different user roles, credential, timestamps, and so on, and then verify that the responses are as expected. The application in turn make requests to an Open Policy Agent server running as a container to get policy decisions. This InSpec-mock-OPA setup can be used as a template for testing security controls implemented in a real application. InSpec can be installed with: <br />
-```
-sudo apt update
-sudo apt install ruby-full
-curl https://omnitruck.chef.io/install.sh | sudo bash -s -- -P inspec
-```
-
-When you first install InSpec, you'll need to activate your license. The SSP Manager includes a helper script to make this process easier.
-
-### Activating Your InSpec License
-
-1. After installing InSpec, run the license activation helper script:
-
-   ```bash
-   # Make the script executable
-   chmod +x activate_inspec_license.sh
-
-   # Run the script
-   ./activate_inspec_license.sh
-   ```
-
-2. The script will run a simple InSpec test that will trigger the license activation prompt.
-
-3. When prompted, you'll need to:
-   - Register at [Chef's website](https://www.chef.io/license-generation-free-trial) to get a license
-   - Enter the license key you received
-
-4. After activation, you won't need to do this again.
-
-
-
-
-To run the mock application: <br />
-```
-cd mock
-sudo apt install npm
-npm run start:opa
-
-```
-
-The Open Policy Agent is aleady running as a container. <br />
-
-Start the monitoring script: <br />
-```
-cd ..
-./scripts/run_inspec_tests.sh
-```
 
 
 
 
 ### Set Schemas in VS Code
+For autocompletion while editing OSCAL documents and highlighting of key or value errors, use VS Code. The project has the json schemas for the OSCAL documents, and we set VS Code to find them.
+To install VS Code in Ubuntu:
+```
+sudo snap install code --classic
+```
 Open the project on VS Code and press Ctrl+Shift+P on the keyboard. On the search bar, type "Workspace json settings". Open the file and copy this content to it and save the changes:<br />
 ```
 {
@@ -227,25 +171,7 @@ Open the project on VS Code and press Ctrl+Shift+P on the keyboard. On the searc
 The application is now ready. <br /><br />
 
 
-If you keep your flask and react containers, going forward, to restart the application, you only need to restart the aragodb container:  <br />
-```
-docker start arangocontainerID
-```
-
-And start your application containers: <br />
-```
-docker start <flask-container-id>
-docker start <react-app-container-id>
-```
-
-You can stop them with: <br />
-```
-docker stop <container-id>
-```
-
-The watch scripts have to be started as shown above. <br />
-
-If you prefer to remove your containers after use, you can run docker-compose up and start your scripts as shown above. Your data persists in the volumes shared between the host and the containers so nothing is lost if you remove the containers. <br />
+Your data persists in the volumes shared between the host and the containers. <br />
 
 
 Funding Agency:   <br />

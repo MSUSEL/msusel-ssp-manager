@@ -105,7 +105,7 @@ def run_inspec_container(output_file):
                 volumes=volumes,
                 network='ssp_network',  # Use ssp_network to reach mock-server
                 user=user_spec,  # Run as HOST_UID:HOST_GID for proper file ownership
-                remove=False,  # Keep container for debugging initially
+                remove=True,  # False for debugging
                 detach=False,  # Wait for completion
                 stdout=True,
                 stderr=True
@@ -120,6 +120,18 @@ def run_inspec_container(output_file):
             logging.info(f"InSpec container output: {output}")
 
             # Since we used remove=False and detach=False, the container has completed
+            # Get the container ID and remove it explicitly
+            containerList = client.containers.list(all=True, limit=1)  # Include stopped containers
+            if containerList:
+                container_id = containerList[0].id
+                logging.info(f"Removing InSpec container: {container_id}")
+                try:
+                    container = client.containers.get(container_id)
+                    container.remove()
+                    logging.info("InSpec container removed successfully")
+                except Exception as e:
+                    logging.warning(f"Failed to remove container: {e}")
+
             exit_code = 0  # If we get here, the container ran successfully
 
         except docker.errors.ContainerError as e:
