@@ -3,8 +3,11 @@
 # Executes the commands in the README.md
 # Must be tested
 
-# Create logs directory if it doesn't exist
-mkdir -p ./scripts/logs
+# Check if Docker is installed
+if ! command -v docker &> /dev/null; then
+  echo "Docker is not installed. Please install Docker and try again."
+  exit 1
+fi
 
 # Create docker network if it doesn't exist
 if ! docker network inspect ssp_network >/dev/null 2>&1; then
@@ -38,6 +41,20 @@ echo "Building OSCAL processing image..."
 cd oscal-processing
 docker build -t oscalprocessing .
 cd ..
+
+# Build the driver image
+echo "Building driver image..."
+docker build -t driver ./AttackTechniquesToControls
+
+# Run the driver container
+docker run --rm \
+  --name driver \
+  --network ssp_network \
+  -e ARANGO_DB_URL=http://brondb:8529 \
+  -e ARANGO_DB_NAME=BRON \
+  -e ARANGO_DB_USERNAME=root \
+  -e ARANGO_DB_PASSWORD=changeme \
+  driver
 
 # Generate environment file
 echo "Generating environment file..."

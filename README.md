@@ -107,28 +107,11 @@ In your terminal, in the msusel-ssp-manager directory: <br />
 docker compose up
 ```
 The application UI can be found at localhost:3000 <br />
-Note: for now, after running docker compose once, you have to comment out the driver service in the docker-compose file, as you don't need to run it again. In the future we will just run it independently.
-```
-#driver:
-    #container_name: driver
-    #build: ./AttackTechniquesToControls
-    #environment:
-      #- ARANGO_DB_URL=http://brondb:8529
-      #- ARANGO_DB_NAME=BRON
-      #- ARANGO_DB_USERNAME=root
-      #- ARANGO_DB_PASSWORD=changeme
-    #networks:
-      #- ssp_network
-```
 
 To stop your containers:
 ```
 docker compose down
 ```
-
-
-
-
 
 ### Set Schemas in VS Code
 For autocompletion while editing OSCAL documents and highlighting of key or value errors, use VS Code. The project has the json schemas for the OSCAL documents, and we set VS Code to find them.
