@@ -56,61 +56,21 @@ git clone https://github.com/MSUSEL/msusel-ssp-manager.git
 ```
 Note: The BRON version copied here is from commit 8a18686cab1f024fcadcac74fb13f1240f491b86 of the [BRON project.](https://github.com/ALFA-group/BRON)
 
-Since we will need to have the access to the database container from other containers in this project, it is necessary to create a local docker network:
-```
-docker network create ssp_network
-```
-Note: ssp_network is the docker network that is referenced in the docker-compose and Dockerfiles files that will create the project containers.
 
-To create the graph database containing the different collections of cybersecurity data: <br />
+To install the project, run the setup script: <br />
 ```
-cd BRON
-docker compose up
-```
-This command will create two containers. One is an arangodb container that will host our database. The second is a bootstrap container that will populate the database with the data from different cybersecurity collections. (The bootstrap process can take up to 45 mins) <br />
-
-Once bootstrap finishes, you can see the database in your browser at localhost:8529. The username is root and the password is changeme. Select the BRON database. <br />
-
-The BRON DB container must be added to the docker network that we previously created:
-```
-docker network connect ssp_network brondb
-```
-Note: if you ever have problems connecting to the BROB DB, make sure that the brondb container is part of the ssp_network:
-```
-docker network inspect ssp_network
-```
-
-
-Go back to the msusel-ssp-manager directory and go into the oscal-processing directory: <br />
-```
-cd ..
-cd oscal-processing
-docker build -t oscalprocessing .
-```
-
-This command will create a docker image for NIST's OSCAL validation tool. When a file is submitted for validation on the UI, the flask container will spin up a container for the validation tool using this docker image. <br />
-
-To prepare for the execution of the application containers, we need to run a script that will set up an environment variable for the path to the project in your local computer. This script stores the current working directory path in a .env file that will be created. The docker-compose command will read this file and inform the UI container of its location in the host file system.
-```
-cd ..
-cd ./scripts/
-chmod +x ./generate-env.sh
-./generate-env.sh
-cd ..
-```
-
-
-
-Now we'll add some additional secutity collections to the database and start the tool's frontend and backend contianers. The new collections contain mappings from MITRE ATT&CK Techniques to NIST SP 800-53 security controls. These mappings where done by MITRE Engenuity Center for Threat-Informed Defense (see:https://github.com/center-for-threat-informed-defense/mappings-explorer/). The container will take some time to complete (up to 30 minutes). When it finishes, the new collections will have been added to the database. Again, you can see them at localhost:8529 The container will be removed when finished. The other two containers that are created are a Python Flask backend and a React frontend. The React contianer is the user interface for the tool. The Flask backend receives requests from the frontend and provides all of the tool's functionalities. <br />
-In your terminal, in the msusel-ssp-manager directory: <br />
-```
-docker compose up
+./setup.sh
 ```
 The application UI can be found at localhost:3000 <br />
 
 To stop your containers:
 ```
 docker compose down
+```
+
+After installing, you can run the project with: <br />
+```
+docker compose up
 ```
 
 ### Set Schemas in VS Code
