@@ -26,7 +26,7 @@ sudo apt install docker.io
 ```
 
 Docker-compose can be installed with: <br />
-``
+```
 sudo apt update
 sudo apt install -y ca-certificates curl gnupg
 sudo install -m 0755 -d /etc/apt/keyrings
