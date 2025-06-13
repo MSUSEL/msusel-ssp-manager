@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "timestamp": "2025-06-12T02:59:57.940679",
-    "generated_at": "2025-06-12 02:59:57"
+    "timestamp": "2025-06-13T02:11:26.566167",
+    "generated_at": "2025-06-13 02:11:26"
   },
   "results": [
     {
@@ -211,7 +211,7 @@
     },
     {
       "control_id": "au-3",
-      "status": "failed",
+      "status": "passed",
       "test_results": [
         {
           "test_name": "Basic audit record content",
@@ -239,27 +239,27 @@
         },
         {
           "test_name": "Data access event content",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Data access event content",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Configuration change event content",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Configuration change event content",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Failed login event content",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Failed login event content",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "OPA validation of audit content",
@@ -1003,11 +1003,11 @@
     },
     {
       "control_id": "au-2",
-      "status": "failed",
+      "status": "passed",
       "test_results": [
         {
           "test_name": "Login event auditing",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Login event auditing",
@@ -1015,7 +1015,7 @@
         },
         {
           "test_name": "Resource access auditing",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Resource access auditing",
@@ -1023,23 +1023,23 @@
         },
         {
           "test_name": "Configuration change auditing",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Configuration change auditing",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Failed login auditing",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Failed login auditing",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "Failed login auditing",
-          "status": "failed"
+          "status": "passed"
         },
         {
           "test_name": "OPA interaction log",

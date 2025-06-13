@@ -3,9 +3,17 @@
 # Executes the commands in the README.md
 # Must be tested
 
+set -e  # Exit immediately if a command exits with a non-zero status
+
 # Check if Docker is installed
 if ! command -v docker &> /dev/null; then
   echo "Docker is not installed. Please install Docker and try again."
+  exit 1
+fi
+
+# Check if Docker Compose is installed
+if ! command -v docker compose &> /dev/null; then
+  echo "Docker Compose is not installed. Please install Docker Compose and try again."
   exit 1
 fi
 
@@ -21,32 +29,49 @@ fi
 echo "Setting up BRON database..."
 cd BRON
 echo "Building and starting BRON containers..."
-docker-compose up -d
+docker compose up -d
 echo "Waiting for BRON bootstrap to complete (this may take up to 45 minutes)..."
 echo "You can check progress with: docker logs -f bootstrap"
-# Wait for bootstrap to complete
+
+# Wait for bootstrap to complete with better feedback
+echo "Monitoring bootstrap progress..."
 while docker ps | grep bootstrap > /dev/null; do
-  echo "Bootstrap still running... waiting"
+  echo "Bootstrap still running... ($(date +%H:%M:%S))"
   sleep 60
 done
 echo "BRON bootstrap completed"
 
+# Verify BRON database is running
+if ! docker ps | grep brondb > /dev/null; then
+  echo "Error: BRON database container is not running"
+  exit 1
+fi
+
 # Connect BRON to the network
 echo "Connecting BRON database to ssp_network..."
-docker network connect ssp_network brondb
+docker network connect ssp_network brondb || echo "Already connected or connection failed"
 cd ..
 
 # Build the OSCAL processing image
 echo "Building OSCAL processing image..."
 cd oscal-processing
 docker build -t oscalprocessing .
+if [ $? -ne 0 ]; then
+  echo "Failed to build OSCAL processing image"
+  exit 1
+fi
 cd ..
 
 # Build the driver image
 echo "Building driver image..."
 docker build -t driver ./AttackTechniquesToControls
+if [ $? -ne 0 ]; then
+  echo "Failed to build driver image"
+  exit 1
+fi
 
 # Run the driver container
+echo "Running driver container..."
 docker run --rm \
   --name driver \
   --network ssp_network \
@@ -64,7 +89,8 @@ chmod +x ./generate-env.sh
 cd ..
 
 # Start the containers
-echo "Starting containers with docker-compose..."
-docker-compose up -d
+echo "Starting containers with docker compose..."
+docker compose up -d
 
-echo "Waiting for containers to start..."
+echo "Setup completed successfully!"
+echo "The application UI can be found at http://localhost:3000"
