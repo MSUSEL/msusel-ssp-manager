@@ -19,6 +19,7 @@ interface GraphData {
 
 const PriorityStage: React.FC = () => {
   const visJsRef = useRef<HTMLDivElement | null>(null);
+  const networkRef = useRef<Network | null>(null);
   const [graphData, setGraphData] = useState<GraphData | null>(null);
 
   // Fetch graph data from the backend
@@ -78,19 +79,48 @@ const PriorityStage: React.FC = () => {
       };
 
       const network = new Network(visJsRef.current, data, options);
+      networkRef.current = network; // Store network reference
 
-      // Set an initial zoom level (zoom in more)
+      // Set an initial zoom level
       network.moveTo({
-        scale: 1,  // Adjust this value to zoom in more by default
+        scale: 1,
       });
     }
   }, [graphData]);
+
+  // Zoom handlers
+  const handleZoomIn = () => {
+    if (networkRef.current) {
+      const currentScale = networkRef.current.getScale();
+      networkRef.current.moveTo({ scale: currentScale * 1.2 });
+    }
+  };
+
+  const handleZoomOut = () => {
+    if (networkRef.current) {
+      const currentScale = networkRef.current.getScale();
+      networkRef.current.moveTo({ scale: currentScale * 0.8 });
+    }
+  };
+
+  const handleFitGraph = () => {
+    if (networkRef.current) {
+      networkRef.current.fit();
+    }
+  };
 
   return (
     <div style={{ width: '100%', height: '80vh', padding: '20px' }}>
       <h2> </h2>
       {graphData ? (
-        <div ref={visJsRef} style={{ height: '100%', width: '100%', backgroundColor: '#121212', border: '5px solid black', borderRadius: '10px', boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.8), 0px 8px 20px rgba(0, 0, 0, 0.5)' }}></div>
+        <>
+          <div style={{ marginBottom: '10px' }}>
+            <button onClick={handleZoomIn} style={{ marginRight: '5px' }}>Zoom In</button>
+            <button onClick={handleZoomOut} style={{ marginRight: '5px' }}>Zoom Out</button>
+            <button onClick={handleFitGraph}>Fit Graph</button>
+          </div>
+          <div ref={visJsRef} style={{ height: '100%', width: '100%', backgroundColor: '#121212', border: '5px solid black', borderRadius: '10px', boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.8), 0px 8px 20px rgba(0, 0, 0, 0.5)' }}></div>
+        </>
       ) : (
         <p>Loading graph data...</p>
       )}
