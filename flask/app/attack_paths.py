@@ -62,53 +62,86 @@ def listTechniquesForEachStage(tacticsAndTechniquesGraph, tacticsOriginalIDsList
 def createNetworkXGraph(listOfList):
     G = nx.DiGraph()
    
-    # Add the start node
-    G.add_node("start")
+    # Add the start node with specific color
+    G.add_node("Start", color="blue")
+   
+    # Add the end node with specific color
+    G.add_node("End", color="green")
    
     # Connect start node to each element of the first list
     for element in listOfList[0]:
-        G.add_edge("start", element)
+        G.add_edge("Start", element)
    
     # Loop through the lists to connect elements from one list to the next
     for i in range(len(listOfList) - 1):
         for elem1 in listOfList[i]:
             for elem2 in listOfList[i + 1]:
-                #logging.info(f"i is {i}")
-                #logging.info(f"Connecting {elem1} to {elem2}")
                 G.add_edge(elem1, elem2)
    
     # Connect elements of the last list to the end node
     for element in listOfList[-1]:
-        G.add_edge(element, "end")
+        G.add_edge(element, "End")
    
-    # Add the end node to the graph
-    G.add_node("end")
+    # For debugging - print nodes with their attributes
+    for node, attrs in G.nodes(data=True):
+        print(f"Node: {node}, Attributes: {attrs}")
    
     return G
 
 def convert_nx_to_vis_format(graph: nx.Graph):
-    # Convert nodes
-    nodes = [{"id": str(node), "label": str(node)} for node in graph.nodes()]
+    # Convert nodes with attributes
+    nodes = []
+    for node in graph.nodes():
+        node_data = {"id": str(node), "label": str(node)}
+        # Add any node attributes
+        node_attrs = graph.nodes[node]
+        if node_attrs:
+            for key, value in node_attrs.items():
+                node_data[key] = value
+        nodes.append(node_data)
+    
     # Convert edges
     edges = [{"from": str(source), "to": str(target)} for source, target in graph.edges()]
     # Combine nodes and edges
     vis_format = {"nodes": nodes, "edges": edges}
-    return vis_format  # Do not stringify here, return as a Python dictionary
+    return vis_format
 
 def convert2visNetworkFormat(initial):
     nodes = []
     edges = []
     node_id = 1
     node_map = {}
+    
+    print("Initial nodes data:", initial['nodes'])
+    
     for node in initial['nodes']:
         node_map[node['id']] = node_id
-        if node_id == 1:
-            nodes.append({'id': node_id, 'label': node['label'], 'color': {'background': '#CCE5FF', 'border': 'black'}})
-        else:
-            nodes.append({'id': node_id, 'label': node['label'], 'color': {'background': '#CCE5FF', 'border': 'black'}})
+        
+        # Default color
+        node_color = {'background': '#CCE5FF', 'border': 'black'}
+        
+        # If the node has a color attribute, use it
+        if 'color' in node:
+            print(f"Node {node['id']} has color attribute: {node['color']}")
+            if node['color'] == 'red':
+                node_color = {'background': '#FF0000', 'border': 'black'}
+            elif node['color'] == 'blue':
+                node_color = {'background': '#0000FF', 'border': 'black'}
+            elif node['color'] == 'green':
+                node_color = {'background': '#00FF00', 'border': 'black'}
+        
+        nodes.append({
+            'id': node_id, 
+            'label': node['label'], 
+            'color': node_color
+        })
         node_id += 1
+    
+    print("Converted nodes:", nodes)
+    
     for edge in initial['edges']:
         edges.append({'from': node_map[edge['from']], 'to': node_map[edge['to']]})
+    
     return {'nodes': nodes, 'edges': edges}
 
 

@@ -8,6 +8,10 @@ interface Node {
   x?: number;
   y?: number;
   fixed?: boolean;
+  color?: {
+    background?: string;
+    border?: string;
+  };
 }
 
 interface Edge {
@@ -31,18 +35,36 @@ const AttackPaths: React.FC = () => {
       try {
         const response = await axios.get('/api/attack/attack_paths');
         const data = response.data;
+        console.log('Received data from backend:', data); // Debug log
 
-        // Modify specific nodes to fix their positions
+        // Modify specific nodes to fix their positions and preserve colors
         const modifiedNodes = data.nodes.map((node: Node) => {
+          let nodeConfig = { ...node };
+          
+          // Fix positions for Start and End nodes
           if (node.label === 'Start') {
-            return { ...node, x: -500, y: 0, fixed: true }; // Fix 'Start' node to the left
+            nodeConfig = { ...nodeConfig, x: -500, y: 0, fixed: true };
           }
           if (node.label === 'End') {
-            return { ...node, x: 500, y: 0, fixed: true };  // Fix 'End' node to the right
+            nodeConfig = { ...nodeConfig, x: 500, y: 0, fixed: true };
           }
-          return node;  // Return other nodes as they are
+          
+          // Ensure color information is preserved
+          if (node.color && typeof node.color === 'object') {
+            // Color is already an object with background/border
+            nodeConfig.color = node.color;
+          } else if (node.color === 'red') {
+            // Color is a string 'red'
+            nodeConfig.color = {
+              background: '#FF0000',
+              border: '#000000'
+            };
+          }
+          
+          return nodeConfig;
         });
 
+        console.log('Modified nodes:', modifiedNodes); // Debug log
         setGraphData({ nodes: modifiedNodes, edges: data.edges });
       } catch (error) {
         console.error('Error fetching graph data:', error);
@@ -54,6 +76,7 @@ const AttackPaths: React.FC = () => {
   useEffect(() => {
     if (graphData && visJsRef.current) {
       const { nodes, edges } = graphData;
+      console.log('Rendering graph with nodes:', nodes); // Debug log
 
       const data = {
         nodes,
@@ -72,6 +95,10 @@ const AttackPaths: React.FC = () => {
           color: {
             border: '#ffffff',
             background: '#120BEF',
+            highlight: {
+              border: '#ffffff',
+              background: '#120BEF'
+            }
           },
           font: {
             color: '#ffffff',
