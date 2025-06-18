@@ -72,7 +72,21 @@ def tactics():
         {'from': 2, 'to': 4},
         {'from': 2, 'to': 5}
     ]'''
-
+    # NEW CODE: Find the node that should be colored red
+    red_node = None
+    for node in graph_data['nodes']:
+        node_id = node['id']
+        if node_id in data_manager.tacticsAndTechniquesGraph.nodes:
+            node_attrs = data_manager.tacticsAndTechniquesGraph.nodes[node_id]
+            if 'color' in node_attrs and node_attrs['color'] == 'red':
+                red_node = node
+                break
+    
+    # NEW CODE: If we found a red node, move it to the beginning of the nodes list
+    if red_node:
+        graph_data['nodes'].remove(red_node)
+        graph_data['nodes'].insert(0, red_node)
+    
     return jsonify(convert2visNetworkFormat(graph_data))
 
 

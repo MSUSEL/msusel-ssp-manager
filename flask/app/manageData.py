@@ -512,10 +512,16 @@ class ManageData:
         if debugging == True:  
             logging.info(f"Low: {low}, Mid: {mid}, High: {high}")
         if high.__len__() > 0 and self.tacticsAndTechniquesGraph.has_node(high[0][0]):
+            print(f"Coloring tactic red: {high[0][0]}")
+            logging.info(f"Coloring tactic red: {high[0][0]}")
             self.tacticsAndTechniquesGraph.add_node(high[0][0], color='red')
         elif mid.__len__() > 0 and self.tacticsAndTechniquesGraph.has_node(mid[0][0]):
+            print(f"Coloring tactic red: {mid[0][0]}")
+            logging.info(f"Coloring tactic red: {mid[0][0]}")
             self.tacticsAndTechniquesGraph.add_node(mid[0][0], color='red')
         elif low.__len__() > 0 and self.tacticsAndTechniquesGraph.has_node(low[0][0]):
+            print(f"Coloring tactic red: {low[0][0]}")
+            logging.info(f"Coloring tactic red: {low[0][0]}")
             self.tacticsAndTechniquesGraph.add_node(low[0][0], color='red')
         else:
             pass
