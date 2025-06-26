@@ -13,7 +13,7 @@ git --version
 docker --version
 ```
 ```
-docker-compose --version
+docker compose --version
 ```
 If you don't have Git, it can be installed with: <br />
 ```
@@ -25,7 +25,7 @@ Docker can be installed with: <br />
 sudo apt install docker.io
 ```
 
-Docker-compose can be installed with: <br />
+Docker compose can be installed with: <br />
 ```
 sudo apt update
 sudo apt install -y ca-certificates curl gnupg

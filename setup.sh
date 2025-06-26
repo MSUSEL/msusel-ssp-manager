@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Executes the commands in the README.md
-# Must be tested
-
 set -e  # Exit immediately if a command exits with a non-zero status
 
 # Check if Docker is installed
@@ -33,7 +30,7 @@ docker compose up -d
 echo "Waiting for BRON bootstrap to complete (this may take up to 45 minutes)..."
 echo "You can check progress with: docker logs -f bootstrap"
 
-# Wait for bootstrap to complete with better feedback
+# Wait for bootstrap to complete 
 echo "Monitoring bootstrap progress..."
 while docker ps | grep bootstrap > /dev/null; do
   echo "Bootstrap still running... ($(date +%H:%M:%S))"
