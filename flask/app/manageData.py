@@ -147,8 +147,8 @@ class ManageData:
     # Method returns three lists of dictionaries.
     def load_data(self) ->  Tuple[List[Dict[str, str]], List[Dict[str, str]], List[Dict[str, str]]]:
         """Load input data from JSON files."""
-        security_findings_path = os.path.join(self.cur_dir, "shared", 'vulnerabilities.json')
-        implemented_controls_path = os.path.join(self.cur_dir, "shared", 'controls.json')
+        security_findings_path = os.path.join('/shared', 'vulnerabilities.json')
+        implemented_controls_path = os.path.join('/shared', 'controls.json')
         vulnerable_functions_path = os.path.join(self.cur_dir, "app/artifacts", 'calledVulnerableFunctionsObjectList.txt')
     
 
