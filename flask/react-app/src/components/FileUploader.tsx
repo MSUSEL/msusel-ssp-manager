@@ -66,21 +66,56 @@ const FileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) => {
       formData.append('fileType', fileType);
       formData.append('operation', operation);
 
+      console.log('Starting upload request...');
+      const startTime = Date.now();
+
+      // Create AbortController for timeout handling
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 120000); // 2 minutes timeout
+
       try {
         const response = await fetch(apiEndpoint, {
           method: 'POST',
           body: formData,
+          signal: controller.signal,
         });
 
+        clearTimeout(timeoutId); // Clear timeout on successful response
+        const endTime = Date.now();
+        console.log(`Request completed in ${endTime - startTime}ms`);
+        console.log('Response status:', response.status);
+        console.log('Response ok:', response.ok);
+        console.log('Response headers:', [...response.headers.entries()]);
+
         if (response.ok) {
-          const resultText = await response.json(); // Parse JSON response
+          const resultText = await response.json();
+          console.log('Response data:', resultText);
           setValidationResults(resultText);
           setUploadStatus('File successfully uploaded');
         } else {
+          console.log('Response not ok, status:', response.status);
           setUploadStatus('File upload or validation failed');
         }
       } catch (error) {
-        setUploadStatus('Error uploading or validating file');
+        clearTimeout(timeoutId); // Clear timeout on error
+        const endTime = Date.now();
+        console.log(`Request failed after ${endTime - startTime}ms`);
+
+        // Handle different error types
+        if (error instanceof Error) {
+          console.log('Error type:', error.constructor.name);
+          console.log('Error message:', error.message);
+
+          // Check if it's an abort error (timeout)
+          if (error.name === 'AbortError') {
+            setUploadStatus('Request timed out. The validation is taking longer than expected.');
+          } else {
+            setUploadStatus('Error uploading or validating file');
+          }
+        } else {
+          console.log('Unknown error:', error);
+          setUploadStatus('Error uploading or validating file');
+        }
       } finally {
         setUploading(false);
       }
