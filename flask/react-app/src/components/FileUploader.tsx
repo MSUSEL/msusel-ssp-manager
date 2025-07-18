@@ -11,9 +11,12 @@ const FileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState<string | null>(null);
-  const [validationResults, setValidationResults] = useState<any | null>(null); // Changed to 'any' to handle JSON
+  const [validationResults, setValidationResults] = useState<any | null>(null);
   const [fileType, setFileType] = useState<string>('profile');
   const [operation, setOperation] = useState<string>('validate');
+  const [jobId, setJobId] = useState<string | null>(null); // Store job_id from async response
+  const [isProcessing, setIsProcessing] = useState(false); // Track if validation is running
+  const [error, setError] = useState<string | null>(null); // Track validation errors
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const fileTypes = [
@@ -49,6 +52,9 @@ const FileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) => {
       setSelectedFile(files[0]);
       setUploadStatus(null); // Clear previous status
       setValidationResults(null); // Clear previous results
+      setJobId(null); // Clear previous job_id
+      setIsProcessing(false); // Reset processing state
+      setError(null); // Clear previous errors
     }
   };
 
@@ -58,68 +64,173 @@ const FileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) => {
                  .replace(/\[m/g, ''); // Additional cleanup if necessary
   };
 
+  // Upload handler following the runTests() pattern from CurrentStatus.tsx
   const handleUpload = async () => {
-    if (selectedFile) {
-      setUploading(true);
+    if (!selectedFile) return;
+
+    // Prevent multiple simultaneous uploads
+    if (uploading || isProcessing) {
+      console.log('Upload already in progress, ignoring request');
+      return;
+    }
+
+    setUploading(true);
+    setIsProcessing(true);
+    setUploadStatus(null);
+    setValidationResults(null);
+    setJobId(null);
+    setError(null); // Clear previous errors
+
+    console.log('Starting OSCAL validation...');
+
+    try {
+      // Step 3.1.1: Modify fetch to expect job_id response instead of validation results
       const formData = new FormData();
       formData.append('file', selectedFile);
       formData.append('fileType', fileType);
       formData.append('operation', operation);
 
-      console.log('Starting upload request...');
-      const startTime = Date.now();
+      console.log('Triggering validation execution...');
+      console.log('API Endpoint:', apiEndpoint);
+      console.log('FormData contents:', {
+        file: selectedFile.name,
+        fileType: fileType,
+        operation: operation
+      });
 
-      // Create AbortController for timeout handling
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 120000); // 2 minutes timeout
-
-      try {
-        const response = await fetch(apiEndpoint, {
-          method: 'POST',
-          body: formData,
-          signal: controller.signal,
-        });
-
-        clearTimeout(timeoutId); // Clear timeout on successful response
-        const endTime = Date.now();
-        console.log(`Request completed in ${endTime - startTime}ms`);
-        console.log('Response status:', response.status);
-        console.log('Response ok:', response.ok);
-        console.log('Response headers:', [...response.headers.entries()]);
-
-        if (response.ok) {
-          const resultText = await response.json();
-          console.log('Response data:', resultText);
-          setValidationResults(resultText);
-          setUploadStatus('File successfully uploaded');
-        } else {
-          console.log('Response not ok, status:', response.status);
-          setUploadStatus('File upload or validation failed');
+      // Step 3.1.2: Remove existing timeout logic (AbortController, etc.)
+      const response = await fetch(apiEndpoint, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
         }
-      } catch (error) {
-        clearTimeout(timeoutId); // Clear timeout on error
-        const endTime = Date.now();
-        console.log(`Request failed after ${endTime - startTime}ms`);
+      });
 
-        // Handle different error types
-        if (error instanceof Error) {
-          console.log('Error type:', error.constructor.name);
-          console.log('Error message:', error.message);
-
-          // Check if it's an abort error (timeout)
-          if (error.name === 'AbortError') {
-            setUploadStatus('Request timed out. The validation is taking longer than expected.');
-          } else {
-            setUploadStatus('Error uploading or validating file');
-          }
-        } else {
-          console.log('Unknown error:', error);
-          setUploadStatus('Error uploading or validating file');
-        }
-      } finally {
-        setUploading(false);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `HTTP ${response.status}: ${response.statusText}`);
       }
+
+      const responseData = await response.json();
+      console.log('Validation execution started successfully:', responseData);
+
+      // Step 3.1.3: Store job_id in component state
+      if (!responseData.job_id) {
+        throw new Error('No job_id received from server');
+      }
+
+      setJobId(responseData.job_id);
+      console.log('Job ID received:', responseData.job_id);
+      setUploadStatus('File uploaded successfully. Processing...');
+
+      // Step 3.2: Start polling for validation results
+      console.log('Starting to poll for validation results...');
+      try {
+        await pollForValidationResults(responseData.job_id);
+        console.log('Polling completed successfully');
+      } catch (pollError) {
+        console.error('Polling failed:', pollError);
+        throw pollError;
+      }
+
+      setUploading(false); // Upload phase complete, but still processing
+
+    } catch (error) {
+      console.error('Error starting validation:', error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      setError(`Error starting validation: ${errorMessage}`);
+      setUploadStatus(null);
+      setUploading(false);
+      setIsProcessing(false);
+      setJobId(null);
     }
+  };
+
+  // Polling function that waits for validation completion (copied from CurrentStatus.tsx)
+  const pollForValidationResults = async (jobId: string): Promise<void> => {
+    const pollInterval = 5000; // Poll every 5 seconds
+    const maxPollingTime = 600000; // Maximum 10 minutes of polling
+    let pollCount = 0;
+    const maxPolls = maxPollingTime / pollInterval;
+
+    console.log('Starting to poll for validation completion...', {
+      jobId,
+      maxPolls,
+      pollInterval,
+      maxPollingTime: maxPollingTime / 1000 + ' seconds'
+    });
+
+    return new Promise<void>((resolve, reject) => {
+      const poll = async (): Promise<void> => {
+        pollCount++;
+        const elapsedTime = pollCount * pollInterval;
+
+        console.log(`Polling for validation results... attempt ${pollCount}/${maxPolls} (${Math.round(elapsedTime/1000)}s elapsed)`);
+
+        try {
+          // Step 3.2.1: Poll /api/validate/status/{job_id} instead of file
+          const response = await fetch(`/api/validate/status/${jobId}`, {
+            cache: 'no-store',
+            headers: {
+              'Cache-Control': 'no-cache',
+              'Pragma': 'no-cache'
+            }
+          });
+
+          if (response.ok) {
+            const statusData = await response.json();
+            console.log('Validation status response:', statusData);
+
+            // Step 3.2.2: Use job status instead of file timestamp logic
+            if (statusData.status === 'COMPLETED') {
+              console.log('Validation completed! Processing results...');
+
+              // Update UI with results
+              setValidationResults(statusData.result);
+              setUploadStatus('Validation completed successfully!');
+              setIsProcessing(false);
+
+              console.log('Validation results updated successfully');
+              resolve();
+              return;
+            } else if (statusData.status === 'FAILED') {
+              console.log('Validation failed:', statusData.result);
+
+              const errorMessage = statusData.result?.message || 'Unknown error';
+              setError(`Validation failed: ${errorMessage}`);
+              setUploadStatus(null);
+              setIsProcessing(false);
+
+              reject(new Error(errorMessage));
+              return;
+            } else if (statusData.status === 'RUNNING') {
+              console.log('Validation still running...');
+            } else {
+              console.log(`Validation status: ${statusData.status}`);
+            }
+          } else {
+            console.log(`Failed to get validation status (HTTP ${response.status})`);
+          }
+        } catch (pollError) {
+          console.log(`Polling attempt ${pollCount} failed:`, pollError);
+        }
+
+        // Continue polling if we haven't exceeded limits
+        if (pollCount < maxPolls) {
+          setTimeout(poll, pollInterval);
+        } else {
+          console.log('Polling timeout reached after 10 minutes');
+          setError('Validation is taking longer than expected (>10 minutes). Please check the server logs or try again.');
+          setUploadStatus(null);
+          setIsProcessing(false);
+          reject(new Error('Polling timeout after 10 minutes'));
+        }
+      };
+
+      // Start polling immediately
+      poll();
+    });
   };
 
   const getStatusClass = (status: string | null) => {
@@ -191,18 +302,42 @@ const FileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) => {
             </p>
             <button
               onClick={handleUpload}
-              disabled={uploading}
-              className={`upload-button ${uploading ? 'disabled' : 'primary'}`}
+              disabled={uploading || isProcessing}
+              className={`upload-button ${(uploading || isProcessing) ? 'disabled' : 'primary'}`}
             >
-              {uploading ? 'Uploading...' : 'Upload File'}
+              {uploading ? 'Uploading...' : isProcessing ? 'Processing...' : 'Upload File'}
             </button>
           </>
         )}
       </div>
 
+      {/* Step 3.3: Copy progress spinner pattern from CurrentStatus.tsx */}
+      {isProcessing && (
+        <div className="validation-running-indicator">
+          <div className="loading-spinner"></div>
+          <span>
+            Validation in progress... This may take a few minutes.
+          </span>
+        </div>
+      )}
+
+      {/* Step 3.3: Copy error handling patterns from CurrentStatus.tsx */}
+      {error && (
+        <div className="error-message">
+          {error}
+        </div>
+      )}
+
       {uploadStatus && (
         <div className={`status-message ${getStatusClass(uploadStatus)}`}>
           {uploadStatus}
+        </div>
+      )}
+
+      {jobId && (
+        <div className="job-info">
+          <p><strong>Job ID:</strong> {jobId}</p>
+          <p><em>Processing in background...</em></p>
         </div>
       )}
 

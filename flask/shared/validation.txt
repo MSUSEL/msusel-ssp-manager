@@ -1,2 +1,2 @@
-Validating 'file:/shared/profile.yaml' as YAML.
-The file 'file:/shared/profile.yaml' is valid.
+Validating 'file:/shared/generated_ssp.yaml' as YAML.
+[1;31mAn error occurred while evaluating the expression 'resolve-profile(doc(resolve-uri(Q{http://csrc.nist.gov/ns/oscal/1.0}resolve-reference(import-profile/@href))))/catalog'. Unable to execute function 'fn:doc(arg1 as meta:string?) as document-node()'. FODC0002: Unable to retrieve the resource identified by the URI 'file:/shared/oscal_schemas/profiles/profile.yaml'.[m

@@ -161,4 +161,59 @@
 .SelectItem:hover {
   background-color: #f7fafc;
 }
-  
+
+.job-info {
+  background-color: #e6fffa;
+  border: 1px solid #81e6d9;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.job-info p {
+  margin: 0.25rem 0;
+  color: #234e52;
+}
+
+.job-info em {
+  color: #2d3748;
+  font-style: italic;
+}
+
+/* Step 3.3: Copy progress spinner pattern from CurrentStatus.css */
+.validation-running-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background-color: #e3f2fd;
+  border: 1px solid #2196f3;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  color: #1976d2;
+  font-weight: 500;
+}
+
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #bbdefb;
+  border-top: 2px solid #2196f3;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Step 3.3: Copy error handling patterns from CurrentStatus.css */
+.error-message {
+  padding: 12px 16px;
+  background-color: #ffebee;
+  border: 1px solid #f44336;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  color: #c62828;
+}

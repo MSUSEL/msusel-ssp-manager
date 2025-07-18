@@ -1,10 +1,109 @@
-from flask import Blueprint, request, current_app as app
+from flask import Blueprint, request, current_app as app, jsonify
 import os
 import logging
 import threading
 import docker
+import uuid
+import json
+from werkzeug.utils import secure_filename
 
 logging.basicConfig(level=logging.INFO)
+
+# Global dictionary for storing validation job status and results
+# Job structure: {job_id: {"status": "PENDING|RUNNING|COMPLETED|FAILED", "result": None|result_data}}
+validation_jobs = {}
+
+def run_validation_async(app, job_id, file_path, file_type, operation):
+    """
+    Run OSCAL validation asynchronously in a background thread.
+    This allows the API endpoint to return immediately while validation runs in the background.
+    Based on run_tests_async() pattern from test_runner.py.
+
+    Args:
+        app: Flask application instance for context
+        job_id: Unique identifier for this validation job
+        file_path: Path to the uploaded file to validate
+        file_type: Type of OSCAL document (catalog, profile, ssp, etc.)
+        operation: Operation to perform (validate, convert, etc.)
+    """
+    try:
+        # Set up application context for the background thread
+        with app.app_context():
+            logging.info(f"Starting asynchronous OSCAL validation for job {job_id}")
+
+            # Step 2.2.1: Update job status to "RUNNING" before processing
+            if job_id in validation_jobs:
+                validation_jobs[job_id]["status"] = "RUNNING"
+                logging.info(f"Job {job_id} status updated to RUNNING")
+            else:
+                logging.error(f"Job {job_id} not found in validation_jobs when updating to RUNNING")
+                return
+
+            # Step 2.2.2: Call existing oscalProcessingObject.runOSCALDocumentProcessingContainer() directly
+            # Extract filename from file_path for the processing object
+            filename = os.path.basename(file_path)
+            oscal_processing_object = OscalDocumentProcessing(filename, operation, file_type)
+
+            # Run the validation container directly (this is the long-running operation)
+            # Note: We call the container method directly instead of using createThread
+            # to avoid the blocking thread.join() call
+            logging.info(f"Calling runOSCALDocumentProcessingContainer() directly for job {job_id}")
+            oscal_processing_object.runOSCALDocumentProcessingContainer()
+
+            # Step 2.2.3: Update job status to "COMPLETED" with results on success
+            # Format result to match expected structure
+            formatted_result = {
+                "oscal_processing_output_list": oscal_processing_object.oscal_processing_output_list,
+                "fileName": oscal_processing_object.oscal_file,
+            }
+
+            # Update job status to COMPLETED with results
+            if job_id in validation_jobs:
+                validation_jobs[job_id]["status"] = "COMPLETED"
+                validation_jobs[job_id]["result"] = formatted_result
+                logging.info(f"Job {job_id} completed successfully with {len(oscal_processing_object.oscal_processing_output_list)} output lines")
+            else:
+                logging.error(f"Job {job_id} not found in validation_jobs when updating to COMPLETED")
+
+    except Exception as e:
+        logging.exception(f"Error in async validation for job {job_id}: {e}")
+
+        # Step 2.2.4: Update job status to "FAILED" with error message on failure
+        if job_id in validation_jobs:
+            validation_jobs[job_id]["status"] = "FAILED"
+            validation_jobs[job_id]["result"] = {
+                "error": str(e),
+                "message": f"Validation failed: {str(e)}"
+            }
+            logging.error(f"Job {job_id} failed with error: {str(e)}")
+        else:
+            logging.error(f"Job {job_id} not found in validation_jobs when updating to FAILED")
+
+def test_async_validation():
+    """
+    Test function to verify the async validation setup is working.
+    This can be called to test job creation and status updates.
+    """
+    # Create a test job
+    test_job_id = str(uuid.uuid4())
+    validation_jobs[test_job_id] = {
+        "status": "PENDING",
+        "result": None
+    }
+
+    logging.info(f"Created test job {test_job_id}")
+    logging.info(f"Current validation_jobs: {validation_jobs}")
+
+    # Test status update
+    validation_jobs[test_job_id]["status"] = "RUNNING"
+    logging.info(f"Updated job {test_job_id} to RUNNING")
+
+    # Test completion
+    validation_jobs[test_job_id]["status"] = "COMPLETED"
+    validation_jobs[test_job_id]["result"] = {"test": "success", "message": "Test validation completed"}
+    logging.info(f"Updated job {test_job_id} to COMPLETED")
+
+    return test_job_id
 
 def createThread(target=None):
     thread = threading.Thread(target=target)
@@ -143,9 +242,35 @@ def validate():
             if operation == 'validate':
                 app.logger.info(f"Validate Route. Current working directory: {os.getcwd()}")
                 app.logger.info(f"Saving {oscal_doc.filename} to: {app.config['UPLOAD_FOLDER']}")
-                context = runOSCALProcessing(oscal_doc, operation, file_type)
-                logging.info(f"Validation output: {context['oscal_processing_output_list']}")
-                return context, 200
+
+                # Generate unique job ID
+                job_id = str(uuid.uuid4())
+                logging.info(f"Generated job ID: {job_id}")
+
+                # Save file to upload folder
+                file_path = os.path.join(app.config['UPLOAD_FOLDER'], oscal_doc.filename)
+                oscal_doc.save(file_path)
+                logging.info(f"File saved to: {file_path}")
+
+                # Create job entry with PENDING status
+                validation_jobs[job_id] = {
+                    "status": "PENDING",
+                    "result": None
+                }
+                logging.info(f"Created validation job {job_id} with PENDING status")
+
+                # Start background thread (like test_runner.py pattern)
+                validation_thread = threading.Thread(
+                    target=run_validation_async,
+                    args=(app._get_current_object(), job_id, file_path, file_type, operation),
+                    daemon=True
+                )
+                validation_thread.start()
+                logging.info(f"Started background validation thread for job {job_id}")
+
+                # Return job_id immediately (no waiting)
+                return jsonify({"job_id": job_id}), 200
+
             elif operation == 'convert':
                 app.logger.info(f"Convert Route. Current working directory: {os.getcwd()}")
                 app.logger.info(f"Saving {oscal_doc.filename} to: {app.config['UPLOAD_FOLDER']}")
@@ -155,3 +280,103 @@ def validate():
         except Exception as e:
             app.logger.error(f"Error saving file: {e}")
             return 'Error saving file', 500
+
+@validate_blueprint.route('/test-async-validation', methods=['GET'])
+def test_async_validation_endpoint():
+    """
+    Test endpoint to verify async validation setup is working.
+    This tests job creation, status updates, and the global validation_jobs dictionary.
+    """
+    try:
+        # Run the test function
+        test_job_id = test_async_validation()
+
+        # Return the current state of validation_jobs for verification
+        return jsonify({
+            "success": True,
+            "message": "Async validation test completed",
+            "test_job_id": test_job_id,
+            "validation_jobs": validation_jobs,
+            "job_count": len(validation_jobs)
+        }), 200
+
+    except Exception as e:
+        logging.error(f"Error in test endpoint: {e}")
+        return jsonify({
+            "success": False,
+            "error": str(e),
+            "validation_jobs": validation_jobs
+        }), 500
+
+@validate_blueprint.route('/status/<job_id>', methods=['GET'])
+def get_validation_status(job_id):
+    """
+    Get the status and results of a validation job.
+    Based on error handling patterns from test_runner.py.
+
+    Args:
+        job_id: UUID string identifying the validation job
+
+    Returns:
+        JSON response with job status and results (if complete)
+    """
+    try:
+        # Validate job_id format (basic UUID check)
+        if not job_id or len(job_id) != 36:
+            return jsonify({
+                "success": False,
+                "error": "Invalid job ID format",
+                "status": "ERROR"
+            }), 400
+
+        # Check if job exists
+        if job_id not in validation_jobs:
+            return jsonify({
+                "success": False,
+                "error": f"Job {job_id} not found",
+                "status": "NOT_FOUND"
+            }), 404
+
+        # Get job data
+        job_data = validation_jobs[job_id]
+        job_status = job_data.get("status", "UNKNOWN")
+        job_result = job_data.get("result", None)
+
+        # Prepare response based on job status
+        response_data = {
+            "success": True,
+            "job_id": job_id,
+            "status": job_status
+        }
+
+        # Include results if job is complete
+        if job_status == "COMPLETED" and job_result is not None:
+            response_data["result"] = job_result
+            logging.info(f"Returning completed results for job {job_id}")
+        elif job_status == "FAILED" and job_result is not None:
+            response_data["error"] = job_result
+            logging.info(f"Returning error results for job {job_id}")
+        else:
+            # Job is still PENDING or RUNNING
+            response_data["message"] = f"Job is {job_status.lower()}"
+            logging.info(f"Job {job_id} is still {job_status}")
+
+        return jsonify(response_data), 200
+
+    except Exception as e:
+        logging.exception(f"Error getting status for job {job_id}: {e}")
+        return jsonify({
+            "success": False,
+            "error": f"Internal server error: {str(e)}",
+            "status": "ERROR"
+        }), 500
+
+@validate_blueprint.route('/validation-jobs', methods=['GET'])
+def get_validation_jobs():
+    """
+    Endpoint to view current validation jobs (for debugging/testing).
+    """
+    return jsonify({
+        "validation_jobs": validation_jobs,
+        "job_count": len(validation_jobs)
+    }), 200
