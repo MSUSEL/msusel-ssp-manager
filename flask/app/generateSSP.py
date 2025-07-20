@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.INFO)
 
 generate_blueprint = Blueprint('generate', __name__)
 
-profile_path="./oscal_schemas/profiles/profile.yaml"
+profile_path="../generatedFiles/example_profile_valid.yaml"
 ssp_path="./oscal_schemas/system-security-plans/generated_ssp.yaml"
 
 # TODO: Accept profile input in json format.

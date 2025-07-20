@@ -145,7 +145,10 @@ class OscalDocumentProcessing:
                     self.dockerClient.containers.run(
                         "oscalprocessing",
                         oscal_client_arguments,
-                        volumes=[f"{app.config['HOST_VOLUME_PATH']}/flask/shared:/shared"]
+                        volumes=[
+                            f"{app.config['HOST_VOLUME_PATH']}/flask/shared:/shared",
+                            f"{app.config['HOST_VOLUME_PATH']}/flask/generatedFiles:/generatedFiles"
+                        ]
                     )
                 except docker.errors.ContainerError as e:
                     app.logger.error(f"Container error: {e}")
