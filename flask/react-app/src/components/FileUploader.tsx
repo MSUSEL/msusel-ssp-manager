@@ -311,7 +311,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) => {
         )}
       </div>
 
-      {/* Step 3.3: Copy progress spinner pattern from CurrentStatus.tsx */}
+      {/* Keep the progress spinner */}
       {isProcessing && (
         <div className="validation-running-indicator">
           <div className="loading-spinner"></div>
@@ -321,26 +321,14 @@ const FileUploader: React.FC<FileUploaderProps> = ({ apiEndpoint }) => {
         </div>
       )}
 
-      {/* Step 3.3: Copy error handling patterns from CurrentStatus.tsx */}
+      {/* Keep error handling */}
       {error && (
         <div className="error-message">
           {error}
         </div>
       )}
 
-      {uploadStatus && (
-        <div className={`status-message ${getStatusClass(uploadStatus)}`}>
-          {uploadStatus}
-        </div>
-      )}
-
-      {jobId && (
-        <div className="job-info">
-          <p><strong>Job ID:</strong> {jobId}</p>
-          <p><em>Processing in background...</em></p>
-        </div>
-      )}
-
+      {/* Keep the final results */}
       {validationResults && (
         <div className="results-container">
           <div className="results-header">
