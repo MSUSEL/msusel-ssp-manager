@@ -16,7 +16,9 @@ logging.basicConfig(level=logging.INFO)
 
 generate_blueprint = Blueprint('generate', __name__)
 
-profile_path="../generatedFiles/example_profile_valid.yaml"
+# Remove this line - it causes the error
+# profile_path = f"/../generatedFiles/{oscal_doc.filename}"
+
 ssp_path="./oscal_schemas/system-security-plans/generated_ssp.yaml"
 
 # TODO: Accept profile input in json format.
@@ -59,6 +61,10 @@ def generate():
     if 'file' not in request.files:
         return 'No file part', 400
     oscal_doc = request.files['file']
+    
+    # Define profile_path here where oscal_doc is available
+    profile_path = f"../generatedFiles/{oscal_doc.filename}"
+    
     app.logger.info(f"Generate Route. Current working directory: {os.getcwd()}")
     app.logger.info(f"Saving {oscal_doc.filename} to: {app.config['UPLOAD_FOLDER']}")
     current_user = os.environ.get("USER", "appuser")  # Default to 'appuser' if USER env var is not set
