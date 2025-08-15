@@ -4,8 +4,13 @@ ARG MAVEN_VERSION=sha256:bed43e35f3e5f013670d4d7d247612de5ac82355b0c58c244005c53
 
 FROM maven@${MAVEN_VERSION} AS builder
 
-RUN apt-get update && \
-    apt-get install unzip
+# Add retry logic directly in Dockerfile
+RUN for i in 1 2 3; do \
+        apt-get update && \
+        apt-get install -y unzip && \
+        rm -rf /var/lib/apt/lists/* && \
+        break || sleep 10; \
+    done
 
 RUN mkdir -p /tmp/oscal-cli
 COPY ./cli-core-v2.5.0-oscal-cli /tmp/oscal-cli
