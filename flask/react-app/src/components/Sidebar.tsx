@@ -16,6 +16,7 @@ const Sidebar: React.FC = () => {
       <h2>Control Prioritization</h2>
       <ul>
         <li><Link to="/control-mappings">Control Mappings</Link></li>
+        <li><Link to="/cve-cwe-mappings">CVE/CWE Upload</Link></li>
         <li><Link to="/test-dependencies">Test Dependencies</Link></li>
         <li><Link to="/priority-stage">Priority Stage</Link></li>
         <li><Link to="/attack-paths">Attack Paths</Link></li>

@@ -20,6 +20,7 @@ import Priorities from './Priorities';
 import PriorityStage from './PriorityStage';
 import IssueDetails from './IssueDetails';
 import ControlMappings from './ControlMappings';
+import CveCweUpload from './CveCweUpload';
 
 // MainContent component (includes Router, Navbar, and Routes)
 const MainContent: React.FC = () => {
@@ -43,6 +44,7 @@ const MainContent: React.FC = () => {
           <Route path="/vulnerable-functions" element={<VulnerableFunctions />} />
           <Route path="/issue-details" element={<IssueDetails />} />
           <Route path="/control-mappings" element={<ControlMappings />} />
+          <Route path="/cve-cwe-mappings" element={<CveCweUpload />} />
         </Routes>
       </Flex>
     </Router>

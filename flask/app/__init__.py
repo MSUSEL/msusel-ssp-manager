@@ -53,4 +53,8 @@ def create_app():
     from .inspec_runner import inspec_runner_bp
     app.register_blueprint(inspec_runner_bp)
 
+    # Register CVE/CWE mappings blueprint
+    from .cve_cwe_mappings import cve_cwe_mappings_blueprint
+    app.register_blueprint(cve_cwe_mappings_blueprint, url_prefix='/api/cve-cwe-mappings')
+
     return app
