@@ -97,14 +97,17 @@ def loadDictionaries(filename):
         objectsList = f.readlines()
 
     # Convert the string to a list of dictionaries
+    valid_objects = []
     for i in range(len(objectsList)):
         try:
-            objectsList[i] = json.loads(objectsList[i].replace("'", "\""))
+            parsed_obj = json.loads(objectsList[i].replace("'", "\""))
+            valid_objects.append(parsed_obj)
         except json.JSONDecodeError:
-            logging.info(f"Error decoding JSON for index {i}")
+            logging.warning(f"Error decoding JSON for index {i}, skipping invalid entry: {objectsList[i].strip()}")
+            continue  # Skip invalid entries instead of keeping them as strings
 
-    #print("Objects list: ", objectsList)
-    return objectsList
+    logging.info(f"Successfully loaded {len(valid_objects)} valid objects from {filename}")
+    return valid_objects
 
 
 

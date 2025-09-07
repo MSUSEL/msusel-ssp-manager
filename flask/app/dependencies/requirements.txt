@@ -1,1 +1,10 @@
 requests
+Flask==0.5
+Babel==2.9.0
+Django==3.1.13
+urllib3==1.25.8
+Jinja2==2.11.2
+PyYAML==5.3.1
+future==1.0.0
+Pillow==9.0.0
+lxml==4.6.2

@@ -48,3 +48,65 @@
 
 
 
+('tactic/TA0007', 16)
+('tactic/TA0005', 7)
+('tactic/TA0006', 3)
+('tactic/TA0004', 4)
+
+('tactic/TA0006', 3)
+('tactic/TA0004', 4)
+('tactic/TA0005', 7)
+('tactic/TA0007', 16)
+
+('tactic/TA0006', 2)
+
+('tactic/TA0006', 2)
+
+('tactic/TA0005', 9)
+('tactic/TA0006', 3)
+('tactic/TA0004', 2)
+
+('tactic/TA0004', 2)
+('tactic/TA0006', 3)
+('tactic/TA0005', 9)
+
+('tactic/TA0005', 9)
+('tactic/TA0006', 3)
+('tactic/TA0004', 2)
+
+('tactic/TA0004', 2)
+('tactic/TA0006', 3)
+('tactic/TA0005', 9)
+
+('tactic/TA0005', 9)
+('tactic/TA0006', 3)
+('tactic/TA0004', 2)
+
+('tactic/TA0004', 2)
+('tactic/TA0006', 3)
+('tactic/TA0005', 9)
+
+('tactic/TA0005', 9)
+('tactic/TA0006', 3)
+('tactic/TA0004', 2)
+
+('tactic/TA0004', 2)
+('tactic/TA0006', 3)
+('tactic/TA0005', 9)
+
+('tactic/TA0005', 9)
+('tactic/TA0006', 3)
+('tactic/TA0004', 2)
+
+('tactic/TA0004', 2)
+('tactic/TA0006', 3)
+('tactic/TA0005', 9)
+
+('tactic/TA0005', 9)
+('tactic/TA0006', 3)
+('tactic/TA0004', 2)
+
+('tactic/TA0004', 2)
+('tactic/TA0006', 3)
+('tactic/TA0005', 9)
+
