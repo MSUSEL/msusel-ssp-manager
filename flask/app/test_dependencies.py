@@ -32,7 +32,18 @@ def dependencies():
         return 'No selected file', 400
     if implemented_controls:
         try:
-            subprocess.run(["python3", "./app/prepareProject.py", "abstractClass", "main_function"]) # test file and function are hardcoded.
+            # Extract entry point parameters from form
+            module_name = request.form.get('module_name')
+            function_name = request.form.get('function_name')
+            
+            # Validate entry point parameters
+            if not module_name or not function_name:
+                logging.error("Missing entry point parameters.")
+                return jsonify(error="Module name and function name are required"), 400
+            
+            logging.info(f"Entry point parameters - Module: {module_name}, Function: {function_name}")
+            
+            subprocess.run(["python3", "./app/prepareProject.py", module_name, function_name])
             createThread(cwe_cve_to_techniques.main)
             createThread(priority_controls.main)
             #if os.path.exists('./artifacts/calledVulnerableFunctionsObjectList.txt'):

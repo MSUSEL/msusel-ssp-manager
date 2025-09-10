@@ -14,8 +14,10 @@ const TestDepnRequest: React.FC<TestDepnRequestProps> = ({ apiEndpoint }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState<string | null>(null);
-  const [vulnerabilityEffectivenessResults, setvulnerabilityEffectivenessResults] = useState<any | null>(null); // Changed to 'any' to handle JSON
+  const [vulnerabilityEffectivenessResults, setvulnerabilityEffectivenessResults] = useState<any | null>(null);
   const [fileType, setFileType] = useState<string>('profile');
+  const [moduleName, setModuleName] = useState<string>('abstractClass');
+  const [functionName, setFunctionName] = useState<string>('main_function');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
 
@@ -41,10 +43,18 @@ const TestDepnRequest: React.FC<TestDepnRequestProps> = ({ apiEndpoint }) => {
 
   const handleUpload = async () => {
     if (selectedFile) {
+      // Basic validation - check fields aren't empty
+      if (!moduleName.trim() || !functionName.trim()) {
+        setUploadStatus('Module name and function name are required');
+        return;
+      }
+
       setUploading(true);
       const formData = new FormData();
       formData.append('file', selectedFile);
       formData.append('fileType', fileType);
+      formData.append('module_name', moduleName.trim());
+      formData.append('function_name', functionName.trim());
 
       try {
         const response = await fetch(apiEndpoint, {
@@ -97,6 +107,31 @@ const TestDepnRequest: React.FC<TestDepnRequestProps> = ({ apiEndpoint }) => {
             style={{ display: 'none' }}
             onChange={handleFileChange}
           />
+
+          <div className="entry-point-inputs">
+            <div className="input-group">
+              <label htmlFor="module-name">Module Name:</label>
+              <input
+                id="module-name"
+                type="text"
+                value={moduleName}
+                onChange={(e) => setModuleName(e.target.value)}
+                placeholder="abstractClass"
+                className="entry-point-input"
+              />
+            </div>
+            <div className="input-group">
+              <label htmlFor="function-name">Function Name:</label>
+              <input
+                id="function-name"
+                type="text"
+                value={functionName}
+                onChange={(e) => setFunctionName(e.target.value)}
+                placeholder="main_function"
+                className="entry-point-input"
+              />
+            </div>
+          </div>
 
           {selectedFile && (
             <div className="selected-file-info">
