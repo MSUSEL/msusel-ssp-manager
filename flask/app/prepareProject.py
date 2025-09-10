@@ -15,6 +15,7 @@ from parseProfile import getFilesAndFunctionNamesFromCallGraph
 from matchVulnerabilitiesToCalls import matchVulnerableFunctionsToCalledFunctions
 from prepareCWEList import prepareCWEList
 import logging
+import json
 from datetime import datetime
 
 logging.basicConfig(level=logging.INFO)
@@ -472,15 +473,9 @@ def writeOutputFiles(cve_list, package_report):
 def mapCVEsToCWEs(cve_list):
     """
     Map CVEs from pip-audit to CWEs using BRON database
-    
-    Args:
-        cve_list: List of CVE dictionaries in format [{"cve": "CVE-YYYY-NNNN"}, ...]
-        
-    Returns:
-        list: List of CWE dictionaries in format [{"cwe": "123"}, ...]
     """
     try:
-        from .db_queries import DatabaseConnection, DatabaseQueryService
+        from db_queries import DatabaseConnection, DatabaseQueryService  # Remove the dot
         
         if not cve_list:
             logging.info("No CVEs to map, returning empty CWE list")
@@ -506,14 +501,14 @@ def mapCVEsToCWEs(cve_list):
                 # We need to query for CWEs associated with these CVEs
                 pass
         
-        # Query CWEs directly associated with CVEs
+        # Query CWEs directly associated with CVEs using full document IDs
         cwe_query = '''
-            FOR cve IN cve
-                FILTER cve.original_id IN @cve_list
-                FOR cwe_cve IN CweCve
-                    FILTER cwe_cve._to == cve._id
+            LET full_ids = (FOR cve_id IN @cve_list RETURN CONCAT("cve/", cve_id))
+            FOR cve_id IN full_ids
+                FOR edge IN CweCve
+                    FILTER edge._to == cve_id
                     FOR cwe IN cwe
-                        FILTER cwe._id == cwe_cve._from
+                        FILTER cwe._id == edge._from
                         RETURN DISTINCT cwe.original_id
         '''
         bind_vars = {'cve_list': cve_ids}

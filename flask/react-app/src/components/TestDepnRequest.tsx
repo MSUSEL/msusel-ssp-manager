@@ -106,7 +106,7 @@ const TestDepnRequest: React.FC<TestDepnRequestProps> = ({ apiEndpoint }) => {
                 disabled={uploading}
                 className={`upload-button ${uploading ? 'disabled' : ''}`}
               >
-                {uploading ? 'Uploading...' : 'Analyze Controls'}
+                {uploading ? 'Uploading...' : 'Analyze Dependencies'}
               </button>
             </div>
           )}
