@@ -94,6 +94,32 @@ const TestDepnRequest: React.FC<TestDepnRequestProps> = ({ apiEndpoint }) => {
           </div>
         </div>
 
+        <div className="entry-point-help">
+          <div className="help-header">
+            <h4>Entry Point Configuration</h4>
+          </div>
+          <div className="help-content">
+            <p>Specify the entry point for dynamic analysis using Python import syntax:</p>
+            <div className="help-examples">
+              <div className="example-item">
+                <span className="example-label">File in root:</span>
+                <code>main</code> <span className="example-desc">→ main.py</span>
+              </div>
+              <div className="example-item">
+                <span className="example-label">File in package:</span>
+                <code>src.app</code> <span className="example-desc">→ src/app.py</span>
+              </div>
+              <div className="example-item">
+                <span className="example-label">Nested package:</span>
+                <code>utils.database.connection</code> <span className="example-desc">→ utils/database/connection.py</span>
+              </div>
+            </div>
+            <div className="help-note">
+              <span>Use dots (.) to separate directories, just like Python imports</span>
+            </div>
+          </div>
+        </div>
+
         <div className="file-selection-container">
           <button
             onClick={handleClick}
