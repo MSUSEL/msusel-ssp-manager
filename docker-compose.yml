@@ -20,6 +20,7 @@ services:
       - "${HOST_VOLUME_PATH}/flask/shared:/shared"
       - "${HOST_VOLUME_PATH}/flask/generatedFiles:/generatedFiles"
       - "${HOST_VOLUME_PATH}/flask/react-app/public/data:/react-app/public/data"
+      - "${HOST_VOLUME_PATH}/flask/app/dependencies:/workdir/app/dependencies"
     ports:
       - "5000:5000"
     privileged: true
