@@ -12,6 +12,7 @@ import AttackTechniques from './AttackTechniques';
 import AttackPaths from './AttackPaths';
 import PriorityControls from './PriorityControls';
 import VulnerableFunctions from './VulnerableFunctions';
+import VulnerablePackages from './VulnerablePackages';
 import SecurityControls from './SecurityControls';
 import CurrentStatus from './CurrentStatus';
 import './MainContent.css';
@@ -42,6 +43,7 @@ const MainContent: React.FC = () => {
           <Route path="/priorities" element={<Priorities />} />
           <Route path="/priority-stage" element={<PriorityStage />} />
           <Route path="/vulnerable-functions" element={<VulnerableFunctions />} />
+          <Route path="/vulnerable-packages" element={<VulnerablePackages />} />
           <Route path="/issue-details" element={<IssueDetails />} />
           <Route path="/control-mappings" element={<ControlMappings />} />
           <Route path="/cve-cwe-mappings" element={<CveCweUpload />} />

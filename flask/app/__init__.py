@@ -42,6 +42,9 @@ def create_app():
     from .vulnerableFunctions import vulnerable_blueprint
     app.register_blueprint(vulnerable_blueprint, url_prefix='/api/vulnerable')
 
+    from .vulnerable_packages import vulnerable_packages_blueprint
+    app.register_blueprint(vulnerable_packages_blueprint, url_prefix='/api/vulnerable-packages')
+
     from .attack_paths import attack_blueprint
     app.register_blueprint(attack_blueprint, url_prefix='/api/attack')
 

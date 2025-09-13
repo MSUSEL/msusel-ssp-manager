@@ -22,6 +22,7 @@ const Sidebar: React.FC = () => {
         <li><Link to="/attack-paths">Attack Paths</Link></li>
         <li><Link to="/priorities">Prioritiy Controls</Link></li>
         <li><Link to="/vulnerable-functions">Vulnerable Functions</Link></li>
+        <li><Link to="/vulnerable-packages">Vulnerable Packages</Link></li>
       </ul>
       <ul>
       <h2>Security Data Collections</h2>
