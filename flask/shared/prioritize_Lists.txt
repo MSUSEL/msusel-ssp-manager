@@ -479,3 +479,11 @@
 ('tactic/TA0009', 1)
 ('tactic/TA0040', 1)
 
+('tactic/TA0004', 2)
+('tactic/TA0006', 3)
+('tactic/TA0005', 9)
+('tactic/TA0007', 1)
+('tactic/TA0003', 2)
+('tactic/TA0009', 1)
+('tactic/TA0040', 1)
+

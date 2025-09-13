@@ -23,8 +23,8 @@ const TestDepnRequest: React.FC<TestDepnRequestProps> = ({ apiEndpoint }) => {
   const [uploadStatus, setUploadStatus] = useState<string | null>(null);
   const [uploadProgress, setUploadProgress] = useState<{current: number, total: number} | null>(null);
   const [vulnerabilityEffectivenessResults, setvulnerabilityEffectivenessResults] = useState<any | null>(null);
-  const [moduleName, setModuleName] = useState<string>('abstractClass');
-  const [functionName, setFunctionName] = useState<string>('main_function');
+  const [moduleName, setModuleName] = useState<string>('');
+  const [functionName, setFunctionName] = useState<string>('');
 
   // Refs for file inputs
   const directoryInputRef = useRef<HTMLInputElement>(null);
@@ -170,12 +170,18 @@ const TestDepnRequest: React.FC<TestDepnRequestProps> = ({ apiEndpoint }) => {
     }
 
     try {
-      setUploadStatus(`Uploading project directory and controls file...`);
+      setUploadStatus(`Downloading dependencies source code for analysis. This can take some time.`);
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10800000); // 3 hours timeout
 
       const response = await fetch(endpoint, {
         method: 'POST',
         body: formData,
+        signal: controller.signal,
       });
+
+      clearTimeout(timeoutId);
 
       if (response.ok) {
         const resultText = await response.json(); // Parse JSON response
@@ -305,7 +311,6 @@ const TestDepnRequest: React.FC<TestDepnRequestProps> = ({ apiEndpoint }) => {
                 type="text"
                 value={moduleName}
                 onChange={(e) => setModuleName(e.target.value)}
-                placeholder="abstractClass"
                 className="entry-point-input"
               />
             </div>
@@ -316,7 +321,6 @@ const TestDepnRequest: React.FC<TestDepnRequestProps> = ({ apiEndpoint }) => {
                 type="text"
                 value={functionName}
                 onChange={(e) => setFunctionName(e.target.value)}
-                placeholder="main_function"
                 className="entry-point-input"
               />
             </div>
@@ -355,8 +359,6 @@ const TestDepnRequest: React.FC<TestDepnRequestProps> = ({ apiEndpoint }) => {
         {vulnerabilityEffectivenessResults && (
           <div className="results-container">
             <h3>Vulnerability Analysis Results</h3>
-            <div className="results-content">
-              <h4>Findings:</h4>
               <div className="results-message">
                 {vulnerabilityEffectivenessResults.message}
               </div>

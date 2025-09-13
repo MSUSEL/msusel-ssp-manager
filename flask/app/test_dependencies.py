@@ -422,7 +422,7 @@ def dependencies_directory():
         }
         logging.info(f"Directory upload context: {context}")
 
-        return jsonify(message="Directory Upload and Vulnerability Analysis Finished.", status=200), 200
+        return jsonify(message="Vulnerability Analysis Finished.", status=200), 200
 
     except Exception as e:
         logging.error(f"Error in directory upload: {e}")
