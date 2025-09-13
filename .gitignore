@@ -1,2 +1,6 @@
 .env
 flask/app/dependencies/
+flask/app/__pycache__/
+flask/app/tests/__pycache__/
+flask/app/static/__pycache__/
+flask/app/templates/__pycache__/

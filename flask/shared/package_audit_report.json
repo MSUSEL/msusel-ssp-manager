@@ -1,12 +1,12 @@
 {
   "report_metadata": {
-    "generated_at": "2025-09-11T04:07:21.026651",
+    "generated_at": "2025-09-13T02:40:45.115318",
     "report_type": "package_vulnerability_audit",
-    "total_packages": 2
+    "total_packages": 4
   },
   "summary": {
-    "packages_with_vulnerabilities": 2,
-    "total_vulnerabilities": 7,
+    "packages_with_vulnerabilities": 4,
+    "total_vulnerabilities": 10,
     "packages_clean": 0,
     "packages_failed_audit": 0
   },
@@ -23,6 +23,50 @@
           "id": "CVE-2025-50817",
           "description": "A vulnerability in Python-Future modules 0.14.0 and above allows for arbitrary code execution via the unintended import of a file named test.py. When the module is loaded, it automatically imports test.py, if present in the same directory or in the sys.path. This behavior can be exploited by an attacker who has the ability to write files to the server, allowing the execution of arbitrary code.",
           "fix_versions": [],
+          "severity": "unknown"
+        }
+      ]
+    },
+    {
+      "name": "pip",
+      "installed_version": "unknown",
+      "requested_version": "unknown",
+      "installation_status": "unknown",
+      "audit_status": "success",
+      "vulnerability_count": 1,
+      "vulnerabilities": [
+        {
+          "id": "CVE-2023-5752",
+          "description": "When installing a package from a Mercurial VCS URL  (ie \"pip install  hg+...\") with pip prior to v23.3, the specified Mercurial revision could  be used to inject arbitrary configuration options to the \"hg clone\"  call (ie \"--config\"). Controlling the Mercurial configuration can modify  how and which repository is installed. This vulnerability does not  affect users who aren't installing from Mercurial. ",
+          "fix_versions": [
+            "23.3"
+          ],
+          "severity": "unknown"
+        }
+      ]
+    },
+    {
+      "name": "setuptools",
+      "installed_version": "unknown",
+      "requested_version": "unknown",
+      "installation_status": "unknown",
+      "audit_status": "success",
+      "vulnerability_count": 2,
+      "vulnerabilities": [
+        {
+          "id": "CVE-2022-40897",
+          "description": "Python Packaging Authority (PyPA) setuptools before 65.5.1 allows remote attackers to cause a denial of service via HTML in a crafted package or custom PackageIndex page. There is a Regular Expression Denial of Service (ReDoS) in package_index.py.",
+          "fix_versions": [
+            "65.5.1"
+          ],
+          "severity": "unknown"
+        },
+        {
+          "id": "CVE-2025-47273",
+          "description": "setuptools is a package that allows users to download, build, install, upgrade, and uninstall Python packages. A path traversal vulnerability in `PackageIndex` is present in setuptools prior to version 78.1.1. An attacker would be allowed to write files to arbitrary locations on the filesystem with the permissions of the process running the Python code, which could escalate to remote code execution depending on the context. Version 78.1.1 fixes the issue.",
+          "fix_versions": [
+            "78.1.1"
+          ],
           "severity": "unknown"
         }
       ]

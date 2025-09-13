@@ -313,12 +313,17 @@ def dependencies_directory():
 
                 # Secure each path component while preserving structure
                 secured_parts = []
-                for part in path_parts:
-                    secured_part = secure_filename(part)
-                    if not secured_part:  # secure_filename returned empty string
-                        logging.error(f"Unable to secure filename component: {part}")
-                        return jsonify(error=f"Invalid filename component: {part}"), 400
-                    secured_parts.append(secured_part)
+                for i, part in enumerate(path_parts):
+                    # Skip secure_filename for the actual filename (last component)
+                    # to preserve Python package files like __init__.py
+                    if i == len(path_parts) - 1:  # Last component is the filename
+                        secured_parts.append(part)
+                    else:  # Directory components still get secured
+                        secured_part = secure_filename(part)
+                        if not secured_part:
+                            logging.error(f"Unable to secure directory component: {part}")
+                            return jsonify(error=f"Invalid directory component: {part}"), 400
+                        secured_parts.append(secured_part)
 
                 # Reconstruct the secured relative path
                 secured_relative_path = '/'.join(secured_parts)

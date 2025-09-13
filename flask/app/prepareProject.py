@@ -165,21 +165,120 @@ def copyFile(filename):
     logging.info(f"Current directory: {currentDir}")
     originalPath = currentDir + "/app/" + filename
     logging.info(f"Original path: {originalPath}")
-    newPath = currentDir + "/app/dependencies/" + filename
+    newPath = currentDir + "/tmp/" + filename
     logging.info(f"New path: {newPath}")
+    
+    # Ensure the tmp directory exists
+    os.makedirs(os.path.dirname(newPath), exist_ok=True)
+    
     shutil.copy(originalPath, newPath)
     return newPath
 
-def removeFile(path):
-    os.remove(path)
+def removeFile(file_path):
+    """Remove a file and handle any errors gracefully"""
+    try:
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            logging.info(f"Removed file: {file_path}")
+        else:
+            logging.warning(f"File not found for removal: {file_path}")
+    except OSError as e:
+        logging.error(f"Error removing file {file_path}: {e}")
+        raise
+    except Exception as e:
+        logging.error(f"Unexpected error removing file {file_path}: {e}")
+        raise
 
 def profilerWrapper(module_name, function_name):
+    """
+    Launch the Python profiler using clean subprocess isolation.
+
+    This function now uses the ProfilerLauncher to run profiling in a completely
+    isolated subprocess environment, preventing module name shadowing issues.
+
+    Args:
+        module_name (str): Name of the user module to profile
+        function_name (str): Name of the function to profile
+
+    Returns:
+        bool: True if profiling succeeded, False otherwise
+    """
+    try:
+        # Import the ProfilerLauncher
+        from profileLauncher import ProfilerLauncher
+
+        # Set up paths
+        current_dir = os.getcwd()
+
+        # Check if we're already in the app directory or need to navigate to it
+        if os.path.basename(current_dir) == "app":
+            # We're already in the app directory
+            dependencies_path = os.path.join(current_dir, "dependencies")
+            artifacts_path = os.path.join(current_dir, "artifacts")
+        else:
+            # We're in the project root, need to go to app directory
+            dependencies_path = os.path.join(current_dir, "app", "dependencies")
+            artifacts_path = os.path.join(current_dir, "app", "artifacts")
+
+        logging.info(f"=== Starting Clean Subprocess Profiling ===")
+        logging.info(f"Module: {module_name}, Function: {function_name}")
+        logging.info(f"Dependencies path: {dependencies_path}")
+        logging.info(f"Artifacts path: {artifacts_path}")
+
+        # Create and run the profiler launcher
+        launcher = ProfilerLauncher(
+            module_name=module_name,
+            function_name=function_name,
+            dependencies_path=dependencies_path,
+            artifacts_path=artifacts_path
+        )
+
+        success = launcher.run()
+
+        if success:
+            logging.info("=== Profiling completed successfully ===")
+        else:
+            logging.error("=== Profiling failed ===")
+
+        return success
+
+    except Exception as e:
+        logging.error(f"Error in profilerWrapper: {e}")
+        logging.error("Falling back to legacy profiling method...")
+
+        # Fallback to the original method if the new launcher fails
+        return _legacy_profilerWrapper(module_name, function_name)
+
+
+def _legacy_profilerWrapper(module_name, function_name):
+    """
+    Legacy profiler wrapper - kept as fallback.
+
+    This is the original implementation that may suffer from module shadowing
+    issues but is kept as a fallback in case the new launcher fails.
+    """
+    logging.warning("Using legacy profiler wrapper - may have module shadowing issues")
+
     newPath = copyFile('dynamicCallGraph.py')
-    result = subprocess.run(["python3", "./app/dependencies/dynamicCallGraph.py", f'{module_name}', f'{function_name}'], check=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    # Run the profiler from the tmp directory to avoid module name conflicts
+    tmp_dir = os.path.dirname(newPath)
+    result = subprocess.run(["python3", newPath, f'{module_name}', f'{function_name}'],
+                          cwd=tmp_dir,
+                          check=False,
+                          stdout=subprocess.PIPE,
+                          stderr=subprocess.PIPE)
     logging.info(result.stdout.decode())
     logging.info(result.stderr.decode())
-    removeFile(newPath)
-    logging.info(f"Removed file: {newPath}")
+
+    # Clean up the temporary file
+    try:
+        removeFile(newPath)
+        logging.info(f"Successfully removed temporary file: {newPath}")
+    except Exception as e:
+        logging.warning(f"Failed to remove temporary file {newPath}: {e}")
+
+    # Return success based on return code
+    return result.returncode == 0
 
 
 def copyToSTDLib():
@@ -576,8 +675,44 @@ def mergeCWEsFromPipAudit():
     except Exception as e:
         logging.error(f"Error merging pip-audit CWEs: {e}")
 
+def clearArtifacts():
+    """Clear the artifacts directory to ensure clean state for new analysis"""
+    try:
+        artifacts_dir = os.path.join(os.getcwd(), "app", "artifacts")
+        logging.info(f"Clearing artifacts directory: {artifacts_dir}")
+        
+        if os.path.exists(artifacts_dir):
+            # Remove all files in the artifacts directory
+            for filename in os.listdir(artifacts_dir):
+                file_path = os.path.join(artifacts_dir, filename)
+                try:
+                    if os.path.isfile(file_path):
+                        os.remove(file_path)
+                        logging.info(f"Removed artifact file: {file_path}")
+                    elif os.path.isdir(file_path):
+                        shutil.rmtree(file_path)
+                        logging.info(f"Removed artifact directory: {file_path}")
+                except Exception as e:
+                    logging.warning(f"Failed to remove {file_path}: {e}")
+        else:
+            # Create artifacts directory if it doesn't exist
+            os.makedirs(artifacts_dir, exist_ok=True)
+            logging.info(f"Created artifacts directory: {artifacts_dir}")
+            
+        logging.info("Artifacts directory cleared successfully")
+        return True
+        
+    except Exception as e:
+        logging.error(f"Error clearing artifacts directory: {e}")
+        return False
+
 def main_function():
     logging.info("=== Starting main_function ===")
+    
+    # Clear artifacts from previous runs
+    logging.info("Step 0: Clearing artifacts from previous runs")
+    clearArtifacts()
+    logging.info("Step 0 completed: clearArtifacts()")
     
     logging.info("Step 1: Installing virtual environment")
     installVenv()
