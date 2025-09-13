@@ -359,9 +359,8 @@ const TestDepnRequest: React.FC<TestDepnRequestProps> = ({ apiEndpoint }) => {
         {vulnerabilityEffectivenessResults && (
           <div className="results-container">
             <h3>Vulnerability Analysis Results</h3>
-              <div className="results-message">
-                {vulnerabilityEffectivenessResults.message}
-              </div>
+            <div className="results-message">
+              {vulnerabilityEffectivenessResults.message}
             </div>
           </div>
         )}
