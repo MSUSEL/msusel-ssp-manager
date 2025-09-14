@@ -141,8 +141,8 @@
 }
 
 .vulnerable-group h3 {
-  background: #fef3c7;
-  border-left: 4px solid #f39c12;
+  background: #e0f2fe;        /* light blue */
+  border-left: 4px solid #0284c7;  /* medium blue border */
 }
 
 .clean-group h3 {
@@ -219,8 +219,8 @@
 }
 
 .vulnerability-count {
-  background: #fef3c7;
-  color: #92400e;
+  background: #e0f2fe;        /* light blue */
+  color: #1e3a8a;             /* dark blue text */
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 0.85em;
