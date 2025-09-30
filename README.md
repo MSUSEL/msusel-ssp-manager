@@ -1,32 +1,53 @@
 # SSP_Manager
 
-This research project is currently under development. <br />
-It runs on Linux (In particular, it is being developed on Ubuntu 22.04 LTS. An iso image for this Ubuntu version can be found here: https://releases.ubuntu.com/jammy/). <br />
-In Windows, you can install Ubuntu 22.04 LTS in WSL2. Git clone this repo into your WSL2 file system (/home/userName/). <br />
+A System Security Plan (SSP) management tool thatintegrates vulnerability assessment with security compliance. The tool identifies NIST SP 800-53 security controls that can mitigate MITRE ATT&CK techniques used to exploit vulnerabilities found in the system. 
+
+## Overview
+
+The SSP Manager provides a pipeline that:
+
+- **Automates SSP Generation**: Creates OSCAL-compliant System Security Plans templates from the compliance profile for a system
+- **Vulnerability Analysis**: Scans dependencies and code for security vulnerabilities and weaknesses 
+- **Threat Intelligence**: Leverages the BRON database to map vulnerabilities and weaknesses to MITRE ATT&CK techniques and defensive NIST SP 800-53controls
+- **Web Interface**: Provides users with a dashboard for visualization and management
+- **Standards Compliance**: Validates and processes OSCAL documents (XML, JSON, YAML formats)
+
+The tool is built on MIT's BRON (Bidirectional Relationships for Offensive and Defensive Cyber Operations) database and designed for organizations requiring automated security threat analysis.
+
+## Architecture
+
+- **Backend**: Flask application with Python analysis pipeline
+- **Frontend**: React/TypeScript web interface
+- **Database**: BRON (ArangoDB) for threat intelligence
+- **Standards**: OSCAL 1.0.4 compliance with XML/JSON/YAML support
+
+## Requirements
+
+- **Linux**: Ubuntu 22.04 LTS or newer (tested on 25.04)
+  - Download Ubuntu 22.04 LTS: https://releases.ubuntu.com/jammy/
+- **Windows**: Ubuntu 22.04 LTS via WSL2
+  - Clone this repository to your WSL2 filesystem: `/home/userName/`
 
 ## Installation
-Make sure you have Git, Docker and Docker-Compose installed. (Please see manifests/README.md for kubernetes installation.)<br />
-```
+
+### Prerequisites
+Make sure you have Git, Docker and Docker Compose installed:
+
+```bash
 git --version
-```
-```
 docker --version
-```
-```
 docker compose --version
 ```
-If you don't have Git, it can be installed with: <br />
-```
+
+If missing, install them:
+```bash
+# Git
 sudo apt install git
-```
 
-Docker can be installed with: <br />
-```
+# Docker
 sudo apt install docker.io
-```
 
-Docker compose can be installed with: <br />
-```
+# Docker Compose (if needed)
 sudo apt update
 sudo apt install -y ca-certificates curl gnupg
 sudo install -m 0755 -d /etc/apt/keyrings
@@ -40,28 +61,27 @@ sudo apt update
 sudo apt install docker-compose-plugin
 ```
 
-Add yourself to the docker group: <br />
-```
-sudo usermod -aG docker yourUserName
+Add yourself to the docker group and restart:
+```bash
+sudo usermod -aG docker $USER
+# Restart your machine
 ```
 
-(Restart your machine) <br />
-
-This project uses the BRON database developed by Hemberg et al. at MIT. The original research for the database can be found as: <br />
-Hemberg, Erik, Jonathan Kelly, Michal Shlapentokh-Rothman, Bryn Reinstadler, Katherine Xu, Nick Rutar, and Una-May O'Reilly. "Linking threat tactics, techniques, and patterns with defensive weaknesses, vulnerabilities and affected platform configurations for cyber hunting." arXiv preprint arXiv:2010.00533 (2020). <br />
-
-To clone this repository, including a version of the BRON database use: <br />
-```
+### Quick Setup
+Clone the repository and run the automated setup:
+```bash
 git clone https://github.com/MSUSEL/msusel-ssp-manager.git
-```
-Note: The BRON version copied here is from commit 8a18686cab1f024fcadcac74fb13f1240f491b86 of the [BRON project.](https://github.com/ALFA-group/BRON)
-
-
-To install the project, run the setup script: <br />
-```
+cd msusel-ssp-manager
 ./setup.sh
 ```
-The application UI can be found at localhost:3000 <br />
+
+The setup script will:
+- Create necessary Docker networks
+- Build and start the BRON database (90+ minutes)
+- Build OSCAL processing and analysis components
+- Start all services
+
+The application UI will be available at http://localhost:3000
 
 To stop your containers:
 ```
